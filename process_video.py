@@ -1,276 +1,245 @@
 #!/usr/bin/env python3
 import os
-import sys
+import re
 import json
-import argparse
 import subprocess
+import sys
 from pathlib import Path
-
-# ─── WhisperX / Pyannote imports ────────────────────────────────────────────────────
-import whisperx
-from whisperx import load_align_model, align
-from whisperx.audio import load_audio
-from whisperx.diarization import DiarizationPipeline
+import shutil
 
 
-# ─── CONSTANTS ─────────────────────────────────────────────────────────────────────
-WHITE_FADE_DURATION = 0.5  # seconds of white screen between clips
-
-
-def transcribe_and_optionally_diarize(
-    audio_path: str,
-    hf_token: str,
-    do_diarize: bool,
-    device: str = "cpu",
-    model_size: str = "large-v2",
-):
+def parse_timestamp(ts_text: str):
     """
-    1) Run WhisperX transcription → alignment
-    2) (Optionally) run speaker diarization
-    Outputs:
-      • transcript.json            — raw WhisperX output
-      • transcript_aligned.json    — word‐aligned transcript
-      • transcript_diarized.json   — if do_diarize=True
+    Given a string like "[123.45–130.00]" (or using a hyphen "-"),
+    strip off the brackets, replace any en-dashes with hyphens, then split.
+    Returns (start: float, end: float).
     """
-    print(f"🔊 Transcribing “{audio_path}” with WhisperX (model={model_size}, device={device}) …")
-
-    # ─── Step 1: Load model & transcribe ────────────────────────────────────────────
-    wx_model = whisperx.load_model(model_size, device=device)
-    result = wx_model.transcribe(audio_path)
-    with open("transcript.json", "w") as f:
-        json.dump(result, f, indent=2)
-    print("✅ Raw transcript saved to transcript.json")
-
-    # ─── Step 2: Word‐level alignment ───────────────────────────────────────────────
-    audio_data = load_audio(audio_path, sr=16000)  # 1D numpy array
-    align_model, metadata = load_align_model(
-        language_code=result["language"], device=device
-    )
-    result_aligned = align_model.align(
-        result["segments"],  # WhisperX’s segment list
-        audio_data,
-        align_model,
-        metadata,
-        device=device,
-    )
-    with open("transcript_aligned.json", "w") as f:
-        json.dump(result_aligned, f, indent=2)
-    print("✅ Aligned transcript saved to transcript_aligned.json")
-
-    # ─── Step 3: (Optional) Speaker diarization ────────────────────────────────────
-    if do_diarize:
-        if hf_token is None:
-            print("❗ You must supply --hf_token to run diarization.")
-            sys.exit(1)
-
-        print("🔊 Running speaker diarization with WhisperX’s wrapper …")
-        diarize_model = DiarizationPipeline.from_pretrained(
-            "pyannote/speaker-diarization-3.1", use_auth_token=hf_token, device=device
-        )
-        diarization = diarize_model(audio_path)
-
-        from whisperx import save_diarization
-
-        result_diarized = save_diarization(result_aligned, diarization)
-        with open("transcript_diarized.json", "w") as f:
-            json.dump(result_diarized, f, indent=2)
-        print("✅ Diarized transcript saved to transcript_diarized.json")
+    ts_text = ts_text.strip()
+    if ts_text.startswith("[") and ts_text.endswith("]"):
+        ts_text = ts_text[1:-1]
+    ts_text = ts_text.replace("–", "-")
+    try:
+        start_s, end_s = ts_text.split("-")
+        return float(start_s), float(end_s)
+    except Exception:
+        raise ValueError(f"Could not parse timestamp '{ts_text}'")
 
 
-def extract_marked_segments(markup_path: str):
+def extract_marked(markup_file="markup_guide.txt", out_json="segments_to_keep.json"):
     """
-    Reads “markup_guide.txt” for lines like “[START–END] …”, extracts all (start, end)
-    pairs, and writes them into segments_to_keep.json.
+    Reads through markup_file line by line. Whenever it sees a line that is exactly "START",
+    it will take the next non-empty line (even if that line has extra text after the timestamp)
+    as the start‐timestamp. Whenever it sees a line that is exactly "END", it will take the next
+    non-empty line as the end‐timestamp, and append that (start,end) pair to the output list.
     """
-    if not os.path.exists(markup_path):
-        print(f"❌ Error: cannot find “{markup_path}”.")
-        sys.exit(1)
-
     segments = []
-    with open(markup_path, "r") as f:
-        for lineno, line in enumerate(f, start=1):
-            line = line.strip()
-            if line.startswith("[") and "–" in line:
-                try:
-                    ts = line.split("]")[0][1:]
-                    start_str, end_str = ts.split("–")
-                    start = float(start_str)
-                    end = float(end_str)
-                    segments.append((start, end))
-                except Exception:
-                    print(f"⚠️ Skipping malformed timestamp on line {lineno}: {line}")
+    current_start = None
 
-    with open("segments_to_keep.json", "w") as outf:
-        json.dump({"segments": segments}, outf, indent=2)
+    print("📂 Opening", markup_file, "…")
+    with open(markup_file, "r", encoding="utf-8") as f:
+        lines = [l.rstrip("\n") for l in f.readlines()]
+    print(f"📄 Loaded {len(lines)} lines from {markup_file}")
+
+    i = 0
+    while i < len(lines):
+        line = lines[i].strip()
+
+        # If we see exactly "START", look ahead for the next non-empty line
+        if line == "START":
+            j = i + 1
+            while j < len(lines) and not lines[j].strip():
+                j += 1
+            if j < len(lines):
+                next_line = lines[j].strip()
+                # Match “[number–number]” at start, ignoring any trailing text
+                m = re.match(r"^\s*\[(\d+\.\d+)[–-](\d+\.\d+)\]", next_line)
+                if m:
+                    start_ts = float(m.group(1))
+                    end_ts   = float(m.group(2))
+                    current_start = start_ts
+                    print(f"🔍 Found START at line {i}: Next timestamp [{start_ts}–{end_ts}] → set current_start={start_ts}")
+                else:
+                    print(f"⚠️ Expected a timestamp after START at line {i}, but saw: '{next_line}'")
+                i = j  # skip ahead to that timestamp line
+            else:
+                print(f"⚠️ 'START' at line {i} has no following timestamp line!")
+            i += 1
+            continue
+
+        # If we see exactly "END" and have a current_start, look ahead for the next non-empty line
+        if line == "END" and current_start is not None:
+            j = i + 1
+            while j < len(lines) and not lines[j].strip():
+                j += 1
+            if j < len(lines):
+                next_line = lines[j].strip()
+                m = re.match(r"^\s*\[(\d+\.\d+)[–-](\d+\.\d+)\]", next_line)
+                if m:
+                    start_ts = float(m.group(1))
+                    end_ts   = float(m.group(2))
+                    if start_ts != current_start:
+                        print(f"⚠️ Mismatch: START was {current_start} but END timestamp at line {j} is {start_ts}")
+                    segments.append({"start": current_start, "end": end_ts})
+                    print(f"🔚 Found END at line {i}: Closing segment ({current_start}, {end_ts})")
+                    current_start = None
+                else:
+                    print(f"⚠️ Expected a timestamp after END at line {i}, but saw: '{next_line}'")
+                i = j
+            else:
+                print(f"⚠️ 'END' at line {i} has no following timestamp line!")
+            i += 1
+            continue
+
+        i += 1
+
+    if current_start is not None:
+        print(f"⚠️ Warning: There was a START at {current_start} with no matching END.")
+
+    with open(out_json, "w", encoding="utf-8") as f_out:
+        json.dump(segments, f_out, indent=2)
 
     print(f"✅ Total segments extracted: {len(segments)}")
-    print("✅ Wrote segments_to_keep.json")
+    print(f"✅ Extracted segments written to {out_json}")
 
 
-def generate_clips(input_video: str, segments_json: str = "segments_to_keep.json"):
+def generate_clips(input_video, segments_json="segments_to_keep.json"):
     """
-    For each (start, end) in segments_to_keep.json, extract a clip. Saves as clips/clip_###.mp4.
-    (We no longer insert white flashes here—that’s handled in concatenate_clips().)
+    Given an input video (e.g. input.mp4) and a JSON of {"start":X, "end":Y} segments,
+    run ffmpeg to cut each segment into a separate file.
     """
-    if not os.path.exists(segments_json):
-        print(f"❌ Error: “{segments_json}” not found. Run --extract-marked first.")
-        sys.exit(1)
+    with open(segments_json, "r", encoding="utf-8") as f:
+        segments = json.load(f)
 
-    with open(segments_json, "r") as f:
-        data = json.load(f)
-    segments = data.get("segments", [])
-    if not segments:
-        print("⚠️ No segments found. Nothing to clip.")
-        return
+    Path("clips").mkdir(exist_ok=True)
+    for idx, seg in enumerate(segments):
+        start = seg["start"]
+        end   = seg["end"]
+        outname = f"clips/clip_{idx:03d}.mp4"
+        cmd = [
+            "ffmpeg", "-y",
+            "-ss", f"{start:.3f}",
+            "-to", f"{end:.3f}",
+            "-i", input_video,
+            "-c", "copy", outname
+        ]
+        print(f"🎬 Creating {outname} from {start:.3f} to {end:.3f}")
+        subprocess.run(cmd, check=True)
 
-    os.makedirs("clips", exist_ok=True)
+# ── ffprobe helpers ────────────────────────────────────────────────────
+def ffprobe_one(path: Path, select: str, field: str) -> str:
+    """Return a single ffprobe field for the first stream that matches."""
+    cmd = [
+        "ffprobe", "-v", "error",
+        "-select_streams", select,
+        "-show_entries", f"stream={field}",
+        "-of", "default=noprint_wrappers=1:nokey=1",
+        str(path)
+    ]
+    res = subprocess.run(cmd, capture_output=True, text=True, check=True)
+    return res.stdout.strip()
 
-    # Just extract each segment into clip_###.mp4
-    for idx, (start, end) in enumerate(segments):
-        clip_path = f"clips/clip_{idx:03d}.mp4"
-        print(f"🎬 Creating {clip_path} from {start:.3f} to {end:.3f} …")
-        subprocess.run(
-            [
-                "ffmpeg",
-                "-ss",
-                f"{start:.3f}",
-                "-to",
-                f"{end:.3f}",
-                "-i",
-                input_video,
-                "-c:v",
-                "copy",
-                "-c:a",
-                "copy",
-                "-y",
-                clip_path,
-            ],
-            check=True,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.STDOUT,
-        )
+def probe_props(clip: Path):
+    """Return width, height, fps (as ratio), duration (float seconds)."""
+    width   = ffprobe_one(clip, "v:0", "width")
+    height  = ffprobe_one(clip, "v:0", "height")
+    fps_raw = ffprobe_one(clip, "v:0", "avg_frame_rate")   # e.g. 30000/1001
+    # Reduce ratio to float with 3 decimals (good enough for frame rate)
+    num, den = (int(x) for x in fps_raw.split("/"))
+    fps = round(num / den, 3)
+    dur = float(ffprobe_one(clip, "v:0", "duration"))
+    return dict(width=width, height=height, fps=fps, duration=dur)
 
-
-def concatenate_clips():
+# ── fade-wrapper helper ────────────────────────────────────────────────
+def build_faded_clip(src: Path, dst: Path, props, fade_dur=0.25):
     """
-    Concatenate all clips/clip_###.mp4 into final_output.mp4, inserting a half‐second
-    white flash between each pair of clips.
+    Render `src` into `dst`, adding:
+        • fade-IN from white for first  fade_dur  seconds
+        • fade-OUT to white for last   fade_dur  seconds
     """
-    clip_files = sorted(Path("clips").glob("clip_*.mp4"))
-    if not clip_files:
-        print("❌ No clips/clip_*.mp4 found. Run --generate-clips first.")
-        return
+    st_out = round(props["duration"] - fade_dur, 3)        # fade-out starts here
+    w, h, fps = props["width"], props["height"], props["fps"]
 
-    # ─── Step 1: Probe the resolution of the first clip ──────────────────────────────
-    first_clip = str(clip_files[0])
-    probe = subprocess.run(
-        [
-            "ffprobe",
-            "-v",
-            "error",
-            "-select_streams",
-            "v:0",
-            "-show_entries",
-            "stream=width,height",
-            "-of",
-            "json",
-            first_clip,
-        ],
-        capture_output=True,
-        text=True,
+    # second input: a solid-white clip (no pad label here!)
+    white_input = [
+        "-f", "lavfi",
+        "-i", f"color=white:s={w}x{h}:r={fps}:d={props['duration']}"
+    ]
+
+    # filter graph:
+    #   0:v  → add alpha fades            → [vfade]
+    #   1:v  → solid white background     → (kept as [1:v])
+    #   overlay white + video-with-alpha  → [vo]
+    fv = (
+        f"[0:v]format=yuva420p,"
+        f"fade=t=in:st=0:d={fade_dur}:alpha=1,"
+        f"fade=t=out:st={st_out}:d={fade_dur}:alpha=1[vfade]"
     )
-    info = json.loads(probe.stdout)
-    width = info["streams"][0]["width"]
-    height = info["streams"][0]["height"]
-    print(f"📐 Detected resolution: {width}x{height}")
+    filter_complex = f"{fv};[1:v][vfade]overlay[vo]"
 
-    # ─── Step 2: Create a single “white flash” clip for half a second ───────────────
-    white_clip = "clips/white_flash.mp4"
-    if not os.path.exists(white_clip):
-        print(f"🎨 Creating a 0.5s white-screen clip at {width}x{height} …")
-        subprocess.run(
-            [
-                "ffmpeg",
-                "-f",
-                "lavfi",
-                "-i",
-                f"color=white:s={width}x{height}",
-                "-t",
-                f"{WHITE_FADE_DURATION}",
-                "-c:v",
-                "libx264",
-                "-pix_fmt",
-                "yuv420p",
-                "-y",
-                white_clip,
-            ],
-            check=True,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.STDOUT,
-        )
+    cmd = [
+        "ffmpeg", "-y",
+        "-i", str(src),               # input 0: real clip
+        *white_input,                 # input 1: white background
+        "-filter_complex", filter_complex,
+        "-map", "[vo]",
+        "-map", "0:a?",               # keep original audio if present
+        "-c:v", "libx264", "-pix_fmt", "yuv420p",
+        "-c:a", "aac",
+        str(dst)
+    ]
+    subprocess.run(cmd, check=True)
 
-    # ─── Step 3: Build a concat list, interleaving clip_i, white_flash, clip_{i+1}, … ───
-    concat_list = "clips/concat_list.txt"
-    with open(concat_list, "w") as f:
-        for idx, clip_path in enumerate(clip_files):
-            f.write(f"file '{clip_path.as_posix()}'\n")
-            # After every clip except the last: insert white flash
-            if idx < len(clip_files) - 1:
-                f.write(f"file '{white_clip}'\n")
+# ── main routine ───────────────────────────────────────────────────────
+def concatenate():
+    clips_dir = Path("clips")
+    raw_clips = sorted(clips_dir.glob("clip_*.mp4"))
+    if not raw_clips:
+        print("❌ No clips found in clips/*.mp4"); sys.exit(1)
 
-    # ─── Step 4: Run ffmpeg concat ──────────────────────────────────────────────────
-    print(f"🎬 Concatenating {len(clip_files)} clips + white flashes → final_output.mp4 …")
-    subprocess.run(
-        [
-            "ffmpeg",
-            "-f",
-            "concat",
-            "-safe",
-            "0",
-            "-i",
-            concat_list,
-            "-c",
-            "copy",
-            "final_output.mp4",
-            "-y",
-        ],
-        check=True,
-    )
-    print("✅ final_output.mp4 created.")
+    work_dir = Path("_faded")
+    if work_dir.exists(): shutil.rmtree(work_dir)
+    work_dir.mkdir()
 
+    # 1) Pre-process each clip with fade-in/out
+    faded = []
+    for i, clip in enumerate(raw_clips, 1):
+        props = probe_props(clip)
+        out = work_dir / f"faded_{i:03}.mp4"
+        build_faded_clip(clip, out, props)
+        faded.append(out)
 
-def main():
-    parser = argparse.ArgumentParser(description="Process & splice video by timestamp markers.")
-    parser.add_argument("--input", "-i", required=True, help="Input video file (e.g. input.mp4)")
-    parser.add_argument("--hf_token", "-t", default=None, help="HF token for pyannote diarization (if needed)")
-    parser.add_argument("--diarize", action="store_true", help="Run diarization after transcription")
-    parser.add_argument("--transcribe", action="store_true", help="Run WhisperX transcription + alignment")
-    parser.add_argument("--extract-marked", action="store_true", help="Extract [START–END] segments from markup_guide.txt")
-    parser.add_argument("--generate-clips", action="store_true", help="Generate clips from segments_to_keep.json")
-    parser.add_argument("--concatenate", action="store_true", help="Concatenate all clips into final_output.mp4 (with white flashes)")
-    args = parser.parse_args()
+    # 2) Build ffmpeg concat via filter_complex (stream-safe)
+    cmd = ["ffmpeg", "-y"]
+    for f in faded:
+        cmd += ["-i", str(f)]
 
-    # 1) Transcribe & optionally diarize
-    if args.transcribe:
-        transcribe_and_optionally_diarize(
-            args.input, hf_token=args.hf_token, do_diarize=args.diarize, device="cpu"
-        )
+    n = len(faded)
+    # build [0:v][0:a][1:v][1:a]… concat
+    pairs = "".join(f"[{i}:v][{i}:a]" for i in range(n))
+    concat = f"{pairs}concat=n={n}:v=1:a=1[outv][outa]"
 
-    # 2) Extract marked segments
-    if args.extract_marked:
-        extract_marked_segments("markup_guide.txt")
+    cmd += ["-filter_complex", concat, "-map", "[outv]", "-map", "[outa]", "final_fade_white.mp4"]
 
-    # 3) Generate per-segment clips (no white flashes here anymore)
-    if args.generate_clips:
-        if not args.input:
-            print("❌ --generate-clips requires --input <video>")
-            sys.exit(1)
-        generate_clips(args.input)
-
-    # 4) Concatenate all clips, inserting half-second white flashes
-    if args.concatenate:
-        concatenate_clips()
-
+    subprocess.run(cmd, check=True)
+    print("✅ final_fade_white.mp4 created with smooth white fades!")
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    parser = argparse.ArgumentParser(description="Process and splice video by transcript markers")
+    parser.add_argument("--input",      help="Input video file (e.g. input.mp4)", required=True)
+    parser.add_argument("--hf_token",   help="HuggingFace token for diarization (optional)")
+    parser.add_argument("--diarize",    action="store_true", help="Run transcription + diarization steps")
+    parser.add_argument("--transcribe", action="store_true", help="Run only transcription step")
+    parser.add_argument("--extract-marked", action="store_true", help="Extract segments based on START/END markers")
+    parser.add_argument("--generate-clips", action="store_true", help="Run ffmpeg to generate individual clip files")
+    parser.add_argument("--concatenate", action="store_true", help="Concatenate all clips into one output")
+    args = parser.parse_args()
+
+    if args.extract_marked:
+        extract_marked()
+
+    if args.generate_clips:
+        generate_clips(args.input)
+
+    if args.concatenate:
+        concatenate()

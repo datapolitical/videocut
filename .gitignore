@@ -5,3 +5,5 @@ to_concat.txt
 venv
 clips
 .DS_Store
+.env
+*.mp4
