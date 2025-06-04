@@ -1,0 +1,2 @@
+# WhisperX pulls in its own dependencies
+python-dotenv==1.1.0
