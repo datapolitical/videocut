@@ -17,7 +17,6 @@ from clip_utils import map_nicholson_speaker
 TRAIL_SEC = 30  # trailing context after end
 PRE_SEC = 5     # lines to capture before start
 
-
 # Cues indicating the meeting moved on
 _END_PATTERNS = [
     r"\bthank you\b",
@@ -49,23 +48,27 @@ def load_markup(path: Path) -> list[dict]:
         })
     return lines
 
+
 def collect_pre(segs: list[dict], start: float) -> list[str]:
     window = start - PRE_SEC
     return [s["line"] for s in segs if s["end"] <= start and s["end"] >= window]
 
 
-def collect_post(segs: list[dict], end: float) -> list[str]:
+def collect_post(segs: list[dict], end: float, next_start: float | None = None) -> list[str]:
+    """Grab transcript lines following a segment.
+
+    Lines are collected until either ``TRAIL_SEC`` seconds pass or the next
+    Nicholson segment begins.
+    """
     window = end + TRAIL_SEC
     out = []
     for l in segs:
         if l["start"] < end:
             continue
+        if next_start is not None and l["start"] >= next_start:
+            break
         if l["start"] > window:
             break
-        if _ROLL_RE.search(l["line"]):
-            prev = [p for p in segs if p["end"] <= l["start"] and p["end"] >= l["start"] - 60]
-            if not any(_NICH_ITEM_RE.search(p["line"]) for p in prev):
-                break
         out.append(l["line"])
     return out
 
@@ -175,11 +178,12 @@ def main() -> None:
             next_start = float(segs[j]["start"])
             end_time = min(end_time + TRAIL_SEC, next_start)
         else:
+            next_start = None
             end_time = end_time + TRAIL_SEC
 
         end_time, segment_lines = trim_segment(start_time, end_time, markup_lines)
         pre_lines = collect_pre(markup_lines, start_time)
-        post_lines = collect_post(markup_lines, end_time)
+        post_lines = collect_post(markup_lines, end_time, next_start)
 
         results.append({
             "start": round(start_time, 2),

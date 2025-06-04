@@ -142,16 +142,7 @@
     "pre": [
       "[966.14-967.2] SPEAKER_10: Secretary Nicholson."
     ],
-    "post": [
-      "[1737.04-1740.7] SPEAKER_02: Yeah, just a quick follow-up onto that.",
-      "[1741.68-1749.06] SPEAKER_02: When it comes to go to Director Ruscha, my brain, I lost my train of thought for a second, so.",
-      "[1750.34-1751.1] SPEAKER_10: Alright, Director Ruscha.",
-      "[1755.91-1757.11] SPEAKER_17: Thank you for the red rover.",
-      "[1757.17-1757.97] SPEAKER_17: I wasn't prepared.",
-      "[1757.99-1758.87] SPEAKER_17: I went back to my notes.",
-      "[1759.38-1759.8] SPEAKER_17: Okay.",
-      "[1759.82-1774.31] SPEAKER_17: So, um, anyway, I, um, so I, some of this, um, feedback I did share with staff and I, um, I don't want to be repetitive, but I also just want to be really transparent with my, my colleagues, uh, because we haven't had this public conversation yet."
-    ]
+    "post": []
   },
   {
     "start": 1737.04,
@@ -208,12 +199,7 @@
       "[1731.99-1732.29] SPEAKER_10: Excellent.",
       "[1733.55-1735.49] SPEAKER_10: Director Nicholson, then Director Ruscha."
     ],
-    "post": [
-      "[2028.12-2042.98] SPEAKER_02: Is there any step during enrollment of AAR and AOD where we ask people if they are enrolled in the live program and ask them, hey, we're taking 14 other pieces of documentation from you.",
-      "[2043.0-2046.98] SPEAKER_02: I mean, AAR is remarkably complicated to sign up for.",
-      "[2047.72-2053.91] SPEAKER_02: Is there any part of that process where we try to enroll them in the live program as well?",
-      "[2053.95-2055.07] SPEAKER_02: And then I have a quick follow up."
-    ]
+    "post": []
   },
   {
     "start": 2025.43,
@@ -502,13 +488,7 @@
       "[2022.28-2023.14] SPEAKER_08: Thank you, Director Ruscha.",
       "[2023.32-2024.05] SPEAKER_08: Director Nicholson."
     ],
-    "post": [
-      "[3514.09-3514.18] SPEAKER: Okay.",
-      "[3514.54-3520.38] SPEAKER_10: So item B will be removed and placed into recommended action.",
-      "[3521.44-3527.77] SPEAKER_10: Excuse me, former item C, as I look in real time here, the Allied Universal Security.",
-      "[3527.97-3531.64] SPEAKER_10: Are we okay with security operations, budget transfer?",
-      "[3536.08-3540.51] SPEAKER_13: I would move to approve the remainder of the unanimous consent agenda."
-    ]
+    "post": []
   },
   {
     "start": 3510.72,
@@ -926,12 +906,7 @@
       "[3501.11-3506.66] SPEAKER_10: And I'll of course be happy to pull the item from unanimous consent for consideration under recommended action.",
       "[3507.76-3508.5] SPEAKER_10: Director Nicholson."
     ],
-    "post": [
-      "[6275.39-6287.54] SPEAKER_02: If we were to pass this tonight, what's the legal risk to the agency when it comes to our federal Title VI approval as a result of this change?",
-      "[6287.7-6300.1] SPEAKER_02: Like, is this gonna have any, would this have any legal repercussions or could we just, do we feel pretty comfortable that we could do this and not have the federal government take issue with it?",
-      "[6301.48-6303.39] SPEAKER_10: In regards to the amendment secretary?",
-      "[6303.4-6303.51] SPEAKER: Yeah."
-    ]
+    "post": []
   },
   {
     "start": 6275.39,
@@ -1014,7 +989,21 @@
     "pre": [
       "[6264.97-6274.95] SPEAKER_10: Thank you director any further conversation on this amendment Secretary Nicholson So this is for our deputy general counsel"
     ],
-    "post": []
+    "post": [
+      "[6795.93-6797.63] SPEAKER_10: All right, let's do a roll call vote.",
+      "[6797.65-6807.76] SPEAKER_10: As a reminder, it is the First Amendment being introduced, as you all can see on that screen, with Director Banker as the mover and Director Pagulieri as the second.",
+      "[6807.86-6810.54] SPEAKER_10: Again, we're voting on this First Amendment.",
+      "[6811.34-6811.92] SPEAKER_10: Treasure Banker.",
+      "[6812.78-6813.0] SPEAKER_19: Yes.",
+      "[6813.82-6814.93] SPEAKER_10: Director Buzik is gone.",
+      "[6814.97-6816.39] SPEAKER_10: Director Katlin.",
+      "[6818.01-6819.03] SPEAKER_11: No.",
+      "[6819.05-6820.27] SPEAKER_10: Director Geisinger.",
+      "[6822.87-6822.93] SPEAKER_11: No.",
+      "[6824.35-6824.73] SPEAKER_10: Director.",
+      "[6824.85-6825.17] SPEAKER_10: No.",
+      "[6825.19-6825.33] SPEAKER_10: No."
+    ]
   },
   {
     "start": 7208.49,
@@ -1043,7 +1032,28 @@
       "[7205.11-7205.95] SPEAKER_06: Thank you, Director Larson.",
       "[7206.03-7206.87] SPEAKER_10: Secretary Nicholson."
     ],
-    "post": []
+    "post": [
+      "[7300.56-7302.72] SPEAKER_10: So I will be doing a roll call vote on this.",
+      "[7304.09-7304.85] SPEAKER_10: Uh, treasurer banker.",
+      "[7304.87-7306.15] SPEAKER_19: Uh, no.",
+      "[7308.03-7308.69] SPEAKER_10: Director Catlin.",
+      "[7309.6-7309.82] SPEAKER_11: Yes.",
+      "[7312.24-7313.09] SPEAKER_10: Dr. Geisinger.",
+      "[7313.56-7313.84] SPEAKER_08: Yes.",
+      "[7314.94-7315.72] SPEAKER_10: Dr. Gutierrez.",
+      "[7316.12-7316.44] SPEAKER_08: Yes.",
+      "[7316.96-7317.62] SPEAKER_10: Dr. Guzman.",
+      "[7317.82-7318.06] SPEAKER_10: Yes.",
+      "[7318.36-7319.0] SPEAKER_10: Dr. Harwick.",
+      "[7319.42-7319.84] SPEAKER_10: Yes.",
+      "[7321.17-7321.85] SPEAKER_10: Dr. Larson.",
+      "[7322.43-7322.65] SPEAKER_06: No.",
+      "[7323.25-7324.05] SPEAKER_10: Secretary Nicholson.",
+      "[7324.71-7324.99] SPEAKER_10: I'm in.",
+      "[7326.29-7327.15] SPEAKER_10: First Vice Chair O'Keeffe.",
+      "[7328.02-7328.26] SPEAKER_21: Yes.",
+      "[7328.66-7329.44] SPEAKER_10: Dr. Pagulari."
+    ]
   },
   {
     "start": 7415.77,
@@ -1104,7 +1114,17 @@
       "[7411.95-7413.43] SPEAKER_03: Any further conversation?",
       "[7413.47-7414.45] SPEAKER_03: Secretary Nicholson?"
     ],
-    "post": []
+    "post": [
+      "[7679.42-7701.99] SPEAKER_10: this for the procurement of the buses at this point thank you thank you director any further discussion on this item all right there is a note oh no sounds good all right i was it was indicated there will be a no vote so i'll do a roll call vote again this is the budget transfer articulate articulated buses supporting coal fax vrt service uh treasure banker",
+      "[7702.47-7703.41] SPEAKER_19: Yes.",
+      "[7703.44-7704.12] SPEAKER_10: Dr. Catlin.",
+      "[7704.4-7704.62] SPEAKER_19: Yes.",
+      "[7705.5-7706.22] SPEAKER_10: Dr. Geisinger.",
+      "[7706.42-7706.66] SPEAKER_19: Yes.",
+      "[7707.14-7707.9] SPEAKER_10: Dr. Guciniter.",
+      "[7708.26-7708.56] SPEAKER_10: Yes.",
+      "[7709.0-7709.6] SPEAKER_10: Dr. Guzman."
+    ]
   },
   {
     "start": 8675.43,
@@ -1197,7 +1217,28 @@
       "[8670.22-8670.94] SPEAKER_18: Okay, yes.",
       "[8673.42-8674.31] SPEAKER_10: Secretary Nicholson."
     ],
-    "post": []
+    "post": [
+      "[9085.59-9087.11] SPEAKER_10: I am going to do a roll call vote.",
+      "[9087.19-9090.33] SPEAKER_10: As a reminder, we are voting on Director Nicholson's amendment.",
+      "[9090.83-9093.75] SPEAKER_10: He was the mover and Director Harwick is the second.",
+      "[9094.54-9095.26] SPEAKER_10: Treasure banker.",
+      "[9098.62-9098.8] SPEAKER_10: Yes.",
+      "[9098.82-9099.44] SPEAKER_10: Director Catlin.",
+      "[9100.92-9101.26] SPEAKER_11: Yes.",
+      "[9102.07-9102.87] SPEAKER_10: Director Keisinger?",
+      "[9103.19-9103.75] SPEAKER_11: Yes.",
+      "[9103.77-9104.57] SPEAKER_10: Director Gucinander?",
+      "[9105.09-9105.61] SPEAKER_11: Yes.",
+      "[9105.63-9106.31] SPEAKER_10: Director Guzman?",
+      "[9106.59-9107.74] SPEAKER_05: No.",
+      "[9107.75-9108.4] SPEAKER_10: Director Harwick?",
+      "[9108.56-9108.8] SPEAKER_10: Yes.",
+      "[9109.72-9110.46] SPEAKER_10: Director Larsen?",
+      "[9111.42-9111.62] SPEAKER_10: No.",
+      "[9112.72-9113.92] SPEAKER_10: Secretary Nicholson?",
+      "[9113.94-9114.18] SPEAKER_10: Yes.",
+      "[9115.06-9115.91] SPEAKER_10: First Vice-Chair O'Keefe?"
+    ]
   },
   {
     "start": 9476.34,
@@ -1285,12 +1326,7 @@
     "pre": [
       "[9471.26-9472.87] SPEAKER_11: It seems a little bit redundant."
     ],
-    "post": [
-      "[9930.61-9934.17] SPEAKER_02: This question is for Chessie.",
-      "[9934.41-9942.3] SPEAKER_02: My understanding with this language is that it applies to buildings with elevators in it.",
-      "[9942.42-9956.98] SPEAKER_02: And so with single stair buildings, that there are different policies around equitable access because of the challenges, obviously, in a single stair building of getting people into the second, the third, the fourth, the fifth floor.",
-      "[9957.28-9960.69] SPEAKER_02: You're probably the biggest expert on this in the room."
-    ]
+    "post": []
   },
   {
     "start": 9930.61,
@@ -1313,7 +1349,25 @@
       "[9927.22-9927.56] SPEAKER_10: Thank you.",
       "[9928.04-9929.3] SPEAKER_04: Secretary, less than 30 seconds."
     ],
-    "post": []
+    "post": [
+      "[10001.36-10002.71] SPEAKER_10: Let's do the roll call vote.",
+      "[10002.94-10007.69] SPEAKER_10: Again, this is the amendment offered by Director Guzman and Director Rusha.",
+      "[10008.29-10008.97] SPEAKER_10: Treasure banker.",
+      "[10012.93-10013.56] SPEAKER_10: Director Catlin.",
+      "[10015.06-10015.28] SPEAKER_11: No.",
+      "[10016.4-10017.14] SPEAKER_10: Director Geisinger.",
+      "[10018.38-10018.48] SPEAKER_10: Yes.",
+      "[10018.5-10019.2] SPEAKER_10: Director Gujranader.",
+      "[10020.25-10020.95] SPEAKER_11: Yes.",
+      "[10020.97-10021.63] SPEAKER_10: Director Guzman.",
+      "[10021.85-10022.83] SPEAKER_05: Yes.",
+      "[10022.85-10023.43] SPEAKER_10: Director Harwick.",
+      "[10023.57-10023.89] SPEAKER_10: Yep.",
+      "[10024.77-10025.39] SPEAKER_10: Director Larson.",
+      "[10026.33-10026.51] SPEAKER_10: No.",
+      "[10027.52-10028.28] SPEAKER_10: Director Nicholson.",
+      "[10030.66-10030.88] SPEAKER_21: Yes."
+    ]
   },
   {
     "start": 10162.36,
