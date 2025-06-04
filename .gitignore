@@ -1,9 +1,9 @@
 input.*
-markup_guide.*
-segments_to_keep.json
 to_concat.txt
 venv
 clips
 .DS_Store
 .env
 *.mp4
+videos
+__pycache__
