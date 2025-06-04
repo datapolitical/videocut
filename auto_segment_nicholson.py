@@ -14,6 +14,9 @@ from pathlib import Path
 # We'll import map_nicholson_speaker for fallback
 from clip_utils import map_nicholson_speaker
 
+TRAIL_SEC = 30  # trailing context after end
+PRE_SEC = 5     # lines to capture before start
+
 # Cues indicating the meeting moved on
 _END_PATTERNS = [
     r"\bthank you\b",
@@ -23,6 +26,73 @@ _END_PATTERNS = [
     r"\bchair\b",
 ]
 _END_RE = re.compile("|".join(_END_PATTERNS), re.IGNORECASE)
+
+_TS_RE = re.compile(r"^\s*\[(?P<start>\d+\.?\d*)[–-](?P<end>\d+\.?\d*)\]\s*(?P<rest>.*)")
+
+_ROLL_RE = re.compile(r"roll call", re.IGNORECASE)
+_NICH_ITEM_RE = re.compile(r"nicholson", re.IGNORECASE)
+_RUSCHA_HANDOFF_RE = re.compile(r"train of thought|go to director ruscha", re.IGNORECASE)
+
+
+def load_markup(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
+    lines = []
+    for line in path.read_text().splitlines():
+        m = _TS_RE.match(line)
+        if not m:
+            continue
+        lines.append({
+            "start": float(m.group("start")),
+            "end": float(m.group("end")),
+            "line": line,
+        })
+    return lines
+
+
+def collect_lines(segs: list[dict], start: float, end: float) -> list[str]:
+    return [s["line"] for s in segs if s["start"] < end and s["end"] > start]
+
+
+def collect_pre(segs: list[dict], start: float) -> list[str]:
+    window = start - PRE_SEC
+    return [s["line"] for s in segs if s["end"] <= start and s["end"] >= window]
+
+
+def collect_post(segs: list[dict], end: float) -> list[str]:
+    window = end + TRAIL_SEC
+    out = []
+    for l in segs:
+        if l["start"] < end:
+            continue
+        if l["start"] > window:
+            break
+        if _ROLL_RE.search(l["line"]):
+            prev = [p for p in segs if p["end"] <= l["start"] and p["end"] >= l["start"] - 60]
+            if not any(_NICH_ITEM_RE.search(p["line"]) for p in prev):
+                break
+        out.append(l["line"])
+    return out
+
+
+def adjust_segment(start: float, end: float, markup: list[dict]) -> tuple[float, list[str]]:
+    """Trim roll calls unrelated to Nicholson and Ruscha handoff."""
+    lines = [l for l in markup if l["start"] < end and l["end"] > start]
+
+    for l in lines:
+        if _RUSCHA_HANDOFF_RE.search(l["line"]):
+            end = min(end, l["end"])
+            break
+
+    for l in lines:
+        if _ROLL_RE.search(l["line"]):
+            prev = [p for p in markup if p["end"] <= l["start"] and p["end"] >= l["start"] - 60]
+            if not any(_NICH_ITEM_RE.search(p["line"]) for p in prev):
+                end = min(end, l["start"])
+                break
+
+    trimmed = [l["line"] for l in markup if l["start"] < end and l["end"] > start]
+    return end, trimmed
 
 
 def should_end(text: str) -> bool:
@@ -63,9 +133,11 @@ def find_nicholson_speaker(segments):
 def main() -> None:
     in_path = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("input.json")
     out_path = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("segments_to_keep.json")
+    markup_path = in_path.with_name("markup_guide.txt")
 
     data = json.loads(in_path.read_text())
     segs = data["segments"]
+    markup_lines = load_markup(markup_path)
 
     nicholson_id = find_nicholson_speaker(segs)
     if nicholson_id is None:
@@ -74,42 +146,58 @@ def main() -> None:
     print(f"🔍  Secretary Nicholson identified as {nicholson_id}")
 
     results = []
-    start = None
-    last_end = None
 
-    for idx, seg in enumerate(segs):
-        spk = seg.get("speaker")
-        s = float(seg["start"])
-        e = float(seg["end"])
-        text = seg.get("text", "")
+    # Build list of indices where Nicholson speaks
+    n_idx = [i for i, seg in enumerate(segs) if seg.get("speaker") == nicholson_id]
+    if not n_idx:
+        out_path.write_text("[]")
+        print("❌  No Nicholson segments found")
+        return
 
-        if start is None:
-            # Nicholson begins substantial remarks
-            if spk == nicholson_id and len(text.split()) > 7:
-                start = s
-                last_end = e
-            # Chair calls on Nicholson by name
-            elif spk != nicholson_id and "secretary" in text.lower():
-                nxt = next((seg2 for seg2 in segs[idx+1:idx+6] if seg2["speaker"] == nicholson_id and len(seg2["text"].split()) > 7), None)
-                if nxt and nxt["start"] - s <= 10:
-                    if nxt["start"] - s > 5:
-                        start = nxt["start"]
-                    else:
-                        start = max(0.0, s - 2)
-                    last_end = nxt["end"]
+    groups = []
+    start_idx = n_idx[0]
+    last_idx = n_idx[0]
+    for idx in n_idx[1:]:
+        prev_end = float(segs[last_idx]["end"])
+        cur_start = float(segs[idx]["start"])
+        if cur_start - prev_end >= 120:
+            groups.append((start_idx, last_idx))
+            start_idx = idx
+        last_idx = idx
+    groups.append((start_idx, last_idx))
+
+    for start_idx, last_idx in groups:
+        start_time = float(segs[start_idx]["start"])
+        end_time = float(segs[last_idx]["end"])
+
+        j = last_idx + 1
+        while j < len(segs):
+            seg = segs[j]
+            if seg.get("speaker") == nicholson_id:
+                break
+            if float(seg["start"]) - end_time >= 120 and should_end(seg.get("text", "")):
+                end_time = float(seg["end"])
+                break
+            end_time = float(seg["end"])
+            j += 1
+
+        if j < len(segs):
+            next_start = float(segs[j]["start"])
+            end_time = min(end_time + TRAIL_SEC, next_start)
         else:
-            if spk == nicholson_id:
-                last_end = e
-            else:
-                next_nich = next((seg2 for seg2 in segs[idx:] if seg2["speaker"] == nicholson_id), None)
-                silence = next_nich["start"] - e if next_nich else float("inf")
-                if silence >= 120 and should_end(text):
-                    results.append({"start": round(start, 2), "end": round(e, 2)})
-                    start = None
-                    last_end = None
+            end_time = end_time + TRAIL_SEC
 
-    if start is not None and last_end is not None:
-        results.append({"start": round(start, 2), "end": round(last_end, 2)})
+        end_time, segment_lines = adjust_segment(start_time, end_time, markup_lines)
+        pre_lines = collect_pre(markup_lines, start_time)
+        post_lines = collect_post(markup_lines, end_time)
+
+        results.append({
+            "start": round(start_time, 2),
+            "end": round(end_time, 2),
+            "text": segment_lines,
+            "pre": pre_lines,
+            "post": post_lines,
+        })
 
     out_path.write_text(json.dumps(results, indent=2))
     print(f"✅  {len(results)} segments → {out_path}")
