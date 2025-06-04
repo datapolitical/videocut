@@ -6,7 +6,3 @@ clips
 .env
 *.mp4
 __pycache__
-videos/*
-!videos/example/
-!videos/example/**
-videos/example/.DS_Store
