@@ -155,23 +155,64 @@
   },
   {
     "start": 1737.04,
-    "end": 1749.06,
+    "end": 2025.43,
     "text": [
       "[1737.04-1740.7] SPEAKER_02: Yeah, just a quick follow-up onto that.",
-      "[1741.68-1749.06] SPEAKER_02: When it comes to go to Director Ruscha, my brain, I lost my train of thought for a second, so."
-    ],
-    "pre": [
-      "[1731.99-1732.29] SPEAKER_10: Excellent.",
-      "[1733.55-1735.49] SPEAKER_10: Director Nicholson, then Director Ruscha."
-    ],
-    "post": [
+      "[1741.68-1749.06] SPEAKER_02: When it comes to go to Director Ruscha, my brain, I lost my train of thought for a second, so.",
       "[1750.34-1751.1] SPEAKER_10: Alright, Director Ruscha.",
       "[1755.91-1757.11] SPEAKER_17: Thank you for the red rover.",
       "[1757.17-1757.97] SPEAKER_17: I wasn't prepared.",
       "[1757.99-1758.87] SPEAKER_17: I went back to my notes.",
       "[1759.38-1759.8] SPEAKER_17: Okay.",
       "[1759.82-1774.31] SPEAKER_17: So, um, anyway, I, um, so I, some of this, um, feedback I did share with staff and I, um, I don't want to be repetitive, but I also just want to be really transparent with my, my colleagues, uh, because we haven't had this public conversation yet.",
-      "[1774.76-1792.08] SPEAKER_17: And just high level, some of the things that I had shared was, you know, first of all, we don't want to put one proposal out before the community and get feedback like the one that we've had out for several months and then come back with something else that looks like less than what we originally proposed."
+      "[1774.76-1792.08] SPEAKER_17: And just high level, some of the things that I had shared was, you know, first of all, we don't want to put one proposal out before the community and get feedback like the one that we've had out for several months and then come back with something else that looks like less than what we originally proposed.",
+      "[1792.18-1795.13] SPEAKER_17: And so one of the pain points that I had was just the idea of",
+      "[1795.43-1799.34] SPEAKER_17: going up to 650 for the initial fare because that's not what we originally put out there.",
+      "[1799.68-1810.56] SPEAKER_17: So one of the things that I urge is that if we put an offer on the table, so to speak, we don't take it back.",
+      "[1810.96-1812.6] SPEAKER_17: That's kind of our baseline now.",
+      "[1813.36-1818.55] SPEAKER_17: And another piece of feedback I had is that where something is not",
+      "[1820.34-1832.9] SPEAKER_17: For every change we make, which essentially results in a reduction of a service of some kind or an increase in price, we really have to justify that line by line.",
+      "[1833.28-1841.73] SPEAKER_17: So for example, if we decide that we are going to strictly align with service hours, then we have to justify it.",
+      "[1841.89-1843.23] SPEAKER_17: It doesn't cost us any more money.",
+      "[1843.39-1844.41] SPEAKER_17: It's not going to save us a penny.",
+      "[1844.86-1848.2] SPEAKER_17: If somebody, you know, uses on demand,",
+      "[1849.01-1853.46] SPEAKER_17: 15 or 20 minutes or an hour before fixed drought starts.",
+      "[1855.1-1860.01] SPEAKER_17: Likewise, it's not costing us that I could see a lot of money, if any.",
+      "[1860.41-1864.88] SPEAKER_17: for us to offer service outside of our general service area.",
+      "[1865.96-1868.86] SPEAKER_17: I know that was flagged in the peer review.",
+      "[1869.18-1888.16] SPEAKER_17: So I, because this idea has been on the table for so many months, I also want to caution us about the service area idea because if we restrict the service, that means there are people who currently are using AOD and they're going to lose it.",
+      "[1888.88-1889.33] SPEAKER_17: So",
+      "[1890.27-1900.96] SPEAKER_17: I, um, so that was just, I mean, that was just the, the kind of like high level, like, um, theme that I had in, in the feedback.",
+      "[1901.6-1914.84] SPEAKER_17: Um, and also, you know, I'm going back to the, uh, initial like a fair, um, we also want to be really careful about what we think.",
+      "[1915.19-1918.38] SPEAKER_17: is inexpensive because it's really relative.",
+      "[1918.42-1937.89] SPEAKER_17: So for some folks using the service and they have like a fixed income or very limited income, if we even do you know 450 which would be parity with excess ride and I think I could accept that but like say we go up to 650 or we do this tiered system",
+      "[1938.44-1946.85] SPEAKER_17: then for some folks, they are not going to be able to write or they're going to be choosing, do I get to the doctor or do I buy food for tonight?",
+      "[1947.01-1950.72] SPEAKER_17: So I just wanted to put that out there.",
+      "[1951.12-1960.91] SPEAKER_17: And finally, well, actually, I'll stop there.",
+      "[1960.93-1968.33] SPEAKER_17: I concurred with what a lot of other directors said in terms of keeping the program as is as much as we can.",
+      "[1969.02-1981.23] SPEAKER_17: I think that, but I also just want to commend staff, you know, because we are at a much different place than where we were several months ago.",
+      "[1981.87-1983.67] SPEAKER_17: This is a totally different conversation.",
+      "[1984.4-1985.96] SPEAKER_17: really slashing this program.",
+      "[1986.74-1992.2] SPEAKER_17: And staff did a lot of work and we spent several months, we almost voted on this a few months ago.",
+      "[1992.24-2001.11] SPEAKER_17: And they listened to us as directors and they listened to community because as you know, we've had hundreds of public comments over several months on this.",
+      "[2001.75-2009.62] SPEAKER_17: And they said, okay, we can take a timeout, we can reassess, we can get some different data, we can, you know, kind of present a new paradigm.",
+      "[2009.64-2013.44] SPEAKER_17: So again, what's before us today is a sketch of ideas, the feedback is good.",
+      "[2013.69-2018.73] SPEAKER_17: But I really do want to commend staff for listening and working with us in partnership.",
+      "[2018.75-2019.67] SPEAKER_17: So thank you.",
+      "[2019.69-2021.08] SPEAKER_17: And thank you.",
+      "[2022.28-2023.14] SPEAKER_08: Thank you, Director Ruscha.",
+      "[2023.32-2024.05] SPEAKER_08: Director Nicholson.",
+      "[2025.43-2026.76] SPEAKER_02: Thank you."
+    ],
+    "pre": [
+      "[1731.99-1732.29] SPEAKER_10: Excellent.",
+      "[1733.55-1735.49] SPEAKER_10: Director Nicholson, then Director Ruscha."
+    ],
+    "post": [
+      "[2028.12-2042.98] SPEAKER_02: Is there any step during enrollment of AAR and AOD where we ask people if they are enrolled in the live program and ask them, hey, we're taking 14 other pieces of documentation from you.",
+      "[2043.0-2046.98] SPEAKER_02: I mean, AAR is remarkably complicated to sign up for.",
+      "[2047.72-2053.91] SPEAKER_02: Is there any part of that process where we try to enroll them in the live program as well?",
+      "[2053.95-2055.07] SPEAKER_02: And then I have a quick follow up."
     ]
   },
   {

@@ -1,4 +1,5 @@
 import json
+import re
 from pathlib import Path
 
 # Load segment timestamps
@@ -11,7 +12,11 @@ lines = Path("markup_guide.txt").read_text().splitlines()
 def parse_line(line):
     if line.startswith("[") and "]" in line:
         ts_part, rest = line.split("]", 1)
-        start, end = map(float, ts_part.strip("[]").replace("\u2013", "-").split("-"))
+        m = re.match(r"\[(?P<start>\d+\.?\d*)[–-](?P<end>\d+\.?\d*)", ts_part)
+        if not m:
+            return None
+        start = float(m.group("start"))
+        end = float(m.group("end"))
         return {"start": start, "end": end, "text": rest.strip()}
     return None
 

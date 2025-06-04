@@ -31,7 +31,6 @@ _TS_RE = re.compile(r"^\s*\[(?P<start>\d+\.?\d*)[–-](?P<end>\d+\.?\d*)\]\s*(?P
 
 _ROLL_RE = re.compile(r"roll call", re.IGNORECASE)
 _NICH_ITEM_RE = re.compile(r"nicholson", re.IGNORECASE)
-_RUSCHA_HANDOFF_RE = re.compile(r"train of thought|go to director ruscha", re.IGNORECASE)
 
 
 def load_markup(path: Path) -> list[dict]:
@@ -39,20 +38,15 @@ def load_markup(path: Path) -> list[dict]:
         return []
     lines = []
     for line in path.read_text().splitlines():
-        clean = line.replace("\u2013", "-")
-        m = _TS_RE.match(clean)
+        m = _TS_RE.match(line)
         if not m:
             continue
         lines.append({
             "start": float(m.group("start")),
             "end": float(m.group("end")),
-            "line": clean,
+            "line": line,
         })
     return lines
-
-
-def collect_lines(segs: list[dict], start: float, end: float) -> list[str]:
-    return [s["line"] for s in segs if s["start"] < end and s["end"] > start]
 
 
 def collect_pre(segs: list[dict], start: float) -> list[str]:
@@ -76,14 +70,9 @@ def collect_post(segs: list[dict], end: float) -> list[str]:
     return out
 
 
-def adjust_segment(start: float, end: float, markup: list[dict]) -> tuple[float, list[str]]:
-    """Trim roll calls unrelated to Nicholson and Ruscha handoff."""
+def trim_segment(start: float, end: float, markup: list[dict]) -> tuple[float, list[str]]:
+    """Trim roll calls unrelated to Nicholson."""
     lines = [l for l in markup if l["start"] < end and l["end"] > start]
-
-    for l in lines:
-        if _RUSCHA_HANDOFF_RE.search(l["line"]):
-            end = min(end, l["end"])
-            break
 
     for l in lines:
         if _ROLL_RE.search(l["line"]):
@@ -188,7 +177,7 @@ def main() -> None:
         else:
             end_time = end_time + TRAIL_SEC
 
-        end_time, segment_lines = adjust_segment(start_time, end_time, markup_lines)
+        end_time, segment_lines = trim_segment(start_time, end_time, markup_lines)
         pre_lines = collect_pre(markup_lines, start_time)
         post_lines = collect_post(markup_lines, end_time)
 
