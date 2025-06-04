@@ -15,7 +15,8 @@ from pathlib import Path
 from clip_utils import map_nicholson_speaker
 
 TRAIL_SEC = 30  # trailing context after end
-PRE_SEC   = 5   # lines to capture before start
+PRE_SEC = 5     # lines to capture before start
+
 
 # Cues indicating the meeting moved on
 _END_PATTERNS = [
@@ -28,6 +29,9 @@ _END_PATTERNS = [
 _END_RE = re.compile("|".join(_END_PATTERNS), re.IGNORECASE)
 
 _TS_RE = re.compile(r"^\s*\[(?P<start>\d+\.?\d*)[–-](?P<end>\d+\.?\d*)\]\s*(?P<rest>.*)")
+
+_ROLL_RE = re.compile(r"roll call", re.IGNORECASE)
+_NICH_ITEM_RE = re.compile(r"nicholson", re.IGNORECASE)
 
 
 def load_markup(path: Path) -> list[dict]:
@@ -45,11 +49,6 @@ def load_markup(path: Path) -> list[dict]:
         })
     return lines
 
-
-def collect_lines(segs: list[dict], start: float, end: float) -> list[str]:
-    return [s["line"] for s in segs if s["start"] < end and s["end"] > start]
-
-
 def collect_pre(segs: list[dict], start: float) -> list[str]:
     window = start - PRE_SEC
     return [s["line"] for s in segs if s["end"] <= start and s["end"] >= window]
@@ -57,7 +56,33 @@ def collect_pre(segs: list[dict], start: float) -> list[str]:
 
 def collect_post(segs: list[dict], end: float) -> list[str]:
     window = end + TRAIL_SEC
-    return [s["line"] for s in segs if s["start"] >= end and s["start"] <= window]
+    out = []
+    for l in segs:
+        if l["start"] < end:
+            continue
+        if l["start"] > window:
+            break
+        if _ROLL_RE.search(l["line"]):
+            prev = [p for p in segs if p["end"] <= l["start"] and p["end"] >= l["start"] - 60]
+            if not any(_NICH_ITEM_RE.search(p["line"]) for p in prev):
+                break
+        out.append(l["line"])
+    return out
+
+
+def trim_segment(start: float, end: float, markup: list[dict]) -> tuple[float, list[str]]:
+    """Trim roll calls unrelated to Nicholson."""
+    lines = [l for l in markup if l["start"] < end and l["end"] > start]
+
+    for l in lines:
+        if _ROLL_RE.search(l["line"]):
+            prev = [p for p in markup if p["end"] <= l["start"] and p["end"] >= l["start"] - 60]
+            if not any(_NICH_ITEM_RE.search(p["line"]) for p in prev):
+                end = min(end, l["start"])
+                break
+
+    trimmed = [l["line"] for l in markup if l["start"] < end and l["end"] > start]
+    return end, trimmed
 
 
 def should_end(text: str) -> bool:
@@ -152,7 +177,7 @@ def main() -> None:
         else:
             end_time = end_time + TRAIL_SEC
 
-        segment_lines = collect_lines(markup_lines, start_time, end_time)
+        end_time, segment_lines = trim_segment(start_time, end_time, markup_lines)
         pre_lines = collect_pre(markup_lines, start_time)
         post_lines = collect_post(markup_lines, end_time)
 

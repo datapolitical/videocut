@@ -52,7 +52,7 @@ def transcribe(input_video: str, hf_token: str | None = None, diarize: bool = Fa
             start, end = round(s["start"], 2), round(s["end"], 2)
             speaker = s.get("speaker", "SPEAKER") if diarize else "SPEAKER"
             text = s["text"].strip().replace("\n", " ")
-            g.write(f"[{start}–{end}] {speaker}: {text}\n")
+            g.write(f"[{start}-{end}] {speaker}: {text}\n")
     print("✅  markup_guide.txt ready – edit ranges or use TSV workflow")
 
 __all__ = ["transcribe", "is_apple_silicon"]
