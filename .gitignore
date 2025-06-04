@@ -7,3 +7,6 @@ clips
 *.mp4
 videos
 __pycache__
+videos/*
+!videos/example/
+!videos/example/**
