@@ -17,6 +17,7 @@ from clip_utils import map_nicholson_speaker
 TRAIL_SEC = 30  # trailing context after end
 PRE_SEC = 5     # lines to capture before start
 
+
 # Cues indicating the meeting moved on
 _END_PATTERNS = [
     r"\bthank you\b",
@@ -47,7 +48,6 @@ def load_markup(path: Path) -> list[dict]:
             "line": line,
         })
     return lines
-
 
 def collect_pre(segs: list[dict], start: float) -> list[str]:
     window = start - PRE_SEC
