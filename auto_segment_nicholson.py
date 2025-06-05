@@ -120,7 +120,6 @@ def find_nicholson_speaker(segments):
             if j < len(segments):
                 candidate = segments[j]["speaker"]
     return candidate
-    return None
 
 
 def main() -> None:
