@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Step 3: convert ``input.tsv`` (edited spreadsheet) to ``segments_to_keep.json``.
 
-Run :mod:`json_to_tsv_step` first to generate the TSV from the transcription
+Run :mod:`videocut.cli.steps.json_to_tsv_step` first to generate the TSV from the transcription
 JSON, mark rows to keep, then run this script.
 """
 import argparse
-from clip_utils import identify_clips
+from videocut.core.clip_utils import identify_clips
 
 
 def main() -> None:

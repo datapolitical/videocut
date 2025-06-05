@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Step 3: parse markup_guide.txt to JSON segments."""
 import argparse
-from clip_utils import extract_marked
+from videocut.core.clip_utils import extract_marked
 
 
 def main() -> None:

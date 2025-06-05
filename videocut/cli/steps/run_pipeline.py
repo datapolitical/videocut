@@ -2,19 +2,19 @@
 """Orchestrate the video-cutting pipeline.
 
 Steps:
-1. :mod:`transcribe_step` – run WhisperX.
-2. :mod:`json_to_tsv_step` or :mod:`json_to_editable_step` – prepare TSV or
+1. :mod:`videocut.cli.steps.transcribe_step` – run WhisperX.
+2. :mod:`videocut.cli.steps.json_to_tsv_step` or :mod:`videocut.cli.steps.json_to_editable_step` – prepare TSV or
    JSON for manual editing.
-3. :mod:`identify_clips_step`, :mod:`identify_clips_json_step` or
-   :mod:`extract_marked_step` – create ``segments_to_keep.json``.
-4. :mod:`auto_mark_nicholson_step` – optional auto-detection via diarization.
-5. :mod:`generate_clips_step` – cut clips.
-6. :mod:`concatenate_clips_step` – join clips together.
+3. :mod:`videocut.cli.steps.identify_clips_step`, :mod:`videocut.cli.steps.identify_clips_json_step` or
+   :mod:`videocut.cli.steps.extract_marked_step` – create ``segments_to_keep.json``.
+4. :mod:`videocut.cli.steps.auto_mark_nicholson_step` – optional auto-detection via diarization.
+5. :mod:`videocut.cli.steps.generate_clips_step` – cut clips.
+6. :mod:`videocut.cli.steps.concatenate_clips_step` – join clips together.
 """
 import argparse
 import os
-from transcribe import transcribe
-from clip_utils import (
+from videocut.core.transcribe import transcribe
+from videocut.core.clip_utils import (
     json_to_tsv,
     json_to_editable,
     identify_clips,

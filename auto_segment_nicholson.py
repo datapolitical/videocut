@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 
 # We'll import map_nicholson_speaker for fallback
-from clip_utils import map_nicholson_speaker
+from videocut.core.clip_utils import map_nicholson_speaker
 
 TRAIL_SEC = 30  # trailing context after end
 PRE_SEC = 5     # lines to capture before start

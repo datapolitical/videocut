@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Step 2: convert WhisperX JSON to TSV with an empty ``keep`` column."""
 import argparse
-from clip_utils import json_to_tsv
+from videocut.core.clip_utils import json_to_tsv
 
 
 def main() -> None:

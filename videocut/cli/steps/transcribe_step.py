@@ -2,7 +2,7 @@
 """Step 1: run WhisperX transcription."""
 import argparse
 import os
-from transcribe import transcribe
+from videocut.core.transcribe import transcribe
 
 
 def main() -> None:
