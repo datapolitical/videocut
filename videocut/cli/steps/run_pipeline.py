@@ -3,9 +3,8 @@
 
 Steps:
 1. :mod:`videocut.cli.steps.transcribe_step` – run WhisperX.
-2. :mod:`videocut.cli.steps.json_to_tsv_step` or :mod:`videocut.cli.steps.json_to_editable_step` – prepare TSV or
-   JSON for manual editing.
-3. :mod:`videocut.cli.steps.identify_clips_step`, :mod:`videocut.cli.steps.identify_clips_json_step` or
+2. :mod:`videocut.cli.steps.json_to_editable_step` – prepare JSON for manual editing.
+3. :mod:`videocut.cli.steps.identify_clips_json_step` or
    :mod:`videocut.cli.steps.extract_marked_step` – create ``segments_to_keep.json``.
 4. :mod:`videocut.cli.steps.auto_mark_nicholson_step` – optional auto-detection via diarization.
 5. :mod:`videocut.cli.steps.generate_clips_step` – cut clips.
@@ -15,7 +14,6 @@ import argparse
 import os
 from videocut.core.transcribe import transcribe
 from videocut.core.clip_utils import (
-    json_to_tsv,
     json_to_editable,
     identify_clips_json,
     extract_marked,

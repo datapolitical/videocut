@@ -27,9 +27,9 @@ HF_TOKEN=your_hf_token_here
 ## Workflow
 
 1. **Transcribe** – `scripts/transcribe_step.py` runs WhisperX and produces `markup_guide.txt` and the original JSON file.
-2. **Prepare for editing** – use `scripts/json_to_tsv_step.py` to create `input.tsv` or `scripts/json_to_editable_step.py` for `segments_edit.json`.
-3. **Identify clips** – after marking segments to keep, run one of
-   `scripts/identify_clips_step.py`, `scripts/identify_clips_json_step.py` or
+2. **Prepare for editing** – use `scripts/json_to_editable_step.py` to create `segments_edit.json`.
+3. **Identify clips** – after marking segments to keep, run
+   `scripts/identify_clips_json_step.py` or
    `scripts/extract_marked_step.py` to create `segments_to_keep.json`.
 4. **Auto-select Nicholson segments (optional)** – `scripts/auto_mark_nicholson_step.py` examines a diarized JSON file and builds the JSON list for you.
 5. **Generate clips** – `scripts/generate_clips_step.py` cuts clips from the input video into a `clips/` directory.
@@ -43,12 +43,12 @@ All of these steps can be executed sequentially with `scripts/run_pipeline.py --
 # Transcription with diarization
 python3 scripts/transcribe_step.py --input meeting.mp4 --diarize --hf_token $HF_TOKEN
 
-# Convert JSON to TSV for spreadsheet editing
-python3 scripts/json_to_tsv_step.py meeting.json --out input.tsv
-# (edit input.tsv to mark rows to keep)
+# Create an editable JSON
+python3 scripts/json_to_editable_step.py meeting.json --out segments_edit.json
+# (edit segments_edit.json to mark segments to keep)
 
 # Generate the list of segments
-python3 scripts/identify_clips_step.py --tsv input.tsv
+python3 scripts/identify_clips_json_step.py --json segments_edit.json
 
 # Cut clips and assemble the final video
 python3 scripts/generate_clips_step.py --input meeting.mp4 --json segments_to_keep.json
