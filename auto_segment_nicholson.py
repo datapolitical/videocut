@@ -125,7 +125,6 @@ def find_nicholson_speaker(segments):
             if j < len(segments):
                 candidate = segments[j]["speaker"]
     return candidate
-    return None
 
 
 def segment_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json") -> None:
