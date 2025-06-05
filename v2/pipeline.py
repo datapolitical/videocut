@@ -6,7 +6,7 @@ but avoids fully downloading the source video. Instead it:
 
 1. Downloads *audio only* using ``yt-dlp``.
 2. Runs WhisperX transcription/diarization on the audio file.
-3. Identifies clip segments via TSV or markup file.
+3. Identifies clip segments via ``markup_guide.txt``.
 4. Redownloads only the required video sections with
    ``yt-dlp --download-sections`` and builds polished clips.
 5. Optionally concatenates the clips into a final video.
@@ -15,7 +15,6 @@ but avoids fully downloading the source video. Instead it:
 from __future__ import annotations
 
 import argparse
-import csv
 import json
 import os
 import platform
@@ -84,23 +83,6 @@ def transcribe(audio_file: str, hf_token: str | None, diarize: bool) -> None:
             txt = seg["text"].strip().replace("\n", " ")
             g.write(f"[{s}–{e}] {spk}: {txt}\n")
     print("✅  markup_guide.txt ready – mark your segments")
-
-
-# ─────────────────────── TSV / MARKUP → JSON SEGMENTS ────────────────────────
-
-def identify_clips(tsv: str = "input.tsv", out_json: str = "segments_to_keep.json") -> None:
-    if not Path(tsv).exists():
-        sys.exit(f"❌  '{tsv}' not found")
-    segs = []
-    with open(tsv, newline="") as f:
-        rdr = csv.DictReader(f, delimiter="\t")
-        for row in rdr:
-            if str(row.get("keep", "")).strip().lower() in {"", "0", "false"}:
-                continue
-            segs.append({"start": float(row["start"]), "end": float(row["end"]), "slug": row.get("slug") or f"clip_{len(segs):03d}"})
-    Path(out_json).write_text(json.dumps(segs, indent=2))
-    print(f"✅  {len(segs)} clip(s) flagged → {out_json}")
-
 
 def extract_marked(markup: str = "markup_guide.txt", out_json: str = "segments_to_keep.json") -> None:
     if not Path(markup).exists():
@@ -202,7 +184,6 @@ def main() -> None:
     p.add_argument("--download-audio", action="store_true", help="Download audio only")
     p.add_argument("--transcribe", action="store_true", help="Run WhisperX on audio")
     p.add_argument("--diarize", action="store_true", help="Use speaker diarization")
-    p.add_argument("--identify-clips", action="store_true", help="Parse input.tsv → segments_to_keep.json")
     p.add_argument("--extract-marked", action="store_true", help="Parse markup_guide.txt → segments_to_keep.json")
     p.add_argument("--generate-clips", action="store_true", help="Download segments and build clips")
     p.add_argument("--concatenate", action="store_true", help="Join clips with white flashes")
@@ -216,8 +197,6 @@ def main() -> None:
         audio_file = download_audio(args.url, audio_file)
     if args.transcribe:
         transcribe(audio_file, args.hf_token, args.diarize)
-    if args.identify_clips:
-        identify_clips()
     if args.extract_marked:
         extract_marked()
     if args.generate_clips:
@@ -228,7 +207,7 @@ def main() -> None:
         concatenate_clips()
 
     if not any([
-        args.download_audio, args.transcribe, args.identify_clips,
+        args.download_audio, args.transcribe,
         args.extract_marked, args.generate_clips, args.concatenate
     ]):
         p.print_help()
