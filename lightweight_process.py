@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 from transcribe import transcribe
 from clip_utils import (
-    identify_clips,
+    identify_clips_json,
     extract_marked,
     auto_mark_nicholson,
     generate_clips,
@@ -31,7 +31,7 @@ def main():
         "--diarize", action="store_true", help="Enable speaker diarization"
     )
     p.add_argument(
-        "--identify-clips", action="store_true", help="Parse TSV to JSON"
+        "--identify-clips-json", action="store_true", help="Parse segments_edit.json to JSON"
     )
     p.add_argument(
         "--extract-marked", action="store_true", help="Parse markup_guide.txt to JSON"
@@ -49,8 +49,8 @@ def main():
 
     if args.transcribe:
         transcribe(args.input, args.hf_token, args.diarize)
-    if args.identify_clips:
-        identify_clips()
+    if args.identify_clips_json:
+        identify_clips_json()
     if args.extract_marked:
         extract_marked()
     if args.auto_mark_nicholson:
@@ -63,7 +63,7 @@ def main():
 
     if not any([
         args.transcribe,
-        args.identify_clips,
+        args.identify_clips_json,
         args.extract_marked,
         args.auto_mark_nicholson,
         args.generate_clips,

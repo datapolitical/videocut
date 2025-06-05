@@ -85,12 +85,24 @@ def annotate(markup_lines: list[str], segments: list[dict]) -> list[str]:
 
     return out
 
-def main():
-    segments = load_segments(SEGMENTS_IN)
-    markup   = load_markup(MARKUP_IN)
+
+def annotate_segments(
+    markup_file: str = "markup_guide.txt",
+    seg_json: str = "segments_to_keep.json",
+    out_file: str = "markup_with_markers.txt",
+) -> None:
+    """Write ``out_file`` with ``{START}``/``{END}`` markers for segments."""
+    segments = load_segments(Path(seg_json))
+    markup = load_markup(Path(markup_file))
     annotated = annotate(markup, segments)
-    MARKUP_OUT.write_text("\n".join(annotated))
-    print(f"✅  Wrote annotated markup → {MARKUP_OUT} (with inline {{START}}/{{END}} on separate lines)")
+    Path(out_file).write_text("\n".join(annotated))
+    print(
+        f"✅  Wrote annotated markup → {out_file} (with inline {{START}}/{{END}} on separate lines)"
+    )
+
+
+def main() -> None:
+    annotate_segments()
 
 if __name__ == "__main__":
     main()

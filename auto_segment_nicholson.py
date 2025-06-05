@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 """auto_segment_nicholson.py
 
-Generate segments_to_keep.json automatically for Secretary Nicholson
-based on input diarization JSON.
+Generate ``segments_to_keep.json`` automatically for Secretary Nicholson based
+on a diarized WhisperX JSON file.
 
-Usage: python3 auto_segment_nicholson.py [input.json] [output.json]
+The :func:`segment_nicholson` helper can be imported by other tools. Running the
+file directly behaves the same as before:
+
+```
+python3 auto_segment_nicholson.py input.json output.json
+```
 """
 import json
 import re
@@ -123,9 +128,10 @@ def find_nicholson_speaker(segments):
     return None
 
 
-def main() -> None:
-    in_path = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("input.json")
-    out_path = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("segments_to_keep.json")
+def segment_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json") -> None:
+    """Generate a segments file for Secretary Nicholson."""
+    in_path = Path(diarized_json)
+    out_path = Path(out_json)
     markup_path = in_path.with_name("markup_guide.txt")
 
     data = json.loads(in_path.read_text())
@@ -195,6 +201,12 @@ def main() -> None:
 
     out_path.write_text(json.dumps(results, indent=2))
     print(f"✅  {len(results)} segments → {out_path}")
+
+
+def main() -> None:
+    in_path = sys.argv[1] if len(sys.argv) > 1 else "input.json"
+    out_path = sys.argv[2] if len(sys.argv) > 2 else "segments_to_keep.json"
+    segment_nicholson(in_path, out_path)
 
 
 if __name__ == "__main__":
