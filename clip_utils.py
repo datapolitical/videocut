@@ -8,7 +8,6 @@ Updated 1 Jun 2025
 
 from __future__ import annotations
 
-import csv
 import json
 import subprocess
 import sys
@@ -20,31 +19,6 @@ WHITE_FLASH_SEC = 0.5
 FADE_SEC        = 0.5
 TARGET_W, TARGET_H = 1280, 720
 TARGET_FPS      = 30
-
-# ────────────────────────── JSON → TSV ───────────────────────
-
-def json_to_tsv(json_path: str, out_tsv: str = "input.tsv") -> None:
-    """Convert WhisperX JSON into a TSV for spreadsheet editing.
-
-    The TSV will contain ``start``, ``end``, ``speaker`` and ``text`` columns
-    with an empty ``keep`` column ready for marking clips to retain.
-    """
-    data = json.loads(Path(json_path).read_text())
-    segs = data.get("segments", data)
-
-    with open(out_tsv, "w", newline="") as f:
-        wr = csv.writer(f, delimiter="\t")
-        wr.writerow(["start", "end", "speaker", "text", "keep"])
-        for seg in segs:
-            wr.writerow([
-                seg.get("start"),
-                seg.get("end"),
-                seg.get("speaker", ""),
-                str(seg.get("text", "")).replace("\n", " "),
-                "",
-            ])
-
-    print(f"✅  {len(segs)} segment(s) → {out_tsv}")
 
 # ────────────────────── JSON → editable JSON ──────────────────────
 
@@ -74,24 +48,6 @@ def json_to_editable(json_path: str, out_json: str = "segments_edit.json") -> No
 
     Path(out_json).write_text(json.dumps(segs, indent=2))
     print(f"✅  {len(segs)} segment(s) → {out_json}")
-
-# ────────────────────────── TSV → JSON ───────────────────────
-
-def identify_clips(tsv: str = "input.tsv", out_json: str = "segments_to_keep.json") -> None:
-    """Save rows marked *keep* in **input.tsv** as JSON segments."""
-    if not Path(tsv).exists():
-        sys.exit(f"❌  {tsv} not found")
-
-    segs: List[Dict[str, float]] = []
-    with open(tsv, newline="") as f:
-        rdr = csv.DictReader(f, delimiter="\t")
-        for row in rdr:
-            if str(row.get("keep", "")).strip().lower() not in {"1", "true", "yes", "✔"}:
-                continue
-            segs.append({"start": float(row["start"]), "end": float(row["end"])})
-
-    Path(out_json).write_text(json.dumps(segs, indent=2))
-    print(f"✅  {len(segs)} clip(s) flagged → {out_json}")
 
 # ─────────────────────── editable JSON → JSON ───────────────────────
 
@@ -257,7 +213,7 @@ def concatenate_clips(clips_dir: str = "clips", out_file: str = "final_video.mp4
     print(f"🏁  {out_file} assembled ({len(clips)} clips + white flashes)")
 
 __all__ = [
-    "json_to_tsv", "json_to_editable", "identify_clips", "identify_clips_json", "extract_marked",
+    "json_to_editable", "identify_clips_json", "extract_marked",
     "map_nicholson_speaker", "auto_segments_for_speaker", "auto_mark_nicholson",
     "generate_clips", "concatenate_clips",
 ]

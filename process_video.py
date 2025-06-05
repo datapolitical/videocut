@@ -3,21 +3,20 @@
 
 End‑to‑end pipeline:
   1. WhisperX transcription  (optional diarization)
-  2. TSV or markup‑guide → JSON clip list
+  2. Editable JSON or markup‑guide → JSON clip list
   3. Clip extraction  (frame‑accurate, with fade‑in/out & auto‑padding)
   4. Concatenation with white‑flash transitions
 
 CLI flags:
   --transcribe            WhisperX on --input
   --diarize               add speaker diarization (needs --hf_token or HF_TOKEN)
-  --identify-clips        read input.tsv → segments_to_keep.json
+  --identify-clips-json   read segments_edit.json → segments_to_keep.json
   --extract-marked        read markup_guide.txt → segments_to_keep.json
   --generate-clips        cut + polish clips to clips/clip_###.mp4
   --concatenate           stitch clips → final_video.mp4
 """
 
 import argparse
-import csv
 import json
 import os
 import platform
@@ -65,30 +64,25 @@ def transcribe(input_video: str, hf_token: str | None, use_diarization: bool):
             spk = seg.get("speaker", "SPEAKER") if use_diarization else "SPEAKER"
             txt = seg["text"].strip().replace("\n", " ")
             g.write(f"[{s}–{e}] {spk}: {txt}\n")
-    print("✅  markup_guide.txt ready – mark your segments and/or edit input.tsv")
+    print("✅  markup_guide.txt ready – mark your segments and/or edit segments_edit.json")
 
-# ───────────────────────────── TSV → JSON IDENTIFY CLIPS ──────────────────────
+# ────────────────────── editable JSON → JSON IDENTIFY CLIPS ───────────────────
 
-def identify_clips(tsv="input.tsv", out_json="segments_to_keep.json"):
-    """Convert an Excel‑edited TSV into a JSON list for clipping.
+def identify_clips_json(edit_json="segments_edit.json", out_json="segments_to_keep.json"):
+    """Save segments with ``keep`` true in ``edit_json`` to a simple JSON list."""
+    if not Path(edit_json).exists():
+        sys.exit(f"❌  '{edit_json}' not found")
 
-    TSV columns expected: start    end    keep    slug(optional)
-    Only rows with truthy *keep* are output.
-    """
-    if not Path(tsv).exists():
-        sys.exit(f"❌  '{tsv}' not found")
+    raw = json.loads(Path(edit_json).read_text())
+    segs_in = raw if isinstance(raw, list) else raw.get("segments", raw)
 
     segs = []
-    with open(tsv, newline="") as f:
-        rdr = csv.DictReader(f, delimiter="\t")
-        for row in rdr:
-            if str(row.get("keep", "")).strip() in {"", "0", "false", "False"}:
-                continue
-            segs.append({
-                "start": float(row["start"]),
-                "end"  : float(row["end"]),
-                "slug" : row.get("slug") or f"clip_{len(segs):03d}"
-            })
+    for seg in segs_in:
+        keep = str(seg.get("keep", "")).strip().lower()
+        if keep not in {"1", "true", "yes", "✔", "x"}:
+            continue
+        segs.append({"start": float(seg["start"]), "end": float(seg["end"])})
+
     Path(out_json).write_text(json.dumps(segs, indent=2))
     print(f"✅  {len(segs)} clip(s) flagged → {out_json}")
 
@@ -149,7 +143,7 @@ def _build_faded_clip(src: Path, dst: Path):
 
 def generate_clips(input_video: str, segments_json: str = "segments_to_keep.json", out_dir: str = "clips"):
     if not Path(segments_json).exists():
-        sys.exit("❌  JSON of segments missing – run --identify-clips or --extract-marked")
+        sys.exit("❌  JSON of segments missing – run --identify-clips-json or --extract-marked")
 
     segs = json.loads(Path(segments_json).read_text())
     Path(out_dir).mkdir(exist_ok=True)
@@ -215,9 +209,9 @@ def main():
     p.add_argument("--transcribe", action="store_true", help="Run WhisperX")
     p.add_argument("--diarize", action="store_true", help="Use speaker diarization")
     p.add_argument(
-        "--identify-clips",
+        "--identify-clips-json",
         action="store_true",
-        help="Parse input.tsv → segments_to_keep.json",
+        help="Parse segments_edit.json → segments_to_keep.json",
     )
     p.add_argument(
         "--extract-marked",
@@ -239,8 +233,8 @@ def main():
 
     if args.transcribe:
         transcribe(args.input, args.hf_token, args.diarize)
-    if args.identify_clips:
-        identify_clips()
+    if args.identify_clips_json:
+        identify_clips_json()
     if args.extract_marked:
         extract_marked()
     if args.generate_clips:
@@ -251,7 +245,7 @@ def main():
     if not any(
         [
             args.transcribe,
-            args.identify_clips,
+            args.identify_clips_json,
             args.extract_marked,
             args.generate_clips,
             args.concatenate,
