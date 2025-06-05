@@ -5,14 +5,12 @@ import argparse
 import os
 from dotenv import load_dotenv
 
-from transcribe import transcribe
-from clip_utils import (
-    identify_clips_json,
-    extract_marked,
-    auto_mark_nicholson,
-    generate_clips,
-    concatenate_clips,
-)
+from videocut.cli.steps.transcribe_step import transcribe
+from videocut.cli.steps.identify_clips_step import identify_clips
+from videocut.cli.steps.extract_marked_step import extract_marked
+from videocut.cli.steps.auto_mark_nicholson_step import auto_mark_nicholson
+from videocut.cli.steps.generate_clips_step import generate_clips
+from videocut.cli.steps.concatenate_clips_step import concatenate_clips
 
 load_dotenv()
 

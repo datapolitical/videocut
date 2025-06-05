@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Step 6: concatenate clips into a final video."""
 import argparse
-from clip_utils import concatenate_clips
+from videocut.core.clip_utils import concatenate_clips
 
 
 def main() -> None:

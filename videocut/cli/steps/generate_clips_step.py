@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Step 5: cut clips from segments_to_keep.json."""
 import argparse
-from clip_utils import generate_clips
+from videocut.core.clip_utils import generate_clips
 
 
 def main() -> None:

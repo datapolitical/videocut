@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Step 4: auto-identify Nicholson segments from WhisperX JSON."""
 import argparse
-from clip_utils import auto_mark_nicholson
+from videocut.core.clip_utils import auto_mark_nicholson
 
 
 def main() -> None:

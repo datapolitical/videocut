@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Step 3 alternative: parse ``segments_edit.json`` to ``segments_to_keep.json``."""
 import argparse
-from clip_utils import identify_clips_json
+from videocut.core.clip_utils import identify_clips_json
 
 
 def main() -> None:

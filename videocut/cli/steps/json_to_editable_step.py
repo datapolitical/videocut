@@ -5,7 +5,7 @@ Each entry includes ``Timestamp``/``content``/``pre``/``post`` fields and a
 numeric ``id`` along with ``start``/``end``/``speaker`` and ``keep`` flag.
 """
 import argparse
-from clip_utils import json_to_editable
+from videocut.core.clip_utils import json_to_editable
 
 
 def main() -> None:
