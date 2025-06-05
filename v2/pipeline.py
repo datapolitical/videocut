@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """pipeline.py - Audio-first video clipping pipeline (v2).
 
-This script mirrors the functionality of ``process_video.py`` but avoids
-fully downloading the source video. Instead it:
+This script mirrors the functionality of :mod:`videocut.cli.steps.run_pipeline`
+but avoids fully downloading the source video. Instead it:
 
 1. Downloads *audio only* using ``yt-dlp``.
 2. Runs WhisperX transcription/diarization on the audio file.
@@ -24,6 +24,7 @@ import sys
 from pathlib import Path
 
 from dotenv import load_dotenv
+from videocut.core.clip_utils import _build_faded_clip
 
 load_dotenv()
 
@@ -125,27 +126,6 @@ def extract_marked(markup: str = "markup_guide.txt", out_json: str = "segments_t
 
 
 # ──────────────────────── FADE/PAD RE‑ENCODE HELPER ─────────────────────────
-
-def _build_faded_clip(src: Path, dst: Path) -> None:
-    dur = float(subprocess.check_output([
-        "ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
-        "format=duration", "-of", "csv=p=0", str(src)
-    ], text=True).strip())
-    end_time = max(dur - FADE_SEC, 0)
-
-    vf = (
-        f"fps={TARGET_FPS},scale={TARGET_W}:{TARGET_H}:force_original_aspect_ratio=decrease,"
-        f"pad={TARGET_W}:{TARGET_H}:(ow-iw)/2:(oh-ih)/2:color=white,"
-        f"format=yuv420p,fade=t=in:st=0:d={FADE_SEC},fade=t=out:st={end_time}:d={FADE_SEC}"
-    )
-    af = f"afade=t=in:st=0:d={FADE_SEC},afade=t=out:st={end_time}:d={FADE_SEC}"
-
-    subprocess.run([
-        "ffmpeg", "-v", "error", "-y", "-i", str(src),
-        "-vf", vf, "-af", af,
-        "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
-        "-c:a", "aac", "-b:a", "128k", str(dst)
-    ], check=True)
 
 
 # ─────────────────────────────── CLIPPER ──────────────────────────────

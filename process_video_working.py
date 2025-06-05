@@ -1,15 +1,17 @@
+"""Legacy video processing workflow (pre-refactor)."""
+
 import argparse
-import subprocess
-import json
 import os
 import platform
 import sys
+from pathlib import Path
 from dotenv import load_dotenv
+
+from videocut.core.transcribe import transcribe
+from videocut.core.clip_utils import extract_marked, generate_clips, concatenate_clips
 
 load_dotenv()
 
-def is_apple_silicon():
-    return platform.system() == "Darwin" and platform.machine() in ["arm64", "arm"]
 
 def transcribe(input_video, hf_token, use_diarization):
     compute_type = "float32" if is_apple_silicon() else "float16"
@@ -116,13 +118,28 @@ def concatenate_clips(clips_dir="clips", output_file="final_video.mp4"):
     print(f"✅ Final video saved to: {output_file}")
 
 # --- CLI ---
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Process and splice video by transcript markers")
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Process and splice video by transcript markers"
+    )
     parser.add_argument("--input", type=str, default="input.mp4", help="Input video filename")
-    parser.add_argument("--hf_token", type=str, default=os.getenv("HF_TOKEN"), help="Hugging Face token (from .env or CLI)")
-    parser.add_argument("--diarize", action="store_true", help="Use speaker diarization (slower, requires token)")
+    parser.add_argument(
+        "--hf_token",
+        type=str,
+        default=os.getenv("HF_TOKEN"),
+        help="Hugging Face token (from .env or CLI)",
+    )
+    parser.add_argument(
+        "--diarize",
+        action="store_true",
+        help="Use speaker diarization (slower, requires token)",
+    )
     parser.add_argument("--transcribe", action="store_true", help="Transcribe with WhisperX")
-    parser.add_argument("--extract-marked", action="store_true", help="Parse START/END-marked lines")
+    parser.add_argument(
+        "--extract-marked",
+        action="store_true",
+        help="Parse START/END-marked lines",
+    )
     parser.add_argument("--generate-clips", action="store_true", help="Cut video clips")
     parser.add_argument("--concatenate", action="store_true", help="Join video clips")
 
@@ -137,5 +154,11 @@ if __name__ == "__main__":
     if args.concatenate:
         concatenate_clips()
 
-    if not (args.transcribe or args.extract_marked or args.generate_clips or args.concatenate):
+    if not (
+        args.transcribe or args.extract_marked or args.generate_clips or args.concatenate
+    ):
         parser.print_help()
+
+
+if __name__ == "__main__":
+    main()
