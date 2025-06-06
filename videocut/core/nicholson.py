@@ -51,12 +51,13 @@ def auto_segments_for_speaker(diarized_json: str, speaker_id: str, out_json: str
 
 def auto_mark_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json") -> None:
     """End-to-end helper to create JSON for Nicholson clips."""
-    spk = map_nicholson_speaker(diarized_json)
-    auto_segments_for_speaker(diarized_json, spk, out_json)
+    segment_nicholson(diarized_json, out_json)
 
 
 def load_markup(path: Path) -> List[dict]:
     lines = []
+    if not path.exists():
+        return lines
     for line in path.read_text().splitlines():
         m = _TS_RE.match(line)
         if not m:
