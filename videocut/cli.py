@@ -1,6 +1,7 @@
 """Typer-based command line interface for VideoCut."""
 from __future__ import annotations
 from pathlib import Path
+from typing import Optional
 import typer
 from .core import (
     transcription,
@@ -15,7 +16,7 @@ app = typer.Typer(help="VideoCut pipeline")
 
 
 @app.command()
-def transcribe(video: str = "input.mp4", diarize: bool = False, hf_token: str | None = None):
+def transcribe(video: str = "input.mp4", diarize: bool = False, hf_token: Optional[str] = None):
     """Run WhisperX transcription."""
     transcription.transcribe(video, hf_token, diarize)
 
@@ -71,7 +72,7 @@ def concatenate(clips_dir: str = "clips", out: str = "final_video.mp4"):
 def pipeline(
     video: str = "input.mp4",
     diarize: bool = False,
-    hf_token: str | None = None,
+    hf_token: Optional[str] = None,
     auto_nicholson: bool = True,
 ):
     """Run the full pipeline, auto-marking Nicholson by default."""
