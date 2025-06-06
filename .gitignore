@@ -6,3 +6,6 @@ clips
 .env
 *.mp4
 __pycache__
+videocut.egg-info
+!videos/example/*
+videos/example/.DS_Store
