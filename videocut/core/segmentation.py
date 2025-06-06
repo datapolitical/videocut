@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import json
 import sys
+import re
 from pathlib import Path
 from typing import Dict, List
 
@@ -25,23 +26,80 @@ def json_to_tsv(json_path: str, out_tsv: str = "input.tsv") -> None:
     print(f"✅  {len(segs)} segment(s) → {out_tsv}")
 
 
-def json_to_editable(json_path: str, out_json: str = "segments_edit.json") -> None:
-    """Create an editable JSON with keep flag and context fields."""
+_TS_RE = re.compile(r"^\s*\[(?P<start>\d+\.?\d*)[–-](?P<end>\d+\.?\d*)\]\s*(?P<rest>.*)")
+PRE_SEC = 5
+TRAIL_SEC = 30
+
+
+def _load_markup(path: Path) -> List[dict]:
+    lines = []
+    if not path.exists():
+        return lines
+    for line in path.read_text().splitlines():
+        m = _TS_RE.match(line)
+        if not m:
+            continue
+        lines.append({"start": float(m.group("start")), "end": float(m.group("end")), "line": line})
+    return lines
+
+
+def _collect_pre(lines: List[dict], start: float) -> List[str]:
+    window = start - PRE_SEC
+    return [l["line"] for l in lines if l["end"] <= start and l["end"] >= window]
+
+
+def _collect_post(lines: List[dict], end: float, next_start: float | None = None) -> List[str]:
+    window = end + TRAIL_SEC
+    out = []
+    for l in lines:
+        if l["start"] < end:
+            continue
+        if next_start is not None and l["start"] >= next_start:
+            break
+        if l["start"] > window:
+            break
+        out.append(l["line"])
+    return out
+
+
+def json_to_editable(json_path: str, out_json: str = "segments_edit.json", markup: str = "markup_guide.txt") -> None:
+    """Create an editable JSON with keep flag and context lines."""
     data = json.loads(Path(json_path).read_text())
     segs_in = data if isinstance(data, list) else data.get("segments", data)
+    markup_lines = _load_markup(Path(markup))
     segs: List[Dict] = []
     for i, seg in enumerate(segs_in, 1):
+        start = float(seg.get("start"))
+        end = float(seg.get("end"))
+        next_start = float(segs_in[i]["start"]) if i < len(segs_in) else None
+        if markup_lines:
+            content_lines = [l["line"] for l in markup_lines if l["start"] < end and l["end"] > start]
+            pre_lines = _collect_pre(markup_lines, start)
+            post_lines = _collect_post(markup_lines, end, next_start)
+            speaker = ""
+            if content_lines:
+                m = re.search(r"]\s*(\S+?):", content_lines[0])
+                if m:
+                    speaker = m.group(1)
+            content = "\n".join(content_lines).strip()
+        else:
+            content = str(seg.get("text", "")).strip()
+            speaker = seg.get("speaker", "")
+            pre_lines = []
+            post_lines = []
+
         segs.append({
             "id": i,
-            "start": seg.get("start"),
-            "end": seg.get("end"),
-            "Timestamp": f"[{seg.get('start')}-{seg.get('end')}]",
-            "content": str(seg.get("text", "")).strip(),
-            "speaker": seg.get("speaker", ""),
-            "pre": [],
-            "post": [],
+            "start": start,
+            "end": end,
+            "Timestamp": f"[{start}-{end}]",
+            "content": content,
+            "speaker": speaker,
+            "pre": pre_lines,
+            "post": post_lines,
             "keep": False,
         })
+
     Path(out_json).write_text(json.dumps(segs, indent=2))
     print(f"✅  {len(segs)} segment(s) → {out_json}")
 
