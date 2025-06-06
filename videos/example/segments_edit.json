@@ -4,9 +4,12 @@
     "start": 73.471,
     "end": 74.532,
     "Timestamp": "[73.471-74.532]",
-    "content": "",
-    "speaker": "",
-    "pre": [],
+    "content": "[73.47-74.53] SPEAKER_00: Secretary Nicholson.",
+    "speaker": "SPEAKER_00",
+    "pre": [
+      "[67.31-70.63] SPEAKER_02: That presents some problems for me, but we can talk about that later.",
+      "[70.67-71.23] SPEAKER_02: Thank you."
+    ],
     "post": [],
     "keep": false
   },
@@ -15,9 +18,11 @@
     "start": 76.575,
     "end": 77.977,
     "Timestamp": "[76.575-77.977]",
-    "content": "",
-    "speaker": "",
-    "pre": [],
+    "content": "[76.58-77.98] SPEAKER_00: Thank you very much.",
+    "speaker": "SPEAKER_00",
+    "pre": [
+      "[73.47-74.53] SPEAKER_00: Secretary Nicholson."
+    ],
     "post": [],
     "keep": false
   },
@@ -26,9 +31,12 @@
     "start": 78.377,
     "end": 85.406,
     "Timestamp": "[78.377-85.406]",
-    "content": "",
-    "speaker": "",
-    "pre": [],
+    "content": "[78.38-85.41] SPEAKER_00: I think I first want to echo and perhaps be a little bit more direct about what Director Catlin said.",
+    "speaker": "SPEAKER_00",
+    "pre": [
+      "[73.47-74.53] SPEAKER_00: Secretary Nicholson.",
+      "[76.58-77.98] SPEAKER_00: Thank you very much."
+    ],
     "post": [],
     "keep": false
   },
@@ -37,9 +45,11 @@
     "start": 87.469,
     "end": 92.916,
     "Timestamp": "[87.469-92.916]",
-    "content": "",
-    "speaker": "",
-    "pre": [],
+    "content": "[87.47-92.92] SPEAKER_00: We have bus routes in this system that don't qualify for the ADA service, but they're bus routes anyway.",
+    "speaker": "SPEAKER_00",
+    "pre": [
+      "[78.38-85.41] SPEAKER_00: I think I first want to echo and perhaps be a little bit more direct about what Director Catlin said."
+    ],
     "post": [],
     "keep": false
   },
@@ -48,9 +58,11 @@
     "start": 93.997,
     "end": 96.981,
     "Timestamp": "[93.997-96.981]",
-    "content": "",
-    "speaker": "",
-    "pre": [],
+    "content": "[94.0-96.98] SPEAKER_00: There are commuter routes and I",
+    "speaker": "SPEAKER_00",
+    "pre": [
+      "[87.47-92.92] SPEAKER_00: We have bus routes in this system that don't qualify for the ADA service, but they're bus routes anyway."
+    ],
     "post": [],
     "keep": false
   },
@@ -59,9 +71,12 @@
     "start": 97.079,
     "end": 105.54,
     "Timestamp": "[97.079-105.54]",
-    "content": "",
-    "speaker": "",
-    "pre": [],
+    "content": "[97.08-105.54] SPEAKER_00: would not vote personally for a change that would cut off the people who live within three quarters of a mile of those routes.",
+    "speaker": "SPEAKER_00",
+    "pre": [
+      "[87.47-92.92] SPEAKER_00: We have bus routes in this system that don't qualify for the ADA service, but they're bus routes anyway.",
+      "[94.0-96.98] SPEAKER_00: There are commuter routes and I"
+    ],
     "post": [],
     "keep": false
   },
@@ -70,9 +85,11 @@
     "start": 105.6,
     "end": 112.036,
     "Timestamp": "[105.6-112.036]",
-    "content": "",
-    "speaker": "",
-    "pre": [],
+    "content": "[105.6-112.04] SPEAKER_00: So at least for me, you guys want to get this through, you're going to need to change that because it's just a matter of basic equity.",
+    "speaker": "SPEAKER_00",
+    "pre": [
+      "[97.08-105.54] SPEAKER_00: would not vote personally for a change that would cut off the people who live within three quarters of a mile of those routes."
+    ],
     "post": [],
     "keep": false
   },
@@ -81,10 +98,14 @@
     "start": 112.076,
     "end": 113.62,
     "Timestamp": "[112.076-113.62]",
-    "content": "",
-    "speaker": "",
-    "pre": [],
-    "post": [],
+    "content": "[112.08-113.62] SPEAKER_00: Otherwise, Peggy has like",
+    "speaker": "SPEAKER_00",
+    "pre": [
+      "[105.6-112.04] SPEAKER_00: So at least for me, you guys want to get this through, you're going to need to change that because it's just a matter of basic equity."
+    ],
+    "post": [
+      "[114.29-118.02] SPEAKER_00: two places in our district that get service and that's just not reasonable."
+    ],
     "keep": false
   },
   {
@@ -92,10 +113,15 @@
     "start": 114.292,
     "end": 118.021,
     "Timestamp": "[114.292-118.021]",
-    "content": "",
-    "speaker": "",
-    "pre": [],
-    "post": [],
+    "content": "[114.29-118.02] SPEAKER_00: two places in our district that get service and that's just not reasonable.",
+    "speaker": "SPEAKER_00",
+    "pre": [
+      "[105.6-112.04] SPEAKER_00: So at least for me, you guys want to get this through, you're going to need to change that because it's just a matter of basic equity.",
+      "[112.08-113.62] SPEAKER_00: Otherwise, Peggy has like"
+    ],
+    "post": [
+      "[118.04-121.17] SPEAKER_00: There are a lot of older folks that live up in those areas."
+    ],
     "keep": false
   },
   {
@@ -103,9 +129,12 @@
     "start": 118.041,
     "end": 121.168,
     "Timestamp": "[118.041-121.168]",
-    "content": "",
-    "speaker": "",
-    "pre": [],
+    "content": "[118.04-121.17] SPEAKER_00: There are a lot of older folks that live up in those areas.",
+    "speaker": "SPEAKER_00",
+    "pre": [
+      "[112.08-113.62] SPEAKER_00: Otherwise, Peggy has like",
+      "[114.29-118.02] SPEAKER_00: two places in our district that get service and that's just not reasonable."
+    ],
     "post": [],
     "keep": false
   },
@@ -114,10 +143,15 @@
     "start": 122.15,
     "end": 129.347,
     "Timestamp": "[122.15-129.347]",
-    "content": "",
-    "speaker": "",
-    "pre": [],
-    "post": [],
+    "content": "[122.15-129.35] SPEAKER_00: I think the second issue that I have with what's being proposed is that the needs of",
+    "speaker": "SPEAKER_00",
+    "pre": [
+      "[114.29-118.02] SPEAKER_00: two places in our district that get service and that's just not reasonable.",
+      "[118.04-121.17] SPEAKER_00: There are a lot of older folks that live up in those areas."
+    ],
+    "post": [
+      "[130.0-139.06] SPEAKER_00: not call it rural, but mountainous Jefferson County, when it comes to AOD are very different than the needs of central Denver."
+    ],
     "keep": false
   },
   {
@@ -125,9 +159,11 @@
     "start": 130.002,
     "end": 139.064,
     "Timestamp": "[130.002-139.064]",
-    "content": "",
-    "speaker": "",
-    "pre": [],
+    "content": "[130.0-139.06] SPEAKER_00: not call it rural, but mountainous Jefferson County, when it comes to AOD are very different than the needs of central Denver.",
+    "speaker": "SPEAKER_00",
+    "pre": [
+      "[122.15-129.35] SPEAKER_00: I think the second issue that I have with what's being proposed is that the needs of"
+    ],
     "post": [],
     "keep": false
   },
@@ -136,9 +172,11 @@
     "start": 139.866,
     "end": 149.308,
     "Timestamp": "[139.866-149.308]",
-    "content": "",
-    "speaker": "",
-    "pre": [],
+    "content": "[139.87-149.31] SPEAKER_00: The trips I can get to most places that I need to go, in terms of grocery stores, medical, et cetera, in a $15 Uber.",
+    "speaker": "SPEAKER_00",
+    "pre": [
+      "[130.0-139.06] SPEAKER_00: not call it rural, but mountainous Jefferson County, when it comes to AOD are very different than the needs of central Denver."
+    ],
     "post": [],
     "keep": false
   },
@@ -147,9 +185,11 @@
     "start": 150.19,
     "end": 155.503,
     "Timestamp": "[150.19-155.503]",
-    "content": "",
-    "speaker": "",
-    "pre": [],
+    "content": "[150.19-155.5] SPEAKER_00: I don't think there's anywhere that you can get to for 15 bucks in",
+    "speaker": "SPEAKER_00",
+    "pre": [
+      "[139.87-149.31] SPEAKER_00: The trips I can get to most places that I need to go, in terms of grocery stores, medical, et cetera, in a $15 Uber."
+    ],
     "post": [],
     "keep": false
   }

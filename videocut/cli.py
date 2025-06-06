@@ -26,8 +26,12 @@ def transcribe(
 
 
 @app.command()
-def json_to_editable(json_file: str, out: str = "segments_edit.json"):
-    segmentation.json_to_editable(json_file, out)
+def json_to_editable(
+    json_file: str,
+    out: str = "segments_edit.json",
+    markup: str = "markup_guide.txt",
+):
+    segmentation.json_to_editable(json_file, out, markup)
 
 
 @app.command()
@@ -89,7 +93,7 @@ def pipeline(
     if auto_nicholson:
         nicholson.auto_mark_nicholson(json_file, "segments_to_keep.json")
     else:
-        segmentation.json_to_editable(json_file, "segments_edit.json")
+        segmentation.json_to_editable(json_file, "segments_edit.json", "markup_guide.txt")
         segmentation.identify_clips_json("segments_edit.json", "segments_to_keep.json")
     video_editing.generate_clips(video, "segments_to_keep.json", "clips")
     video_editing.concatenate_clips("clips", "final_video.mp4")
