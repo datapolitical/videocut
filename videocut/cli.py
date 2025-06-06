@@ -17,6 +17,7 @@ app = typer.Typer(help="VideoCut pipeline")
 @app.command()
 def transcribe(video: str = "input.mp4", diarize: bool = False, hf_token: str | None = None):
     """Run WhisperX transcription."""
+    transcription.transcribe(video, hf_token, diarize)
 
 
 @app.command()
