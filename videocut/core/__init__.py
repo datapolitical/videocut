@@ -1,6 +1,14 @@
 """Core video processing utilities package."""
 
-from . import transcription, segmentation, video_editing, nicholson, annotation, clip_transcripts
+from . import (
+    transcription,
+    segmentation,
+    video_editing,
+    nicholson,
+    annotation,
+    clip_transcripts,
+    speaker_mapping,
+)
 
 __all__ = [
     "transcription",
@@ -9,4 +17,5 @@ __all__ = [
     "segmentation",
     "video_editing",
     "nicholson",
+    "speaker_mapping",
 ]

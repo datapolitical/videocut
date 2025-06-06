@@ -1,6 +1,14 @@
 """Videocut package."""
 
-from .core import transcription, segmentation, video_editing, nicholson, annotation, clip_transcripts
+from .core import (
+    transcription,
+    segmentation,
+    video_editing,
+    nicholson,
+    annotation,
+    clip_transcripts,
+    speaker_mapping,
+)
 
 __all__ = [
     "annotation",
@@ -9,4 +17,5 @@ __all__ = [
     "segmentation",
     "video_editing",
     "nicholson",
+    "speaker_mapping",
 ]

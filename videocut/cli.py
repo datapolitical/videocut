@@ -10,6 +10,7 @@ from .core import (
     nicholson,
     annotation,
     clip_transcripts,
+    speaker_mapping,
 )
 
 app = typer.Typer(help="VideoCut pipeline")
@@ -20,9 +21,10 @@ def transcribe(
     video: str = typer.Argument("input.mp4", help="Video file to transcribe"),
     diarize: bool = typer.Option(False, help="Perform speaker diarization"),
     hf_token: Optional[str] = typer.Option(None, envvar="HF_TOKEN", help="Hugging Face token for diarization"),
+    speaker_db: Optional[str] = typer.Option(None, help="Speaker embedding database JSON"),
 ):
     """Run WhisperX transcription."""
-    transcription.transcribe(video, hf_token, diarize)
+    transcription.transcribe(video, hf_token, diarize, speaker_db)
 
 
 @app.command()
@@ -61,6 +63,18 @@ def annotate_markup(markup_file: str = "markup_guide.txt", seg_json: str = "segm
 def clip_transcripts_cmd(markup_file: str = "markup_guide.txt", seg_json: str = "segments_to_keep.json", out_file: str = "clip_transcripts.txt"):
     clip_transcripts.clip_transcripts(markup_file, seg_json, out_file)
 
+
+@app.command()
+def build_speaker_db(samples: str, out: str = "speaker_db.json"):
+    """Process WAV samples into a speaker embedding database."""
+    speaker_mapping.build_speaker_db(samples, out)
+
+
+@app.command()
+def map_speakers(video: str, json_file: str, db: str = "speaker_db.json", out: str | None = None):
+    """Apply speaker name mapping to a diarized JSON file."""
+    speaker_mapping.apply_speaker_map(video, json_file, db, out)
+
 @app.command()
 def auto_mark_nicholson(json_file: str, out: str = "segments_to_keep.json"):
     nicholson.auto_mark_nicholson(json_file, out)
@@ -86,9 +100,10 @@ def pipeline(
     diarize: bool = typer.Option(False, help="Perform speaker diarization"),
     hf_token: Optional[str] = typer.Option(None, envvar="HF_TOKEN", help="Hugging Face token for diarization"),
     auto_nicholson: bool = typer.Option(True, help="Automatically mark Secretary Nicholson"),
+    speaker_db: Optional[str] = typer.Option(None, help="Speaker embedding database JSON"),
 ):
     """Run the full pipeline, auto-marking Nicholson by default."""
-    transcription.transcribe(video, hf_token, diarize)
+    transcription.transcribe(video, hf_token, diarize, speaker_db)
     json_file = f"{Path(video).stem}.json"
     if auto_nicholson:
         nicholson.auto_mark_nicholson(json_file, "segments_to_keep.json")

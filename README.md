@@ -41,6 +41,7 @@ HF_TOKEN=your_hf_token_here
 ## Workflow
 
 1. **Transcribe with diarization** – `videocut transcribe input.mp4 --diarize --hf_token $HF_TOKEN` runs WhisperX and produces `markup_guide.txt` and `input.json` with speaker labels.
+   Provide `--speaker-db speakers.json` to map diarized IDs to real names.
 2. **Auto-mark Nicholson** – `videocut auto-mark-nicholson input.json` generates
    `segments_to_keep.json` grouping Nicholson's remarks into coherent segments.
 3. **Review and edit** – optionally run `videocut json-to-editable segments_to_keep.json` and modify the JSON to fine‑tune the clips.
@@ -54,8 +55,11 @@ All of these steps can be executed sequentially with `videocut pipeline input.mp
 ### Example commands
 
 ```bash
+# Build embeddings from known speakers
+videocut build-speaker-db samples/ --out speakers.json
+
 # Transcription with diarization
-videocut transcribe meeting.mp4 --diarize --hf_token $HF_TOKEN
+videocut transcribe meeting.mp4 --diarize --hf_token $HF_TOKEN --speaker-db speakers.json
 
 # Auto-mark Nicholson segments into grouped clips
 videocut auto-mark-nicholson meeting.json
@@ -69,12 +73,15 @@ videocut generate-clips meeting.mp4 --segs segments_to_keep.json
 videocut concatenate --clips_dir clips --out final.mp4
 videocut annotate-markup
 videocut clip-transcripts
+
+# Map speakers after transcription
+videocut map-speakers meeting.mp4 meeting.json --db speakers.json
 ```
 
 ## Package layout
 
 - `videocut/cli.py` – Typer command line interface
-- `videocut/core/` – modular helpers (`transcription.py`, `segmentation.py`, `video_editing.py`, `nicholson.py`, `annotation.py`, `clip_transcripts.py`)
+- `videocut/core/` – modular helpers (`transcription.py`, `segmentation.py`, `video_editing.py`, `nicholson.py`, `annotation.py`, `clip_transcripts.py`, `speaker_mapping.py`)
 - `videos/` – example data used for testing the pipeline
 
 WhisperX and FFmpeg must be installed separately.  Once those are available, the `videocut` command can automate cutting long meeting videos into polished clips.
