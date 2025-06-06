@@ -1,0 +1,156 @@
+[
+  {
+    "id": 1,
+    "start": 73.471,
+    "end": 74.532,
+    "Timestamp": "[73.471-74.532]",
+    "content": "",
+    "speaker": "",
+    "pre": [],
+    "post": [],
+    "keep": false
+  },
+  {
+    "id": 2,
+    "start": 76.575,
+    "end": 77.977,
+    "Timestamp": "[76.575-77.977]",
+    "content": "",
+    "speaker": "",
+    "pre": [],
+    "post": [],
+    "keep": false
+  },
+  {
+    "id": 3,
+    "start": 78.377,
+    "end": 85.406,
+    "Timestamp": "[78.377-85.406]",
+    "content": "",
+    "speaker": "",
+    "pre": [],
+    "post": [],
+    "keep": false
+  },
+  {
+    "id": 4,
+    "start": 87.469,
+    "end": 92.916,
+    "Timestamp": "[87.469-92.916]",
+    "content": "",
+    "speaker": "",
+    "pre": [],
+    "post": [],
+    "keep": false
+  },
+  {
+    "id": 5,
+    "start": 93.997,
+    "end": 96.981,
+    "Timestamp": "[93.997-96.981]",
+    "content": "",
+    "speaker": "",
+    "pre": [],
+    "post": [],
+    "keep": false
+  },
+  {
+    "id": 6,
+    "start": 97.079,
+    "end": 105.54,
+    "Timestamp": "[97.079-105.54]",
+    "content": "",
+    "speaker": "",
+    "pre": [],
+    "post": [],
+    "keep": false
+  },
+  {
+    "id": 7,
+    "start": 105.6,
+    "end": 112.036,
+    "Timestamp": "[105.6-112.036]",
+    "content": "",
+    "speaker": "",
+    "pre": [],
+    "post": [],
+    "keep": false
+  },
+  {
+    "id": 8,
+    "start": 112.076,
+    "end": 113.62,
+    "Timestamp": "[112.076-113.62]",
+    "content": "",
+    "speaker": "",
+    "pre": [],
+    "post": [],
+    "keep": false
+  },
+  {
+    "id": 9,
+    "start": 114.292,
+    "end": 118.021,
+    "Timestamp": "[114.292-118.021]",
+    "content": "",
+    "speaker": "",
+    "pre": [],
+    "post": [],
+    "keep": false
+  },
+  {
+    "id": 10,
+    "start": 118.041,
+    "end": 121.168,
+    "Timestamp": "[118.041-121.168]",
+    "content": "",
+    "speaker": "",
+    "pre": [],
+    "post": [],
+    "keep": false
+  },
+  {
+    "id": 11,
+    "start": 122.15,
+    "end": 129.347,
+    "Timestamp": "[122.15-129.347]",
+    "content": "",
+    "speaker": "",
+    "pre": [],
+    "post": [],
+    "keep": false
+  },
+  {
+    "id": 12,
+    "start": 130.002,
+    "end": 139.064,
+    "Timestamp": "[130.002-139.064]",
+    "content": "",
+    "speaker": "",
+    "pre": [],
+    "post": [],
+    "keep": false
+  },
+  {
+    "id": 13,
+    "start": 139.866,
+    "end": 149.308,
+    "Timestamp": "[139.866-149.308]",
+    "content": "",
+    "speaker": "",
+    "pre": [],
+    "post": [],
+    "keep": false
+  },
+  {
+    "id": 14,
+    "start": 150.19,
+    "end": 155.503,
+    "Timestamp": "[150.19-155.503]",
+    "content": "",
+    "speaker": "",
+    "pre": [],
+    "post": [],
+    "keep": false
+  }
+]
