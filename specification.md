@@ -10,12 +10,11 @@ VideoCut implements a video-editing pipeline driven by transcript data. The work
 
 High-level workflow:
 
-1. **Transcribe** – produce a JSON transcript and `markup_guide.txt`.
-2. **Prepare** – convert the transcript to an editable format (TSV or JSON).
-3. **Mark clips** – mark segments to keep either manually or using automatic detection.
-4. **Generate clips** – cut clips with fade-in/out.
-5. **Concatenate** – join clips together with white flashes in between.
-6. **Optional utilities** – annotate markup with `{START}`/`{END}` markers and generate a transcript summary of long clips.
+1. **Transcribe with diarization** – produce a speaker-labeled JSON transcript and `markup_guide.txt`.
+2. **Auto-mark Nicholson** – create `segments_to_keep.json` selecting Secretary Nicholson's speech. The JSON can be manually edited or converted to an editable format after this step.
+3. **Generate clips** – cut clips with fade-in/out.
+4. **Concatenate** – join clips together with white flashes in between.
+5. **Optional utilities** – annotate markup with `{START}`/`{END}` markers and generate a transcript summary of long clips.
 
 ---
 
@@ -79,7 +78,7 @@ Each script wraps one of the core functions, exposing a single command-line step
 
 ## 5. Monolithic Wrappers
 
-A single command-line interface can run the entire pipeline with flags to enable or disable each step and optionally invoke automatic Nicholson detection.
+A single command-line interface can run the entire pipeline with flags to enable or disable each step. The default behavior is to auto‑mark Nicholson segments immediately after transcription, producing `segments_to_keep.json`. Manual editing of this file can be done before generating clips, and the auto‑mark step can be skipped via a flag.
 
 ---
 

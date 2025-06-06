@@ -1,7 +1,7 @@
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 import pytest
-from auto_segment_nicholson import find_nicholson_speaker
+from videocut.core.nicholson import find_nicholson_speaker
 
 
 def test_find_nicholson_speaker_none():

@@ -1,70 +1,76 @@
-#!/usr/bin/env python3
-"""auto_segment_nicholson.py
-
-Generate ``segments_to_keep.json`` automatically for Secretary Nicholson based
-on a diarized WhisperX JSON file.
-
-The :func:`segment_nicholson` helper can be imported by other tools. Running the
-file directly behaves the same as before:
-
-```
-python3 auto_segment_nicholson.py input.json output.json
-```
-"""
+"""Nicholson segmentation helpers."""
+from __future__ import annotations
 import json
 import re
 import sys
 from pathlib import Path
+from typing import Dict, List
 
-# We'll import map_nicholson_speaker for fallback
-from videocut.core.clip_utils import map_nicholson_speaker
+# Key phrases for speaker identification
+_NICHOLSON_KEY_PHRASES = {
+    "secretary nicholson",
+    "director nicholson",
+    "nicholson, for the record",
+}
 
-TRAIL_SEC = 30  # trailing context after end
-PRE_SEC = 5     # lines to capture before start
-
-# Cues indicating the meeting moved on
-_END_PATTERNS = [
-    r"\bthank you\b",
-    r"\bnext item\b",
-    r"\bmove on\b",
-    r"\bdirector\b",
-    r"\bchair\b",
-]
+_END_PATTERNS = [r"\bthank you\b", r"\bnext item\b", r"\bmove on\b", r"\bdirector\b", r"\bchair\b"]
 _END_RE = re.compile("|".join(_END_PATTERNS), re.IGNORECASE)
-
 _TS_RE = re.compile(r"^\s*\[(?P<start>\d+\.?\d*)[–-](?P<end>\d+\.?\d*)\]\s*(?P<rest>.*)")
-
 _ROLL_RE = re.compile(r"roll call", re.IGNORECASE)
 _NICH_ITEM_RE = re.compile(r"nicholson", re.IGNORECASE)
 
+TRAIL_SEC = 30
+PRE_SEC = 5
 
-def load_markup(path: Path) -> list[dict]:
-    if not path.exists():
-        return []
+
+def map_nicholson_speaker(diarized_json: str) -> str:
+    """Return the WhisperX speaker label matching Nicholson."""
+    data = json.loads(Path(diarized_json).read_text())
+    counts: Dict[str, int] = {}
+    for seg in data["segments"]:
+        spk = seg.get("speaker")
+        if not spk:
+            continue
+        text_l = seg["text"].lower()
+        if any(p in text_l for p in _NICHOLSON_KEY_PHRASES):
+            counts[spk] = counts.get(spk, 0) + 1
+    if not counts:
+        raise RuntimeError("Nicholson phrases not found – update key phrases or re-check diarization.")
+    best = max(counts, key=counts.get)
+    print(f"🔍  Identified Secretary Nicholson as {best} (matches={counts[best]})")
+    return best
+
+
+def auto_segments_for_speaker(diarized_json: str, speaker_id: str, out_json: str = "segments_to_keep.json") -> None:
+    """Dump every segment spoken by *speaker_id* into JSON."""
+    data = json.loads(Path(diarized_json).read_text())
+    segs = [{"start": seg["start"], "end": seg["end"]} for seg in data["segments"] if seg.get("speaker") == speaker_id]
+    Path(out_json).write_text(json.dumps(segs, indent=2))
+    print(f"✅  {len(segs)} Nicholson segment(s) → {out_json}")
+
+
+def auto_mark_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json") -> None:
+    """End-to-end helper to create JSON for Nicholson clips."""
+    spk = map_nicholson_speaker(diarized_json)
+    auto_segments_for_speaker(diarized_json, spk, out_json)
+
+
+def load_markup(path: Path) -> List[dict]:
     lines = []
     for line in path.read_text().splitlines():
         m = _TS_RE.match(line)
         if not m:
             continue
-        lines.append({
-            "start": float(m.group("start")),
-            "end": float(m.group("end")),
-            "line": line,
-        })
+        lines.append({"start": float(m.group("start")), "end": float(m.group("end")), "line": line})
     return lines
 
 
-def collect_pre(segs: list[dict], start: float) -> list[str]:
+def collect_pre(segs: List[dict], start: float) -> List[str]:
     window = start - PRE_SEC
     return [s["line"] for s in segs if s["end"] <= start and s["end"] >= window]
 
 
-def collect_post(segs: list[dict], end: float, next_start: float | None = None) -> list[str]:
-    """Grab transcript lines following a segment.
-
-    Lines are collected until either ``TRAIL_SEC`` seconds pass or the next
-    Nicholson segment begins.
-    """
+def collect_post(segs: List[dict], end: float, next_start: float | None = None) -> List[str]:
     window = end + TRAIL_SEC
     out = []
     for l in segs:
@@ -78,17 +84,14 @@ def collect_post(segs: list[dict], end: float, next_start: float | None = None) 
     return out
 
 
-def trim_segment(start: float, end: float, markup: list[dict]) -> tuple[float, list[str]]:
-    """Trim roll calls unrelated to Nicholson."""
+def trim_segment(start: float, end: float, markup: List[dict]) -> tuple[float, List[str]]:
     lines = [l for l in markup if l["start"] < end and l["end"] > start]
-
     for l in lines:
         if _ROLL_RE.search(l["line"]):
             prev = [p for p in markup if p["end"] <= l["start"] and p["end"] >= l["start"] - 60]
             if not any(_NICH_ITEM_RE.search(p["line"]) for p in prev):
                 end = min(end, l["start"])
                 break
-
     trimmed = [l["line"] for l in markup if l["start"] < end and l["end"] > start]
     return end, trimmed
 
@@ -97,14 +100,12 @@ def should_end(text: str) -> bool:
     return bool(_END_RE.search(text))
 
 
-def find_nicholson_speaker(segments):
-    """Heuristic search for Nicholson's speaker ID."""
+def find_nicholson_speaker(segments: List[dict]) -> str | None:
     cues = [
-        "i have secretary nicholson",  # chair recognizes him next
-        "thank you very much, secretary nicholson",  # responses to his question
-        "nicholson, do i have",  # motion/second requests
+        "i have secretary nicholson",
+        "thank you very much, secretary nicholson",
+        "nicholson, do i have",
     ]
-
     for i, seg in enumerate(segments):
         txt = seg.get("text", "").lower()
         if any(c in txt for c in cues):
@@ -113,8 +114,6 @@ def find_nicholson_speaker(segments):
                 j += 1
             if j < len(segments):
                 return segments[j]["speaker"]
-
-    # Fallback: search for generic mentions and pick the last candidate
     candidate = None
     for i, seg in enumerate(segments):
         txt = seg.get("text", "").lower()
@@ -128,7 +127,6 @@ def find_nicholson_speaker(segments):
 
 
 def segment_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json") -> None:
-    """Generate a segments file for Secretary Nicholson."""
     in_path = Path(diarized_json)
     out_path = Path(out_json)
     markup_path = in_path.with_name("markup_guide.txt")
@@ -144,8 +142,6 @@ def segment_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json
     print(f"🔍  Secretary Nicholson identified as {nicholson_id}")
 
     results = []
-
-    # Build list of indices where Nicholson speaks
     n_idx = [i for i, seg in enumerate(segs) if seg.get("speaker") == nicholson_id]
     if not n_idx:
         out_path.write_text("[]")
@@ -178,7 +174,6 @@ def segment_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json
                 break
             end_time = float(seg["end"])
             j += 1
-
         if j < len(segs):
             next_start = float(segs[j]["start"])
             end_time = min(end_time + TRAIL_SEC, next_start)
@@ -201,12 +196,10 @@ def segment_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json
     out_path.write_text(json.dumps(results, indent=2))
     print(f"✅  {len(results)} segments → {out_path}")
 
-
-def main() -> None:
-    in_path = sys.argv[1] if len(sys.argv) > 1 else "input.json"
-    out_path = sys.argv[2] if len(sys.argv) > 2 else "segments_to_keep.json"
-    segment_nicholson(in_path, out_path)
-
-
-if __name__ == "__main__":
-    main()
+__all__ = [
+    "map_nicholson_speaker",
+    "auto_segments_for_speaker",
+    "auto_mark_nicholson",
+    "find_nicholson_speaker",
+    "segment_nicholson",
+]
