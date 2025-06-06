@@ -16,7 +16,11 @@ app = typer.Typer(help="VideoCut pipeline")
 
 
 @app.command()
-def transcribe(video: str = "input.mp4", diarize: bool = False, hf_token: Optional[str] = None):
+def transcribe(
+    video: str = typer.Argument("input.mp4", help="Video file to transcribe"),
+    diarize: bool = typer.Option(False, help="Perform speaker diarization"),
+    hf_token: Optional[str] = typer.Option(None, envvar="HF_TOKEN", help="Hugging Face token for diarization"),
+):
     """Run WhisperX transcription."""
     transcription.transcribe(video, hf_token, diarize)
 
@@ -59,7 +63,11 @@ def auto_mark_nicholson(json_file: str, out: str = "segments_to_keep.json"):
 
 
 @app.command()
-def generate_clips(video: str = "input.mp4", segs: str = "segments_to_keep.json", out_dir: str = "clips"):
+def generate_clips(
+    video: str = typer.Argument("input.mp4", help="Source video"),
+    segs: str = typer.Option("segments_to_keep.json", help="Segments JSON"),
+    out_dir: str = typer.Option("clips", help="Output directory for clips"),
+):
     video_editing.generate_clips(video, segs, out_dir)
 
 
@@ -70,10 +78,10 @@ def concatenate(clips_dir: str = "clips", out: str = "final_video.mp4"):
 
 @app.command()
 def pipeline(
-    video: str = "input.mp4",
-    diarize: bool = False,
-    hf_token: Optional[str] = None,
-    auto_nicholson: bool = True,
+    video: str = typer.Argument("input.mp4", help="Input video file"),
+    diarize: bool = typer.Option(False, help="Perform speaker diarization"),
+    hf_token: Optional[str] = typer.Option(None, envvar="HF_TOKEN", help="Hugging Face token for diarization"),
+    auto_nicholson: bool = typer.Option(True, help="Automatically mark Secretary Nicholson"),
 ):
     """Run the full pipeline, auto-marking Nicholson by default."""
     transcription.transcribe(video, hf_token, diarize)
