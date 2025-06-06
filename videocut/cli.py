@@ -72,5 +72,10 @@ def pipeline(
     video_editing.concatenate_clips("clips", "final_video.mp4")
 
 
-if __name__ == "__main__":
+def main() -> None:
+    """Run the Typer application."""
     app()
+
+
+if __name__ == "__main__":
+    main()
