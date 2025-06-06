@@ -19,6 +19,13 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
+If you already have transcripts and want to skip WhisperX's heavy install,
+install only the lightweight dependencies instead:
+
+```bash
+pip install -r no_transcribe_requirements.txt
+```
+
 Verify the CLI loads properly:
 
 ```bash
