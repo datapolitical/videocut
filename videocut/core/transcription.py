@@ -4,6 +4,7 @@ import json
 import platform
 import subprocess
 import sys
+import os
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -39,7 +40,9 @@ def transcribe(
         cmd += ["--diarize", "--hf_token", hf_token]
 
     print("🧠  WhisperX …")
-    subprocess.run(cmd, check=True)
+    env = os.environ.copy()
+    env.setdefault("PYTHONWARNINGS", "ignore")
+    subprocess.run(cmd, check=True, env=env)
     if not Path(out_json).exists():
         sys.exit(f"❌  Expected {out_json} not produced")
 

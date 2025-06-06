@@ -17,7 +17,7 @@ def test_transcribe_creates_markup(tmp_path, monkeypatch):
 
     calls = {}
 
-    def fake_run(cmd, check):
+    def fake_run(cmd, check, env=None):
         calls["cmd"] = cmd
         json_out.write_text(json.dumps({"segments": [{"start": 0, "end": 1, "text": "hi"}]}))
         return SimpleNamespace(returncode=0)
@@ -39,7 +39,7 @@ def test_generate_clips_invokes_ffmpeg(tmp_path, monkeypatch):
 
     calls = {"run": [], "build": []}
 
-    def fake_run(cmd, check):
+    def fake_run(cmd, check, env=None):
         calls["run"].append(cmd)
         Path(cmd[-1]).write_text("tmp")
 
