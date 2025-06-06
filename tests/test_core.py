@@ -8,8 +8,8 @@ from types import SimpleNamespace
 
 import pytest
 
-import videocut.core.transcribe as transcribe_mod
-import videocut.core.clip_utils as clip_utils
+import videocut.core.transcription as transcribe_mod
+import videocut.core.video_editing as video_editing
 
 
 def test_transcribe_creates_markup(tmp_path, monkeypatch):
@@ -48,10 +48,10 @@ def test_generate_clips_invokes_ffmpeg(tmp_path, monkeypatch):
         dst.write_text("done")
 
     monkeypatch.chdir(tmp_path)
-    monkeypatch.setattr(clip_utils.subprocess, "run", fake_run)
-    monkeypatch.setattr(clip_utils, "_build_faded_clip", fake_build)
+    monkeypatch.setattr(video_editing.subprocess, "run", fake_run)
+    monkeypatch.setattr(video_editing, "_build_faded_clip", fake_build)
 
-    clip_utils.generate_clips("vid.mp4", str(seg_file), "clips")
+    video_editing.generate_clips("vid.mp4", str(seg_file), "clips")
 
     assert calls["run"]  # ffmpeg called
     assert calls["build"]  # faded clip built
