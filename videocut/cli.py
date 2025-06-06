@@ -2,7 +2,14 @@
 from __future__ import annotations
 from pathlib import Path
 import typer
-from .core import transcription, segmentation, video_editing, nicholson
+from .core import (
+    transcription,
+    segmentation,
+    video_editing,
+    nicholson,
+    annotation,
+    clip_transcripts,
+)
 
 app = typer.Typer(help="VideoCut pipeline")
 
@@ -10,7 +17,6 @@ app = typer.Typer(help="VideoCut pipeline")
 @app.command()
 def transcribe(video: str = "input.mp4", diarize: bool = False, hf_token: str | None = None):
     """Run WhisperX transcription."""
-    transcription.transcribe(video, hf_token, diarize)
 
 
 @app.command()
@@ -37,6 +43,13 @@ def identify_clips_json(edit_json: str = "segments_edit.json", out: str = "segme
 def extract_marked(markup: str = "markup_guide.txt", out: str = "segments_to_keep.json"):
     segmentation.extract_marked(markup, out)
 
+@app.command()
+def annotate_markup(markup_file: str = "markup_guide.txt", seg_json: str = "segments_to_keep.json", out_file: str = "markup_with_markers.txt"):
+    annotation.annotate_segments(markup_file, seg_json, out_file)
+
+@app.command()
+def clip_transcripts_cmd(markup_file: str = "markup_guide.txt", seg_json: str = "segments_to_keep.json", out_file: str = "clip_transcripts.txt"):
+    clip_transcripts.clip_transcripts(markup_file, seg_json, out_file)
 
 @app.command()
 def auto_mark_nicholson(json_file: str, out: str = "segments_to_keep.json"):

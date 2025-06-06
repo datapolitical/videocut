@@ -38,6 +38,8 @@ HF_TOKEN=your_hf_token_here
 3. **Review and edit** – optionally run `videocut json-to-editable segments_to_keep.json` and modify the JSON to fine‑tune the clips.
 4. **Generate clips** – `videocut generate-clips input.mp4` cuts clips into a `clips/` directory.
 5. **Concatenate** – `videocut concatenate` stitches the clips together with white flashes.
+6. **Annotate markup** – `videocut annotate-markup` creates `markup_with_markers.txt` showing kept segments in context.
+7. **Clip transcripts** – `videocut clip-transcripts` summarizes the transcript lines for each long clip.
 
 All of these steps can be executed sequentially with `videocut pipeline input.mp4 --diarize --hf_token $HF_TOKEN` which auto‑marks Nicholson by default.
 
@@ -57,12 +59,14 @@ videocut json-to-editable segments_to_keep.json --out segments_edit.json
 # Cut clips and assemble the final video
 videocut generate-clips meeting.mp4 --segs segments_to_keep.json
 videocut concatenate --clips_dir clips --out final.mp4
+videocut annotate-markup
+videocut clip-transcripts
 ```
 
 ## Package layout
 
 - `videocut/cli.py` – Typer command line interface
-- `videocut/core/` – modular helpers (`transcription.py`, `segmentation.py`, `video_editing.py`, `nicholson.py`)
+- `videocut/core/` – modular helpers (`transcription.py`, `segmentation.py`, `video_editing.py`, `nicholson.py`, `annotation.py`, `clip_transcripts.py`)
 - `videos/` – example data used for testing the pipeline
 
 WhisperX and FFmpeg must be installed separately.  Once those are available, the `videocut` command can automate cutting long meeting videos into polished clips.
