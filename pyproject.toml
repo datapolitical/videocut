@@ -17,3 +17,6 @@ dependencies = [
 
 [project.scripts]
 videocut = "videocut.cli:main"
+
+[tool.setuptools.packages.find]
+exclude = ["videos*"]

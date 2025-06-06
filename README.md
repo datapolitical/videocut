@@ -19,6 +19,12 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
+Verify the CLI loads properly:
+
+```bash
+videocut --help
+```
+
 Speaker diarization requires a Hugging Face access token.  Set `HF_TOKEN` in your environment or in a `.env` file:
 
 ```bash
