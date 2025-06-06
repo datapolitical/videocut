@@ -94,3 +94,30 @@ def test_cli_commands(tmp_path):
     out3 = tmp_path / "keep3.json"
     videocut_cli.auto_mark_nicholson(json_file=str(diarized), out=str(out3))
     assert out3.exists()
+
+
+def test_json_to_editable_list(tmp_path, capsys):
+    raw = tmp_path / "raw.json"
+    raw.write_text(json.dumps([{"start": 0, "end": 1, "text": "hi"}]))
+    out = tmp_path / "edit.json"
+
+    segmentation.json_to_editable(str(raw), str(out))
+
+    result = json.loads(out.read_text())
+    assert result[0]["id"] == 1
+    assert result[0]["content"] == "hi"
+    assert "keep" in result[0]
+    assert "✅" in capsys.readouterr().out
+
+
+def test_json_to_tsv_list(tmp_path, capsys):
+    raw = tmp_path / "raw.json"
+    raw.write_text(json.dumps([{"start": 0, "end": 1, "speaker": "S", "text": "hi"}]))
+    out = tmp_path / "out.tsv"
+
+    segmentation.json_to_tsv(str(raw), str(out))
+
+    lines = out.read_text().splitlines()
+    assert lines[0] == "start\tend\tspeaker\ttext\tkeep"
+    assert lines[1].startswith("0\t1\tS\thi\t")
+    assert "✅" in capsys.readouterr().out

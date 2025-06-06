@@ -10,7 +10,7 @@ from typing import Dict, List
 def json_to_tsv(json_path: str, out_tsv: str = "input.tsv") -> None:
     """Convert WhisperX JSON to TSV for spreadsheet editing."""
     data = json.loads(Path(json_path).read_text())
-    segs = data.get("segments", data)
+    segs = data if isinstance(data, list) else data.get("segments", data)
     with open(out_tsv, "w", newline="") as f:
         wr = csv.writer(f, delimiter="\t")
         wr.writerow(["start", "end", "speaker", "text", "keep"])
@@ -28,7 +28,7 @@ def json_to_tsv(json_path: str, out_tsv: str = "input.tsv") -> None:
 def json_to_editable(json_path: str, out_json: str = "segments_edit.json") -> None:
     """Create an editable JSON with keep flag and context fields."""
     data = json.loads(Path(json_path).read_text())
-    segs_in = data.get("segments", data)
+    segs_in = data if isinstance(data, list) else data.get("segments", data)
     segs: List[Dict] = []
     for i, seg in enumerate(segs_in, 1):
         segs.append({
