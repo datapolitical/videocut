@@ -41,7 +41,8 @@ HF_TOKEN=your_hf_token_here
 ## Workflow
 
 1. **Transcribe with diarization** – `videocut transcribe input.mp4 --diarize --hf_token $HF_TOKEN` runs WhisperX and produces `markup_guide.txt` and `input.json` with speaker labels.
-2. **Auto-mark Nicholson** – `videocut auto-mark-nicholson input.json` generates `segments_to_keep.json` selecting Secretary Nicholson's speech.
+2. **Auto-mark Nicholson** – `videocut auto-mark-nicholson input.json` generates
+   `segments_to_keep.json` grouping Nicholson's remarks into coherent segments.
 3. **Review and edit** – optionally run `videocut json-to-editable segments_to_keep.json` and modify the JSON to fine‑tune the clips.
 4. **Generate clips** – `videocut generate-clips input.mp4` cuts clips into a `clips/` directory.
 5. **Concatenate** – `videocut concatenate` stitches the clips together with white flashes.
@@ -56,7 +57,7 @@ All of these steps can be executed sequentially with `videocut pipeline input.mp
 # Transcription with diarization
 videocut transcribe meeting.mp4 --diarize --hf_token $HF_TOKEN
 
-# Auto-mark Nicholson segments
+# Auto-mark Nicholson segments into grouped clips
 videocut auto-mark-nicholson meeting.json
 
 # (Optional) tweak the segments
