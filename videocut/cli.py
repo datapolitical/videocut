@@ -71,7 +71,7 @@ def build_speaker_db(samples: str, out: str = "speaker_db.json"):
 
 
 @app.command()
-def map_speakers(video: str, json_file: str, db: str = "speaker_db.json", out: str | None = None):
+def map_speakers(video: str, json_file: str, db: str = "speaker_db.json", out: Optional[str] = None):
     """Apply speaker name mapping to a diarized JSON file."""
     speaker_mapping.apply_speaker_map(video, json_file, db, out)
 
