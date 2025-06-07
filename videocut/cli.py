@@ -2,6 +2,7 @@
 from __future__ import annotations
 from pathlib import Path
 from typing import Optional
+import json
 import typer
 from .core import (
     transcription,
@@ -81,6 +82,41 @@ def auto_mark_nicholson(json_file: str, out: str = "segments_to_keep.json"):
 
 
 @app.command()
+def identify_speakers(
+    diarized_json: str,
+    mapping: str,
+    out: str = "speaker_map.json",
+):
+    """Map named people to diarized speaker IDs based on key phrases."""
+    phrase_map = json.loads(Path(mapping).read_text())
+    ids = nicholson.map_speaker_by_phrases(diarized_json, phrase_map)
+    Path(out).write_text(json.dumps(ids, indent=2))
+    print(f"✅  speaker map → {out}")
+
+
+@app.command()
+def identify_recognized(
+    diarized_json: str,
+    out: str = "recognized_map.json",
+):
+    """Automatically map recognized names to speaker IDs."""
+    ids = nicholson.map_recognized_auto(diarized_json)
+    Path(out).write_text(json.dumps(ids, indent=2))
+    print(f"✅  recognized map → {out}")
+
+
+@app.command()
+def apply_speaker_labels(
+    diarized_json: str,
+    map_json: str,
+    out: str = "labeled.json",
+):
+    """Write a copy of diarized_json with speaker names in a 'label' field."""
+    mapping = json.loads(Path(map_json).read_text())
+    nicholson.add_speaker_labels(diarized_json, mapping, out)
+
+
+@app.command()
 def generate_clips(
     video: str = typer.Argument("input.mp4", help="Source video"),
     segs: str = typer.Option("segments_to_keep.json", help="Segments JSON"),
@@ -105,6 +141,15 @@ def pipeline(
     """Run the full pipeline, auto-marking Nicholson by default."""
     transcription.transcribe(video, hf_token, diarize, speaker_db)
     json_file = f"{Path(video).stem}.json"
+
+    if diarize:
+        try:
+            ids = nicholson.map_recognized_auto(json_file)
+            Path("recognized_map.json").write_text(json.dumps(ids, indent=2))
+            print("✅  recognized map → recognized_map.json")
+        except Exception as exc:
+            print(f"⚠️  automatic recognition failed: {exc}")
+
     if auto_nicholson:
         nicholson.auto_mark_nicholson(json_file, "segments_to_keep.json")
     else:
