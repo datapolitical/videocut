@@ -41,6 +41,227 @@ def map_nicholson_speaker(diarized_json: str) -> str:
     return best
 
 
+def map_speaker_by_phrases(diarized_json: str, phrase_map: Dict[str, List[str]]) -> Dict[str, str]:
+    """Return WhisperX speaker IDs for each name in *phrase_map*.
+
+    The *phrase_map* argument maps a display name to one or more key phrases
+    uniquely spoken by that person. Each speaker ID is chosen by counting which
+    diarized speaker label says the most of that person's phrases, following the
+    same strategy as :func:`map_nicholson_speaker`.
+    """
+
+    data = json.loads(Path(diarized_json).read_text())
+    segments = data["segments"]
+    result: Dict[str, str] = {}
+
+    for name, phrases in phrase_map.items():
+        counts: Dict[str, int] = {}
+        phr_lower = [p.lower() for p in phrases]
+        for seg in segments:
+            spk = seg.get("speaker")
+            if not spk:
+                continue
+            text_l = seg.get("text", "").lower()
+            if any(p in text_l for p in phr_lower):
+                counts[spk] = counts.get(spk, 0) + 1
+        if not counts:
+            raise RuntimeError(
+                f"Phrases for {name} not found – update key phrases or re-check diarization."
+            )
+        best = max(counts, key=counts.get)
+        print(f"🔍  Identified {name} as {best} (matches={counts[best]})")
+        result[name] = best
+
+    return result
+
+
+def map_recognized_speakers(
+    diarized_json: str,
+    chair_id: str,
+    recognition_map: Dict[str, List[str]],
+) -> Dict[str, str]:
+    """Return speaker IDs for names the chair recognizes.
+
+    Each entry in *recognition_map* maps a person's name to phrases that appear
+    in the chair's dialog when they are recognized. The diarized speaker who
+    talks next after such a phrase is counted as that person, and the speaker ID
+    with the most counts for each name is returned.
+    """
+
+    data = json.loads(Path(diarized_json).read_text())
+    segments = data["segments"]
+    counts: Dict[str, Dict[str, int]] = {name: {} for name in recognition_map}
+
+    for i, seg in enumerate(segments):
+        if seg.get("speaker") != chair_id:
+            continue
+        text_l = seg.get("text", "").lower()
+        for name, phrases in recognition_map.items():
+            if any(p.lower() in text_l for p in phrases):
+                j = i + 1
+                while j < len(segments) and segments[j].get("speaker") == chair_id:
+                    j += 1
+                if j < len(segments):
+                    spk = segments[j].get("speaker")
+                    sub = counts[name]
+                    sub[spk] = sub.get(spk, 0) + 1
+                break
+
+    result: Dict[str, str] = {}
+    for name, spk_counts in counts.items():
+        if not spk_counts:
+            raise RuntimeError(
+                f"Recognition phrases for {name} not found – update key phrases or re-check diarization."
+            )
+        best = max(spk_counts, key=spk_counts.get)
+        print(f"🔍  Recognized {name} as {best} (matches={spk_counts[best]})")
+        result[name] = best
+
+    return result
+
+
+_AUTO_RECOG_RE = re.compile(
+    r"(?i:(?:director|secretary|chair|treasurer|mr|ms|mrs))\.?\s*(?P<name>[a-zA-Z]+(?: [a-zA-Z]+)*)\s+(?:you(?:'re| are)|is) recognized",
+)
+
+# "You're recognized" without a name
+_RECOG_SIMPLE_RE = re.compile(r"you(?:'re| are) recognized", re.IGNORECASE)
+
+# Name mentioned before a recognition cue
+_NAME_BEFORE_RE = re.compile(
+    r"(?i:(?:director|secretary|chair|treasurer|mr|ms|mrs))\.?\s+(?P<name>[A-Za-z]+(?: [A-Za-z]+)?)\b",
+)
+
+# Chair mentions without a recognition phrase
+_NAME_MENTION_RE = _NAME_BEFORE_RE
+
+
+def map_recognized_auto(diarized_json: str) -> Dict[str, str]:
+    """Infer recognized speakers directly from diarized text.
+
+    The function searches for phrases such as "director Doe you're recognized".
+    The next speaker after the phrase is counted as the recognized person. The
+    most frequent speaker ID for each detected name is returned.
+    """
+
+    data = json.loads(Path(diarized_json).read_text())
+    segments = data["segments"]
+
+    chair_counts: Dict[str, int] = {}
+    for seg in segments:
+        spk = seg.get("speaker")
+        if not spk:
+            continue
+        text = seg.get("text", "")
+        if _RECOG_SIMPLE_RE.search(text) or _NAME_MENTION_RE.search(text):
+            chair_counts[spk] = chair_counts.get(spk, 0) + 1
+
+    if not chair_counts:
+        raise RuntimeError("Unable to detect chair from transcript")
+
+    chair_id = max(chair_counts, key=chair_counts.get)
+
+    counts: Dict[str, Dict[str, int]] = {}
+
+    for i, seg in enumerate(segments):
+        if seg.get("speaker") != chair_id:
+            continue
+
+        text = seg.get("text", "")
+        name = None
+
+        m = _AUTO_RECOG_RE.search(text)
+        if m:
+            name = m.group("name").title()
+        elif _RECOG_SIMPLE_RE.search(text):
+            back_text = []
+            j = i - 1
+            while j >= 0 and len(back_text) < 3 and segments[j].get("speaker") == chair_id:
+                back_text.insert(0, segments[j].get("text", ""))
+                j -= 1
+            joined = " ".join(back_text)
+            matches = list(_NAME_MENTION_RE.finditer(joined))
+            if matches:
+                raw = matches[-1].group("name")
+                parts = raw.split()
+                if (
+                    raw[0].isalpha()
+                    and len(raw) > 1
+                    and parts[0].lower() not in {"on", "at", "any", "the"}
+                    and not (
+                        len(parts) > 1 and parts[1].lower() in {"and", "as", "is", "would", "the", "or"}
+                    )
+                ):
+                    if len(parts) == 2 and not parts[1][0].isupper():
+                        pass
+                    else:
+                        name = raw.title()
+        else:
+            m2 = _NAME_MENTION_RE.search(text)
+            if m2:
+                raw = m2.group("name")
+                parts = raw.split()
+                if (
+                    raw[0].isalpha()
+                    and len(raw) > 1
+                    and parts[0].lower() not in {"on", "at", "any", "the"}
+                    and not (
+                        len(parts) > 1 and parts[1].lower() in {"and", "as", "is", "would", "the", "or"}
+                    )
+                ):
+                    if len(parts) == 2 and not parts[1][0].isupper():
+                        pass
+                    else:
+                        name = raw.title()
+
+        if not name:
+            continue
+
+        j = i + 1
+        while j < len(segments) and segments[j].get("speaker") == chair_id:
+            j += 1
+        if j < len(segments):
+            spk = segments[j].get("speaker")
+            if spk:
+                sub = counts.setdefault(name, {})
+                sub[spk] = sub.get(spk, 0) + 1
+
+    if not counts:
+        raise RuntimeError("No recognition cues found – unable to map speakers.")
+
+    result: Dict[str, str] = {}
+    for name, spk_counts in counts.items():
+        best = max(spk_counts, key=spk_counts.get)
+        print(f"🔍  Recognized {name} as {best} (matches={spk_counts[best]})")
+        result[name] = best
+
+    return result
+
+
+def add_speaker_labels(
+    diarized_json: str,
+    id_map: Dict[str, str],
+    out_json: str = "labeled.json",
+) -> None:
+    """Write a copy of *diarized_json* with name labels added.
+
+    The *id_map* argument maps display names to WhisperX speaker IDs. Each
+    segment whose ``speaker`` matches an ID gets a ``label`` field with the
+    corresponding name.
+    """
+
+    data = json.loads(Path(diarized_json).read_text())
+    segments = data["segments"]
+    inv = {v: k for k, v in id_map.items()}
+    for seg in segments:
+        spk = seg.get("speaker")
+        name = inv.get(spk)
+        if name:
+            seg["label"] = name
+    Path(out_json).write_text(json.dumps(data, indent=2))
+    print(f"✅  labels added → {out_json}")
+
+
 def auto_segments_for_speaker(diarized_json: str, speaker_id: str, out_json: str = "segments_to_keep.json") -> None:
     """Dump every segment spoken by *speaker_id* into JSON."""
     data = json.loads(Path(diarized_json).read_text())
@@ -199,6 +420,10 @@ def segment_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json
 
 __all__ = [
     "map_nicholson_speaker",
+    "map_speaker_by_phrases",
+    "map_recognized_speakers",
+    "map_recognized_auto",
+    "add_speaker_labels",
     "auto_segments_for_speaker",
     "auto_mark_nicholson",
     "find_nicholson_speaker",
