@@ -100,13 +100,13 @@ def test_add_speaker_labels(tmp_path):
     assert labels == ["Nicholson", "Doe", "Doe", "Nicholson"]
 
 
-def test_label_speakers_cli(tmp_path):
+def test_apply_speaker_labels_cli(tmp_path):
     diarized, _ = sample_data(tmp_path)
     ids = {"Nicholson": "A", "Doe": "B"}
     map_file = tmp_path / "ids.json"
     map_file.write_text(json.dumps(ids))
     out = tmp_path / "lab_cli.json"
-    videocut_cli.label_speakers(diarized_json=str(diarized), map_json=str(map_file), out=str(out))
+    videocut_cli.apply_speaker_labels(diarized_json=str(diarized), map_json=str(map_file), out=str(out))
     data = json.loads(out.read_text())
     assert data["segments"][0]["label"] == "Nicholson"
     assert data["segments"][1]["label"] == "Doe"

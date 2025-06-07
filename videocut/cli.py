@@ -92,7 +92,7 @@ def identify_recognized(
 
 
 @app.command()
-def label_speakers(
+def apply_speaker_labels(
     diarized_json: str,
     map_json: str,
     out: str = "labeled.json",

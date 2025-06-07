@@ -75,7 +75,7 @@ videocut identify-speakers input.json phrase_map.json
 The resulting `speaker_map.json` can then be applied back to the transcript:
 
 ```bash
-videocut label-speakers input.json speaker_map.json --out labeled.json
+videocut apply-speaker-labels input.json speaker_map.json --out labeled.json
 ```
 
 ### Example commands
