@@ -13,7 +13,7 @@ _NICHOLSON_KEY_PHRASES = {
     "nicholson, for the record",
 }
 
-_END_PATTERNS = [r"\bthank you\b", r"\bnext item\b", r"\bmove on\b", r"\bdirector\b", r"\bchair\b"]
+_END_PATTERNS = [r"\bthank you\b", r"\bnext item\b", r"\bmove on\b", r"\bdirector\b", r"\bchair\b", r"\bthat concludes\b", r"\bno further\b"]
 _END_RE = re.compile("|".join(_END_PATTERNS), re.IGNORECASE)
 _TS_RE = re.compile(r"^\s*\[(?P<start>\d+\.?\d*)[–-](?P<end>\d+\.?\d*)\]\s*(?P<rest>.*)")
 _ROLL_RE = re.compile(r"roll call", re.IGNORECASE)
@@ -21,6 +21,8 @@ _NICH_ITEM_RE = re.compile(r"nicholson", re.IGNORECASE)
 
 TRAIL_SEC = 30
 PRE_SEC = 5
+MERGE_GAP_SEC = 45
+END_GAP_SEC = 30
 
 
 def map_nicholson_speaker(diarized_json: str) -> str:
@@ -155,7 +157,7 @@ def segment_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json
     for idx in n_idx[1:]:
         prev_end = float(segs[last_idx]["end"])
         cur_start = float(segs[idx]["start"])
-        if cur_start - prev_end >= 120:
+        if cur_start - prev_end > MERGE_GAP_SEC:
             groups.append((start_idx, last_idx))
             start_idx = idx
         last_idx = idx
@@ -168,12 +170,14 @@ def segment_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json
         j = last_idx + 1
         while j < len(segs):
             seg = segs[j]
+            seg_start = float(seg["start"])
+            seg_end = float(seg["end"])
             if seg.get("speaker") == nicholson_id:
                 break
-            if float(seg["start"]) - end_time >= 120 and should_end(seg.get("text", "")):
-                end_time = float(seg["end"])
+            if should_end(seg.get("text", "")) or seg_start - float(segs[last_idx]["end"]) >= END_GAP_SEC:
+                end_time = seg_end
                 break
-            end_time = float(seg["end"])
+            end_time = seg_end
             j += 1
         if j < len(segs):
             next_start = float(segs[j]["start"])
