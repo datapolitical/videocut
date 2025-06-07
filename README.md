@@ -51,6 +51,21 @@ HF_TOKEN=your_hf_token_here
 
 All of these steps can be executed sequentially with `videocut pipeline input.mp4 --diarize --hf_token $HF_TOKEN` which auto‑marks Nicholson by default.
 
+### Automatic speaker identification
+
+When diarization is enabled, VideoCut scans the transcript for recognition cues
+such as "Director Doe you're recognized" or simply "You're recognized" when the
+chair has just mentioned a name.  The following speaker is automatically mapped
+to that name and the results are written to `recognized_map.json`.  The
+`identify-recognized` command can be run manually if needed:
+
+```bash
+videocut identify-recognized input.json
+```
+
+The pipeline command performs this detection automatically and prints a warning
+if no recognition cues are found.
+
 ### Example commands
 
 ```bash
