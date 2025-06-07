@@ -66,6 +66,18 @@ videocut identify-recognized input.json
 The pipeline command performs this detection automatically and prints a warning
 if no recognition cues are found.
 
+For multiple people you can supply a phrase map to `identify-speakers`:
+
+```bash
+videocut identify-speakers input.json phrase_map.json
+```
+
+The resulting `speaker_map.json` can then be applied back to the transcript:
+
+```bash
+videocut label-speakers input.json speaker_map.json --out labeled.json
+```
+
 ### Example commands
 
 ```bash

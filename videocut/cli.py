@@ -92,6 +92,17 @@ def identify_recognized(
 
 
 @app.command()
+def label_speakers(
+    diarized_json: str,
+    map_json: str,
+    out: str = "labeled.json",
+):
+    """Write a copy of diarized_json with speaker names in a 'label' field."""
+    mapping = json.loads(Path(map_json).read_text())
+    nicholson.add_speaker_labels(diarized_json, mapping, out)
+
+
+@app.command()
 def generate_clips(
     video: str = typer.Argument("input.mp4", help="Source video"),
     segs: str = typer.Option("segments_to_keep.json", help="Segments JSON"),

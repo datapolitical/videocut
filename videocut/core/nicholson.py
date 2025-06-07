@@ -189,6 +189,30 @@ def map_recognized_auto(diarized_json: str) -> Dict[str, str]:
     return result
 
 
+def add_speaker_labels(
+    diarized_json: str,
+    id_map: Dict[str, str],
+    out_json: str = "labeled.json",
+) -> None:
+    """Write a copy of *diarized_json* with name labels added.
+
+    The *id_map* argument maps display names to WhisperX speaker IDs. Each
+    segment whose ``speaker`` matches an ID gets a ``label`` field with the
+    corresponding name.
+    """
+
+    data = json.loads(Path(diarized_json).read_text())
+    segments = data["segments"]
+    inv = {v: k for k, v in id_map.items()}
+    for seg in segments:
+        spk = seg.get("speaker")
+        name = inv.get(spk)
+        if name:
+            seg["label"] = name
+    Path(out_json).write_text(json.dumps(data, indent=2))
+    print(f"✅  labels added → {out_json}")
+
+
 def auto_segments_for_speaker(diarized_json: str, speaker_id: str, out_json: str = "segments_to_keep.json") -> None:
     """Dump every segment spoken by *speaker_id* into JSON."""
     data = json.loads(Path(diarized_json).read_text())
@@ -350,6 +374,7 @@ __all__ = [
     "map_speaker_by_phrases",
     "map_recognized_speakers",
     "map_recognized_auto",
+    "add_speaker_labels",
     "auto_segments_for_speaker",
     "auto_mark_nicholson",
     "find_nicholson_speaker",
