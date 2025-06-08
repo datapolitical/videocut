@@ -1,45 +1,11 @@
 {
-  "SPEAKER_17": {
-    "name": "Ruscha",
-    "alternatives": [
-      "Pagulari",
-      "Usha",
-      "Russia"
-    ]
-  },
-  "SPEAKER_05": {
-    "name": "Guzman",
-    "alternatives": [
-      "Ruscha",
-      "Guzman And Then Director Geisinger",
-      "Pagulari"
-    ]
-  },
-  "SPEAKER_07": {
-    "name": "Ruscha",
-    "alternatives": [
-      "Larson",
-      "Harwick",
-      "Nicholson",
-      "Whitmore",
-      "Paglieleri"
-    ]
-  },
   "SPEAKER_06": {
-    "name": "Larson",
+    "name": "Larsen",
     "alternatives": [
-      "Harwick",
-      "Guzman",
       "Gysinger And Then Director Larson",
-      "Larson And Then Harwick"
-    ]
-  },
-  "SPEAKER_10": {
-    "name": "Guzman",
-    "alternatives": [
-      "Larson",
-      "Guzmore",
-      "Bill Arson"
+      "Larson And Then Harwick",
+      "Harwick",
+      "Guzman"
     ]
   },
   "SPEAKER_21": {
@@ -51,11 +17,14 @@
       "Larsen"
     ]
   },
-  "SPEAKER_04": {
-    "name": "Harwick",
+  "SPEAKER_07": {
+    "name": "Larsen",
     "alternatives": [
-      "Guzman",
-      "Harbert"
+      "Nicholson",
+      "Harwick",
+      "Ruscha",
+      "Whitmore",
+      "Paglieleri"
     ]
   },
   "SPEAKER_02": {
@@ -63,17 +32,15 @@
     "alternatives": [
       "Harwick",
       "Guzman",
-      "Nicholson Emailed Me About This Because I Think There Was Some Confusion About Where We Are",
       "Guciniter",
       "Larsen"
     ]
   },
   "SPEAKER_19": {
-    "name": "Banker Will Take Your Amendments One At A Time",
+    "name": "Benker",
     "alternatives": [
       "Catlin",
-      "Geisinger",
-      "Pagulieri"
+      "Geisinger"
     ]
   },
   "SPEAKER_11": {
@@ -87,21 +54,36 @@
       "Guchinreider"
     ]
   },
-  "SPEAKER_00": {
-    "name": "Green",
+  "SPEAKER_04": {
+    "name": "Harwick",
     "alternatives": []
   },
+  "SPEAKER_05": {
+    "name": "Guzman",
+    "alternatives": [
+      "Guzman And Then Director Geisinger",
+      "Pagulari",
+      "Ruscha"
+    ]
+  },
   "SPEAKER_08": {
-    "name": "Geisinger",
+    "name": "Guissinger",
     "alternatives": [
       "Gutierrez"
     ]
   },
   "SPEAKER_15": {
-    "name": "Pagulari",
+    "name": "Paglieri",
     "alternatives": [
       "Pagulari Is A No",
       "Arusha"
+    ]
+  },
+  "SPEAKER_17": {
+    "name": "Paglieri",
+    "alternatives": [
+      "Ruscha",
+      "Usha"
     ]
   },
   "SPEAKER_13": {
@@ -113,7 +95,7 @@
     "alternatives": []
   },
   "null": {
-    "name": "Russia",
+    "name": "Ruscha",
     "alternatives": []
   }
 }
