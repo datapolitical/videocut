@@ -6,6 +6,8 @@ import sys
 from pathlib import Path
 from typing import Dict, List
 
+from . import chair
+
 # Key phrases for speaker identification
 _NICHOLSON_KEY_PHRASES = {
     "secretary nicholson",
@@ -173,18 +175,26 @@ _YIELD_RE = re.compile(
 def map_recognized_auto(diarized_json: str) -> Dict[str, dict]:
     """Infer recognized speakers directly from diarized text.
 
-    The function searches for phrases such as "director Doe you're recognized".
-    The next speaker after the phrase is counted as the recognized person. The
-    results map each diarized speaker ID to a ``{"name": str, "alternatives": list}``
-    structure containing the most likely name and any alternative names detected
-    for that speaker.
+    The function first determines the chair using :func:`chair.identify_chair`
+    and parses the roll call. It then scans the chair's dialog for phrases such
+    as "director Doe you're recognized". The next speaker after the phrase is
+    counted as that person. Results map each diarized speaker ID to a
+    ``{"name": str, "alternatives": list}`` structure containing the most likely
+    name and any alternative names detected for that speaker. Names from the roll
+    call are merged into the final mapping.
     """
 
     data = json.loads(Path(diarized_json).read_text())
     segments = data["segments"]
+
+    chair_id = chair.identify_chair(diarized_json)
+    roll_map = chair.parse_roll_call(diarized_json)
+
     counts: Dict[str, Dict[str, int]] = {}
 
     for i, seg in enumerate(segments):
+        if seg.get("speaker") != chair_id:
+            continue
         text = seg.get("text", "")
         speaker = seg.get("speaker")
         text_l = text.lower()
@@ -222,16 +232,23 @@ def map_recognized_auto(diarized_json: str) -> Dict[str, dict]:
             sub = counts.setdefault(name, {})
             sub[spk] = sub.get(spk, 0) + 1
 
-    if not counts:
-        raise RuntimeError("No recognition cues found – unable to map speakers.")
-
     speaker_counts: Dict[str, Dict[str, int]] = {}
     for name, spk_counts in counts.items():
         for spk, cnt in spk_counts.items():
             sub = speaker_counts.setdefault(spk, {})
             sub[name] = cnt
 
-    result: Dict[str, dict] = {}
+    result: Dict[str, dict] = {spk: {"name": name, "alternatives": []} for name, spk in roll_map.items()}
+
+    if not counts and result:
+        return result
+
+    if not counts:
+        raise RuntimeError("No recognition cues found – unable to map speakers.")
+
+    for spk, info in result.items():
+        speaker_counts.setdefault(spk, {})
+
     for spk, name_counts in speaker_counts.items():
         best_name = max(name_counts, key=name_counts.get)
         alt = [n for n in name_counts if n != best_name]
@@ -239,7 +256,15 @@ def map_recognized_auto(diarized_json: str) -> Dict[str, dict]:
             f"🔍  Speaker {spk} recognized as {best_name} "
             f"(matches={name_counts[best_name]})"
         )
-        result[spk] = {"name": best_name, "alternatives": alt}
+        if spk in result:
+            cur = result[spk]
+            if cur["name"] != best_name:
+                cur["alternatives"].append(best_name)
+                cur["alternatives"].extend([a for a in alt if a != cur["name"]])
+            else:
+                cur["alternatives"].extend(a for a in alt if a != cur["name"])
+        else:
+            result[spk] = {"name": best_name, "alternatives": alt}
 
     return result
 

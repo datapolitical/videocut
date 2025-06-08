@@ -56,8 +56,7 @@ All of these steps can be executed sequentially with `videocut pipeline input.mp
 
 When diarization is enabled, VideoCut scans the transcript for recognition cues
 such as "Director Doe you're recognized" or simply "You're recognized" when the
-chair has just mentioned a name.  Short lines that end with just "Director Name" or phrases like "yield the floor to Director Name" are also detected.  The following speaker is automatically mapped
-to a name and the results are written to `recognized_map.json`, mapping each diarized speaker ID to its most likely name and any alternatives.  The
+chair has just mentioned a name. Short lines that end with just "Director Name" or phrases like "yield the floor to Director Name" are also detected. The chair is identified from the roll call first, then these cues map each diarized speaker ID to its most likely name with any alternatives. Results are written to `recognized_map.json`.
 `identify-recognized` command can be run manually if needed:
 
 ```bash
