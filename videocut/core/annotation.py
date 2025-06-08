@@ -16,7 +16,7 @@ _TS_RE = re.compile(r"^\s*\[(?P<start>\d+\.?\d*)[–-](?P<end>\d+\.?\d*)\]")
 def load_segments(json_path: Path) -> list[dict]:
     """Load and sort clip segments from a JSON file."""
     if not json_path.exists():
-        sys.exit(f"❌  '{json_path}' not found. Run auto-mark-nicholson first.")
+        sys.exit(f"❌  '{json_path}' not found. Run identify-segments first.")
     raw = json.loads(json_path.read_text())
     if isinstance(raw, dict) and "segments" in raw:
         raw = raw["segments"]

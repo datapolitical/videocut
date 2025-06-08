@@ -11,7 +11,7 @@ VideoCut implements a video-editing pipeline driven by transcript data. The work
 High-level workflow:
 
 1. **Transcribe with diarization** – produce a speaker-labeled JSON transcript and `markup_guide.txt`.
-2. **Auto-mark Nicholson** – create `segments_to_keep.json` selecting Secretary Nicholson's speech. The JSON can be manually edited or converted to an editable format after this step.
+2. **Identify segments** – create `segments_to_keep.json` selecting Secretary Nicholson's speech. The script cross-checks heuristics against recognized speakers and warns if they disagree. The JSON can be manually edited or converted to an editable format after this step.
 3. **Generate clips** – cut clips with fade-in/out.
 4. **Concatenate** – join clips together with white flashes in between.
 5. **Optional utilities** – annotate markup with `{START}`/`{END}` markers and generate a transcript summary of long clips.
@@ -44,7 +44,7 @@ These utilities convert transcripts, identify clips, generate clips, and concate
 - **TSV → JSON** – read rows where the `keep` column is truthy and output a list of `{start, end}` objects.
 - **editable JSON → JSON** – save segments whose `keep` flag is truthy into the same `{start, end}` structure.
 - **markup guide → JSON** – parse `markup_guide.txt` looking for `{START}` and `{END}` markers and dump the corresponding segments.
-- **Nicholson helpers** – map the speaker label for Secretary Nicholson, dump all of that speaker's segments, and provide a convenience function to auto-mark Nicholson segments.
+- **Nicholson helpers** – map the speaker label for Secretary Nicholson, dump all of that speaker's segments, and provide a convenience function to identify Nicholson segments automatically.
 - **Clip generation** – for each segment in the JSON file, extract the portion, re-encode it with fade-in/out, and pad to 1280×720 at 30fps.
 - **Concatenation** – concatenate the clip files, inserting a white flash (`0.5` seconds) between them and joining audio/video streams.
 
@@ -75,7 +75,7 @@ Each script wraps one of the core functions, exposing a single command-line step
 2. Convert the JSON transcript to `segments_edit.json`.
 3. Parse the editable JSON and produce `segments_to_keep.json`.
 4. Extract `{START}`/`{END}` markers from `markup_guide.txt`.
-5. Auto-mark Nicholson segments from a diarized JSON file.
+5. Identify Nicholson segments from a diarized JSON file.
 6. Cut clips to a directory using the JSON segments.
 7. Assemble the clips into the final video.
 8. Generate transcript summaries for each clip.
@@ -86,7 +86,7 @@ Each script wraps one of the core functions, exposing a single command-line step
 
 ## 5. Monolithic Wrappers
 
-A single command-line interface can run the entire pipeline with flags to enable or disable each step. The default behavior is to auto‑mark Nicholson segments immediately after transcription, producing `segments_to_keep.json`. Manual editing of this file can be done before generating clips, and the auto‑mark step can be skipped via a flag.
+A single command-line interface can run the entire pipeline with flags to enable or disable each step. The default behavior is to identify Nicholson segments immediately after transcription, producing `segments_to_keep.json`. Manual editing of this file can be done before generating clips, and the segment identification step can be skipped via a flag.
 
 ---
 

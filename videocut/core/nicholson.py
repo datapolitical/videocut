@@ -6,6 +6,8 @@ import sys
 from pathlib import Path
 from typing import Dict, List
 
+from . import chair
+
 # Key phrases for speaker identification
 _NICHOLSON_KEY_PHRASES = {
     "secretary nicholson",
@@ -173,18 +175,26 @@ _YIELD_RE = re.compile(
 def map_recognized_auto(diarized_json: str) -> Dict[str, dict]:
     """Infer recognized speakers directly from diarized text.
 
-    The function searches for phrases such as "director Doe you're recognized".
-    The next speaker after the phrase is counted as the recognized person. The
-    results map each diarized speaker ID to a ``{"name": str, "alternatives": list}``
-    structure containing the most likely name and any alternative names detected
-    for that speaker.
+    The function first determines the chair using :func:`chair.identify_chair`
+    and parses the roll call. It then scans the chair's dialog for phrases such
+    as "director Doe you're recognized". The next speaker after the phrase is
+    counted as that person. Results map each diarized speaker ID to a
+    ``{"name": str, "alternatives": list}`` structure containing the most likely
+    name and any alternative names detected for that speaker. Names from the roll
+    call are merged into the final mapping.
     """
 
     data = json.loads(Path(diarized_json).read_text())
     segments = data["segments"]
+
+    chair_id = chair.identify_chair(diarized_json)
+    roll_map = chair.parse_roll_call(diarized_json)
+
     counts: Dict[str, Dict[str, int]] = {}
 
     for i, seg in enumerate(segments):
+        if seg.get("speaker") != chair_id:
+            continue
         text = seg.get("text", "")
         speaker = seg.get("speaker")
         text_l = text.lower()
@@ -222,16 +232,23 @@ def map_recognized_auto(diarized_json: str) -> Dict[str, dict]:
             sub = counts.setdefault(name, {})
             sub[spk] = sub.get(spk, 0) + 1
 
-    if not counts:
-        raise RuntimeError("No recognition cues found – unable to map speakers.")
-
     speaker_counts: Dict[str, Dict[str, int]] = {}
     for name, spk_counts in counts.items():
         for spk, cnt in spk_counts.items():
             sub = speaker_counts.setdefault(spk, {})
             sub[name] = cnt
 
-    result: Dict[str, dict] = {}
+    result: Dict[str, dict] = {spk: {"name": name, "alternatives": []} for name, spk in roll_map.items()}
+
+    if not counts and result:
+        return result
+
+    if not counts:
+        raise RuntimeError("No recognition cues found – unable to map speakers.")
+
+    for spk, info in result.items():
+        speaker_counts.setdefault(spk, {})
+
     for spk, name_counts in speaker_counts.items():
         best_name = max(name_counts, key=name_counts.get)
         alt = [n for n in name_counts if n != best_name]
@@ -239,7 +256,15 @@ def map_recognized_auto(diarized_json: str) -> Dict[str, dict]:
             f"🔍  Speaker {spk} recognized as {best_name} "
             f"(matches={name_counts[best_name]})"
         )
-        result[spk] = {"name": best_name, "alternatives": alt}
+        if spk in result:
+            cur = result[spk]
+            if cur["name"] != best_name:
+                cur["alternatives"].append(best_name)
+                cur["alternatives"].extend([a for a in alt if a != cur["name"]])
+            else:
+                cur["alternatives"].extend(a for a in alt if a != cur["name"])
+        else:
+            result[spk] = {"name": best_name, "alternatives": alt}
 
     return result
 
@@ -276,9 +301,13 @@ def auto_segments_for_speaker(diarized_json: str, speaker_id: str, out_json: str
     print(f"✅  {len(segs)} Nicholson segment(s) → {out_json}")
 
 
-def auto_mark_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json") -> None:
-    """End-to-end helper to create JSON for Nicholson clips."""
-    segment_nicholson(diarized_json, out_json)
+def identify_segments(
+    diarized_json: str,
+    recognized_map: str = "recognized_map.json",
+    out_json: str = "segments_to_keep.json",
+) -> None:
+    """Create JSON segments for Secretary Nicholson using recognition data."""
+    segment_nicholson(diarized_json, out_json, recognized_map)
 
 
 def load_markup(path: Path) -> List[dict]:
@@ -368,7 +397,11 @@ def find_nicholson_speaker(segments: List[dict]) -> str | None:
     return candidate
 
 
-def segment_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json") -> None:
+def segment_nicholson(
+    diarized_json: str,
+    out_json: str = "segments_to_keep.json",
+    recognized_map: str | None = None,
+) -> None:
     in_path = Path(diarized_json)
     out_path = Path(out_json)
     markup_path = in_path.with_name("markup_guide.txt")
@@ -377,14 +410,37 @@ def segment_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json
     segs = data["segments"]
     markup_lines = load_markup(markup_path)
 
-    nicholson_id = find_nicholson_speaker(segs)
-    if nicholson_id is None:
-        nicholson_id = map_nicholson_speaker(str(in_path))
+    recog_ids: List[str] | None = None
+    if recognized_map and Path(recognized_map).exists():
+        try:
+            mapping = json.loads(Path(recognized_map).read_text())
+            recog_ids = [
+                spk
+                for spk, info in mapping.items()
+                if "nicholson" in str(info.get("name", "")).lower()
+            ]
+        except Exception:
+            recog_ids = None
 
-    print(f"🔍  Secretary Nicholson identified as {nicholson_id}")
+    heur_id = find_nicholson_speaker(segs)
+    if heur_id is None:
+        heur_id = map_nicholson_speaker(str(in_path))
+
+    nicholson_ids = recog_ids or [heur_id]
+
+    if recog_ids:
+        if heur_id in recog_ids:
+            print(
+                f"🔍  Nicholson IDs agree ({heur_id})"
+            )
+        else:
+            print(
+                f"⚠️  recognition map {recog_ids} disagrees with heuristic {heur_id}"
+            )
+    print(f"🔍  Secretary Nicholson identified as {', '.join(nicholson_ids)}")
 
     results = []
-    n_idx = [i for i, seg in enumerate(segs) if seg.get("speaker") == nicholson_id]
+    n_idx = [i for i, seg in enumerate(segs) if seg.get("speaker") in nicholson_ids]
     if not n_idx:
         out_path.write_text("[]")
         print("❌  No Nicholson segments found")
@@ -416,7 +472,7 @@ def segment_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json
             seg_start = float(seg["start"])
             seg_end = float(seg["end"])
             spk = seg.get("speaker")
-            if spk == nicholson_id:
+            if spk in nicholson_ids:
                 break
             if should_end(seg.get("text", "")) or seg_start - float(segs[last_idx]["end"]) >= END_GAP_SEC:
                 end_time = seg_end
@@ -458,7 +514,7 @@ __all__ = [
     "map_recognized_auto",
     "add_speaker_labels",
     "auto_segments_for_speaker",
-    "auto_mark_nicholson",
+    "identify_segments",
     "find_nicholson_speaker",
     "segment_nicholson",
     "start_score",
