@@ -13,14 +13,36 @@ _NICHOLSON_KEY_PHRASES = {
     "nicholson, for the record",
 }
 
-_END_PATTERNS = [r"\bthank you\b", r"\bnext item\b", r"\bmove on\b", r"\bdirector\b", r"\bchair\b"]
+_END_PATTERNS = [r"\bthank you\b", r"\bnext item\b", r"\bmove on\b", r"\bdirector\b", r"\bchair\b", r"\bthat concludes\b", r"\bno further\b"]
 _END_RE = re.compile("|".join(_END_PATTERNS), re.IGNORECASE)
+
+_START_SIGNALS = {
+    r"\bsecretary nicholson\b": 0.8,
+    r"\bdirector nicholson\b": 0.8,
+    r"\bi have secretary nicholson\b": 0.8,
+    r"\bnicholson, do i have\b": 0.8,
+}
+
+_END_SIGNALS = {
+    r"\bthank you\b": 0.6,
+    r"\bnext item\b": 0.8,
+    r"\bmove on\b": 0.7,
+    r"\bdirector\b": 0.5,
+    r"\bchair\b": 0.5,
+    r"\bthat concludes\b": 0.8,
+    r"\bno further\b": 0.7,
+}
+
+START_THRESHOLD = 0.8
+END_THRESHOLD = 0.7
 _TS_RE = re.compile(r"^\s*\[(?P<start>\d+\.?\d*)[–-](?P<end>\d+\.?\d*)\]\s*(?P<rest>.*)")
 _ROLL_RE = re.compile(r"roll call", re.IGNORECASE)
 _NICH_ITEM_RE = re.compile(r"nicholson", re.IGNORECASE)
 
 TRAIL_SEC = 30
 PRE_SEC = 5
+MERGE_GAP_SEC = 45
+END_GAP_SEC = 30
 
 
 def map_nicholson_speaker(diarized_json: str) -> str:
@@ -269,8 +291,22 @@ def trim_segment(start: float, end: float, markup: List[dict]) -> tuple[float, L
     return end, trimmed
 
 
+def start_score(text: str) -> float:
+    txt = text.lower()
+    return sum(w for pat, w in _START_SIGNALS.items() if re.search(pat, txt))
+
+
+def end_score(text: str) -> float:
+    txt = text.lower()
+    return sum(w for pat, w in _END_SIGNALS.items() if re.search(pat, txt))
+
+
+def should_start(text: str) -> bool:
+    return start_score(text) >= START_THRESHOLD
+
+
 def should_end(text: str) -> bool:
-    return bool(_END_RE.search(text))
+    return end_score(text) >= END_THRESHOLD
 
 
 def find_nicholson_speaker(segments: List[dict]) -> str | None:
@@ -327,7 +363,7 @@ def segment_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json
     for idx in n_idx[1:]:
         prev_end = float(segs[last_idx]["end"])
         cur_start = float(segs[idx]["start"])
-        if cur_start - prev_end >= 120:
+        if cur_start - prev_end > MERGE_GAP_SEC:
             groups.append((start_idx, last_idx))
             start_idx = idx
         last_idx = idx
@@ -335,20 +371,33 @@ def segment_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json
 
     for start_idx, last_idx in groups:
         start_time = float(segs[start_idx]["start"])
+        if start_idx > 0 and should_start(segs[start_idx - 1].get("text", "")):
+            start_time = float(segs[start_idx - 1]["start"])
         end_time = float(segs[last_idx]["end"])
 
         j = last_idx + 1
+        prev_non_nich = None
+        next_start = None
         while j < len(segs):
             seg = segs[j]
-            if seg.get("speaker") == nicholson_id:
+            seg_start = float(seg["start"])
+            seg_end = float(seg["end"])
+            spk = seg.get("speaker")
+            if spk == nicholson_id:
                 break
-            if float(seg["start"]) - end_time >= 120 and should_end(seg.get("text", "")):
-                end_time = float(seg["end"])
+            if should_end(seg.get("text", "")) or seg_start - float(segs[last_idx]["end"]) >= END_GAP_SEC:
+                end_time = seg_end
+                next_start = seg_start
                 break
-            end_time = float(seg["end"])
+            if prev_non_nich is not None and spk != prev_non_nich:
+                next_start = seg_start
+                break
+            prev_non_nich = spk
+            end_time = seg_end
             j += 1
         if j < len(segs):
-            next_start = float(segs[j]["start"])
+            if next_start is None:
+                next_start = float(segs[j]["start"])
             end_time = min(end_time + TRAIL_SEC, next_start)
         else:
             next_start = None
@@ -379,4 +428,8 @@ __all__ = [
     "auto_mark_nicholson",
     "find_nicholson_speaker",
     "segment_nicholson",
+    "start_score",
+    "end_score",
+    "should_start",
+    "should_end",
 ]
