@@ -139,7 +139,14 @@ def pipeline(
     speaker_db: Optional[str] = typer.Option(None, help="Speaker embedding database JSON"),
 ):
     """Run the full pipeline, auto-marking Nicholson by default."""
-    transcription.transcribe(video, hf_token, diarize, speaker_db)
+    # ``speaker_db`` may be Typer's ``OptionInfo`` sentinel when this command
+    # is invoked programmatically (e.g. by tests). Only pass it through when it
+    # is an actual string path so patched versions of :func:`transcription.transcribe`
+    # that accept the original 3 arguments continue to work.
+    if isinstance(speaker_db, str) and speaker_db:
+        transcription.transcribe(video, hf_token, diarize, speaker_db)
+    else:
+        transcription.transcribe(video, hf_token, diarize)
     json_file = f"{Path(video).stem}.json"
 
     if diarize:
