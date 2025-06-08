@@ -47,6 +47,11 @@ def sample_recog_data(tmp_path):
     diarized = tmp_path / "dia.json"
     diarized.write_text(json.dumps({
         "segments": [
+            {"speaker": "X", "text": "call the roll"},
+            {"speaker": "X", "text": "Director Doe"},
+            {"speaker": "B", "text": "Present"},
+            {"speaker": "X", "text": "Director Roe"},
+            {"speaker": "C", "text": "Here"},
             {"speaker": "A", "text": "director doe you're recognized"},
             {"speaker": "B", "text": "hello"},
             {"speaker": "A", "text": "director roe you're recognized"},
@@ -60,6 +65,13 @@ def sample_recog_no_name(tmp_path):
     diarized = tmp_path / "dia2.json"
     diarized.write_text(json.dumps({
         "segments": [
+            {"speaker": "X", "text": "call the roll"},
+            {"speaker": "X", "text": "Director Smith"},
+            {"speaker": "A", "text": "Present"},
+            {"speaker": "X", "text": "Director Jones"},
+            {"speaker": "B", "text": "Here"},
+            {"speaker": "X", "text": "Let us proceed"},
+            {"speaker": "X", "text": "Continuing"},
             {"speaker": "X", "text": "director smith."},
             {"speaker": "X", "text": "you're recognized"},
             {"speaker": "A", "text": "thanks"},
@@ -75,6 +87,13 @@ def sample_recog_extra(tmp_path):
     diarized = tmp_path / "dia3.json"
     diarized.write_text(json.dumps({
         "segments": [
+            {"speaker": "X", "text": "call the roll"},
+            {"speaker": "X", "text": "Director Lee"},
+            {"speaker": "A", "text": "Present"},
+            {"speaker": "X", "text": "Ms. Kim"},
+            {"speaker": "B", "text": "Here"},
+            {"speaker": "X", "text": "Mr. Park"},
+            {"speaker": "C", "text": "Present"},
             {"speaker": "X", "text": "Director Lee"},
             {"speaker": "A", "text": "hello"},
             {"speaker": "X", "text": "I yield the floor to Ms. Kim"},

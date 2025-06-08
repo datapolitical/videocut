@@ -102,7 +102,9 @@ def identify_recognized(
 ):
     """Automatically map recognized names to speaker IDs."""
     ids = nicholson.map_recognized_auto(diarized_json)
+    chair_id = chair.identify_chair(diarized_json)
     Path(out).write_text(json.dumps(ids, indent=2))
+    print(f"🔍  chair is {chair_id}")
     print(f"✅  recognized map → {out}")
 
 
