@@ -41,3 +41,23 @@ def test_scoring_helpers():
     assert start_score("I have Secretary Nicholson") >= 0.8
     assert end_score("Thank you, Director") >= 0.6
 
+
+def test_segment_nicholson_agreement(tmp_path, capsys):
+    diarized = tmp_path / "dia_agree.json"
+    diarized.write_text(json.dumps({
+        "segments": [
+            {"start": 0, "end": 1, "speaker": "A", "text": "secretary nicholson"},
+            {"start": 1, "end": 2, "speaker": "B", "text": "other"},
+            {"start": 2, "end": 3, "speaker": "A", "text": "continue"},
+        ]
+    }))
+    rec_map = tmp_path / "rec.json"
+    rec_map.write_text(json.dumps({"A": {"name": "Nicholson", "alternatives": []}}))
+    out = tmp_path / "keep.json"
+
+    nicholson.segment_nicholson(str(diarized), str(out), recognized_map=str(rec_map))
+
+    out_text = capsys.readouterr().out
+    assert "agree" in out_text
+    segs = json.loads(out.read_text())
+    assert segs

@@ -53,7 +53,7 @@ def test_extract_marked(tmp_path, capsys):
     assert "✅" in capsys.readouterr().out
 
 
-def test_auto_mark_nicholson(tmp_path, capsys):
+def test_identify_segments(tmp_path, capsys):
     diarized = tmp_path / "dia.json"
     diarized.write_text(json.dumps({
         "segments": [
@@ -64,7 +64,7 @@ def test_auto_mark_nicholson(tmp_path, capsys):
     }))
     out = tmp_path / "keep.json"
 
-    nicholson.auto_mark_nicholson(str(diarized), str(out))
+    nicholson.identify_segments(str(diarized), out_json=str(out))
 
     segs = json.loads(out.read_text())
     assert len(segs) == 1
@@ -91,7 +91,7 @@ def test_cli_commands(tmp_path):
     assert out2.exists()
 
     out3 = tmp_path / "keep3.json"
-    videocut_cli.auto_mark_nicholson(json_file=str(diarized), out=str(out3))
+    videocut_cli.identify_segments_cmd(json_file=str(diarized), out=str(out3))
     assert out3.exists()
 
 

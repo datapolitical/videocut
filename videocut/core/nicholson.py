@@ -301,9 +301,13 @@ def auto_segments_for_speaker(diarized_json: str, speaker_id: str, out_json: str
     print(f"✅  {len(segs)} Nicholson segment(s) → {out_json}")
 
 
-def auto_mark_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json") -> None:
-    """End-to-end helper to create JSON for Nicholson clips."""
-    segment_nicholson(diarized_json, out_json)
+def identify_segments(
+    diarized_json: str,
+    recognized_map: str = "recognized_map.json",
+    out_json: str = "segments_to_keep.json",
+) -> None:
+    """Create JSON segments for Secretary Nicholson using recognition data."""
+    segment_nicholson(diarized_json, out_json, recognized_map)
 
 
 def load_markup(path: Path) -> List[dict]:
@@ -393,7 +397,11 @@ def find_nicholson_speaker(segments: List[dict]) -> str | None:
     return candidate
 
 
-def segment_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json") -> None:
+def segment_nicholson(
+    diarized_json: str,
+    out_json: str = "segments_to_keep.json",
+    recognized_map: str | None = None,
+) -> None:
     in_path = Path(diarized_json)
     out_path = Path(out_json)
     markup_path = in_path.with_name("markup_guide.txt")
@@ -402,14 +410,37 @@ def segment_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json
     segs = data["segments"]
     markup_lines = load_markup(markup_path)
 
-    nicholson_id = find_nicholson_speaker(segs)
-    if nicholson_id is None:
-        nicholson_id = map_nicholson_speaker(str(in_path))
+    recog_ids: List[str] | None = None
+    if recognized_map and Path(recognized_map).exists():
+        try:
+            mapping = json.loads(Path(recognized_map).read_text())
+            recog_ids = [
+                spk
+                for spk, info in mapping.items()
+                if "nicholson" in str(info.get("name", "")).lower()
+            ]
+        except Exception:
+            recog_ids = None
 
-    print(f"🔍  Secretary Nicholson identified as {nicholson_id}")
+    heur_id = find_nicholson_speaker(segs)
+    if heur_id is None:
+        heur_id = map_nicholson_speaker(str(in_path))
+
+    nicholson_ids = recog_ids or [heur_id]
+
+    if recog_ids:
+        if heur_id in recog_ids:
+            print(
+                f"🔍  Nicholson IDs agree ({heur_id})"
+            )
+        else:
+            print(
+                f"⚠️  recognition map {recog_ids} disagrees with heuristic {heur_id}"
+            )
+    print(f"🔍  Secretary Nicholson identified as {', '.join(nicholson_ids)}")
 
     results = []
-    n_idx = [i for i, seg in enumerate(segs) if seg.get("speaker") == nicholson_id]
+    n_idx = [i for i, seg in enumerate(segs) if seg.get("speaker") in nicholson_ids]
     if not n_idx:
         out_path.write_text("[]")
         print("❌  No Nicholson segments found")
@@ -441,7 +472,7 @@ def segment_nicholson(diarized_json: str, out_json: str = "segments_to_keep.json
             seg_start = float(seg["start"])
             seg_end = float(seg["end"])
             spk = seg.get("speaker")
-            if spk == nicholson_id:
+            if spk in nicholson_ids:
                 break
             if should_end(seg.get("text", "")) or seg_start - float(segs[last_idx]["end"]) >= END_GAP_SEC:
                 end_time = seg_end
@@ -483,7 +514,7 @@ __all__ = [
     "map_recognized_auto",
     "add_speaker_labels",
     "auto_segments_for_speaker",
-    "auto_mark_nicholson",
+    "identify_segments",
     "find_nicholson_speaker",
     "segment_nicholson",
     "start_score",

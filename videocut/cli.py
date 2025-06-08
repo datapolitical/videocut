@@ -77,9 +77,14 @@ def map_speakers(video: str, json_file: str, db: str = "speaker_db.json", out: O
     """Apply speaker name mapping to a diarized JSON file."""
     speaker_mapping.apply_speaker_map(video, json_file, db, out)
 
-@app.command()
-def auto_mark_nicholson(json_file: str, out: str = "segments_to_keep.json"):
-    nicholson.auto_mark_nicholson(json_file, out)
+@app.command("identify-segments")
+def identify_segments_cmd(
+    json_file: str,
+    recognized: str = "recognized_map.json",
+    out: str = "segments_to_keep.json",
+):
+    """Detect Nicholson segments using recognized speaker IDs."""
+    nicholson.identify_segments(json_file, recognized, out)
 
 
 @app.command()
@@ -154,7 +159,7 @@ def pipeline(
     auto_nicholson: bool = typer.Option(True, help="Automatically mark Secretary Nicholson"),
     speaker_db: Optional[str] = typer.Option(None, help="Speaker embedding database JSON"),
 ):
-    """Run the full pipeline, auto-marking Nicholson by default."""
+    """Run the full pipeline, identifying Nicholson segments by default."""
     # ``speaker_db`` may be Typer's ``OptionInfo`` sentinel when this command
     # is invoked programmatically (e.g. by tests). Only pass it through when it
     # is an actual string path so patched versions of :func:`transcription.transcribe`
@@ -174,7 +179,9 @@ def pipeline(
             print(f"⚠️  automatic recognition failed: {exc}")
 
     if auto_nicholson:
-        nicholson.auto_mark_nicholson(json_file, "segments_to_keep.json")
+        nicholson.identify_segments(
+            json_file, "recognized_map.json", "segments_to_keep.json"
+        )
     else:
         segmentation.json_to_editable(json_file, "segments_edit.json", "markup_guide.txt")
         segmentation.identify_clips_json("segments_edit.json", "segments_to_keep.json")

@@ -42,8 +42,9 @@ HF_TOKEN=your_hf_token_here
 
 1. **Transcribe with diarization** – `videocut transcribe input.mp4 --diarize --hf_token $HF_TOKEN` runs WhisperX and produces `markup_guide.txt` and `input.json` with speaker labels.
    Provide `--speaker-db speakers.json` to map diarized IDs to real names.
-2. **Auto-mark Nicholson** – `videocut auto-mark-nicholson input.json` generates
-   `segments_to_keep.json` grouping Nicholson's remarks into coherent segments.
+2. **Identify segments** – `videocut identify-segments input.json` generates
+   `segments_to_keep.json` grouping Nicholson's remarks into coherent segments using recognized speaker IDs.
+   The script also cross-checks with text heuristics and warns if the methods disagree.
 3. **Review and edit** – optionally run `videocut json-to-editable segments_to_keep.json` and modify the JSON to fine‑tune the clips.
 4. **Generate clips** – `videocut generate-clips input.mp4` cuts clips into a `clips/` directory.
 5. **Concatenate** – `videocut concatenate` stitches the clips together with white flashes.
@@ -99,8 +100,8 @@ videocut build-speaker-db samples/ --out speakers.json
 # Transcription with diarization
 videocut transcribe meeting.mp4 --diarize --hf_token $HF_TOKEN --speaker-db speakers.json
 
-# Auto-mark Nicholson segments into grouped clips
-videocut auto-mark-nicholson meeting.json
+# Identify Nicholson segments into grouped clips
+videocut identify-segments meeting.json
 
 # (Optional) tweak the segments
 videocut json-to-editable segments_to_keep.json --out segments_edit.json

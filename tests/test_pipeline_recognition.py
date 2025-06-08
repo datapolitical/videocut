@@ -28,11 +28,11 @@ def test_pipeline_recognition(tmp_path, monkeypatch):
 
     called = {}
 
-    def fake_auto_mark(jf, out):
-        called["auto_mark"] = True
+    def fake_identify(jf, rec, out):
+        called["identify"] = True
         pathlib.Path(out).write_text("[]")
 
-    monkeypatch.setattr(nicholson_mod, "auto_mark_nicholson", fake_auto_mark)
+    monkeypatch.setattr(nicholson_mod, "identify_segments", fake_identify)
 
     def fake_generate(video, segs, out_dir):
         called["clips"] = True
