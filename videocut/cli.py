@@ -82,9 +82,10 @@ def identify_segments_cmd(
     json_file: str,
     recognized: str = "recognized_map.json",
     out: str = "segments_to_keep.json",
+    board_file: str = "board_members.txt",
 ):
     """Detect Nicholson segments using recognized speaker IDs."""
-    nicholson.identify_segments(json_file, recognized, out)
+    nicholson.identify_segments(json_file, recognized, out, board_file)
 
 
 @app.command()
@@ -209,7 +210,10 @@ def pipeline(
 
     if auto_nicholson:
         nicholson.identify_segments(
-            json_file, "recognized_map.json", "segments_to_keep.json"
+            json_file,
+            "recognized_map.json",
+            "segments_to_keep.json",
+            "board_members.txt",
         )
     else:
         segmentation.json_to_editable(json_file, "segments_edit.json", "markup_guide.txt")
