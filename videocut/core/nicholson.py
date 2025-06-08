@@ -170,12 +170,14 @@ _YIELD_RE = re.compile(
 )
 
 
-def map_recognized_auto(diarized_json: str) -> Dict[str, str]:
+def map_recognized_auto(diarized_json: str) -> Dict[str, dict]:
     """Infer recognized speakers directly from diarized text.
 
     The function searches for phrases such as "director Doe you're recognized".
     The next speaker after the phrase is counted as the recognized person. The
-    most frequent speaker ID for each detected name is returned.
+    results map each diarized speaker ID to a ``{"name": str, "alternatives": list}``
+    structure containing the most likely name and any alternative names detected
+    for that speaker.
     """
 
     data = json.loads(Path(diarized_json).read_text())
@@ -223,11 +225,21 @@ def map_recognized_auto(diarized_json: str) -> Dict[str, str]:
     if not counts:
         raise RuntimeError("No recognition cues found – unable to map speakers.")
 
-    result: Dict[str, str] = {}
+    speaker_counts: Dict[str, Dict[str, int]] = {}
     for name, spk_counts in counts.items():
-        best = max(spk_counts, key=spk_counts.get)
-        print(f"🔍  Recognized {name} as {best} (matches={spk_counts[best]})")
-        result[name] = best
+        for spk, cnt in spk_counts.items():
+            sub = speaker_counts.setdefault(spk, {})
+            sub[name] = cnt
+
+    result: Dict[str, dict] = {}
+    for spk, name_counts in speaker_counts.items():
+        best_name = max(name_counts, key=name_counts.get)
+        alt = [n for n in name_counts if n != best_name]
+        print(
+            f"🔍  Speaker {spk} recognized as {best_name} "
+            f"(matches={name_counts[best_name]})"
+        )
+        result[spk] = {"name": best_name, "alternatives": alt}
 
     return result
 

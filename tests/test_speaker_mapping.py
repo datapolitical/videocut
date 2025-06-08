@@ -89,26 +89,39 @@ def sample_recog_extra(tmp_path):
 def test_map_recognized_auto(tmp_path):
     diarized = sample_recog_data(tmp_path)
     ids = nicholson.map_recognized_auto(str(diarized))
-    assert ids == {"Doe": "B", "Roe": "C"}
+    assert ids == {
+        "B": {"name": "Doe", "alternatives": []},
+        "C": {"name": "Roe", "alternatives": []},
+    }
 
 
 def test_identify_recognized_cli(tmp_path):
     diarized = sample_recog_data(tmp_path)
     out = tmp_path / "rec.json.out"
     videocut_cli.identify_recognized(diarized_json=str(diarized), out=str(out))
-    assert json.loads(out.read_text()) == {"Doe": "B", "Roe": "C"}
+    assert json.loads(out.read_text()) == {
+        "B": {"name": "Doe", "alternatives": []},
+        "C": {"name": "Roe", "alternatives": []},
+    }
 
 
 def test_map_recognized_auto_context(tmp_path):
     diarized = sample_recog_no_name(tmp_path)
     ids = nicholson.map_recognized_auto(str(diarized))
-    assert ids == {"Smith": "A", "Jones": "B"}
+    assert ids == {
+        "A": {"name": "Smith", "alternatives": []},
+        "B": {"name": "Jones", "alternatives": []},
+    }
 
 
 def test_map_recognized_auto_extra(tmp_path):
     diarized = sample_recog_extra(tmp_path)
     ids = nicholson.map_recognized_auto(str(diarized))
-    assert ids == {"Lee": "A", "Kim": "B", "Park": "C"}
+    assert ids == {
+        "A": {"name": "Lee", "alternatives": []},
+        "B": {"name": "Kim", "alternatives": []},
+        "C": {"name": "Park", "alternatives": []},
+    }
 
 
 def test_add_speaker_labels(tmp_path):
