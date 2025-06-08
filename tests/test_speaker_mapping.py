@@ -71,6 +71,21 @@ def sample_recog_no_name(tmp_path):
     return diarized
 
 
+def sample_recog_extra(tmp_path):
+    diarized = tmp_path / "dia3.json"
+    diarized.write_text(json.dumps({
+        "segments": [
+            {"speaker": "X", "text": "Director Lee"},
+            {"speaker": "A", "text": "hello"},
+            {"speaker": "X", "text": "I yield the floor to Ms. Kim"},
+            {"speaker": "B", "text": "thanks"},
+            {"speaker": "X", "text": "call on Mr. Park"},
+            {"speaker": "C", "text": "hi"},
+        ]
+    }))
+    return diarized
+
+
 def test_map_recognized_auto(tmp_path):
     diarized = sample_recog_data(tmp_path)
     ids = nicholson.map_recognized_auto(str(diarized))
@@ -88,6 +103,12 @@ def test_map_recognized_auto_context(tmp_path):
     diarized = sample_recog_no_name(tmp_path)
     ids = nicholson.map_recognized_auto(str(diarized))
     assert ids == {"Smith": "A", "Jones": "B"}
+
+
+def test_map_recognized_auto_extra(tmp_path):
+    diarized = sample_recog_extra(tmp_path)
+    ids = nicholson.map_recognized_auto(str(diarized))
+    assert ids == {"Lee": "A", "Kim": "B", "Park": "C"}
 
 
 def test_add_speaker_labels(tmp_path):
