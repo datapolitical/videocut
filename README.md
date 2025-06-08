@@ -45,6 +45,10 @@ HF_TOKEN=your_hf_token_here
 2. **Identify segments** – `videocut identify-segments input.json` generates
    `segments_to_keep.json` grouping Nicholson's remarks into coherent segments using recognized speaker IDs.
    The script also cross-checks with text heuristics and warns if the methods disagree.
+   A list of official board member names in `board_members.txt` lets the tool
+   include staff answers when Nicholson asks a question.  Speaker IDs are now
+   replaced with recognized names automatically and `videocut prune-segments`
+   can drop trivial clips.
 3. **Review and edit** – optionally run `videocut json-to-editable segments_to_keep.json` and modify the JSON to fine‑tune the clips.
 4. **Generate clips** – `videocut generate-clips input.mp4` cuts clips into a `clips/` directory.
 5. **Concatenate** – `videocut concatenate` stitches the clips together with white flashes.
@@ -113,6 +117,12 @@ videocut concatenate --clips_dir clips --out final.mp4
 videocut annotate-markup
 videocut clip-transcripts
 
+# Prune trivial segments
+videocut prune-segments segments_to_keep.json
+
+# List recognized directors
+videocut recognized-directors recognized_map.json board_members.txt
+
 # Map speakers after transcription
 videocut map-speakers meeting.mp4 meeting.json --db speakers.json
 ```
@@ -122,5 +132,6 @@ videocut map-speakers meeting.mp4 meeting.json --db speakers.json
 - `videocut/cli.py` – Typer command line interface
 - `videocut/core/` – modular helpers (`transcription.py`, `segmentation.py`, `video_editing.py`, `nicholson.py`, `annotation.py`, `clip_transcripts.py`, `speaker_mapping.py`)
 - `videos/` – example data used for testing the pipeline
+- `board_members.txt` – official names used when matching directors
 
 WhisperX and FFmpeg must be installed separately.  Once those are available, the `videocut` command can automate cutting long meeting videos into polished clips.

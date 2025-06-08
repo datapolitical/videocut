@@ -28,9 +28,9 @@ def test_pipeline_recognition(tmp_path, monkeypatch):
 
     called = {}
 
-    def fake_identify(jf, rec, out):
+    def fake_identify(*args):
         called["identify"] = True
-        pathlib.Path(out).write_text("[]")
+        pathlib.Path(args[2]).write_text("[]")
 
     monkeypatch.setattr(nicholson_mod, "identify_segments", fake_identify)
 

@@ -82,9 +82,10 @@ def identify_segments_cmd(
     json_file: str,
     recognized: str = "recognized_map.json",
     out: str = "segments_to_keep.json",
+    board_file: str = "board_members.txt",
 ):
     """Detect Nicholson segments using recognized speaker IDs."""
-    nicholson.identify_segments(json_file, recognized, out)
+    nicholson.identify_segments(json_file, recognized, out, board_file)
 
 
 @app.command()
@@ -138,6 +139,35 @@ def apply_speaker_labels(
 
 
 @app.command()
+def apply_name_map(
+    seg_json: str = "segments_to_keep.json",
+    map_json: str = "recognized_map.json",
+    out: Optional[str] = None,
+):
+    """Replace SPEAKER IDs in segments JSON with recognized names."""
+    nicholson.apply_name_map(seg_json, map_json, out)
+
+
+@app.command()
+def prune_segments_cmd(
+    seg_json: str = "segments_to_keep.json",
+    out: Optional[str] = None,
+):
+    """Remove trivial segments from the JSON list."""
+    nicholson.prune_segments(seg_json, out)
+
+
+@app.command()
+def recognized_directors(
+    recognized: str = "recognized_map.json",
+    board_file: str = "board_members.txt",
+    out: str = "recognized_directors.txt",
+):
+    """Generate recognized_directors.txt from recognition results."""
+    nicholson.generate_recognized_directors(recognized, board_file, out)
+
+
+@app.command()
 def generate_clips(
     video: str = typer.Argument("input.mp4", help="Source video"),
     segs: str = typer.Option("segments_to_keep.json", help="Segments JSON"),
@@ -180,7 +210,10 @@ def pipeline(
 
     if auto_nicholson:
         nicholson.identify_segments(
-            json_file, "recognized_map.json", "segments_to_keep.json"
+            json_file,
+            "recognized_map.json",
+            "segments_to_keep.json",
+            "board_members.txt",
         )
     else:
         segmentation.json_to_editable(json_file, "segments_edit.json", "markup_guide.txt")
