@@ -12,6 +12,7 @@ from .core import (
     annotation,
     clip_transcripts,
     speaker_mapping,
+    chair,
 )
 
 app = typer.Typer(help="VideoCut pipeline")
@@ -103,6 +104,19 @@ def identify_recognized(
     ids = nicholson.map_recognized_auto(diarized_json)
     Path(out).write_text(json.dumps(ids, indent=2))
     print(f"✅  recognized map → {out}")
+
+
+@app.command()
+def identify_chair(
+    diarized_json: str,
+    out: str = "roll_call_map.json",
+):
+    """Detect the chair and parse roll call responses."""
+    chair_id = chair.identify_chair(diarized_json)
+    votes = chair.parse_roll_call(diarized_json)
+    Path(out).write_text(json.dumps(votes, indent=2))
+    print(f"🔍  chair is {chair_id}")
+    print(f"✅  roll call map → {out}")
 
 
 @app.command()
