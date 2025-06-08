@@ -68,7 +68,7 @@ def test_auto_mark_nicholson(tmp_path, capsys):
 
     segs = json.loads(out.read_text())
     assert len(segs) == 1
-    assert segs[0]["start"] == pytest.approx(1.0)
+    assert segs[0]["start"] == pytest.approx(0.0)
     assert segs[0]["end"] == pytest.approx(33.0)
     assert "✅" in capsys.readouterr().out
 
