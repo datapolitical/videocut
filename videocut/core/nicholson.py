@@ -156,6 +156,19 @@ _NAME_BEFORE_RE = re.compile(
     re.IGNORECASE,
 )
 
+# Short statement that is just a titled name
+_NAME_ONLY_RE = re.compile(
+    r"^(?:director|secretary|chair|treasurer|mr|ms|mrs|dr)\.?\s+(?P<name>[A-Za-z]+(?: [A-Za-z]+)*)[.,?]*$",
+    re.IGNORECASE,
+)
+
+# Yield or call on someone to speak
+_YIELD_RE = re.compile(
+    r"(?:yield|offer) (?:the )?floor to (?:director|secretary|chair|treasurer|mr|ms|mrs|dr)\.?\s*(?P<name>[A-Za-z]+(?: [A-Za-z]+)*)"
+    r"|call(?:ing)? on (?:director|secretary|chair|treasurer|mr|ms|mrs|dr)\.?\s*(?P<name2>[A-Za-z]+(?: [A-Za-z]+)*)",
+    re.IGNORECASE,
+)
+
 
 def map_recognized_auto(diarized_json: str) -> Dict[str, str]:
     """Infer recognized speakers directly from diarized text.
@@ -189,6 +202,14 @@ def map_recognized_auto(diarized_json: str) -> Dict[str, str]:
             matches = list(_NAME_BEFORE_RE.finditer(joined))
             if matches:
                 name = matches[-1].group("name").title()
+        else:
+            m2 = _NAME_ONLY_RE.match(text_l)
+            if m2:
+                name = m2.group("name").title()
+            else:
+                m3 = _YIELD_RE.search(text_l)
+                if m3:
+                    name = (m3.group("name") or m3.group("name2")).title()
         if not name:
             continue
         j = i + 1
