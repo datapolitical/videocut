@@ -1,36 +1,119 @@
 {
-  "Ruscha": "SPEAKER_17",
-  "Larson": "SPEAKER_06",
-  "Harwick": "SPEAKER_04",
-  "Nicholson": "SPEAKER_02",
-  "Guzman": "SPEAKER_05",
-  "Banker Will Take Your Amendments One At A Time": "SPEAKER_19",
-  "Catlin": "SPEAKER_11",
-  "Gysinger And Then Director Larson": "SPEAKER_06",
-  "Larson And Then Harwick": "SPEAKER_06",
-  "Guzman And Then Director Geisinger": "SPEAKER_05",
-  "Green": "SPEAKER_00",
-  "Buzik Is Gone": "SPEAKER_11",
-  "Katlin": "SPEAKER_11",
-  "Geisinger": "SPEAKER_11",
-  "Keith": "SPEAKER_21",
-  "Gutierrez": "SPEAKER_08",
-  "Pagulari": "SPEAKER_05",
-  "Nicholson Emailed Me About This Because I Think There Was Some Confusion About Where We Are": "SPEAKER_02",
-  "Guciniter": "SPEAKER_02",
-  "Larsen": "SPEAKER_02",
-  "Pagulari Is A No": "SPEAKER_15",
-  "Arusha": "SPEAKER_15",
-  "Whitmore": "SPEAKER_07",
-  "Harbert": "SPEAKER_04",
-  "Usha": "SPEAKER_17",
-  "Guzmore": "SPEAKER_10",
-  "Brady": "SPEAKER_18",
-  "Pagulieri": "SPEAKER_19",
-  "Bill Arson": "SPEAKER_10",
-  "Gucinander": "SPEAKER_11",
-  "Russia": "SPEAKER_17",
-  "Gujranader": "SPEAKER_11",
-  "Guchinreider": "SPEAKER_11",
-  "Paglieleri": "SPEAKER_07"
+  "SPEAKER_17": {
+    "name": "Ruscha",
+    "alternatives": [
+      "Pagulari",
+      "Usha",
+      "Russia"
+    ]
+  },
+  "SPEAKER_05": {
+    "name": "Guzman",
+    "alternatives": [
+      "Ruscha",
+      "Guzman And Then Director Geisinger",
+      "Pagulari"
+    ]
+  },
+  "SPEAKER_07": {
+    "name": "Ruscha",
+    "alternatives": [
+      "Larson",
+      "Harwick",
+      "Nicholson",
+      "Whitmore",
+      "Paglieleri"
+    ]
+  },
+  "SPEAKER_06": {
+    "name": "Larson",
+    "alternatives": [
+      "Harwick",
+      "Guzman",
+      "Gysinger And Then Director Larson",
+      "Larson And Then Harwick"
+    ]
+  },
+  "SPEAKER_10": {
+    "name": "Guzman",
+    "alternatives": [
+      "Larson",
+      "Guzmore",
+      "Bill Arson"
+    ]
+  },
+  "SPEAKER_21": {
+    "name": "Nicholson",
+    "alternatives": [
+      "Larson",
+      "Harwick",
+      "Keith",
+      "Larsen"
+    ]
+  },
+  "SPEAKER_04": {
+    "name": "Harwick",
+    "alternatives": [
+      "Guzman",
+      "Harbert"
+    ]
+  },
+  "SPEAKER_02": {
+    "name": "Nicholson",
+    "alternatives": [
+      "Harwick",
+      "Guzman",
+      "Nicholson Emailed Me About This Because I Think There Was Some Confusion About Where We Are",
+      "Guciniter",
+      "Larsen"
+    ]
+  },
+  "SPEAKER_19": {
+    "name": "Banker Will Take Your Amendments One At A Time",
+    "alternatives": [
+      "Catlin",
+      "Geisinger",
+      "Pagulieri"
+    ]
+  },
+  "SPEAKER_11": {
+    "name": "Catlin",
+    "alternatives": [
+      "Buzik Is Gone",
+      "Katlin",
+      "Geisinger",
+      "Gucinander",
+      "Gujranader",
+      "Guchinreider"
+    ]
+  },
+  "SPEAKER_00": {
+    "name": "Green",
+    "alternatives": []
+  },
+  "SPEAKER_08": {
+    "name": "Geisinger",
+    "alternatives": [
+      "Gutierrez"
+    ]
+  },
+  "SPEAKER_15": {
+    "name": "Pagulari",
+    "alternatives": [
+      "Pagulari Is A No",
+      "Arusha"
+    ]
+  },
+  "SPEAKER_13": {
+    "name": "Whitmore",
+    "alternatives": []
+  },
+  "SPEAKER_18": {
+    "name": "Brady",
+    "alternatives": []
+  },
+  "null": {
+    "name": "Russia",
+    "alternatives": []
+  }
 }
