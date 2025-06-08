@@ -42,7 +42,7 @@ def test_pipeline_recognition(tmp_path, monkeypatch):
 
     def fake_map(jf):
         called["map"] = jf
-        return {"Doe": "B"}
+        return {"B": {"name": "Doe", "alternatives": []}}
 
     monkeypatch.setattr(nicholson_mod, "map_recognized_auto", fake_map)
 
@@ -56,4 +56,6 @@ def test_pipeline_recognition(tmp_path, monkeypatch):
     )
 
     assert called.get("map")
-    assert json.loads(pathlib.Path("recognized_map.json").read_text()) == {"Doe": "B"}
+    assert json.loads(pathlib.Path("recognized_map.json").read_text()) == {
+        "B": {"name": "Doe", "alternatives": []}
+    }
