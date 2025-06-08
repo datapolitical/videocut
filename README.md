@@ -76,7 +76,19 @@ videocut identify-speakers input.json phrase_map.json
 The resulting `speaker_map.json` can then be applied back to the transcript:
 
 ```bash
+
 videocut apply-speaker-labels input.json speaker_map.json --out labeled.json
+```
+
+### Chair identification and roll call
+
+When a meeting transcript includes a roll call vote, the speaker who announces
+"call the roll" is treated as the chair. Names read during the roll call are
+paired with the voices that respond "present" or "here" so diarization can be
+validated. The mapping of names to speaker labels can be extracted with:
+
+```bash
+videocut identify-chair input.json
 ```
 
 ### Example commands

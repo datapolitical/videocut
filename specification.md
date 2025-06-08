@@ -52,6 +52,14 @@ These utilities convert transcripts, identify clips, generate clips, and concate
 
 Functions for automatically determining which segments belong to Secretary Nicholson when diarization data is available. Heuristics group nearby segments, trim unrelated portions, and attach context lines before and after each segment. Results are saved as a list of objects with `start`, `end`, `text`, `pre`, and `post` keys.
 
+### Chair detection and roll call mapping
+
+The roll call portion of a meeting identifies the chair and validates speaker
+labels. When the transcript contains a phrase like "call the roll," the speaker
+issuing that line is considered the chair. Each name read during the roll call
+is paired with the responding speaker who says "present" or "here." This mapping
+is returned for downstream validation.
+
 ### Additional utilities
 
 - Insert `{START}`/`{END}` markers into `markup_with_markers.txt` for the segments in `segments_to_keep.json`.

@@ -8,6 +8,7 @@ from . import (
     annotation,
     clip_transcripts,
     speaker_mapping,
+    chair,
 )
 
 __all__ = [
@@ -18,4 +19,5 @@ __all__ = [
     "video_editing",
     "nicholson",
     "speaker_mapping",
+    "chair",
 ]
