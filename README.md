@@ -39,3 +39,4 @@ videocut pipeline input.mp4 --hf_token $HF_TOKEN
 - `videocut/core/` – modular helpers
 - `videos/` – example data used for testing
 - `board_members.txt` – official director names
+
