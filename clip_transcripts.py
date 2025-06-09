@@ -3,6 +3,7 @@
 import json
 import re
 from pathlib import Path
+from videocut.core import segmentation
 
 
 def parse_line(line: str) -> dict | None:
@@ -20,7 +21,7 @@ def parse_line(line: str) -> dict | None:
 def main() -> None:
     """Write ``clip_transcripts.txt`` for the segments marked to keep."""
 
-    segments = json.loads(Path("segments_to_keep.json").read_text())
+    segments = segmentation.load_segments("segments.txt")
     lines = Path("markup_guide.txt").read_text().splitlines()
 
     entries = [parse_line(line) for line in lines if parse_line(line)]

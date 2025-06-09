@@ -59,12 +59,12 @@ def extract_marked(markup: str = "markup_guide.txt", out: str = "segments_to_kee
     segmentation.extract_marked(markup, out)
 
 @app.command()
-def annotate_markup(markup_file: str = "markup_guide.txt", seg_json: str = "segments_to_keep.json", out_file: str = "markup_with_markers.txt"):
-    annotation.annotate_segments(markup_file, seg_json, out_file)
+def annotate_markup(markup_file: str = "markup_guide.txt", seg_file: str = "segments.txt", out_file: str = "markup_with_markers.txt", srt_file: str | None = None):
+    annotation.annotate_segments(markup_file, seg_file, out_file, srt_file)
 
 @app.command()
-def clip_transcripts_cmd(markup_file: str = "markup_guide.txt", seg_json: str = "segments_to_keep.json", out_file: str = "clip_transcripts.txt"):
-    clip_transcripts.clip_transcripts(markup_file, seg_json, out_file)
+def clip_transcripts_cmd(markup_file: str = "markup_guide.txt", seg_file: str = "segments.txt", out_file: str = "clip_transcripts.txt", srt_file: str | None = None):
+    clip_transcripts.clip_transcripts(markup_file, seg_file, out_file, srt_file)
 
 @app.command()
 def annotate_srt(
@@ -119,11 +119,14 @@ def map_speakers(video: str, json_file: str, db: str = "speaker_db.json", out: O
 def identify_segments_cmd(
     json_file: str,
     recognized: str = "recognized_map.json",
-    out: str = "segments_to_keep.json",
     board_file: str = "board_members.txt",
+    out_txt: str = "segments.txt",
 ):
     """Detect Nicholson segments using recognized speaker IDs."""
-    nicholson.identify_segments(json_file, recognized, out, board_file)
+    tmp_json = Path(out_txt).with_suffix(".json")
+    nicholson.identify_segments(json_file, recognized, str(tmp_json), board_file)
+    segmentation.segments_json_to_txt(str(tmp_json), out_txt)
+    tmp_json.unlink(missing_ok=True)
 
 
 @app.command()
@@ -208,10 +211,11 @@ def recognized_directors(
 @app.command()
 def generate_clips(
     video: str = typer.Argument("input.mp4", help="Source video"),
-    segs: str = typer.Option("segments_to_keep.json", help="Segments JSON"),
+    segs: str = typer.Option("segments.txt", help="Segments file (txt or json)"),
     out_dir: str = typer.Option("clips", help="Output directory for clips"),
+    srt_file: Optional[str] = typer.Option(None, help="SRT file for segments.txt"),
 ):
-    video_editing.generate_clips(video, segs, out_dir)
+    video_editing.generate_clips(video, segs, out_dir, srt_file)
 
 
 @app.command()
@@ -237,16 +241,19 @@ def pipeline(
     roll = chair.parse_roll_call(json_file)
     Path("roll_call_map.json").write_text(json.dumps(roll, indent=2))
 
+    tmp_json = "segments.json"
     nicholson.identify_segments(
         json_file,
         "recognized_map.json",
-        "segments_to_keep.json",
+        tmp_json,
         "board_members.txt",
     )
-    video_editing.generate_clips(video, "segments_to_keep.json", "clips")
+    segmentation.segments_json_to_txt(tmp_json, "segments.txt")
+    Path(tmp_json).unlink(missing_ok=True)
+    video_editing.generate_clips(video, "segments.txt", "clips")
     video_editing.concatenate_clips("clips", "final_video.mp4")
-    annotation.annotate_segments("markup_guide.txt", "segments_to_keep.json", "markup_with_markers.txt")
-    clip_transcripts.clip_transcripts("markup_guide.txt", "segments_to_keep.json", "clip_transcripts.txt")
+    annotation.annotate_segments("markup_guide.txt", "segments.txt", "markup_with_markers.txt")
+    clip_transcripts.clip_transcripts("markup_guide.txt", "segments.txt", "clip_transcripts.txt")
 
 
 def main() -> None:

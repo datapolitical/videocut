@@ -56,3 +56,30 @@ def test_generate_clips_invokes_ffmpeg(tmp_path, monkeypatch):
     assert calls["run"]  # ffmpeg called
     assert calls["build"]  # faded clip built
     assert (tmp_path / "clips" / "clip_000.mp4").exists()
+
+
+def test_generate_clips_segments_txt(tmp_path, monkeypatch):
+    srt = tmp_path / "input.srt"
+    srt.write_text("""1\n00:00:00,000 --> 00:00:01,000\nA\n\n2\n00:00:01,000 --> 00:00:02,000\nB\n""")
+    seg_txt = tmp_path / "segments.txt"
+    seg_txt.write_text("=START=\n\t[1]A\n\t[2]B\n=END=\n")
+
+    calls = {"run": [], "build": []}
+
+    def fake_run(cmd, check, env=None):
+        calls["run"].append(cmd)
+        Path(cmd[-1]).write_text("tmp")
+
+    def fake_build(src, dst):
+        calls["build"].append((src, dst))
+        dst.write_text("done")
+
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(video_editing.subprocess, "run", fake_run)
+    monkeypatch.setattr(video_editing, "_build_faded_clip", fake_build)
+
+    video_editing.generate_clips("vid.mp4", str(seg_txt), "clips", str(srt))
+
+    assert calls["run"]
+    assert calls["build"]
+    assert (tmp_path / "clips" / "clip_000.mp4").exists()

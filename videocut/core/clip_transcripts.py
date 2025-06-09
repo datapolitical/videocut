@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
+from . import segmentation
 
 
 _TS_RE = re.compile(r"\[(?P<start>\d+\.?\d*)[–-](?P<end>\d+\.?\d*)")
@@ -23,11 +24,12 @@ def parse_line(line: str) -> dict | None:
 
 def clip_transcripts(
     markup_file: str = "markup_guide.txt",
-    seg_json: str = "segments_to_keep.json",
+    seg_file: str = "segments.txt",
     out_file: str = "clip_transcripts.txt",
+    srt_file: str | None = None,
 ) -> None:
     """Write ``out_file`` listing transcript snippets for kept clips."""
-    segments = json.loads(Path(seg_json).read_text())
+    segments = segmentation.load_segments(seg_file, srt_file)
     lines = Path(markup_file).read_text().splitlines()
     entries = [e for l in lines if (e := parse_line(l))]
 
