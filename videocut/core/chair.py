@@ -12,7 +12,9 @@ _NAME_RE = re.compile(
 )
 _PRESENT_RE = re.compile(r"\b(present|here)\b", re.IGNORECASE)
 
-__all__ = ["identify_chair", "parse_roll_call"]
+_SPEAKER_RE = re.compile(r"\[(SPEAKER_\d+)\]")
+
+__all__ = ["identify_chair", "parse_roll_call", "identify_chair_srt"]
 
 def identify_chair(diarized_json: str) -> str:
     """Return the diarized speaker ID who calls the roll."""
@@ -57,3 +59,13 @@ def parse_roll_call(diarized_json: str) -> Dict[str, str]:
             break
         i += 1
     return votes
+
+
+def identify_chair_srt(srt_file: str) -> str:
+    """Return the speaker tag that calls the roll in an SRT file."""
+    for line in Path(srt_file).read_text().splitlines():
+        if _ROLL_RE.search(line):
+            m = _SPEAKER_RE.search(line)
+            if m:
+                return m.group(1)
+    raise RuntimeError("No roll call detected – unable to identify chair")

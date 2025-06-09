@@ -7,6 +7,7 @@ from .core import (
     nicholson,
     annotation,
     clip_transcripts,
+    srt_markers,
     speaker_mapping,
 )
 
@@ -17,5 +18,6 @@ __all__ = [
     "segmentation",
     "video_editing",
     "nicholson",
+    "srt_markers",
     "speaker_mapping",
 ]

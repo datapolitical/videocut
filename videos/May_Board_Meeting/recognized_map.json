@@ -97,5 +97,9 @@
   "null": {
     "name": "Ruscha",
     "alternatives": []
+  },
+  "SPEAKER_10": {
+    "name": "Bouquet",
+    "alternatives": []
   }
 }
