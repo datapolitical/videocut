@@ -4,27 +4,14 @@ import json
 import re
 import sys
 from pathlib import Path
+from . import segmentation
 
 
 _MARKUP_IN_DEFAULT = "markup_guide.txt"
-_SEGMENTS_IN_DEFAULT = "segments_to_keep.json"
+_SEGMENTS_IN_DEFAULT = "segments.txt"
 _MARKUP_OUT_DEFAULT = "markup_with_markers.txt"
 
 _TS_RE = re.compile(r"^\s*\[(?P<start>\d+\.?\d*)[–-](?P<end>\d+\.?\d*)\]")
-
-
-def load_segments(json_path: Path) -> list[dict]:
-    """Load and sort clip segments from a JSON file."""
-    if not json_path.exists():
-        sys.exit(f"❌  '{json_path}' not found. Run identify-segments first.")
-    raw = json.loads(json_path.read_text())
-    if isinstance(raw, dict) and "segments" in raw:
-        raw = raw["segments"]
-    try:
-        segs = [{"start": float(s["start"]), "end": float(s["end"])} for s in raw]
-    except Exception:
-        sys.exit(f"❌  Unexpected JSON format in '{json_path}'.")
-    return sorted(segs, key=lambda seg: seg["start"])
 
 
 def load_markup(markup_path: Path) -> list[str]:
@@ -85,11 +72,12 @@ END = "{END}"
 
 def annotate_segments(
     markup_file: str = _MARKUP_IN_DEFAULT,
-    seg_json: str = _SEGMENTS_IN_DEFAULT,
+    seg_file: str = _SEGMENTS_IN_DEFAULT,
     out_file: str = _MARKUP_OUT_DEFAULT,
+    srt_file: str | None = None,
 ) -> None:
     """Write ``out_file`` with annotation markers for segments."""
-    segments = load_segments(Path(seg_json))
+    segments = segmentation.load_segments(seg_file, srt_file)
     markup = load_markup(Path(markup_file))
     annotated = annotate(markup, segments)
     Path(out_file).write_text("\n".join(annotated))
@@ -99,7 +87,6 @@ def annotate_segments(
 
 
 __all__ = [
-    "load_segments",
     "load_markup",
     "parse_ts",
     "annotate",

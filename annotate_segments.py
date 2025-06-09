@@ -2,7 +2,7 @@
 """
 annotate_segments.py
 
-Read `markup_guide.txt` and `segments_to_keep.json`, then write
+Read `markup_guide.txt` and `segments.txt`, then write
 `markup_with_markers.txt` where each Nicholson segment is wrapped by
 its own-line `{START}` and `{END}` markers.
 
@@ -14,25 +14,14 @@ import json
 import re
 import sys
 from pathlib import Path
+from videocut.core import segmentation
 
 MARKUP_IN   = Path("markup_guide.txt")
-SEGMENTS_IN = Path("segments_to_keep.json")
+SEGMENTS_IN = Path("segments.txt")
 MARKUP_OUT  = Path("markup_with_markers.txt")
 
 # Matches lines beginning with “[start–end]”
 _TS_RE = re.compile(r"^\s*\[(?P<start>\d+\.?\d*)[–-](?P<end>\d+\.?\d*)\]")
-
-def load_segments(json_path: Path) -> list[dict]:
-    if not json_path.exists():
-        sys.exit(f"❌  '{json_path}' not found. Run identify-segments first.")
-    raw = json.loads(json_path.read_text())
-    if isinstance(raw, dict) and "segments" in raw:
-        raw = raw["segments"]
-    try:
-        segs = [{"start": float(s["start"]), "end": float(s["end"])} for s in raw]
-    except Exception:
-        sys.exit(f"❌  Unexpected JSON format in '{json_path}'.")
-    return sorted(segs, key=lambda seg: seg["start"])
 
 def load_markup(markup_path: Path) -> list[str]:
     if not markup_path.exists():
@@ -88,11 +77,12 @@ def annotate(markup_lines: list[str], segments: list[dict]) -> list[str]:
 
 def annotate_segments(
     markup_file: str = "markup_guide.txt",
-    seg_json: str = "segments_to_keep.json",
+    seg_file: str = "segments.txt",
     out_file: str = "markup_with_markers.txt",
+    srt_file: str | None = None,
 ) -> None:
     """Write ``out_file`` with ``{START}``/``{END}`` markers for segments."""
-    segments = load_segments(Path(seg_json))
+    segments = segmentation.load_segments(seg_file, srt_file)
     markup = load_markup(Path(markup_file))
     annotated = annotate(markup, segments)
     Path(out_file).write_text("\n".join(annotated))

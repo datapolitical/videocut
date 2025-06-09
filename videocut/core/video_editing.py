@@ -5,11 +5,47 @@ import json
 import sys
 from pathlib import Path
 from typing import List
+from . import segmentation
 
 WHITE_FLASH_SEC = 0.5
 FADE_SEC = 0.5
 TARGET_W, TARGET_H = 1280, 720
 TARGET_FPS = 30
+
+
+def _parse_time(ts: str) -> float:
+    h, m, rest = ts.split(":")
+    s, ms = rest.split(",")
+    return int(h) * 3600 + int(m) * 60 + int(s) + int(ms) / 1000
+
+
+def _load_srt_entries(path: Path) -> list[dict]:
+    entries: list[dict] = []
+    lines = path.read_text().splitlines()
+    i = 0
+    while i < len(lines):
+        if not lines[i].strip():
+            i += 1
+            continue
+        if lines[i].startswith("="):
+            i += 1
+            continue
+        number = lines[i].strip()
+        i += 1
+        if i >= len(lines):
+            break
+        ts_line = lines[i].strip()
+        i += 1
+        if "-->" not in ts_line:
+            continue
+        start_str, end_str = [p.strip() for p in ts_line.split("-->")]
+        start, end = _parse_time(start_str), _parse_time(end_str)
+        while i < len(lines) and lines[i].strip():
+            i += 1
+        entries.append({"number": int(number), "start": start, "end": end})
+        while i < len(lines) and not lines[i].strip():
+            i += 1
+    return entries
 
 
 def _build_faded_clip(src: Path, dst: Path) -> None:
@@ -68,15 +104,36 @@ def generate_clips_from_segments(
     print(f"✅  {len(segments)} polished clip(s) in {out_dir}/")
 
 
+def _segments_from_txt(txt_file: str, srt_file: str) -> list[dict]:
+    numbers = segmentation.segments_from_txt(txt_file)
+    entries = _load_srt_entries(Path(srt_file))
+    idx = {e["number"]: e for e in entries}
+    segs: list[dict] = []
+    for s, e in numbers:
+        if s in idx and e in idx:
+            segs.append({"start": idx[s]["start"], "end": idx[e]["end"]})
+    return segs
+
+
 def generate_clips(
     input_video: str,
-    seg_json: str = "segments_to_keep.json",
+    segments_file: str = "segments_to_keep.json",
     out_dir: str = "clips",
+    srt_file: str | None = None,
 ) -> None:
-    """Generate clips using a segments JSON file."""
-    if not Path(seg_json).exists():
-        sys.exit("❌  segments_to_keep.json missing – run clip identification")
-    segs = json.loads(Path(seg_json).read_text())
+    """Generate clips from a JSON or text segments file."""
+    if not Path(segments_file).exists():
+        sys.exit(f"❌  {segments_file} missing – run clip identification")
+
+    if segments_file.endswith(".txt"):
+        if srt_file is None:
+            srt_file = str(Path(input_video).with_suffix(".srt"))
+        if not Path(srt_file).exists():
+            sys.exit(f"❌  SRT file '{srt_file}' required for segments.txt")
+        segs = _segments_from_txt(segments_file, srt_file)
+    else:
+        segs = json.loads(Path(segments_file).read_text())
+
     generate_clips_from_segments(input_video, segs, out_dir)
 
 

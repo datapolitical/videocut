@@ -22,12 +22,15 @@ pip install -e .
 2. **Identify recognized speakers** – `videocut identify-recognized input.json`
    detects the chair from the roll call and writes `recognized_map.json` and
    `roll_call_map.json`.
-3. **Identify segments** – `videocut identify-segments input.json` creates
-   `segments_to_keep.json` grouping Secretary Nicholson's remarks.
-4. **Generate clips** – `videocut generate-clips input.mp4` cuts clips to `clips/`.
-5. **Concatenate** – `videocut concatenate` joins clips into `final_video.mp4`.
-6. **Annotate markup** – `videocut annotate-markup` writes `markup_with_markers.txt`.
-7. **Clip transcripts** – `videocut clip-transcripts` produces `clip_transcripts.txt`.
+3. **Identify segments** – `videocut identify-segments input.json` writes a
+   tab-indented `segments.txt` grouping Secretary Nicholson's remarks.
+4. *(Optional)* **Edit `segments.txt`** – trim or rearrange lines before
+   generating clips.
+5. **Generate clips** – `videocut generate-clips input.mp4` reads `segments.txt`
+   (and the matching SRT captions) and cuts clips to `clips/`.
+6. **Concatenate** – `videocut concatenate` joins clips into `final_video.mp4`.
+7. **Annotate markup** – `videocut annotate-markup` writes `markup_with_markers.txt`.
+8. **Clip transcripts** – `videocut clip-transcripts` produces `clip_transcripts.txt`.
 
 All of these steps run automatically with:
 ```bash

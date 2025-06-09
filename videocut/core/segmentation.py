@@ -158,10 +158,123 @@ def extract_marked(markup: str = "markup_guide.txt", out_json: str = "segments_t
     Path(out_json).write_text(json.dumps(segs, indent=2))
     print(f"✅  {len(segs)} segment(s) → {out_json}")
 
+
+def segments_json_to_txt(json_file: str, out_txt: str = "segments.txt") -> None:
+    """Write a text representation of segments for manual editing."""
+    if not Path(json_file).exists():
+        sys.exit(f"❌  {json_file} not found")
+    segs = json.loads(Path(json_file).read_text())
+    if isinstance(segs, dict) and "segments" in segs:
+        segs = segs["segments"]
+    lines = []
+    idx = 1
+    for seg in segs:
+        lines.append("=START=")
+        for line in seg.get("text", []):
+            if line.startswith("[") and "]" in line:
+                line = line.split("]", 1)[1].strip()
+            lines.append(f"\t[{idx}]{line}")
+            idx += 1
+        lines.append("=END=")
+    Path(out_txt).write_text("\n".join(lines))
+    print(f"✅  wrote {out_txt}")
+
+
+def segments_from_txt(seg_txt: str) -> list[tuple[int, int]]:
+    """Return ``[(start_idx, end_idx), ...]`` parsed from *seg_txt*."""
+    entries: list[tuple[int, int]] = []
+    cur: list[int] = []
+    for raw in Path(seg_txt).read_text().splitlines():
+        line = raw.strip()
+        if line == "=START=":
+            cur = []
+        elif line == "=END=":
+            if cur:
+                entries.append((cur[0], cur[-1]))
+            cur = []
+        elif line.startswith("[") and "]" in line:
+            num_str = line[1: line.find("]")]
+            try:
+                num = int(num_str)
+            except ValueError:
+                continue
+            cur.append(num)
+    return entries
+
+
+def _parse_time(ts: str) -> float:
+    h, m, rest = ts.split(":")
+    s, ms = rest.split(",")
+    return int(h) * 3600 + int(m) * 60 + int(s) + int(ms) / 1000
+
+
+def _load_srt_entries(path: Path) -> list[dict]:
+    entries: list[dict] = []
+    lines = path.read_text().splitlines()
+    i = 0
+    while i < len(lines):
+        if not lines[i].strip():
+            i += 1
+            continue
+        if lines[i].startswith("="):
+            i += 1
+            continue
+        number = lines[i].strip()
+        i += 1
+        if i >= len(lines):
+            break
+        ts_line = lines[i].strip()
+        i += 1
+        if "-->" not in ts_line:
+            continue
+        start_str, end_str = [p.strip() for p in ts_line.split("-->")]
+        start, end = _parse_time(start_str), _parse_time(end_str)
+        while i < len(lines) and lines[i].strip():
+            i += 1
+        entries.append({"number": int(number), "start": start, "end": end})
+        while i < len(lines) and not lines[i].strip():
+            i += 1
+    return entries
+
+
+def load_segments(seg_file: str, srt_file: str | None = None) -> list[dict]:
+    """Return ``[{start, end}, ...]`` from *seg_file* (txt or json)."""
+    path = Path(seg_file)
+    if not path.exists():
+        sys.exit(f"❌  '{seg_file}' not found. Run identify-segments first.")
+    if path.suffix == ".txt":
+        if srt_file is None:
+            srt_file = str(path.with_suffix(".srt"))
+        if not Path(srt_file).exists():
+            sys.exit(f"❌  SRT file '{srt_file}' required for segments.txt")
+        numbers = segments_from_txt(seg_file)
+        entries = _load_srt_entries(Path(srt_file))
+        idx = {e["number"]: e for e in entries}
+        segs: list[dict] = []
+        for s, e in numbers:
+            if s in idx and e in idx:
+                segs.append({"start": idx[s]["start"], "end": idx[e]["end"]})
+        return segs
+    else:
+        raw = json.loads(path.read_text())
+        if isinstance(raw, dict) and "segments" in raw:
+            raw = raw["segments"]
+        try:
+            segs = [
+                {"start": float(s["start"]), "end": float(s["end"])}
+                for s in raw
+            ]
+        except Exception:
+            sys.exit(f"❌  Unexpected JSON format in '{seg_file}'.")
+        return sorted(segs, key=lambda seg: seg["start"])
+
 __all__ = [
     "json_to_tsv",
     "json_to_editable",
     "identify_clips",
     "identify_clips_json",
     "extract_marked",
+    "segments_json_to_txt",
+    "segments_from_txt",
+    "load_segments",
 ]

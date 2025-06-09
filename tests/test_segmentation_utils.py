@@ -1,4 +1,5 @@
 import os, sys, json
+from pathlib import Path
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 import pytest
@@ -90,9 +91,13 @@ def test_cli_commands(tmp_path):
     videocut_cli.extract_marked(markup=str(markup), out=str(out2))
     assert out2.exists()
 
-    out3 = tmp_path / "keep3.json"
-    videocut_cli.identify_segments_cmd(json_file=str(diarized), out=str(out3))
-    assert out3.exists()
+    cwd = Path.cwd()
+    os.chdir(tmp_path)
+    try:
+        videocut_cli.identify_segments_cmd(json_file=str(diarized))
+    finally:
+        os.chdir(cwd)
+    assert (tmp_path / "segments.txt").exists()
 
 
 def test_json_to_editable_list(tmp_path, capsys):
@@ -120,3 +125,22 @@ def test_json_to_tsv_list(tmp_path, capsys):
     assert lines[0] == "start\tend\tspeaker\ttext\tkeep"
     assert lines[1].startswith("0\t1\tS\thi\t")
     assert "✅" in capsys.readouterr().out
+
+
+def test_segments_txt_roundtrip(tmp_path):
+    segs = [
+        {"text": ["[0-1] A: hi", "[1-2] B: there"]},
+        {"text": ["[2-3] A: bye"]},
+    ]
+    js = tmp_path / "segs.json"
+    js.write_text(json.dumps(segs))
+
+    txt = tmp_path / "segments.txt"
+    segmentation.segments_json_to_txt(str(js), str(txt))
+
+    lines = txt.read_text().splitlines()
+    assert lines[0] == "=START="
+    assert lines[1].startswith("\t[1]")
+
+    pairs = segmentation.segments_from_txt(str(txt))
+    assert pairs == [(1, 2), (3, 3)]
