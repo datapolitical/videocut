@@ -1,6 +1,6 @@
 {
   "SPEAKER_06": {
-    "name": "Larsen",
+    "name": "Larson",
     "alternatives": [
       "Gysinger And Then Director Larson",
       "Larson And Then Harwick",
@@ -18,7 +18,7 @@
     ]
   },
   "SPEAKER_07": {
-    "name": "Larsen",
+    "name": "Larson",
     "alternatives": [
       "Nicholson",
       "Harwick",
@@ -37,7 +37,7 @@
     ]
   },
   "SPEAKER_19": {
-    "name": "Benker",
+    "name": "Banker Will Take Your Amendments One At A Time",
     "alternatives": [
       "Catlin",
       "Geisinger"
@@ -67,20 +67,20 @@
     ]
   },
   "SPEAKER_08": {
-    "name": "Guissinger",
+    "name": "Geisinger",
     "alternatives": [
       "Gutierrez"
     ]
   },
   "SPEAKER_15": {
-    "name": "Paglieri",
+    "name": "Pagulari",
     "alternatives": [
       "Pagulari Is A No",
       "Arusha"
     ]
   },
   "SPEAKER_17": {
-    "name": "Paglieri",
+    "name": "Pagulari",
     "alternatives": [
       "Ruscha",
       "Usha"
@@ -95,11 +95,7 @@
     "alternatives": []
   },
   "null": {
-    "name": "Ruscha",
-    "alternatives": []
-  },
-  "SPEAKER_10": {
-    "name": "Bouquet",
+    "name": "Russia",
     "alternatives": []
   }
 }
