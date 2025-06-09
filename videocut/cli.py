@@ -222,42 +222,31 @@ def concatenate(clips_dir: str = "clips", out: str = "final_video.mp4"):
 @app.command()
 def pipeline(
     video: str = typer.Argument("input.mp4", help="Input video file"),
-    diarize: bool = typer.Option(False, help="Perform speaker diarization"),
-    hf_token: Optional[str] = typer.Option(None, envvar="HF_TOKEN", help="Hugging Face token for diarization"),
-    auto_nicholson: bool = typer.Option(True, help="Automatically mark Secretary Nicholson"),
+    hf_token: str = typer.Option(..., envvar="HF_TOKEN", help="Hugging Face token for diarization"),
     speaker_db: Optional[str] = typer.Option(None, help="Speaker embedding database JSON"),
 ):
-    """Run the full pipeline, identifying Nicholson segments by default."""
-    # ``speaker_db`` may be Typer's ``OptionInfo`` sentinel when this command
-    # is invoked programmatically (e.g. by tests). Only pass it through when it
-    # is an actual string path so patched versions of :func:`transcription.transcribe`
-    # that accept the original 3 arguments continue to work.
+    """Run the full board‑meeting pipeline."""
     if isinstance(speaker_db, str) and speaker_db:
-        transcription.transcribe(video, hf_token, diarize, speaker_db)
+        transcription.transcribe(video, hf_token, True, speaker_db)
     else:
-        transcription.transcribe(video, hf_token, diarize)
+        transcription.transcribe(video, hf_token, True)
+
     json_file = f"{Path(video).stem}.json"
+    ids = nicholson.map_recognized_auto(json_file)
+    Path("recognized_map.json").write_text(json.dumps(ids, indent=2))
+    roll = chair.parse_roll_call(json_file)
+    Path("roll_call_map.json").write_text(json.dumps(roll, indent=2))
 
-    if diarize:
-        try:
-            ids = nicholson.map_recognized_auto(json_file)
-            Path("recognized_map.json").write_text(json.dumps(ids, indent=2))
-            print("✅  recognized map → recognized_map.json")
-        except Exception as exc:
-            print(f"⚠️  automatic recognition failed: {exc}")
-
-    if auto_nicholson:
-        nicholson.identify_segments(
-            json_file,
-            "recognized_map.json",
-            "segments_to_keep.json",
-            "board_members.txt",
-        )
-    else:
-        segmentation.json_to_editable(json_file, "segments_edit.json", "markup_guide.txt")
-        segmentation.identify_clips_json("segments_edit.json", "segments_to_keep.json")
+    nicholson.identify_segments(
+        json_file,
+        "recognized_map.json",
+        "segments_to_keep.json",
+        "board_members.txt",
+    )
     video_editing.generate_clips(video, "segments_to_keep.json", "clips")
     video_editing.concatenate_clips("clips", "final_video.mp4")
+    annotation.annotate_segments("markup_guide.txt", "segments_to_keep.json", "markup_with_markers.txt")
+    clip_transcripts.clip_transcripts("markup_guide.txt", "segments_to_keep.json", "clip_transcripts.txt")
 
 
 def main() -> None:
