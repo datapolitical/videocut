@@ -11,6 +11,7 @@ from .core import (
     nicholson,
     annotation,
     clip_transcripts,
+    srt_markers,
     speaker_mapping,
     chair,
 )
@@ -64,6 +65,35 @@ def annotate_markup(markup_file: str = "markup_guide.txt", seg_json: str = "segm
 @app.command()
 def clip_transcripts_cmd(markup_file: str = "markup_guide.txt", seg_json: str = "segments_to_keep.json", out_file: str = "clip_transcripts.txt"):
     clip_transcripts.clip_transcripts(markup_file, seg_json, out_file)
+
+@app.command()
+def annotate_srt(
+    srt_file: str,
+    seg_json: str = "segments_to_keep.json",
+    name_map: str = "recognized_map.json",
+    out_file: str = "May_Board_Meeting_processed.srt",
+):
+    """Write ``out_file`` with =START/=END markers and mapped labels."""
+    srt_markers.annotate_srt(srt_file, seg_json, name_map, out_file)
+
+
+@app.command()
+def srt_to_segments(srt_file: str, out: str = "segments_from_srt.json"):
+    """Extract segment list from an annotated SRT file."""
+    segs = srt_markers.segments_from_srt(srt_file)
+    Path(out).write_text(json.dumps(segs, indent=2))
+    print(f"✅  {len(segs)} segment(s) → {out}")
+
+
+@app.command()
+def clips_from_srt(
+    video: str = typer.Argument("input.mp4", help="Source video"),
+    srt_file: str = typer.Argument("processed.srt", help="SRT with markers"),
+    out_dir: str = typer.Option("clips", help="Output directory for clips"),
+):
+    """Generate clips directly from an annotated SRT."""
+    segs = srt_markers.segments_from_srt(srt_file)
+    video_editing.generate_clips_from_segments(video, segs, out_dir)
 
 
 @app.command()
