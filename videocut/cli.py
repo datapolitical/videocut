@@ -71,9 +71,17 @@ def annotate_srt(
     srt_file: str,
     seg_json: str = "segments_to_keep.json",
     name_map: str = "recognized_map.json",
-    out_file: str = "May_Board_Meeting_processed.srt",
+    out_file: Optional[str] = None,
 ):
-    """Write ``out_file`` with =START/=END markers and mapped labels."""
+    """Write ``out_file`` with =START/=END markers and mapped labels.
+
+    If ``out_file`` is ``None`` it will be derived from ``srt_file`` by
+    appending ``_processed`` before the extension. For example,
+    ``meeting.srt`` becomes ``meeting_processed.srt``.
+    """
+    if out_file is None:
+        path = Path(srt_file)
+        out_file = f"{path.stem}_processed{path.suffix}"
     srt_markers.annotate_srt(srt_file, seg_json, name_map, out_file)
 
 
