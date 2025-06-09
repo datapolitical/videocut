@@ -59,11 +59,21 @@ def extract_marked(markup: str = "markup_guide.txt", out: str = "segments_to_kee
     segmentation.extract_marked(markup, out)
 
 @app.command()
-def annotate_markup(markup_file: str = "markup_guide.txt", seg_file: str = "segments.txt", out_file: str = "markup_with_markers.txt", srt_file: str | None = None):
+def annotate_markup(
+    markup_file: str = "markup_guide.txt",
+    seg_file: str = "segments.txt",
+    out_file: str = "markup_with_markers.txt",
+    srt_file: Optional[str] = None,
+):
     annotation.annotate_segments(markup_file, seg_file, out_file, srt_file)
 
 @app.command()
-def clip_transcripts_cmd(markup_file: str = "markup_guide.txt", seg_file: str = "segments.txt", out_file: str = "clip_transcripts.txt", srt_file: str | None = None):
+def clip_transcripts_cmd(
+    markup_file: str = "markup_guide.txt",
+    seg_file: str = "segments.txt",
+    out_file: str = "clip_transcripts.txt",
+    srt_file: Optional[str] = None,
+):
     clip_transcripts.clip_transcripts(markup_file, seg_file, out_file, srt_file)
 
 @app.command()
