@@ -34,22 +34,50 @@ def _build_faded_clip(src: Path, dst: Path) -> None:
     ], check=True)
 
 
-def generate_clips(input_video: str, seg_json: str = "segments_to_keep.json", out_dir: str = "clips") -> None:
-    if not Path(seg_json).exists():
-        sys.exit("❌  segments_to_keep.json missing – run clip identification")
-    segs = json.loads(Path(seg_json).read_text())
+def generate_clips_from_segments(
+    input_video: str,
+    segments: list[dict],
+    out_dir: str = "clips",
+) -> None:
+    """Cut *input_video* into clips based on *segments*."""
     Path(out_dir).mkdir(exist_ok=True)
-    for i, seg in enumerate(segs):
+    for i, seg in enumerate(segments):
         tmp = Path(out_dir) / f"tmp_{i:03d}.mp4"
         final = Path(out_dir) / f"clip_{i:03d}.mp4"
         print(f"🎬  clip_{i:03d}  {seg['start']:.2f}–{seg['end']:.2f}")
-        subprocess.run([
-            "ffmpeg", "-v", "error", "-y", "-ss", str(seg['start']), "-to", str(seg['end']),
-            "-i", input_video, "-c", "copy", str(tmp)
-        ], check=True)
+        subprocess.run(
+            [
+                "ffmpeg",
+                "-v",
+                "error",
+                "-y",
+                "-ss",
+                str(seg["start"]),
+                "-to",
+                str(seg["end"]),
+                "-i",
+                input_video,
+                "-c",
+                "copy",
+                str(tmp),
+            ],
+            check=True,
+        )
         _build_faded_clip(tmp, final)
         tmp.unlink()
-    print(f"✅  {len(segs)} polished clip(s) in {out_dir}/")
+    print(f"✅  {len(segments)} polished clip(s) in {out_dir}/")
+
+
+def generate_clips(
+    input_video: str,
+    seg_json: str = "segments_to_keep.json",
+    out_dir: str = "clips",
+) -> None:
+    """Generate clips using a segments JSON file."""
+    if not Path(seg_json).exists():
+        sys.exit("❌  segments_to_keep.json missing – run clip identification")
+    segs = json.loads(Path(seg_json).read_text())
+    generate_clips_from_segments(input_video, segs, out_dir)
 
 
 def concatenate_clips(clips_dir: str = "clips", out_file: str = "final_video.mp4") -> None:
@@ -83,4 +111,8 @@ def concatenate_clips(clips_dir: str = "clips", out_file: str = "final_video.mp4
     ], check=True)
     print(f"🏁  {out_file} assembled ({len(clips)} clips + white flashes)")
 
-__all__ = ["generate_clips", "concatenate_clips"]
+__all__ = [
+    "generate_clips_from_segments",
+    "generate_clips",
+    "concatenate_clips",
+]
