@@ -14,7 +14,8 @@ High-level workflow:
 2. **Identify segments** – create `segments_to_keep.json` selecting Secretary Nicholson's speech. The script cross-checks heuristics against recognized speakers and warns if they disagree. The JSON can be manually edited or converted to an editable format after this step.
 3. **Generate clips** – cut clips with fade-in/out.
 4. **Concatenate** – join clips together with white flashes in between.
-5. **Optional utilities** – annotate markup with `{START}`/`{END}` markers and generate a transcript summary of long clips.
+5. **Annotate markup** – create `markup_with_markers.txt` for the kept segments.
+6. **Clip transcripts** – summarize transcript lines for each long clip.
 
 ---
 
@@ -22,7 +23,7 @@ High-level workflow:
 
 - A transcription engine capable of producing JSON output
 - Command-line video processing tools for clipping and concatenation
-- Optional: access token for speaker diarization
+- Access token for speaker diarization
 
 ---
 
@@ -32,7 +33,7 @@ High-level workflow:
 
 - Automatically selects an appropriate compute mode based on the hardware architecture.
 - Transcribes the input video to produce `<input>.json` and `markup_guide.txt` with lines in the form `[start-end] SPEAKER: text`.
-- Supports optional diarization when provided with a token.
+- Always performs diarization using the provided access token.
 - Exits if the expected JSON file is not produced.
 
 ### Clip utilities
@@ -117,7 +118,8 @@ To recreate this project in another environment, follow these guidelines:
    - `segments_to_keep.json` listing the final clip boundaries
    - `clips/clip_XXX.mp4` files
    - `final_video.mp4`
-   - Optional: `markup_with_markers.txt` and `clip_transcripts.txt`
+   - `markup_with_markers.txt`
+   - `clip_transcripts.txt`
 7. **Environment** – ensure the video-processing binaries are accessible. Speaker diarization requires an authentication token when used.
 
 Adhering to these behaviors will yield a compatible replacement for the current VideoCut implementation.
