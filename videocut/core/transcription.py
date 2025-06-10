@@ -26,14 +26,18 @@ def transcribe(
     hf_token: str | None = None,
     diarize: bool = False,
     speaker_db: str | None = None,
+    progress: bool = True,
 ) -> None:
     """Run WhisperX on *video* and produce ``markup_guide.txt``.
 
     If ``speaker_db`` is provided, diarized speaker labels will be mapped to real
-    names using embeddings after transcription.
+    names using embeddings after transcription. Set ``progress`` to ``False`` to
+    suppress the WhisperX progress output.
     """
     out_json = f"{Path(video).stem}.json"
     cmd = ["whisperx", video, "--compute_type", compute_type(), "--output_dir", "."]
+    if progress:
+        cmd += ["--print_progress", "True"]
     if diarize:
         if not hf_token:
             sys.exit("❌  --diarize requires --hf_token or HF_TOKEN env var")

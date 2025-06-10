@@ -25,9 +25,10 @@ def transcribe(
     diarize: bool = typer.Option(False, help="Perform speaker diarization"),
     hf_token: Optional[str] = typer.Option(None, envvar="HF_TOKEN", help="Hugging Face token for diarization"),
     speaker_db: Optional[str] = typer.Option(None, help="Speaker embedding database JSON"),
+    progress: bool = typer.Option(True, help="Show WhisperX progress output"),
 ):
     """Run WhisperX transcription."""
-    transcription.transcribe(video, hf_token, diarize, speaker_db)
+    transcription.transcribe(video, hf_token, diarize, speaker_db, progress)
 
 
 @app.command()

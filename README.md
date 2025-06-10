@@ -18,7 +18,8 @@ pip install -e .
 
 ## Workflow
 1. **Transcribe** – `videocut transcribe input.mp4 --diarize --hf_token $HF_TOKEN`
-   produces `input.json` and `markup_guide.txt` with diarized speaker labels.
+   produces `input.json` and `markup_guide.txt` with diarized speaker labels. A
+   progress bar from WhisperX is shown unless you pass `--no-progress`.
 2. **Identify recognized speakers** – `videocut identify-recognized input.json`
    detects the chair from the roll call and writes `recognized_map.json` and
    `roll_call_map.json`.
