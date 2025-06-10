@@ -88,6 +88,11 @@ def normalize_recognized_name(name: str, board_map: Dict[str, str]) -> str:
     match = get_close_matches(lname, list(board_map.keys()), n=1, cutoff=0.65)
     if match:
         return board_map[match[0]]
+    # attempt to match just on last name
+    last = lname.split()[-1]
+    last_map = {n.split()[-1].lower(): n for n in board_map.values()}
+    if last in last_map:
+        return last_map[last]
     return name
 
 
@@ -188,8 +193,11 @@ def map_recognized_speakers(
     return result
 
 
+# common pattern for a person name (1 or 2 words, allow apostrophes/hyphens)
+_NAME_TOKEN = r"[A-Za-z'’-]+"
+
 _AUTO_RECOG_RE = re.compile(
-    r"(?:director|secretary|chair|treasurer|mr|ms|mrs)\.?\s*(?P<name>[a-zA-Z]+(?: [a-zA-Z]+)*)\s+(?:you(?:'re| are)|is) recognized",
+    rf"(?:director|secretary|chair|treasurer|mr|ms|mrs)\.?\s*(?P<name>{_NAME_TOKEN}(?: {_NAME_TOKEN})?)\s+(?:you(?:'re| are)|is) recognized",
     re.IGNORECASE,
 )
 
@@ -198,20 +206,20 @@ _RECOG_SIMPLE_RE = re.compile(r"you(?:'re| are) recognized", re.IGNORECASE)
 
 # Name mentioned before a recognition cue
 _NAME_BEFORE_RE = re.compile(
-    r"(?:director|secretary|chair|treasurer|mr|ms|mrs)\.?\s+(?P<name>[A-Z][a-z]+(?: [A-Z][a-z]+)*)",
+    rf"(?:director|secretary|chair|treasurer|mr|ms|mrs)\.?\s+(?P<name>{_NAME_TOKEN}(?: {_NAME_TOKEN})?)\b",
     re.IGNORECASE,
 )
 
 # Short statement that is just a titled name
 _NAME_ONLY_RE = re.compile(
-    r"^(?:director|secretary|chair|treasurer|mr|ms|mrs|dr)\.?\s+(?P<name>[A-Za-z]+(?: [A-Za-z]+)*)[.,?]*$",
+    rf"^(?:director|secretary|chair|treasurer|mr|ms|mrs|dr)\.?\s+(?P<name>{_NAME_TOKEN}(?: {_NAME_TOKEN})?)[.,?]*$",
     re.IGNORECASE,
 )
 
 # Yield or call on someone to speak
 _YIELD_RE = re.compile(
-    r"(?:yield|offer) (?:the )?floor to (?:director|secretary|chair|treasurer|mr|ms|mrs|dr)\.?\s*(?P<name>[A-Za-z]+(?: [A-Za-z]+)*)"
-    r"|call(?:ing)? on (?:director|secretary|chair|treasurer|mr|ms|mrs|dr)\.?\s*(?P<name2>[A-Za-z]+(?: [A-Za-z]+)*)",
+    rf"(?:yield|offer) (?:the )?floor to (?:director|secretary|chair|treasurer|mr|ms|mrs|dr)\.?\s*(?P<name>{_NAME_TOKEN}(?: {_NAME_TOKEN})?)"
+    rf"|call(?:ing)? on (?:director|secretary|chair|treasurer|mr|ms|mrs|dr)\.?\s*(?P<name2>{_NAME_TOKEN}(?: {_NAME_TOKEN})?)",
     re.IGNORECASE,
 )
 
@@ -287,6 +295,16 @@ def map_recognized_auto(diarized_json: str) -> Dict[str, dict]:
             sub = speaker_counts.setdefault(spk, {})
             sub[name] = cnt
 
+    # keep the speaker with the highest count for each name
+    name_best: Dict[str, tuple[str, int]] = {}
+    for name, spk_counts in counts.items():
+        best_spk = max(spk_counts, key=spk_counts.get)
+        cnt = spk_counts[best_spk]
+        cur = name_best.get(name)
+        if not cur or cnt > cur[1]:
+            name_best[name] = (best_spk, cnt)
+
+
     result: Dict[str, dict] = {spk: {"name": name, "alternatives": []} for name, spk in roll_map.items()}
 
     if not counts and result:
@@ -297,6 +315,12 @@ def map_recognized_auto(diarized_json: str) -> Dict[str, dict]:
 
     for spk, info in result.items():
         speaker_counts.setdefault(spk, {})
+
+    # remove duplicate mappings for the same name
+    for name, (best_spk, _) in name_best.items():
+        for spk in list(result.keys()):
+            if spk != best_spk and result[spk]["name"] == name:
+                del result[spk]
 
     for spk, name_counts in speaker_counts.items():
         best_name = max(name_counts, key=name_counts.get)
