@@ -52,17 +52,43 @@ BOARD_FILE = Path(__file__).resolve().parents[1] / "board_members.txt"
 
 
 def load_board_names(path: str | None = None) -> set[str]:
-    """Return a set of official board member names in lowercase."""
+    """Return a set of official board or staff names in lowercase."""
     fp = Path(path) if path else BOARD_FILE
     if not fp.exists():
         return set()
     return {ln.strip().lower() for ln in fp.read_text().splitlines() if ln.strip()}
 
 
+def load_board_map(path: str | None = None) -> Dict[str, str]:
+    """Return a mapping of lowercase names to their canonical form."""
+    fp = Path(path) if path else BOARD_FILE
+    if not fp.exists():
+        return {}
+    mapping = {}
+    for line in fp.read_text().splitlines():
+        name = line.strip()
+        if name:
+            mapping[name.lower()] = name
+    return mapping
+
+
 def _is_board_member(name: str, board: set[str]) -> bool:
     if not name:
         return False
     return bool(get_close_matches(name.lower(), list(board), n=1, cutoff=0.75))
+
+
+def normalize_recognized_name(name: str, board_map: Dict[str, str]) -> str:
+    """Return *name* corrected to the closest official name if similar."""
+    if not name:
+        return name
+    lname = name.lower()
+    if lname in board_map:
+        return board_map[lname]
+    match = get_close_matches(lname, list(board_map.keys()), n=1, cutoff=0.65)
+    if match:
+        return board_map[match[0]]
+    return name
 
 
 def map_nicholson_speaker(diarized_json: str) -> str:
@@ -207,6 +233,7 @@ def map_recognized_auto(diarized_json: str) -> Dict[str, dict]:
 
     chair_id = chair.identify_chair(diarized_json)
     roll_map = chair.parse_roll_call(diarized_json)
+    board_map = load_board_map()
 
     counts: Dict[str, Dict[str, int]] = {}
 
@@ -220,6 +247,7 @@ def map_recognized_auto(diarized_json: str) -> Dict[str, dict]:
         name = None
         if m:
             name = m.group("name").title()
+            name = normalize_recognized_name(name, board_map)
         elif _RECOG_SIMPLE_RE.search(text_l):
             # look back at previous segments from the same speaker for a name
             back_text = []
@@ -232,14 +260,17 @@ def map_recognized_auto(diarized_json: str) -> Dict[str, dict]:
             matches = list(_NAME_BEFORE_RE.finditer(joined))
             if matches:
                 name = matches[-1].group("name").title()
+                name = normalize_recognized_name(name, board_map)
         else:
             m2 = _NAME_ONLY_RE.match(text_l)
             if m2:
                 name = m2.group("name").title()
+                name = normalize_recognized_name(name, board_map)
             else:
                 m3 = _YIELD_RE.search(text_l)
                 if m3:
                     name = (m3.group("name") or m3.group("name2")).title()
+                    name = normalize_recognized_name(name, board_map)
         if not name:
             continue
         j = i + 1
@@ -611,6 +642,9 @@ __all__ = [
     "apply_name_map",
     "prune_segments",
     "generate_recognized_directors",
+    "load_board_names",
+    "load_board_map",
+    "normalize_recognized_name",
     "start_score",
     "end_score",
     "should_start",
