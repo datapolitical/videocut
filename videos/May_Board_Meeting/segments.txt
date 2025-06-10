@@ -1,0 +1,412 @@
+=START=
+	[1]SPEAKER_10: Secretary Nicholson.
+	[2]Nicholson: Thank you very much.
+	[3]Nicholson: I think I first want to echo and perhaps be a little bit more direct about what Director Catlin said.
+	[4]Nicholson: We have bus routes in this system that don't qualify for the ADA service, but they're bus routes anyway.
+	[5]Nicholson: There are commuter routes and I
+	[6]Nicholson: would not vote personally for a change that would cut off the people who live within three quarters of a mile of those routes.
+	[7]Nicholson: So at least for me, you guys want to get this through, you're going to need to change that because it's just a matter of basic equity.
+	[8]Nicholson: Otherwise, Peggy has like
+	[9]Nicholson: two places in our district that get service and that's just not reasonable.
+	[10]Nicholson: There are a lot of older folks that live up in those areas.
+	[11]Nicholson: I think the second issue that I have with what's being proposed is that the needs of
+	[12]Nicholson: you know, not call it rural, but mountainous Jefferson County when it comes to AOD are very different than the needs of central Denver.
+	[13]Nicholson: The trips I can get to most places that I need to go, you know, in terms of grocery stores, medical, et cetera, in a $15 Uber.
+	[14]Nicholson: You know, I don't think there's anywhere that you can get to for 15 bucks in Peggy's district or yours exactly.
+	[15]Nicholson: And so.
+	[16]Nicholson: But creating a system where the trip cap is 40 bucks doesn't work for me.
+	[17]Nicholson: Creating a trip cap where it's 15 bucks doesn't work for the people in her district.
+	[18]Nicholson: It strikes me that the right approach would be to have different levels of financial cap and different levels of trip cap to go along with them and let people pick.
+	[19]Nicholson: You want 60 trips at
+	[20]Nicholson: $15 per.
+	[21]Nicholson: Great.
+	[22]Nicholson: You want 50 trips at $20 per.
+	[23]Nicholson: Great.
+	[24]Nicholson: You want 40 trips at $30 per.
+	[25]Nicholson: Great.
+	[26]Nicholson: Depends on where you live.
+	[27]Nicholson: Depends on the types of trips you're going to be taking.
+	[28]Nicholson: But making people all fit into one size is either going to leave her people paying $20 for every single trip that they take.
+	[29]Nicholson: or it's going to put people in my district in a reduced number of rides because very few trips are going to cost $20 or $25.
+	[30]Nicholson: So those are my two pieces of feedback.
+	[31]Nicholson: Thank you.
+	[32]SPEAKER_09: Thank you, Secretary.
+	[33]SPEAKER_09: Director Ruscha.
+=END=
+=START=
+	[34]SPEAKER_10: Director Nicholson, then Director Ruscha.
+	[35]Nicholson: Yeah, just a quick follow-up onto that.
+	[36]Nicholson: When it comes to go to Director Ruscha, my brain, I lost my train of thought for a second, so.
+	[37]SPEAKER_10: Alright, Director Ruscha.
+=END=
+=START=
+	[38]Geisinger: Director Nicholson.
+	[39]Nicholson: Thank you.
+	[40]Nicholson: Is there any step during enrollment of AAR and AOD where we ask people if they are enrolled in the live program and ask them, hey, we're taking 14 other pieces of documentation from you.
+	[41]Nicholson: I mean, AAR is remarkably complicated to sign up for.
+	[42]Nicholson: Is there any part of that process where we try to enroll them in the live program as well?
+	[43]Nicholson: And then I have a quick follow up.
+	[44]SPEAKER_20: I will have to find out about that as part of the process.
+	[45]SPEAKER_20: Um, and we will confirm if that is, you know, how that is handled as, as part of the process.
+	[46]Nicholson: Yeah.
+	[47]Nicholson: So, yeah, as a, as a first thing I would say that since we're going to be updating this to offer the, the live discount and, and not make it free, uh, it should be required as part of the process.
+	[48]Nicholson: If you're going through to sign up for AOD or AAR, some point in that process to set, to ask someone to affirm that they are either already signed up or,
+	[49]Nicholson: haven't signed up or whatever, and then give them the opportunity to make it super easy.
+	[50]Nicholson: Because we only have 15,000 people signed up for live right now, and we have 180 something thousand boardings every day.
+	[51]Nicholson: And I think only about half the people in AOD are currently signed up for, or AAR currently signed up for live.
+	[52]Nicholson: So definitely something I'd like to see there.
+	[53]Nicholson: The second thing, I want to echo what Director Ruscha said about the effect on people who
+	[54]Nicholson: are low income to having these fares, but I want to take it from the other side, which is if you don't have a lot of money and you need to get around to a lot of places, then 40 trips maybe, or whatever the number ends up being, not nearly enough in a way that someone who makes more money
+	[55]Nicholson: can probably have some discretionary to be like, oh, I've run out of trips.
+	[56]Nicholson: I can afford to take an extra three or five or whatever.
+	[57]Nicholson: So I'm not sure that that needs to be fit into the policy here.
+	[58]Nicholson: I'm wary about trying to do too much too quickly.
+	[59]Nicholson: But I do think we need to get a report from you after, I don't know, six months a year that looks at how many trips are people on live using?
+	[60]Nicholson: Are they maxing out?
+	[61]Nicholson: Or are we seeing sort of the same curve?
+	[62]Nicholson: from live users as we do from regular users right now, and that might inform us to take action a year from now to try to offer the right service for people who need it.
+	[63]Nicholson: Some live people make decent incomes.
+	[64]Nicholson: Some of them are literally broke, and we need to recognize that those two groups of people have very different lived experiences.
+	[65]SPEAKER_10: Thank you, Secretary.
+	[66]SPEAKER_10: Ms.
+	[67]SPEAKER_10: Johnson?
+=END=
+=START=
+	[68]SPEAKER_10: Director Nicholson.
+	[69]Nicholson: The Allied Universal Security Contract, please pull that.
+	[70]SPEAKER: Okay.
+	[71]SPEAKER_10: So item B will be removed and placed into recommended action.
+	[72]SPEAKER_10: Excuse me, former item C, as I look in real time here, the Allied Universal Security.
+	[73]SPEAKER_10: Are we okay with security operations, budget transfer?
+=END=
+=START=
+	[74]SPEAKER_10: Director Nicholson.
+	[75]Nicholson: Yeah.
+	[76]Nicholson: So I just have a quick question about this one that came from a constituent.
+	[77]Nicholson: How many people do we have working from working on our security side from Allied?
+	[78]Nicholson: And how many do we have from, you know, RTDPD right now?
+	[79]Nicholson: Thank you.
+	[80]SPEAKER_10: Ms.
+	[81]SPEAKER_10: Johnson.
+	[82]SPEAKER_16: Yes, I will yield the floor to Chief Martin Gano who can address that question.
+=END=
+=START=
+	[83]Nicholson: Thank you, secretary.
+	[84]Nicholson: This is for GMCO Johnson.
+	[85]Nicholson: What are there any.
+	[86]Nicholson: plans in place or is and please feel free to not answer this as we can't.
+	[87]Nicholson: But I know there's been a drawdown over the last few years in our reliance on allied security.
+	[88]Nicholson: Is there anything in this contract or in your planning around this contract or.
+	[89]Nicholson: anything that can give us guidance on whether we expect that to continue after authorizing this, or are we expecting to stay at, you know, 90, 90 something hundred or 180 people over the next few years?
+	[90]Nicholson: Yes.
+	[91]SPEAKER_16: Thank you very much for the question.
+	[92]SPEAKER_16: As chief indicated, this is a contract extension and there's hours that are specified.
+	[93]SPEAKER_16: Hence, in reference to the dollar amount that we have here, I would have to come back to the board.
+	[94]SPEAKER_16: as it relates to any type of authorization as we're doing now currently with this contract extension, if that were to be modified.
+	[95]SPEAKER_16: So on this point in time, it would stay the same unless there's some extenuating circumstances whereby we go out for a solicitation and we're not able to ensure that we're meeting the timeline before, since that's why we're here now with the contract extension quite naturally in doing so.
+=END=
+=START=
+	[96]SPEAKER_10: Thank you director any further conversation on this amendment Secretary Nicholson So this is for our deputy general counsel
+	[97]Nicholson: If we were to pass this tonight, what's the legal risk to the agency when it comes to our federal Title VI approval as a result of this change?
+	[98]Nicholson: Like, is this gonna have any, would this have any legal repercussions or could we just, do we feel pretty comfortable that we could do this and not have the federal government take issue with it?
+	[99]SPEAKER_10: In regards to the amendment secretary?
+	[100]SPEAKER: Yeah.
+=END=
+=START=
+	[101]Nicholson: So I contemplated a no vote out of principle on this action.
+	[102]Nicholson: There's a few things going on.
+	[103]Nicholson: First of all, it should never get to the last minute.
+	[104]Nicholson: The board should never be asked to pass things because it's due in two days.
+	[105]Nicholson: And I know there's a lot of things that go into the delay, but that's just not the right
+	[106]Nicholson: That's not the right urgency to place on the board act.
+	[107]Nicholson: Secondly, I don't know very much about this topic and I have sat in on two operations committee meetings.
+	[108]Nicholson: I've talked to a bunch of people.
+	[109]Nicholson: I've done my own research.
+	[110]Nicholson: And I still am looking for a succinct description of the program.
+	[111]Nicholson: I would note that there was a wonderful book written by Robert Carrow.
+	[112]Nicholson: It's called The Power Broker.
+	[113]Nicholson: I'm sure a lot of people in this room know it.
+	[114]Nicholson: Talks a lot about bad policy decisions on disadvantaged communities.
+	[115]Nicholson: and how those decisions were made and the harmful outcome of those decisions.
+	[116]Nicholson: It is 15 pages shorter than our packet tonight.
+	[117]Nicholson: He won the Pulitzer Prize for a 1200 page treatise on impact by public infrastructure.
+	[118]Nicholson: I would request that when we're passing along documents as part of a packet,
+	[119]Nicholson: it needs to have a point and it should be summarized from the committee for the rest of the board.
+	[120]Nicholson: Simply passing things along for us does not help me understand this better.
+	[121]Nicholson: I'm probably a yes vote tonight, but I was a no vote until about an hour and a half ago.
+	[122]Nicholson: And so I just, when you are putting together packets on complex questions for the board,
+	[123]Nicholson: Given us reams of paper does not help us get to a better decision.
+	[124]Nicholson: So that's something request for the two three ish committee chairs As you're putting together topics like this and that would be very helpful for me to make better Decisions.
+	[125]Nicholson: Thanks.
+=END=
+=START=
+	[126]SPEAKER_10: Secretary Nicholson.
+	[127]Nicholson: So I sat through two committee meetings, a study session and a town hall all on this topic.
+	[128]Nicholson: And I should say, expertly facilitated by our co-chairs and by our chair of finance and our staff.
+	[129]Nicholson: And I feel like I just starting to get a decent understanding of it.
+	[130]Nicholson: Like I came into this knowing nothing about this.
+	[131]Nicholson: I was an absolute no when we first started and my public remarks, you know, made that very clear but I want to commend staff and our board leadership who were willing to indulge because I came to understand it.
+	[132]Nicholson: I came to understand what it was for, I came to understand how it works, and I don't necessarily agree with all of it, and I think we could use more data in addition to those data we have now to determine this, but...
+	[133]Nicholson: If we don't pass this, we lose federal funding.
+	[134]Nicholson: So there's a good reason to pass it even if you don't like it.
+	[135]Nicholson: But on top of that, I just think our staff did their jobs.
+	[136]Nicholson: They have demonstrated to me this is the right thing to do despite my skepticism.
+	[137]Nicholson: And so I'm definitely voting for it tonight.
+	[138]SPEAKER_10: Thank you.
+	[139]SPEAKER_10: Any further comments on the main motion?
+	[140]SPEAKER_10: Okay, seeing none.
+	[141]SPEAKER_10: We had Catlin as the mover and Guzman as the second.
+	[142]SPEAKER_10: There is indication that there will be no votes.
+=END=
+=START=
+	[143]SPEAKER_03: Secretary Nicholson?
+	[144]Nicholson: Yeah, so I understand where we're the importance of what we're doing here.
+	[145]Nicholson: I think that these buses in particular, you know, in my religion, there's a thing why is this night different from all other nights why are these buses different from all other buses.
+	[146]Nicholson: These are going to be the flagship of our flagship BRT line.
+	[147]Nicholson: And if these suck, it will kill BRT.
+	[148]Nicholson: And if they are not comfortable, if they are not just awesome in every way possible, you can make a lot of choices when you buy a bus about how nice it's going to be in the same way you can make a lot of choices about when you buy a car about how nice it's going to be.
+	[149]Nicholson: And so I just want to lean in here
+	[150]Nicholson: and I do have one question, to say that we need to pull the stops out, we need to make sure we're giving you enough money, GMCO Johnson, to make sure we're buying top of the line, to make sure that these are things that when they run through my district, people go, wow, I want to get on that, not, wow, that doesn't look very nice.
+	[151]Nicholson: And so my question for you is, how do you know that the amount of money that we're authorizing today
+	[152]Nicholson: is enough to get top of the line.
+	[153]Nicholson: And how many bytes at the Apple are we going to get to make sure that you are buying the right buses for this incredibly important project?
+	[154]SPEAKER_10: Ms.
+	[155]SPEAKER_10: Johnson is 51 million enough to make them not suck.
+	[156]SPEAKER_16: Yeah.
+=END=
+=START=
+	[157]Nicholson: Secretary, I really appreciate it.
+	[158]Nicholson: And I look forward to you coming back often to update us on how the purchase is going.
+	[159]Whitmore: Yes.
+=END=
+=START=
+	[160]Nicholson: Yes.
+	[161]SPEAKER_10: Dr. Harwick.
+	[162]SPEAKER_10: Yep.
+	[163]SPEAKER_10: Dr. Larsen.
+	[164]SPEAKER_10: Yes.
+	[165]SPEAKER_10: Dr. Nicholson.
+	[166]Nicholson: Nicholson Gauper.
+	[167]Nicholson: What?
+	[168]Nicholson: Sorry.
+	[169]Nicholson: That was a bad internet wreck.
+	[170]Nicholson: Yes.
+	[171]SPEAKER_10: Nicholson is a yes.
+	[172]SPEAKER_10: Director O'Keefe.
+	[173]SPEAKER_10: Director Roqueeth is a yes.
+	[174]SPEAKER_10: Director Pagulari.
+	[175]SPEAKER_10: No.
+	[176]SPEAKER_10: Director Pagulari is a no.
+	[177]SPEAKER_10: Director Arusha.
+=END=
+=START=
+	[178]SPEAKER_10: Director Nicholson, please now make your motion to amend.
+	[179]Nicholson: Yes, I'd like to move to amend the etod policy and I'm hoping that GMC GMC that Mr. Crawl can put up those that language on the screen.
+	[180]Nicholson: It's there.
+	[181]SPEAKER_10: Right.
+	[182]Nicholson: May I.
+	[183]SPEAKER_10: Uh, would you like to read the motion and then we'll get a second.
+	[184]Nicholson: Thank you.
+	[185]Nicholson: Yeah.
+	[186]Nicholson: So, uh, move to amend the policy, uh, such that section five of the equitable transit oriented development policy regarding negotiated land price be updated as follows to raise the maximum negotiated land price discount to 75% from 50%.
+	[187]Nicholson: and add the following additional factors to favorably consider projects which include more accessible units than required by law, limit residential parking, are deeply affordable, emphasize priority groups as identified by the Colorado Housing and Finance Authority,
+	[188]Nicholson: and incorporate smaller footprint retail, including below market rate units, below market rate retail, excuse me, that prioritizes local businesses and entrepreneurs.
+	[189]SPEAKER_10: Excellent.
+	[190]SPEAKER_10: And do we have a second on that?
+	[191]Nicholson: Second.
+	[192]SPEAKER_10: Hardwick is the second.
+	[193]Nicholson: Secretary, would you like to discuss further?
+	[194]Nicholson: Thank you.
+	[195]Nicholson: Yes.
+	[196]Nicholson: Before I get into my remarks, I'd like to ask Executive Manager Kroll to briefly describe the five pieces of written public comment that we received on this recommended action from some of our local public officials.
+	[197]Larson: Yes, so four of the written public common items were submitted by individuals specifically supportive of the change director Nicholson is offering.
+	[198]Larson: And those four individuals were the mayor of Boulder, a city council member from Boulder, a city council member from Westminster and the Colorado Cross Disability Coalition.
+	[199]Larson: And then the fifth letter was submitted by SWEAP in joint with Conservation Colorado and Denver Streets Partnership, which spoke more broadly to the overall changes being offered this evening.
+	[200]Larson: Perfect, Secretary.
+	[201]Nicholson: Thank you.
+	[202]Nicholson: And thank you, Executive Manager Crawl.
+	[203]Nicholson: So here at RTD, we make lives better through connections.
+	[204]Nicholson: Tonight as a board, we have an opportunity to do that in a particularly powerful way.
+	[205]Nicholson: Our rider surveys tell a clear story.
+	[206]Nicholson: Over half our passengers live below 200% of the federal poverty level, and they are far less likely to own a car.
+	[207]Nicholson: Our riders with disabilities use RTD at disproportionately high rates, as do other vulnerable populations in our community.
+	[208]Nicholson: Yet only a fraction of affordable housing developed near our stations truly meets the needs of our most dedicated riders.
+	[209]Nicholson: Communities in our state have struggled to create housing targeted at our ridership.
+	[210]Nicholson: Inclusionary zoning has mostly led to housing at 60% AMI, about $51,000 a year in earnings.
+	[211]Nicholson: This housing is necessary but priced well out of reach for someone making only $31,000, which is 200% of the federal poverty line.
+	[212]Nicholson: This amendment empowers RTD to deepen our land discount offerings, up to 75%, to incentivize projects specifically tailored to the actual economic realities of our riders.
+	[213]Nicholson: Here's how that can work in practice.
+	[214]Nicholson: Just this month, Denver Health donated the land to create Tapestry, a deeply affordable, accessible, transit-oriented housing project.
+	[215]Nicholson: It supports a range of affordability from 30% to 80%, as well as far more three-bedroom and even four-bedroom units than most affordable projects being built today.
+	[216]Nicholson: It targets accessibility because distance to transit is a major barrier for people with disabilities to use transit.
+	[217]Nicholson: This holds for all types of disabilities and unfortunately, painfully few Class A fully accessible units exist
+	[218]Nicholson: in the RTD service area.
+	[219]Nicholson: By creating greater incentives for developers, we can do a lot to play our part in fixing that.
+	[220]Nicholson: It's late, so I won't go through the argument for reduced parking and the service of CHFA's priority populations.
+	[221]Nicholson: You all have an email from me with that data.
+	[222]Nicholson: But I do want Director Harwick to speak after me to address the language he added on smaller footprint and below market retail.
+	[223]Nicholson: Community is about more than housing, and I enthusiastically added his language for the reasons he'll highlight.
+	[224]Nicholson: This framework recognizes that we are not the housing policy experts.
+	[225]Nicholson: It increases the scope of our tools and trusts our staff to use them effectively to bring us thoughtful projects, projects that align with our strategic priority of community value and enable us to grow ridership by putting the people who most need transit where they can best be served by it.
+	[226]Nicholson: I ask your support for this amendment.
+	[227]Larson: Thank you.
+	[228]Nicholson: Dr. Harbert.
+	[229]Harwick: Yeah, so I wanted to make sure that when we're talking about TOD that we're really thinking also about mixed use TOD and I'm wildly in favor of Anything that we can do to bring more housing let alone affordable housing to
+	[230]Harwick: to our park and rides.
+	[231]Harwick: I do think it's really key that we also think about what are the businesses that we are bringing in there and, you know, having spent a lot of time working at Starbucks and a good friend of mine works at Starbucks.
+=END=
+=START=
+	[232]SPEAKER_10: Secretary Nicholson.
+	[233]Nicholson: I actually have some questions for Ms.
+	[234]Nicholson: Brady.
+	[235]Nicholson: So first off, Director Pagliari raised the concern about the term deep affordability.
+	[236]Nicholson: I think you and I know what that means, but maybe the rest of the board doesn't, given it's a term of art.
+	[237]Nicholson: Can you elaborate on what that's referring to?
+	[238]Nicholson: Ms.
+	[239]Nicholson: Brady.
+	[240]Brady: Sure.
+	[241]Brady: Yes.
+	[242]Brady: Deep affordability is a term in the affordable housing network that means generally 30 to 40% of AMI.
+	[243]Brady: It is squishy, I think still, but generally it's understood to mean 30 to 40%.
+	[244]Nicholson: Secretary.
+	[245]Nicholson: So second question, I've heard a couple of concerns about 75% as a discount.
+	[246]Nicholson: I was hoping maybe you could speak to like, because I mentioned it a little bit, but as someone who's an expert in the space, and I will say you and I worked pretty closely together on this language and went back and forth, you did a meeting with me.
+	[247]Nicholson: So this isn't just something that I wrote myself.
+	[248]Nicholson: This is something that got vetted pretty heavily by staff.
+	[249]Nicholson: What impact does a greater discount have on the types of projects that in the affordable housing space you tend to see people able to build?
+	[250]Nicholson: At least from where I sit, the reason for doing this is that
+	[251]Nicholson: When it comes to those deeply affordable, which are deeply subsidized units, when it comes to things like units that are fully accessible, those are expensive.
+	[252]Nicholson: They cost developers money, which is why when you don't have those subsidies, those units don't get built.
+	[253]Nicholson: I think it's about half the projects that are in the CHFA database.
+	[254]Nicholson: have zero units at 30% AMI and very few of them have anything with regard to accessibility.
+	[255]Nicholson: So I'm hoping you can maybe elaborate on, you know, you're the one who would be using this tool at the end of the day.
+	[256]Nicholson: How do you see it coming in handy with regard to what you're able to do?
+	[257]Nicholson: And then I've won the last follow up.
+	[258]SPEAKER_09: It's pretty.
+	[259]Nicholson: You're not.
+	[260]Brady: Thank you.
+	[261]Brady: So affordable housing projects aren't notoriously difficult to finance.
+	[262]Brady: And I mean, I think if you use the example earlier of tapestry and Denver health, Denver health, as you stated is correct donated the land for tapestry.
+	[263]Brady: I can assure you that that development was still very difficult to finance.
+=END=
+=START=
+	[264]Nicholson: Oh, I thought I got last word.
+	[265]Nicholson: So, I support this amendment.
+	[266]Nicholson: I think it is a reasonable step toward developing communities that are very likely to use our services.
+	[267]Nicholson: And I think increasing ridership is something
+	[268]Nicholson: we all agree on.
+	[269]Nicholson: This is a concrete way to do that.
+	[270]Nicholson: It also takes land not just for our benefit in ridership, but also puts improvements on it that helps the tax base.
+	[271]Nicholson: And I think the communities that we serve would rather see a housing project end up on that property where it becomes improved.
+	[272]Nicholson: versus somewhere else.
+	[273]Nicholson: We're not the only game in town.
+	[274]Nicholson: There's a lot of discounts out there.
+	[275]Nicholson: And so we're not necessarily in a tight buyers market.
+	[276]Nicholson: There's a lot of projects that can go forward.
+	[277]Nicholson: And I think we need to put our best deal, at least give Chessie and the rest of the team the tools to bring the deal forward.
+	[278]Nicholson: I do want to put one plug in.
+	[279]Nicholson: We talked about it.
+	[280]Nicholson: I don't think round leases
+	[281]Nicholson: are the best tool in Colorado.
+	[282]Nicholson: First of all, it's not as common as other places in the world.
+	[283]Nicholson: And the other thing is toward the end of your ground lease, no matter how long you make it, the property will fall into disrepair.
+	[284]Nicholson: They are not going to put money into physical facilities that are going to roll off their books.
+	[285]Nicholson: So, for that reason, I like the discount is great and I love a sale versus a ground lease.
+	[286]Nicholson: And I know you'll keep that in mind as we go forward.
+	[287]Nicholson: And anyway, that's another argument in favor of that tactic.
+	[288]Larson: Director Bill Arson.
+	[289]Larson: Thank you.
+	[290]Larson: I'm going to be a no vote on this.
+	[291]Larson: I don't agree with our transit oriented development policy as it is right now.
+	[292]Larson: I don't agree with the goal of trying to provide affordable housing or encourage it, incentivize it.
+	[293]Larson: I think we should be focused on trying to increase ridership.
+	[294]Larson: If we want to provide discounts on our land, we should provide them with the goal in mind of increasing the number of people that can live
+	[295]Larson: on the property, whatever is developed, and the amount of traffic that is on the property.
+=END=
+=START=
+	[296]Nicholson: Yes.
+	[297]SPEAKER_10: Director Pagulari?
+	[298]SPEAKER_10: Yes.
+	[299]SPEAKER_10: Director Ruscha?
+	[300]Pagulari: Sorry, no.
+=END=
+=START=
+	[301]Nicholson: Secretary Nicholson.
+	[302]Nicholson: I'd like to offer an amendment, if that's all right.
+	[303]SPEAKER_10: To the amendment.
+	[304]Nicholson: Thank you.
+	[305]SPEAKER_10: Just to clarify, that was a question.
+	[306]SPEAKER_10: You would like to offer an amendment to the amendment?
+	[307]Nicholson: Yes.
+	[308]Nicholson: Let's have an amendment.
+	[309]Larson: Mr. Krull.
+	[310]Larson: Technically the initial motion on the table is to amend the ETOD policy and this is an amendment to that amendment and at this point you would be amending an amendment to an amendment which is not allowed under Robert's rules so you would need to tackle this amendment as it's being presented and then if you feel so inclined offer an amendment to whatever state the
+	[311]Nicholson: uh policy is in at that point rock on uh secretary yeah so at that point i would say i'd have to be a no been for the very simple reason um where it says no project will be eligible we're talking about an uh equitable tod policy here um which is specifically focused on using our land to facilitate like the literally the policy is about giving discounts um i can't see
+	[312]Nicholson: putting something like this in there unless it is related to said discount so I'd be fine if it said additionally no project receiving a discount will be eligible for any discounts etc unless it complies with but I don't necessarily think it makes sense to do market rate policy in an etod policy thank you secretary i have treasurer banker and then director isha
+	[313]Catlin: It's just real quick.
+	[314]Catlin: Have you perhaps considered something more positive saying something like along the lines greater consideration would be given a project if these items were attained as opposed to make it mandatory?
+	[315]SPEAKER_10: Dr. Risha or Dr. Kisman?
+=END=
+=START=
+	[316]Nicholson: On Nicholson.
+	[317]Nicholson: Thank you.
+	[318]Nicholson: And then the, I guess the only question I have for, and this is actually for Ms.
+	[319]Nicholson: Brady, if that's okay.
+	[320]Nicholson: Under what, because you mentioned that Denver has a policy that supersede or that matches this and the state currently is considering a policy that would supersede it, but currently does not.
+	[321]Nicholson: Under what circumstances would this have any effect at all?
+	[322]Nicholson: Like in what circumstances can you imagine in your professional capacity, do you see this being something that would matter?
+	[323]SPEAKER_09: Ms.
+	[324]SPEAKER_09: Brady?
+	[325]Brady: Yes, in a jurisdiction that doesn't currently require accessible units.
+	[326]Brady: And Director Rush has mentioned some, I'm not aware of them, but this is not my area of expertise.
+	[327]Brady: So, but in a jurisdiction that does not already have those requirements that is not
+	[328]Brady: accepting HUD money, and if Colorado Department of Housing changes their rules, does not accept Department of Housing money, then that project would then be subject to this policy requirement.
+	[329]SPEAKER_10: Thank you, Ms.
+	[330]SPEAKER_10: Breedy.
+	[331]SPEAKER_10: Secretary, quickly.
+	[332]Nicholson: Yeah, just, I guess, for Director Rusher, Director Guzman, are there any jurisdictions in the RTD service area that don't have that same requirement that Denver does?
+	[333]SPEAKER_10: either directors?
+	[334]Pagulari: Yeah, I think I'm pretty smart, but I'm not qualified to talk about 53 separate jurisdictions.
+=END=
+=START=
+	[335]Nicholson: This question is for Chessie.
+	[336]Nicholson: My understanding with this language is that it applies to buildings with elevators in it.
+	[337]Nicholson: And so with single stair buildings, that there are different policies around equitable access because of the challenges, obviously, in a single stair building of getting people into the second, the third, the fourth, the fifth floor.
+	[338]Nicholson: You're probably the biggest expert on this in the room.
+	[339]Nicholson: Do you see any concerns with this language when it comes to buildings with stairs only versus elevators?
+	[340]Brady: I am not the biggest expert on this in the room, but I would say that equitable, I do know that equitable access and accessible units are different things and have different requirements.
+	[341]Brady: And so we're talking specifically about accessible units.
+	[342]Brady: We're also not, we're tending to be talking about larger buildings because we do want them to be dense at stations.
+	[343]Brady: So I think they're typically going to be elevator buildings, but I don't have any concerns about that.
+	[344]SPEAKER_10: Thank you, Ms.
+=END=
+=START=
+	[345]SPEAKER_10: Director Nicholson.
+	[346]Nicholson: Yes.
+	[347]SPEAKER_10: Director O'Keefe.
+	[348]Nicholson: No.
+	[349]SPEAKER_10: No.
+	[350]SPEAKER_10: No.
+	[351]SPEAKER_10: No.
+	[352]SPEAKER_10: No.
+=END=
+=START=
+	[353]SPEAKER_10: Secretary Nicholson.
+	[354]Nicholson: I just wanted to flag that this weekend is the reopening of downtown celebration on Saturday and Sunday.
+	[355]Nicholson: So if you like RTD, please come take it to downtown and enjoy our lovely food and all the other cool stuff.
+	[356]Nicholson: Most of them all is back and running and we're very excited about it.
+	[357]SPEAKER_10: Any other matters?
+	[358]SPEAKER_10: Okay, I got a quick one.
+	[359]SPEAKER_10: It's only going to take 19 minutes.
+	[360]SPEAKER_10: Just joking.
+	[361]SPEAKER_10: My only other matter is please make sure that you, uh, directors fill out that form.
+	[362]SPEAKER_10: Um, that was due last week extended to Monday morning.
+	[363]SPEAKER_10: Please make sure you guys take care of that with that, the survey.
+	[364]SPEAKER_10: Thank you.
+	[365]SPEAKER_10: With that being said, uh, do I have a motion to adjourn?
+	[366]SPEAKER_10: Director Russia.
+	[367]SPEAKER_10: Second.
+	[368]SPEAKER_10: And a second from Goodgerner.
+	[369]SPEAKER_10: You guys all have a lovely night.
+	[370]SPEAKER_10: Thank you all for your patience.
+=END=
