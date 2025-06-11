@@ -44,3 +44,18 @@ videocut pipeline input.mp4 --hf_token $HF_TOKEN
 - `videos/` – example data used for testing
 - `board_members.txt` – official director names
 
+### PDF transcript cleanup
+
+If an official `transcript.pdf` is available you can apply it to a diarized
+`input.json` using:
+
+```bash
+python -m videocut.core.pdf_utils apply_pdf_transcript_json \
+    videos/May_Board_Meeting/May_Board_Meeting.json \
+    videos/May_Board_Meeting/transcript.pdf
+```
+
+This replaces the speaker labels and text with the lines parsed from the PDF and
+improves subsequent segmentation with `identify-segments`.
+
+
