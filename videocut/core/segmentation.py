@@ -19,7 +19,7 @@ def json_to_tsv(json_path: str, out_tsv: str = "input.tsv") -> None:
             wr.writerow([
                 seg.get("start"),
                 seg.get("end"),
-                seg.get("speaker", ""),
+                seg.get("label") or seg.get("speaker", ""),
                 str(seg.get("text", "")).replace("\n", " "),
                 "",
             ])
@@ -84,7 +84,7 @@ def json_to_editable(json_path: str, out_json: str = "segments_edit.json", marku
             content = "\n".join(content_lines).strip()
         else:
             content = str(seg.get("text", "")).strip()
-            speaker = seg.get("speaker", "")
+            speaker = seg.get("label") or seg.get("speaker", "")
             pre_lines = []
             post_lines = []
 

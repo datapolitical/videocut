@@ -69,7 +69,10 @@ def transcribe(
     with open("markup_guide.txt", "w") as g:
         for seg in segs:
             start, end = round(seg["start"], 2), round(seg["end"], 2)
-            speaker = seg.get("speaker", "SPEAKER") if diarize else "SPEAKER"
+            if diarize:
+                speaker = seg.get("label") or seg.get("speaker", "SPEAKER")
+            else:
+                speaker = "SPEAKER"
             text = seg["text"].strip().replace("\n", " ")
             g.write(f"[{start}-{end}] {speaker}: {text}\n")
     print("✅  markup_guide.txt ready – edit ranges or use TSV workflow")

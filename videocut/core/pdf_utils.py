@@ -89,7 +89,7 @@ def apply_pdf_transcript_json(json_file: str, pdf_path: str, out_json: str | Non
     dialog = extract_transcript_dialogue(pdf_path)
     segs = data.get("segments", [])
     for seg, (speaker, line) in zip(segs, dialog):
-        seg["speaker"] = speaker
+        seg["label"] = speaker
         seg["text"] = line
     Path(out_json or json_file).write_text(json.dumps(data, indent=2))
     print(f"✅  transcript text replaced → {out_json or json_file}")
