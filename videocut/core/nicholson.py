@@ -323,6 +323,8 @@ def map_recognized_auto(diarized_json: str) -> Dict[str, dict]:
                 del result[spk]
 
     for spk, name_counts in speaker_counts.items():
+        if not name_counts:
+            continue
         best_name = max(name_counts, key=name_counts.get)
         alt = [n for n in name_counts if n != best_name]
         print(

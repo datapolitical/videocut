@@ -105,6 +105,29 @@ def sample_recog_extra(tmp_path):
     return diarized
 
 
+def sample_recog_partial(tmp_path):
+    """Roll call has two names but only one is later recognized."""
+    diarized = tmp_path / "dia4.json"
+    diarized.write_text(
+        json.dumps(
+            {
+                "segments": [
+                    {"speaker": "X", "text": "call the roll"},
+                    {"speaker": "X", "text": "Director Doe"},
+                    {"speaker": "B", "text": "Present"},
+                    {"speaker": "X", "text": "Next director Roe"},
+                    {"speaker": "C", "text": "Here"},
+                    {"speaker": "A", "text": "director doe you're recognized"},
+                    {"speaker": "B", "text": "hello"},
+                    {"speaker": "A", "text": "other"},
+                    {"speaker": "C", "text": "thanks"},
+                ]
+            }
+        )
+    )
+    return diarized
+
+
 def test_map_recognized_auto(tmp_path):
     diarized = sample_recog_data(tmp_path)
     ids = nicholson.map_recognized_auto(str(diarized))
@@ -140,6 +163,25 @@ def test_map_recognized_auto_extra(tmp_path):
         "A": {"name": "Lee", "alternatives": []},
         "B": {"name": "Kim", "alternatives": []},
         "C": {"name": "Park", "alternatives": []},
+    }
+
+
+def test_map_recognized_auto_partial(tmp_path):
+    diarized = sample_recog_partial(tmp_path)
+    ids = nicholson.map_recognized_auto(str(diarized))
+    assert ids == {
+        "B": {"name": "Doe", "alternatives": []},
+        "C": {"name": "Roe", "alternatives": []},
+    }
+
+
+def test_identify_recognized_cli_partial(tmp_path):
+    diarized = sample_recog_partial(tmp_path)
+    out = tmp_path / "rec_part.json"
+    videocut_cli.identify_recognized(diarized_json=str(diarized), out=str(out))
+    assert json.loads(out.read_text()) == {
+        "B": {"name": "Doe", "alternatives": []},
+        "C": {"name": "Roe", "alternatives": []},
     }
 
 
