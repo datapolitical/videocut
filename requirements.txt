@@ -5,3 +5,4 @@ typer==0.12.3
 click>=8.1
 speechbrain>=0.5.16
 torchaudio>=0.13
+pdfminer.six
