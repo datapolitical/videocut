@@ -27,6 +27,7 @@ def transcribe(
     diarize: bool = False,
     speaker_db: str | None = None,
     progress: bool = True,
+    pdf_path: str | None = None,
 ) -> None:
     """Run WhisperX on *video* and produce ``markup_guide.txt``.
 
@@ -56,6 +57,13 @@ def transcribe(
             apply_speaker_map(video, out_json, speaker_db, out_json)
         except Exception as exc:
             print(f"⚠️  speaker mapping failed: {exc}")
+
+    if pdf_path:
+        try:
+            from . import pdf_utils
+            pdf_utils.apply_pdf_transcript_json(out_json, pdf_path, out_json)
+        except Exception as exc:
+            print(f"⚠️  PDF transcript failed: {exc}")
 
     segs = json.loads(Path(out_json).read_text())["segments"]
     with open("markup_guide.txt", "w") as g:

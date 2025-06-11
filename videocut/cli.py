@@ -14,6 +14,7 @@ from .core import (
     srt_markers,
     speaker_mapping,
     chair,
+    pdf_utils,
 )
 
 app = typer.Typer(help="VideoCut pipeline")
@@ -26,9 +27,10 @@ def transcribe(
     hf_token: Optional[str] = typer.Option(None, envvar="HF_TOKEN", help="Hugging Face token for diarization"),
     speaker_db: Optional[str] = typer.Option(None, help="Speaker embedding database JSON"),
     progress: bool = typer.Option(True, help="Show WhisperX progress output"),
+    pdf: Optional[str] = typer.Option(None, help="Official PDF transcript"),
 ):
     """Run WhisperX transcription."""
-    transcription.transcribe(video, hf_token, diarize, speaker_db, progress)
+    transcription.transcribe(video, hf_token, diarize, speaker_db, progress, pdf)
 
 
 @app.command()
@@ -76,6 +78,16 @@ def clip_transcripts_cmd(
     srt_file: Optional[str] = None,
 ):
     clip_transcripts.clip_transcripts(markup_file, seg_file, out_file, srt_file)
+
+
+@app.command("pdf-transcript")
+def apply_pdf_transcript(
+    json_file: str,
+    pdf_path: str,
+    out_json: Optional[str] = None,
+):
+    """Apply an official PDF transcript to a diarized JSON."""
+    pdf_utils.apply_pdf_transcript_json(json_file, pdf_path, out_json)
 
 @app.command()
 def annotate_srt(
@@ -239,12 +251,20 @@ def pipeline(
     video: str = typer.Argument("input.mp4", help="Input video file"),
     hf_token: str = typer.Option(..., envvar="HF_TOKEN", help="Hugging Face token for diarization"),
     speaker_db: Optional[str] = typer.Option(None, help="Speaker embedding database JSON"),
+    pdf: Optional[str] = typer.Option(None, help="Official PDF transcript"),
 ):
     """Run the full board‑meeting pipeline."""
-    if isinstance(speaker_db, str) and speaker_db:
-        transcription.transcribe(video, hf_token, True, speaker_db)
+    use_pdf = isinstance(pdf, str) and pdf
+    if use_pdf:
+        if isinstance(speaker_db, str) and speaker_db:
+            transcription.transcribe(video, hf_token, True, speaker_db, True, pdf)
+        else:
+            transcription.transcribe(video, hf_token, True, pdf_path=pdf)
     else:
-        transcription.transcribe(video, hf_token, True)
+        if isinstance(speaker_db, str) and speaker_db:
+            transcription.transcribe(video, hf_token, True, speaker_db)
+        else:
+            transcription.transcribe(video, hf_token, True)
 
     json_file = f"{Path(video).stem}.json"
     ids = nicholson.map_recognized_auto(json_file)

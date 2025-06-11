@@ -47,15 +47,17 @@ videocut pipeline input.mp4 --hf_token $HF_TOKEN
 ### PDF transcript cleanup
 
 If an official `transcript.pdf` is available you can apply it to a diarized
-`input.json` using:
+`input.json` using the new command:
 
 ```bash
-python -m videocut.core.pdf_utils apply_pdf_transcript_json \
+videocut pdf-transcript \
     videos/May_Board_Meeting/May_Board_Meeting.json \
     videos/May_Board_Meeting/transcript.pdf
 ```
 
-This replaces the speaker labels and text with the lines parsed from the PDF and
-improves subsequent segmentation with `identify-segments`.
+You can also pass `--pdf transcript.pdf` to `videocut transcribe` or
+`videocut pipeline` to fold this step into the workflow. This replaces the
+speaker labels and text with the lines parsed from the PDF and improves
+subsequent segmentation with `identify-segments`.
 
 
