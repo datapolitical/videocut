@@ -20,18 +20,21 @@ pip install -e .
 1. **Transcribe** – `videocut transcribe input.mp4 --diarize --hf_token $HF_TOKEN`
    produces `input.json` and `markup_guide.txt` with diarized speaker labels. A
    progress bar from WhisperX is shown unless you pass `--no-progress`.
-2. **Identify recognized speakers** – `videocut identify-recognized input.json`
+2. *(Optional)* **Apply PDF transcript** – `videocut pdf-transcript input.json transcript.pdf`
+   matches the JSON with an official transcript. Recommended when a PDF is
+   available; see the PDF transcript cleanup section below.
+3. **Identify recognized speakers** – `videocut identify-recognized input.json`
    detects the chair from the roll call and writes `recognized_map.json` and
    `roll_call_map.json`.
-3. **Identify segments** – `videocut identify-segments input.json` writes a
+4. **Identify segments** – `videocut identify-segments input.json` writes a
    tab-indented `segments.txt` grouping Secretary Nicholson's remarks.
-4. *(Optional)* **Edit `segments.txt`** – trim or rearrange lines before
+5. *(Optional)* **Edit `segments.txt`** – trim or rearrange lines before
    generating clips.
-5. **Generate clips** – `videocut generate-clips input.mp4` reads `segments.txt`
+6. **Generate clips** – `videocut generate-clips input.mp4` reads `segments.txt`
    (and the matching SRT captions) and cuts clips to `clips/`.
-6. **Concatenate** – `videocut concatenate` joins clips into `final_video.mp4`.
-7. **Annotate markup** – `videocut annotate-markup` writes `markup_with_markers.txt`.
-8. **Clip transcripts** – `videocut clip-transcripts` produces `clip_transcripts.txt`.
+7. **Concatenate** – `videocut concatenate` joins clips into `final_video.mp4`.
+8. **Annotate markup** – `videocut annotate-markup` writes `markup_with_markers.txt`.
+9. **Clip transcripts** – `videocut clip-transcripts` produces `clip_transcripts.txt`.
 
 All of these steps run automatically with:
 ```bash
