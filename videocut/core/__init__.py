@@ -9,6 +9,7 @@ from . import (
     clip_transcripts,
     speaker_mapping,
     chair,
+    pdf_utils,
 )
 
 __all__ = [
@@ -20,4 +21,5 @@ __all__ = [
     "nicholson",
     "speaker_mapping",
     "chair",
+    "pdf_utils",
 ]

@@ -9,6 +9,7 @@ from .core import (
     clip_transcripts,
     srt_markers,
     speaker_mapping,
+    pdf_utils,
 )
 
 __all__ = [
@@ -20,4 +21,5 @@ __all__ = [
     "nicholson",
     "srt_markers",
     "speaker_mapping",
+    "pdf_utils",
 ]

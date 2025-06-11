@@ -450,6 +450,10 @@ def should_end(text: str) -> bool:
 
 
 def find_nicholson_speaker(segments: List[dict]) -> str | None:
+    for seg in segments:
+        txt = seg.get("text", "").lower()
+        if txt.startswith("secretary nicholson") or txt.startswith("director nicholson"):
+            return seg.get("speaker")
     cues = [
         "i have secretary nicholson",
         "thank you very much, secretary nicholson",
@@ -590,6 +594,10 @@ def segment_nicholson(
                 is_director = _is_board_member(name, board_names)
                 if not name and not is_director:
                     end_time = seg_end
+                    if (not board_names or not name_map) and prev_spk is not None and spk != prev_spk:
+                        next_start = seg_start
+                        break
+                    prev_spk = spk
                     j += 1
                     continue
                 if should_end(seg.get("text", "")) or seg_start - float(segs[last_idx]["end"]) >= END_GAP_SEC:
