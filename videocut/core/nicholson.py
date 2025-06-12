@@ -61,13 +61,16 @@ def _align_transcript(pdf_lines, tsv_entries):
     return tsv_entries
 
 
-def _build_segments(entries, gap=20):
+def _build_segments(entries, gap: int | None = None):
+    if gap is None:
+        gap = END_GAP_SEC
     segments = []
     active = False
     start_time = None
     last_nich = None
+    last_time = None
     end_time = None
-    for ent in entries:
+    for i, ent in enumerate(entries):
         text_l = ent["text"].lower()
         spk_l = ent.get("speaker", "").lower()
         is_nich = "nicholson" in text_l or spk_l.startswith("chris nicholson")
@@ -78,15 +81,29 @@ def _build_segments(entries, gap=20):
                 active = True
             last_nich = ent["end"]
             end_time = ent["end"]
+            last_time = ent["end"]
         elif active:
-            if ent["start"] - (last_nich or ent["start"]) <= gap:
+            if _recognizes_other(text_l):
+                next_start = (
+                    entries[i + 1]["start"] if i + 1 < len(entries) else ent["end"]
+                )
+                segments.append({"start": start_time, "end": next_start})
+                active = False
+                start_time = None
+                last_nich = None
+                end_time = None
+                last_time = None
+                continue
+            if last_time is not None and ent["start"] - last_time <= gap:
                 end_time = ent["end"]
+                last_time = ent["end"]
             else:
                 segments.append({"start": start_time, "end": (last_nich or end_time) + 10})
                 active = False
                 start_time = None
                 last_nich = None
                 end_time = None
+                last_time = None
                 continue
 
     if active:
@@ -128,6 +145,18 @@ _END_SIGNALS = {
     r"\bthat concludes\b": 0.8,
     r"\bno further\b": 0.7,
 }
+
+
+def _recognizes_other(text: str) -> bool:
+    """Return True if *text* cues recognition of someone other than Nicholson."""
+    text_l = text.lower()
+    if "nicholson" in text_l:
+        return False
+    if _AUTO_RECOG_RE.search(text_l) or _YIELD_RE.search(text_l) or _NAME_ONLY_RE.match(text_l):
+        return True
+    if _NAME_BEFORE_RE.search(text_l) and len(text_l.split()) <= 4:
+        return True
+    return False
 
 START_THRESHOLD = 0.8
 END_THRESHOLD = 0.7
