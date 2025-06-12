@@ -37,7 +37,7 @@ pip install -e .
 
 ## Workflow
 <<<<<<<-main
-1. **Align transcript** – `videocut align input.mp4 transcript.txt` extracts audio
+1. **Align transcript** – `videocut align May_Board_Meeting.mp4 transcript.txt` extracts audio
    and aligns the text, producing `aligned.json`.
 2. *(Optional)* **Apply PDF transcript** – `videocut pdf-transcript aligned.json transcript.pdf`
    matches the JSON with an official PDF when available; see the PDF transcript
