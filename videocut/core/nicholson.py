@@ -7,6 +7,98 @@ from pathlib import Path
 from typing import Dict, List, Optional
 from functools import reduce
 from difflib import get_close_matches
+import csv
+
+import pdfminer.high_level
+
+_norm_re = re.compile(r"\s+")
+
+def _normalize(text: str) -> str:
+    return _norm_re.sub(" ", text.strip()).lower()
+
+
+def _parse_pdf_order(pdf_path: str):
+    text = pdfminer.high_level.extract_text(pdf_path)
+    raw_lines = [l.strip() for l in text.splitlines() if l.strip()]
+    pattern = re.compile(r"^([A-Z][A-Z ']+):\s*(.*)")
+    lines = []
+    current_speaker = None
+    for line in raw_lines:
+        m = pattern.match(line)
+        if m:
+            current_speaker = m.group(1).title()
+            text_line = m.group(2).strip()
+            lines.append((current_speaker, text_line))
+        else:
+            if current_speaker is not None:
+                spk, prev = lines[-1]
+                lines[-1] = (spk, prev + ' ' + line.strip())
+    return lines
+
+
+def _parse_tsv(tsv_path: str):
+    entries = []
+    with open(tsv_path) as f:
+        next(f)
+        reader = csv.reader(f, delimiter="\t")
+        for start, end, text in reader:
+            entries.append({"start": float(start) / 1000.0, "end": float(end) / 1000.0, "text": text.strip()})
+    return entries
+
+
+def _align_transcript(pdf_lines, tsv_entries):
+    j = 0
+    for entry in tsv_entries:
+        target = _normalize(entry["text"])
+        for k in range(j, len(pdf_lines)):
+            spk, txt = pdf_lines[k]
+            if target in _normalize(txt):
+                entry["speaker"] = spk
+                j = k
+                break
+        else:
+            entry["speaker"] = ""
+    return tsv_entries
+
+
+def _build_segments(entries, gap=20):
+    segments = []
+    active = False
+    start_time = None
+    last_nich = None
+    end_time = None
+    for ent in entries:
+        text_l = ent["text"].lower()
+        spk_l = ent.get("speaker", "").lower()
+        is_nich = "nicholson" in text_l or spk_l.startswith("chris nicholson")
+
+        if is_nich:
+            if not active:
+                start_time = max(0.0, ent["start"] - 5)
+                active = True
+            last_nich = ent["end"]
+            end_time = ent["end"]
+        elif active:
+            if ent["start"] - (last_nich or ent["start"]) <= gap:
+                end_time = ent["end"]
+            else:
+                segments.append({"start": start_time, "end": (last_nich or end_time) + 10})
+                active = False
+                start_time = None
+                last_nich = None
+                end_time = None
+                continue
+
+    if active:
+        segments.append({"start": start_time, "end": (last_nich or end_time) + 10})
+
+    merged = []
+    for seg in segments:
+        if merged and seg["start"] - merged[-1]["end"] <= 15:
+            merged[-1]["end"] = seg["end"]
+        else:
+            merged.append(seg)
+    return merged
 
 from . import chair
 
@@ -453,6 +545,10 @@ def should_end(text: str) -> bool:
 
 def find_nicholson_speaker(segments: List[dict]) -> str | None:
     for seg in segments:
+        spk = seg.get("speaker", "")
+        if spk and "nicholson" in spk.lower():
+            return spk
+    for seg in segments:
         txt = seg.get("text", "").lower()
         if txt.startswith("secretary nicholson") or txt.startswith("director nicholson"):
             return seg.get("speaker")
@@ -484,169 +580,30 @@ def find_nicholson_speaker(segments: List[dict]) -> str | None:
 def segment_nicholson(
     diarized_json: str,
     out_json: str = "segments_to_keep.json",
-    recognized_map: str | None = None,
-    board_file: str | None = None,
     transcript_pdf: str | None = None,
+    tsv_file: str | None = None,
+    **_,
 ) -> None:
     in_path = Path(diarized_json)
     out_path = Path(out_json)
-    markup_path = in_path.with_name("markup_guide.txt")
 
+    if transcript_pdf is None:
+        transcript_pdf = str(in_path.with_name("transcript.pdf"))
+    if tsv_file is None:
+        tsv_file = str(in_path.with_suffix(".tsv"))
 
-    data = json.loads(in_path.read_text())
-    segs = data["segments"]
-    pdf_name_map: Dict[str, str] = {}
-    if transcript_pdf:
-        try:
-            from . import pdf_utils
-            dialog = pdf_utils.extract_transcript_dialogue(transcript_pdf)
-            for seg, (name, _) in zip(segs, dialog):
-                pdf_name_map.setdefault(seg.get("speaker"), name.title())
-        except Exception:
-            pdf_name_map = {}
-    markup_lines = load_markup(markup_path)
-    board_names = load_board_names(board_file)
+    parse_pdf_order = _parse_pdf_order
+    parse_tsv = _parse_tsv
+    align_transcript = _align_transcript
+    build_segments = _build_segments
 
-    recog_ids: List[str] | None = None
-    name_map: Dict[str, str] = {}
-    if recognized_map and Path(recognized_map).exists():
-        try:
-            mapping = json.loads(Path(recognized_map).read_text())
-            try:
-                from . import pdf_utils
-                mapping = pdf_utils.clean_recognized_map(
-                    mapping,
-                    board_file=board_file,
-                    pdf_path=transcript_pdf,
-                )
-            except Exception:
-                pass
-            name_map = {spk: info.get("name", "") for spk, info in mapping.items()}
-            recog_ids = [
-                spk
-                for spk, info in mapping.items()
-                if "nicholson" in str(info.get("name", "")).lower()
-            ]
-        except Exception:
-            recog_ids = None
-            name_map = {}
+    pdf_lines = parse_pdf_order(transcript_pdf)
+    tsv_entries = parse_tsv(tsv_file)
+    entries = align_transcript(pdf_lines, tsv_entries)
+    segs = build_segments(entries)
 
-    for spk, n in pdf_name_map.items():
-        name_map.setdefault(spk, n)
-
-    heur_id = find_nicholson_speaker(segs)
-    if heur_id is None:
-        heur_id = map_nicholson_speaker(str(in_path))
-
-    if not recog_ids:
-        recog_ids = [spk for spk, n in name_map.items() if "nicholson" in n.lower()]
-
-    nicholson_ids = recog_ids or [heur_id]
-
-    if recog_ids:
-        if heur_id in recog_ids:
-            print(
-                f"🔍  Nicholson IDs agree ({heur_id})"
-            )
-        else:
-            print(
-                f"⚠️  recognition map {recog_ids} disagrees with heuristic {heur_id}"
-            )
-    print(f"🔍  Secretary Nicholson identified as {', '.join(nicholson_ids)}")
-
-    results = []
-    n_idx = [i for i, seg in enumerate(segs) if seg.get("speaker") in nicholson_ids]
-    if not n_idx:
-        out_path.write_text("[]")
-        print("❌  No Nicholson segments found")
-        return
-
-    groups = []
-    start_idx = n_idx[0]
-    last_idx = n_idx[0]
-    for idx in n_idx[1:]:
-        prev_end = float(segs[last_idx]["end"])
-        cur_start = float(segs[idx]["start"])
-        prev_text = segs[idx - 1].get("text", "") if idx > 0 else ""
-        if cur_start - prev_end > MERGE_GAP_SEC or should_start(prev_text):
-            groups.append((start_idx, last_idx))
-            start_idx = idx
-        last_idx = idx
-    groups.append((start_idx, last_idx))
-
-    for gi, (start_idx, last_idx) in enumerate(groups):
-        start_time = float(segs[start_idx]["start"])
-        if gi + 1 < len(groups):
-            next_start = float(segs[groups[gi + 1][0]]["start"])
-            end_time = next_start
-        else:
-            end_time = float(segs[last_idx]["end"])
-
-            j = last_idx + 1
-            next_start = None
-            prev_spk = None
-            while j < len(segs):
-                seg = segs[j]
-                seg_start = float(seg["start"])
-                seg_end = float(seg["end"])
-                spk = seg.get("speaker")
-                if spk in nicholson_ids:
-                    break
-                name = name_map.get(spk, "")
-                is_director = _is_board_member(name, board_names)
-                if not name and not is_director:
-                    end_time = seg_end
-                    if (not board_names or not name_map) and prev_spk is not None and spk != prev_spk:
-                        next_start = seg_start
-                        break
-                    prev_spk = spk
-                    j += 1
-                    continue
-                if should_end(seg.get("text", "")) or seg_start - float(segs[last_idx]["end"]) >= END_GAP_SEC:
-                    end_time = seg_end
-                    next_start = seg_start
-                    break
-                if is_director:
-                    next_start = seg_start
-                    break
-                if not board_names or not name_map:
-                    if prev_spk is not None and spk != prev_spk:
-                        next_start = seg_start
-                        break
-                    prev_spk = spk
-                end_time = seg_end
-                j += 1
-            if j < len(segs):
-                if next_start is None:
-                    next_start = float(segs[j]["start"])
-                end_time = min(end_time + TRAIL_SEC, next_start)
-            else:
-                next_start = None
-                end_time = end_time + TRAIL_SEC
-
-        end_time, segment_lines = trim_segment(start_time, end_time, markup_lines)
-        pre_lines = collect_pre(markup_lines, start_time)
-        post_lines = collect_post(markup_lines, end_time, next_start)
-
-        results.append({
-            "start": round(start_time, 2),
-            "end": round(end_time, 2),
-            "text": segment_lines,
-            "pre": pre_lines,
-            "post": post_lines,
-        })
-
-    if name_map:
-        repl = {k: v for k, v in name_map.items() if v}
-        for seg in results:
-            for key in ["text", "pre", "post"]:
-                seg[key] = [
-                    reduce(lambda s, p: s.replace(p[0], p[1]), repl.items(), line)
-                    for line in seg.get(key, [])
-                ]
-
-    out_path.write_text(json.dumps(results, indent=2))
-    print(f"✅  {len(results)} segments → {out_path}")
+    out_path.write_text(json.dumps(segs, indent=2))
+    print(f"✅  {len(segs)} segments → {out_path}")
 
 
 def apply_name_map(seg_json: str, map_json: str, out_json: Optional[str] = None) -> None:
