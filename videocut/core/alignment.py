@@ -37,9 +37,8 @@ def align_with_transcript(video: str, transcript: str, out_json: str = _DEFAULT_
         audio_path,
     ], check=True)
 
-    model = whisperx.load_model("large-v2", device)
-    segments = [{"text": Path(transcript).read_text().strip()}]
     align_model, meta = whisperx.load_align_model("en", device)
+    segments = [{"text": Path(transcript).read_text().strip()}]
     aligned = whisperx.align(segments, align_model, meta, audio_path, device)
 
     Path(out_json).write_text(json.dumps(aligned["word_segments"], indent=2))

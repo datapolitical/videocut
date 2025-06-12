@@ -6,15 +6,11 @@ import videocut.core.alignment as alignment
 
 
 def test_align_with_transcript(tmp_path, monkeypatch):
-    calls = {"ffmpeg": [], "load_model": False, "load_align_model": False, "align": False}
+    calls = {"ffmpeg": [], "load_align_model": False, "align": False}
 
     def fake_run(cmd, check):
         calls["ffmpeg"].append(cmd)
         pathlib.Path(cmd[-1]).write_text("wav")
-
-    def fake_load_model(name, device):
-        calls["load_model"] = True
-        return SimpleNamespace()
 
     def fake_load_align_model(lang, device):
         calls["load_align_model"] = True
@@ -25,7 +21,6 @@ def test_align_with_transcript(tmp_path, monkeypatch):
         return {"word_segments": [{"text": "hi", "start": 0.0, "end": 1.0}]}
 
     monkeypatch.setattr(alignment.subprocess, "run", fake_run)
-    monkeypatch.setattr(alignment.whisperx, "load_model", fake_load_model)
     monkeypatch.setattr(alignment.whisperx, "load_align_model", fake_load_align_model)
     monkeypatch.setattr(alignment.whisperx, "align", fake_align)
 
@@ -36,7 +31,6 @@ def test_align_with_transcript(tmp_path, monkeypatch):
     alignment.align_with_transcript("video.mp4", str(transcript), str(out_json))
 
     assert calls["ffmpeg"]
-    assert calls["load_model"]
     assert calls["load_align_model"]
     assert calls["align"]
     assert json.loads(out_json.read_text()) == [{"text": "hi", "start": 0.0, "end": 1.0}]
