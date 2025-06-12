@@ -2,6 +2,20 @@ import re
 from pathlib import Path
 from pdfminer.high_level import extract_text
 
+# Stop parsing once any of these patterns are encountered. The PDF contains
+# appended public comment emails after the actual meeting transcript which
+# begin with these headers.
+STOP_PREFIXES = (
+    "PUBLIC COMMENT",
+    "Cc:",
+    "Note:",
+    "Warning:",
+    "Re:",
+    "Date:",
+    "To:",
+    "From:",
+)
+
 SPEAKER_RE = re.compile(r"^([A-Z][A-Z'\- ]+):\s*(.*)")
 
 
@@ -14,6 +28,15 @@ def parse_pdf(pdf_path: str) -> list[str]:
         line = re.sub(r"\s+", " ", raw.strip())
         if not line:
             continue
+        # The PDF contains scanned public comment letters after the end of the
+        # meeting transcript. These lines begin with headers like "Cc:" or
+        # "Public Comment" and should be ignored. They appear only after the
+        # main transcript, so we only check for them once we've processed most
+        # of the meeting.
+        if len(lines) > 500 and (any(line.startswith(p) for p in STOP_PREFIXES) or "PUBLIC COMMENT" in line.upper()):
+            if current:
+                lines.append(current)
+            break
         m = SPEAKER_RE.match(line)
         if m:
             if current:
