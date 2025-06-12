@@ -4,8 +4,10 @@ import os
 import subprocess
 import tempfile
 from pathlib import Path
+import wave
+import contextlib
 
-from . import pdf_utils
+from .. import parse_pdf_text
 
 import torch
 import whisperx
@@ -43,18 +45,21 @@ def align_with_transcript(video: str, transcript: str, out_json: str = _DEFAULT_
         audio_path,
     ], check=True)
 
+    with contextlib.closing(wave.open(audio_path, "rb")) as wf:
+        audio_duration = wf.getnframes() / float(wf.getframerate())
+
     align_model, meta = whisperx.load_align_model("en", device)
 
     txt_path: Path | None = None
     if transcript.lower().endswith(".pdf"):
-        lines = pdf_utils.extract_transcript_lines(transcript)
+        lines = parse_pdf_text.parse_pdf(transcript)
         text = "\n".join(lines)
         txt_path = Path(transcript).with_suffix(".txt")
         txt_path.write_text(text + "\n")
     else:
         text = Path(transcript).read_text().strip()
 
-    segments = [{"text": text}]
+    segments = [{"text": text, "start": 0.0, "end": audio_duration}]
     aligned = whisperx.align(segments, align_model, meta, audio_path, device)
 
     Path(out_json).write_text(json.dumps(aligned["word_segments"], indent=2))
