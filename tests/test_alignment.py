@@ -37,6 +37,7 @@ def test_align_with_transcript(tmp_path, monkeypatch):
     monkeypatch.setattr(alignment.whisperx, "load_align_model", fake_load_align_model)
     monkeypatch.setattr(alignment.whisperx, "align", fake_align)
     monkeypatch.setattr(alignment.wave, "open", fake_wave_open)
+    monkeypatch.setenv("VIDEOCUT_SKIP_FFMPEG_CHECK", "1")
 
     transcript = tmp_path / "t.txt"
     transcript.write_text("hello")
@@ -88,6 +89,7 @@ def test_align_with_pdf_transcript(tmp_path, monkeypatch):
     monkeypatch.setattr(alignment.whisperx, "load_align_model", fake_load_align_model)
     monkeypatch.setattr(alignment.whisperx, "align", fake_align)
     monkeypatch.setattr(alignment.wave, "open", fake_wave_open)
+    monkeypatch.setenv("VIDEOCUT_SKIP_FFMPEG_CHECK", "1")
 
     transcript = tmp_path / "t.pdf"
     transcript.write_bytes(b"%PDF-1.4")
