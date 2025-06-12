@@ -621,18 +621,98 @@ def segment_nicholson(
     if tsv_file is None:
         tsv_file = str(in_path.with_suffix(".tsv"))
 
-    parse_pdf_order = _parse_pdf_order
-    parse_tsv = _parse_tsv
-    align_transcript = _align_transcript
-    build_segments = _build_segments
+    use_pdf = Path(transcript_pdf).exists() and Path(tsv_file).exists()
 
-    pdf_lines = parse_pdf_order(transcript_pdf)
-    tsv_entries = parse_tsv(tsv_file)
-    entries = align_transcript(pdf_lines, tsv_entries)
-    segs = build_segments(entries)
+    if use_pdf:
+        parse_pdf_order = _parse_pdf_order
+        parse_tsv = _parse_tsv
+        align_transcript = _align_transcript
+        build_segments = _build_segments
 
-    out_path.write_text(json.dumps(segs, indent=2))
-    print(f"✅  {len(segs)} segments → {out_path}")
+        pdf_lines = parse_pdf_order(transcript_pdf)
+        tsv_entries = parse_tsv(tsv_file)
+        entries = align_transcript(pdf_lines, tsv_entries)
+        segs = build_segments(entries)
+
+        out_path.write_text(json.dumps(segs, indent=2))
+        print(f"✅  {len(segs)} segments → {out_path}")
+        return
+
+    # Fallback to heuristic segmentation using diarized JSON only
+    markup_path = in_path.with_name("markup_guide.txt")
+    data = json.loads(in_path.read_text())
+    segs_data = data["segments"]
+    markup_lines = load_markup(markup_path)
+
+    nicholson_id = find_nicholson_speaker(segs_data)
+    if nicholson_id is None:
+        nicholson_id = map_nicholson_speaker(str(in_path))
+
+    print(f"🔍  Secretary Nicholson identified as {nicholson_id}")
+
+    results = []
+    n_idx = [i for i, seg in enumerate(segs_data) if seg.get("speaker") == nicholson_id]
+    if not n_idx:
+        out_path.write_text("[]")
+        print("❌  No Nicholson segments found")
+        return
+
+    groups = []
+    start_idx = n_idx[0]
+    last_idx = n_idx[0]
+    for idx in n_idx[1:]:
+        prev_end = float(segs_data[last_idx]["end"])
+        cur_start = float(segs_data[idx]["start"])
+        if cur_start - prev_end >= MERGE_GAP_SEC:
+            groups.append((start_idx, last_idx))
+            start_idx = idx
+        last_idx = idx
+    groups.append((start_idx, last_idx))
+
+    for start_idx, last_idx in groups:
+        start_time = float(segs_data[start_idx]["start"])
+        end_time = float(segs_data[last_idx]["end"])
+
+        j = last_idx + 1
+        next_start = None
+        while j < len(segs_data):
+            seg = segs_data[j]
+            if seg.get("speaker") == nicholson_id:
+                break
+            text = seg.get("text", "")
+            if _recognizes_other(text):
+                next_start = (
+                    float(segs_data[j + 1]["start"]) if j + 1 < len(segs_data) else float(seg["end"])
+                )
+                break
+            if float(seg["start"]) - end_time >= MERGE_GAP_SEC and should_end(text):
+                end_time = float(seg["end"])
+                next_start = float(seg["start"])
+                break
+            end_time = float(seg["end"])
+            j += 1
+
+        if next_start is None and j < len(segs_data):
+            next_start = float(segs_data[j]["start"])
+        if next_start is not None:
+            end_time = min(end_time + TRAIL_SEC, next_start)
+        else:
+            end_time = end_time + TRAIL_SEC
+
+        end_time, segment_lines = trim_segment(start_time, end_time, markup_lines)
+        pre_lines = collect_pre(markup_lines, start_time)
+        post_lines = collect_post(markup_lines, end_time, next_start)
+
+        results.append({
+            "start": round(start_time, 2),
+            "end": round(end_time, 2),
+            "text": segment_lines,
+            "pre": pre_lines,
+            "post": post_lines,
+        })
+
+    out_path.write_text(json.dumps(results, indent=2))
+    print(f"✅  {len(results)} segments → {out_path}")
 
 
 def apply_name_map(seg_json: str, map_json: str, out_json: Optional[str] = None) -> None:

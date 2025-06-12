@@ -1,12 +1,12 @@
 # VideoCut
 
-VideoCut turns recorded board meetings into polished clips with minimal effort. Provide a video file and its transcript and the `videocut` command aligns each word, detects Secretary Nicholson's remarks, and cuts shareable clips.
+VideoCut turns a recorded board meeting into a polished highlight reel. The tools align a written transcript with the video, detect remarks from Secretary Nicholson and cut the results into shareable clips.
 
 ## Requirements
 - Python 3.11+
-- [FFmpeg](https://ffmpeg.org/) on your `PATH`
-- [WhisperX](https://github.com/m-bain/whisperX) and its dependencies
-- `HF_TOKEN` environment variable for speaker diarization
+- [FFmpeg](https://ffmpeg.org/) available on your `PATH`
+- [WhisperX](https://github.com/m-bain/whisperX) and its Python dependencies
+- `HF_TOKEN` environment variable when using the diarization features
 
 ## Setup
 ```bash
@@ -17,70 +17,27 @@ pip install -e .
 ```
 
 ## Workflow
-# VideoCut
-
-VideoCut turns recorded board meetings into polished clips with minimal effort. Provide a video file and its transcript and the `videocut` command aligns each word, detects Secretary Nicholson's remarks, and cuts shareable clips.
-
-## Requirements
-- Python 3.11+
-- [FFmpeg](https://ffmpeg.org/) on your `PATH`
-- [WhisperX](https://github.com/m-bain/whisperX) and its dependencies
-- `HF_TOKEN` environment variable for speaker diarization
-
-## Setup
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-pip install -e .
-```
-
-## Workflow
-<<<<<<<-main
-1. **Align transcript** – `videocut align May_Board_Meeting.mp4 transcript.txt` extracts audio
-   and aligns the text, producing `aligned.json`.
-2. *(Optional)* **Apply PDF transcript** – `videocut pdf-transcript aligned.json transcript.pdf`
-   matches the JSON with an official PDF when available; see the PDF transcript
-   cleanup section below.
-3. **Identify segments** – `videocut identify-segments aligned.json` writes a
-   tab-indented `segments.txt` grouping Secretary Nicholson's remarks.
-4. *(Optional)* **Edit `segments.txt`** – trim or rearrange lines before
-   generating clips.
-5. **Generate clips** – `videocut generate-clips input.mp4` reads `segments.txt`
-   (and the matching SRT captions) and cuts clips to `clips/`.
- **Align1. **Align transcript** –
-   `videocut align input.mp4 transcript.txt` extracts the audio and aligns the
-   text, producing `aligned.json`.
-2. *(Optional)* **Apply PDF transcript** – `videocut pdf-transcript aligned.json transcript.pdf`
-   matches the JSON with an official PDF when available; see the cleanup section below.
-3. **Identify segments** – `videocut identify-segments aligned.json` writes a
-   tab‑indented `segments.txt` grouping Secretary Nicholson's remarks.
-4. *(Optional)* **Edit `segments.txt`** – trim or rearrange lines before generating clips.
-5. **Generate clips** –
-   `videocut generate-clips input.mp4` reads `segments.txt` (and matching SRT captions) and cuts clips to `clips/`.
->>>>>>>+x65hm5-codex/mo
-videocut concatenate` joins clips into `final_video.mp4`.
-
+1. **Align** – `videocut align May_Board_Meeting.mp4 transcript.pdf`
+   - Extracts text from `transcript.pdf`, saves it as `transcript.txt` and aligns
+     the words to the video audio. The result is saved as `aligned.json`.
+2. **Identify segments** – `videocut identify-segments aligned.json`
+   - Creates a tab‑indented `segments.txt` containing `=START=` and `=END=`
+     markers for each Nicholson segment.
+2a. *(optional)* Edit `segments.txt` to trim or reorder the segments.
+3. **Generate clips** – `videocut generate-clips May_Board_Meeting.mp4 segments.txt`
+   - Cuts the video according to `segments.txt` and writes the clips to `clips/`.
+4. **Concatenate** – `videocut concatenate`
+   - Joins all clips with a fade to white between each one, creating
+     `final_video.mp4`.
 
 ## Package layout
-- `videocut/cli.py` – Typer command line interface
-- `videocut/core/` – modular helpers
-- `videos/` – example data used for testing
+- `videocut/cli.py` – command line interface implemented with Typer
+- `videocut/core/` – reusable helpers
+- `videos/` – example data used by the tests
 
 ### PDF transcript cleanup
-
-If an official `transcript.pdf` is available you can apply it to a diarized
-`input.json` using the new command:
-
+If a diarized JSON transcript already exists you can replace its text using an
+official PDF with:
 ```bash
-videocut pdf-transcript \
-    videos/May_Board_Meeting/May_Board_Meeting.json \
-    videos/May_Board_Meeting/transcript.pdf
+videocut pdf-transcript existing.json transcript.pdf
 ```
-
-If you are running the ASR workflow, you can pass `--pdf transcript.pdf` to
-`videocut transcribe` or `videocut pipeline` to fold this step into the process.
-The parsed text replaces the diarized transcript and improves subsequent
-segmentation with `identify-segments`.
-
-

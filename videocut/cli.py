@@ -97,7 +97,11 @@ def align_cmd(
     transcript: str,
     out_json: str = "aligned.json",
 ):
-    """Force-align *transcript* with *video*."""
+    """Align ``transcript`` with ``video``.
+
+    When a PDF file is supplied it is converted to ``transcript.txt`` before
+    alignment.
+    """
     alignment.align_with_transcript(video, transcript, out_json)
 
 @app.command()
