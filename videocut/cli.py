@@ -12,6 +12,7 @@ from .core import (
     annotation,
     clip_transcripts,
     srt_markers,
+    alignment,
     speaker_mapping,
     chair,
     pdf_utils,
@@ -88,6 +89,16 @@ def apply_pdf_transcript(
 ):
     """Apply an official PDF transcript to a diarized JSON."""
     pdf_utils.apply_pdf_transcript_json(json_file, pdf_path, out_json)
+
+
+@app.command("align")
+def align_cmd(
+    video: str,
+    transcript: str,
+    out_json: str = "aligned.json",
+):
+    """Force-align *transcript* with *video*."""
+    alignment.align_with_transcript(video, transcript, out_json)
 
 @app.command()
 def annotate_srt(
