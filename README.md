@@ -18,8 +18,11 @@ pip install -e .
 
 ## Workflow
 1. **Transcribe & align** – `videocut transcribe May_Board_Meeting.mp4 --pdf transcript.pdf`
-   - Extracts text from `transcript.pdf`, saves it as `transcript.txt` and aligns
-     the words to the video audio. The result is saved as `May_Board_Meeting.json`.
+   - Extracts dialogue from the PDF, aligns it to the video and writes
+     `transcript.txt` with lines in the form
+     `[start‑end] NAME: text`.
+   - WhisperX generates `May_Board_Meeting.json`, `May_Board_Meeting.tsv`,
+     `May_Board_Meeting.srt`, `May_Board_Meeting.vtt` and `May_Board_Meeting.txt`.
 2. **Identify segments** – `videocut identify-segments May_Board_Meeting.json`
    - Creates a tab‑indented `segments.txt` containing `=START=` and `=END=`
      markers for each Nicholson segment.

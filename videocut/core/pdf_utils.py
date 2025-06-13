@@ -11,6 +11,7 @@ __all__ = [
     "extract_transcript_lines",
     "extract_transcript_dialogue",
     "apply_pdf_transcript_json",
+    "write_timestamped_transcript",
 ]
 
 
@@ -93,3 +94,68 @@ def apply_pdf_transcript_json(json_file: str, pdf_path: str, out_json: str | Non
         seg["text"] = line
     Path(out_json or json_file).write_text(json.dumps(data, indent=2))
     print(f"✅  transcript text replaced → {out_json or json_file}")
+
+
+_TS_RE = re.compile(r"^(\d+):(\d+):(\d+),(\d+)$")
+
+
+def _parse_time(ts: str) -> float:
+    h, m, rest = ts.split(":")
+    s, ms = rest.split(",")
+    return int(h) * 3600 + int(m) * 60 + int(s) + int(ms) / 1000
+
+
+def _load_srt(path: Path) -> List[Dict[str, float | str]]:
+    entries: List[Dict[str, float | str]] = []
+    lines = path.read_text().splitlines()
+    i = 0
+    while i < len(lines):
+        if not lines[i].strip():
+            i += 1
+            continue
+        if not lines[i].strip().isdigit():
+            i += 1
+            continue
+        i += 1
+        if i >= len(lines):
+            break
+        ts_line = lines[i].strip()
+        i += 1
+        if "-->" not in ts_line:
+            continue
+        start_str, end_str = [p.strip() for p in ts_line.split("-->")]
+        start, end = _parse_time(start_str), _parse_time(end_str)
+        text_lines = []
+        while i < len(lines) and lines[i].strip():
+            text_lines.append(lines[i].strip())
+            i += 1
+        entries.append({"start": start, "end": end, "text": " ".join(text_lines)})
+        while i < len(lines) and not lines[i].strip():
+            i += 1
+    return entries
+
+
+def write_timestamped_transcript(pdf_path: str, srt_path: str, out_txt: str | None = None) -> None:
+    """Write ``out_txt`` with timestamps matched from ``srt_path``."""
+    dialogue = extract_transcript_dialogue(pdf_path)
+    entries = _load_srt(Path(srt_path))
+    out_lines: List[str] = []
+    j = 0
+    for speaker, text in dialogue:
+        start, end = 0.0, 0.0
+        collected = ""
+        while j < len(entries):
+            if not collected:
+                start = entries[j]["start"]
+            collected = (collected + " " + entries[j]["text"]).strip()
+            end = entries[j]["end"]
+            norm_target = re.sub(r"\s+", " ", text).lower()
+            norm_collected = re.sub(r"\s+", " ", collected).lower()
+            if norm_target in norm_collected or norm_collected in norm_target:
+                j += 1
+                break
+            j += 1
+        out_lines.append(f"[{start:.2f}-{end:.2f}] {speaker}: {text}")
+
+    Path(out_txt or Path(pdf_path).with_suffix(".txt")).write_text("\n".join(out_lines) + "\n")
+    print(f"✅  timestamped transcript → {out_txt or Path(pdf_path).with_suffix('.txt')}")

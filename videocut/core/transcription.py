@@ -8,6 +8,8 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
+from . import pdf_utils, segmentation
+
 load_dotenv()
 
 
@@ -36,6 +38,7 @@ def transcribe(
     suppress the WhisperX progress output.
     """
     out_json = f"{Path(video).stem}.json"
+    srt_path = Path(video).with_suffix(".srt")
     cmd = ["whisperx", video, "--compute_type", compute_type(), "--output_dir", "."]
     if progress:
         cmd += ["--print_progress", "True"]
@@ -60,10 +63,16 @@ def transcribe(
 
     if pdf_path:
         try:
-            from . import pdf_utils
             pdf_utils.apply_pdf_transcript_json(out_json, pdf_path, out_json)
+            if srt_path.exists():
+                pdf_utils.write_timestamped_transcript(pdf_path, str(srt_path), "transcript.txt")
         except Exception as exc:
             print(f"⚠️  PDF transcript failed: {exc}")
+
+    try:
+        segmentation.json_to_tsv(out_json, f"{Path(video).stem}.tsv")
+    except Exception as exc:
+        print(f"⚠️  TSV conversion failed: {exc}")
 
     segs = json.loads(Path(out_json).read_text())["segments"]
     with open("markup_guide.txt", "w") as g:
