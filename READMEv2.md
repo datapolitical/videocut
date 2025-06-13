@@ -26,11 +26,15 @@ pip install -e .
 
 | Step | Command | Output |
 |------|---------|--------|
-| 1 | `videocut align May_Board_Meeting.mp4 transcript.txt` | `aligned.json` |
-| 2 | `videocut identify-segments aligned.json` | `segments.txt` (tab‑indented) |
+| 1 | `videocut transcribe May_Board_Meeting.mp4 transcript.pdf` | `May_Board_Meeting.json` |
+| 2 | `videocut identify-segments May_Board_Meeting.json` | `segments.txt` (tab‑indented) |
 | 2a *(optional)* | *Edit* `segments.txt` to trim or reorder segments | — |
-| 3 | `videocut generate-clips May_Board_Meeting.mp4` | Individual clips in `clips/` |
+| 3 | `videocut generate-clips May_Board_Meeting.mp4 segments.txt` | Clips and `timestamps.json` |
 | 4 | `videocut concatenate` | `final_video.mp4` |
+
+`generate-clips` buffers each segment, re-aligns its text and trims to the
+spoken words. Per-clip alignment data is written as `clip_###_aligned.json` and
+`timestamps.json` records the original versus aligned timings.
 
 ## Project Layout
 
