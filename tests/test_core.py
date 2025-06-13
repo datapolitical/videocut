@@ -31,6 +31,28 @@ def test_transcribe_creates_markup(tmp_path, monkeypatch):
     assert calls["cmd"][3] == "float16"  # compute_type
     guide = Path("markup_guide.txt").read_text().strip()
     assert guide == "[0-1] SPEAKER: hi"
+    assert (tmp_path / "input.tsv").exists()
+
+
+def test_transcribe_with_pdf(tmp_path, monkeypatch):
+    json_out = tmp_path / "input.json"
+    srt_out = tmp_path / "input.srt"
+
+    def fake_run(cmd, check, env=None):
+        json_out.write_text(json.dumps({"segments": [{"start": 0, "end": 1, "text": "hi"}]}))
+        srt_out.write_text("1\n00:00:00,000 --> 00:00:01,000\nHi\n")
+        return SimpleNamespace(returncode=0)
+
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(transcribe_mod, "is_apple_silicon", lambda: False)
+    monkeypatch.setattr(transcribe_mod.subprocess, "run", fake_run)
+    monkeypatch.setattr(transcribe_mod.pdf_utils, "apply_pdf_transcript_json", lambda j, p, o=None: None)
+    monkeypatch.setattr(transcribe_mod.pdf_utils, "write_timestamped_transcript", lambda p, s, out: Path(out).write_text("done"))
+    monkeypatch.setattr(transcribe_mod.segmentation, "json_to_tsv", lambda j, o: Path(o).write_text("tsv"))
+
+    transcribe_mod.transcribe("input.mp4", pdf_path="t.pdf")
+
+    assert (tmp_path / "transcript.txt").exists()
 
 
 def test_generate_clips_invokes_ffmpeg(tmp_path, monkeypatch):
