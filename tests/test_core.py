@@ -37,7 +37,7 @@ def test_generate_clips_invokes_ffmpeg(tmp_path, monkeypatch):
     seg_file = tmp_path / "segments.json"
     seg_file.write_text(json.dumps([{"start": 0, "end": 1}]))
 
-    calls = {"run": [], "build": []}
+    calls = {"run": [], "build": [], "align": []}
 
     def fake_run(cmd, check, env=None):
         calls["run"].append(cmd)
@@ -47,9 +47,14 @@ def test_generate_clips_invokes_ffmpeg(tmp_path, monkeypatch):
         calls["build"].append((src, dst))
         dst.write_text("done")
 
+    def fake_align(video, transcript, out_json):
+        calls["align"].append((video, transcript, out_json))
+        Path(out_json).write_text(json.dumps([{"text": "hi", "start": 0.0, "end": 1.0}]))
+
     monkeypatch.chdir(tmp_path)
     monkeypatch.setattr(video_editing.subprocess, "run", fake_run)
     monkeypatch.setattr(video_editing, "_build_faded_clip", fake_build)
+    monkeypatch.setattr(video_editing.alignment, "align_with_transcript", fake_align)
 
     video_editing.generate_clips("vid.mp4", str(seg_file), "clips")
 
@@ -64,7 +69,7 @@ def test_generate_clips_segments_txt(tmp_path, monkeypatch):
     seg_txt = tmp_path / "segments.txt"
     seg_txt.write_text("=START=\n\t[1]A\n\t[2]B\n=END=\n")
 
-    calls = {"run": [], "build": []}
+    calls = {"run": [], "build": [], "align": []}
 
     def fake_run(cmd, check, env=None):
         calls["run"].append(cmd)
@@ -74,12 +79,21 @@ def test_generate_clips_segments_txt(tmp_path, monkeypatch):
         calls["build"].append((src, dst))
         dst.write_text("done")
 
+    def fake_align(video, transcript, out_json):
+        calls["align"].append((video, transcript, out_json))
+        Path(out_json).write_text(json.dumps([{"text": "hi", "start": 0.0, "end": 1.0}]))
+
     monkeypatch.chdir(tmp_path)
     monkeypatch.setattr(video_editing.subprocess, "run", fake_run)
     monkeypatch.setattr(video_editing, "_build_faded_clip", fake_build)
+    monkeypatch.setattr(video_editing.alignment, "align_with_transcript", fake_align)
 
     video_editing.generate_clips("vid.mp4", str(seg_txt), "clips", str(srt))
 
     assert calls["run"]
     assert calls["build"]
+    assert calls["align"]
     assert (tmp_path / "clips" / "clip_000.mp4").exists()
+    assert (tmp_path / "clips" / "clip_000_aligned.json").exists()
+    ts = json.loads((tmp_path / "clips" / "timestamps.json").read_text())
+    assert "clip_000" in ts

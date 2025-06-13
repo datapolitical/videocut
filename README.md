@@ -17,15 +17,18 @@ pip install -e .
 ```
 
 ## Workflow
-1. **Align** – `videocut align May_Board_Meeting.mp4 transcript.pdf`
+1. **Transcribe & align** – `videocut transcribe May_Board_Meeting.mp4 --pdf transcript.pdf`
    - Extracts text from `transcript.pdf`, saves it as `transcript.txt` and aligns
-     the words to the video audio. The result is saved as `aligned.json`.
-2. **Identify segments** – `videocut identify-segments aligned.json`
+     the words to the video audio. The result is saved as `May_Board_Meeting.json`.
+2. **Identify segments** – `videocut identify-segments May_Board_Meeting.json`
    - Creates a tab‑indented `segments.txt` containing `=START=` and `=END=`
      markers for each Nicholson segment.
 2a. *(optional)* Edit `segments.txt` to trim or reorder the segments.
 3. **Generate clips** – `videocut generate-clips May_Board_Meeting.mp4 segments.txt`
-   - Cuts the video according to `segments.txt` and writes the clips to `clips/`.
+   - Buffers and re‑aligns each segment, trims to word boundaries and saves the
+     final clips to `clips/`. Alignment data for each clip is written as
+     `clip_###_aligned.json` with a summary in `timestamps.json`.
+   - `generate-clips` also accepts a JSON segments file for simpler workflows.
 4. **Concatenate** – `videocut concatenate`
    - Joins all clips with a fade to white between each one, creating
      `final_video.mp4`.
