@@ -91,10 +91,13 @@ def test_cli_commands(tmp_path):
     videocut_cli.extract_marked(markup=str(markup), out=str(out2))
     assert out2.exists()
 
+    transcript = tmp_path / "transcript.txt"
+    transcript.write_text("[0-1] Nicholson: hi\n[1-2] Other: bye\n")
+
     cwd = Path.cwd()
     os.chdir(tmp_path)
     try:
-        videocut_cli.identify_segments_cmd(json_file=str(diarized))
+        videocut_cli.identify_segments_cmd(transcript=str(transcript))
     finally:
         os.chdir(cwd)
     assert (tmp_path / "segments.txt").exists()
