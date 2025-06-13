@@ -17,7 +17,7 @@ pip install -e .
 ```
 
 ## Workflow
-1. **Transcribe & align** – `videocut transcribe May_Board_Meeting.mp4 transcript.pdf`
+1. **Transcribe & align** – `videocut transcribe May_Board_Meeting.mp4 --pdf transcript.pdf`
    - Extracts text from `transcript.pdf`, saves it as `transcript.txt` and aligns
      the words to the video audio. The result is saved as `May_Board_Meeting.json`.
 2. **Identify segments** – `videocut identify-segments May_Board_Meeting.json`
