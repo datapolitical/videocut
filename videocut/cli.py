@@ -249,7 +249,7 @@ def recognized_directors(
 @app.command()
 def generate_clips(
     video: str = typer.Argument("input.mp4", help="Source video"),
-    segs: str = typer.Option("segments.txt", help="Segments file (txt or json)"),
+    segs: str = typer.Argument("segments.txt", help="Segments file (txt or json)"),
     out_dir: str = typer.Option("clips", help="Output directory for clips"),
     srt_file: Optional[str] = typer.Option(None, help="SRT file for segments.txt"),
 ):
