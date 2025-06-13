@@ -5,12 +5,13 @@ import json
 import sys
 from pathlib import Path
 from typing import List
-from . import segmentation
+from . import segmentation, alignment
 
 WHITE_FLASH_SEC = 0.5
 FADE_SEC = 0.5
 TARGET_W, TARGET_H = 1280, 720
 TARGET_FPS = 30
+BUFFER_SEC = 10.0
 
 
 def _parse_time(ts: str) -> float:
@@ -115,6 +116,36 @@ def _segments_from_txt(txt_file: str, srt_file: str) -> list[dict]:
     return segs
 
 
+def _segments_with_text(txt_file: str) -> list[dict]:
+    """Return list of segments with SRT numbers and joined text."""
+    segs = []
+    nums: list[int] = []
+    lines: list[str] = []
+    for raw in Path(txt_file).read_text().splitlines():
+        line = raw.strip()
+        if line == "=START=":
+            nums = []
+            lines = []
+        elif line == "=END=":
+            if nums:
+                segs.append({
+                    "start_num": nums[0],
+                    "end_num": nums[-1],
+                    "text": " ".join(lines),
+                })
+            nums = []
+            lines = []
+        elif line.startswith("[") and "]" in line:
+            num_part = line[1: line.find("]")]
+            try:
+                num = int(num_part)
+            except ValueError:
+                continue
+            nums.append(num)
+            lines.append(line.split("]", 1)[1].strip())
+    return segs
+
+
 def generate_clips(
     input_video: str,
     segments_file: str = "segments_to_keep.json",
@@ -130,11 +161,76 @@ def generate_clips(
             srt_file = str(Path(input_video).with_suffix(".srt"))
         if not Path(srt_file).exists():
             sys.exit(f"❌  SRT file '{srt_file}' required for segments.txt")
-        segs = _segments_from_txt(segments_file, srt_file)
+
+        entries = _load_srt_entries(Path(srt_file))
+        idx = {e["number"]: e for e in entries}
+        parsed = _segments_with_text(segments_file)
+
+        final: list[dict] = []
+        timestamps: dict = {}
+        Path(out_dir).mkdir(exist_ok=True)
+        for i, seg in enumerate(parsed):
+            if seg["start_num"] not in idx or seg["end_num"] not in idx:
+                continue
+            orig_start = idx[seg["start_num"]]["start"]
+            orig_end = idx[seg["end_num"]]["end"]
+            buf_start = max(0.0, orig_start - BUFFER_SEC)
+            buf_end = orig_end + BUFFER_SEC
+
+            buf_path = Path(out_dir) / f"buffer_{i:03d}.mp4"
+            subprocess.run([
+                "ffmpeg",
+                "-v",
+                "error",
+                "-y",
+                "-ss",
+                str(buf_start),
+                "-to",
+                str(buf_end),
+                "-i",
+                input_video,
+                "-c",
+                "copy",
+                str(buf_path),
+            ], check=True)
+
+            txt_path = Path(out_dir) / f"clip_{i:03d}_snippet.txt"
+            txt_path.write_text(seg["text"] + "\n")
+            aligned_json = Path(out_dir) / f"clip_{i:03d}_aligned.json"
+            alignment.align_with_transcript(str(buf_path), str(txt_path), str(aligned_json))
+
+            words = json.loads(aligned_json.read_text())
+            if words:
+                rel_start = float(words[0]["start"])
+                rel_end = float(words[-1]["end"])
+            else:
+                rel_start = 0.0
+                rel_end = buf_end - buf_start
+
+            abs_start = buf_start + rel_start
+            abs_end = buf_start + rel_end
+
+            final.append({"start": abs_start, "end": abs_end})
+            timestamps[f"clip_{i:03d}"] = {
+                "original": {
+                    "start": f"{orig_start:.3f}",
+                    "end": f"{orig_end:.3f}",
+                },
+                "aligned": {
+                    "start": f"{abs_start:.3f}",
+                    "end": f"{abs_end:.3f}",
+                },
+            }
+
+            buf_path.unlink(missing_ok=True)
+            txt_path.unlink(missing_ok=True)
+
+        if final:
+            generate_clips_from_segments(input_video, final, out_dir)
+            Path(out_dir, "timestamps.json").write_text(json.dumps(timestamps, indent=2))
     else:
         segs = json.loads(Path(segments_file).read_text())
-
-    generate_clips_from_segments(input_video, segs, out_dir)
+        generate_clips_from_segments(input_video, segs, out_dir)
 
 
 def concatenate_clips(clips_dir: str = "clips", out_file: str = "final_video.mp4") -> None:
