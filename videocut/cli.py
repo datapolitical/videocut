@@ -177,7 +177,7 @@ def identify_segments_cmd(
         nicholson.identify_segments(source, recognized, str(tmp_json), board_file)
     else:
         nicholson.segment_nicholson_from_transcript(source, str(tmp_json))
-    segmentation.segments_json_to_txt(str(tmp_json), out_txt)
+    segmentation.segments_json_to_txt(source, str(tmp_json), out_txt)
     tmp_json.unlink(missing_ok=True)
 
 
@@ -263,8 +263,7 @@ def segment(
     out = Path(out)
     tmp_json = json_file.with_name("segments_auto.json")
     nicholson.segment_nicholson(str(json_file), str(tmp_json))
-    match = speaker.split()[-1] if " " in speaker else speaker
-    segmentation.extract_segments_from_json(str(json_file), match, str(out))
+    segmentation.segments_json_to_txt(str(json_file), str(tmp_json), str(out))
     tmp_json.unlink(missing_ok=True)
     typer.echo(f"✅ Created {out}")
 

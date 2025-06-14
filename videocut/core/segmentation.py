@@ -235,25 +235,79 @@ def extract_segments_from_json(json_file: str, speaker_match: str, out_txt: str 
     print(f"✅ wrote {out_txt} with {output.count('=START=')} segments")
 
 
-def segments_json_to_txt(json_file: str, out_txt: str = "segments.txt") -> None:
-    """Write a text representation of segments for manual editing."""
-    if not Path(json_file).exists():
-        sys.exit(f"❌  {json_file} not found")
-    segs = json.loads(Path(json_file).read_text())
-    if isinstance(segs, dict) and "segments" in segs:
-        segs = segs["segments"]
-    lines = []
-    idx = 1
-    for seg in segs:
-        lines.append("=START=")
-        for line in seg.get("text", []):
-            if line.startswith("[") and "]" in line:
-                line = line.split("]", 1)[1].strip()
-            lines.append(f"\t[{idx}]{line}")
-            idx += 1
-        lines.append("=END=")
-    Path(out_txt).write_text("\n".join(lines))
-    print(f"✅  wrote {out_txt}")
+def segments_json_to_txt(
+    transcript_json: str,
+    segments_json: str,
+    out_txt: str = "segments.txt",
+) -> None:
+    """Write ``out_txt`` with the full transcript and segment markers.
+
+    ``transcript_json`` should be a diarized JSON file containing ``segments``.
+    ``segments_json`` lists ``{"start", "end"}`` dictionaries identifying the
+    portions of the transcript to keep. Lines falling inside one of these
+    segments are wrapped in ``=START=``/``=END=`` and are tab indented.
+    """
+    t_path = Path(transcript_json)
+    s_path = Path(segments_json)
+    if not t_path.exists():
+        sys.exit(f"❌  {transcript_json} not found")
+    if not s_path.exists():
+        sys.exit(f"❌  {segments_json} not found")
+
+    data = json.loads(t_path.read_text())
+    segs_in = data.get("segments", data)
+    transcript_lines = []
+    for seg in segs_in:
+        start = float(seg.get("start", 0))
+        end = float(seg.get("end", 0))
+        speaker = seg.get("label") or seg.get("speaker") or "Chris Nicholson"
+        text = str(seg.get("text", "")).replace("\n", " ").strip()
+        transcript_lines.append(
+            {"start": start, "end": end, "speaker": speaker, "text": text}
+        )
+
+    seg_data = json.loads(s_path.read_text())
+    seg_list = seg_data if isinstance(seg_data, list) else seg_data.get("segments", seg_data)
+    ranges = [
+        (float(s.get("start", 0)), float(s.get("end", 0))) for s in seg_list
+    ]
+    ranges.sort()
+
+    output: list[str] = []
+    seg_idx = 0
+    in_seg = False
+
+    for entry in transcript_lines:
+        start = entry["start"]
+        end = entry["end"]
+        line_txt = f"[{start:.2f} - {end:.2f}] {entry['speaker']}: {entry['text']}"
+
+        while seg_idx < len(ranges) and ranges[seg_idx][1] <= start:
+            if in_seg:
+                output.append("=END=")
+                in_seg = False
+            seg_idx += 1
+
+        inside = (
+            seg_idx < len(ranges)
+            and not (end <= ranges[seg_idx][0] or start >= ranges[seg_idx][1])
+        )
+
+        if inside and not in_seg:
+            output.append("=START=")
+            in_seg = True
+        elif not inside and in_seg and start >= ranges[seg_idx][1]:
+            output.append("=END=")
+            in_seg = False
+
+        prefix = "\t" if inside else ""
+        output.append(prefix + line_txt)
+
+    if in_seg:
+        output.append("=END=")
+
+    Path(out_txt).write_text("\n".join(output))
+    print(f"✅ wrote {out_txt} with {output.count('=START=')} segments")
 
 
 def segments_from_txt(seg_txt: str) -> list[tuple[int, int]]:
