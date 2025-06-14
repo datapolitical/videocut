@@ -9,6 +9,8 @@ description = "Video editing pipeline driven by WhisperX transcripts"
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [{name = "VideoCut Maintainers"}]
+
+# ✅ Full install (default): CLI + FFmpeg + transcription tools
 dependencies = [
     "click",
     "typer>=0.12",
@@ -22,10 +24,15 @@ dependencies = [
     "speechbrain",
 ]
 
+# ✅ Light install (e.g. for Codex): CLI + FFmpeg only
 [project.optional-dependencies]
 light = [
     "click",
+    "typer>=0.12",
     "ffmpeg-python",
+    "python-dotenv>=1.0",
+    "pdfminer.six",
+    "python-dateutil"
 ]
 
 [project.scripts]
