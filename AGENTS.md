@@ -1,1 +1,1 @@
-Do not run tests unless explicitly instructed to.
+Only run tests/test_segments_format.py and test_segments_txt_roundtrip tests. Do not run any other tests.
