@@ -242,13 +242,14 @@ def prune_segments_cmd(
 @app.command()
 def segment(
     json_file: str = typer.Argument(..., help="WhisperX transcript JSON"),
-    out: str = "segments.txt",
-    speaker: str = typer.Option("Nicholson", help="Speaker name to match (default: Nicholson)"),
+    markup: str = typer.Option("markup_guide.txt", help="Full transcript with timestamps and speaker names"),
+    out: str = typer.Option("segments.txt", help="Final output with =START= and =END= markers"),
 ):
-    """Extract segments for a given speaker from WhisperX JSON"""
-    from .core.segmentation import extract_segments_from_json
+    """Detect segments using Nicholson + replies, and output full transcript with markers."""
+    from .core.segmentation import json_to_editable, write_segments_txt_from_editable
 
-    extract_segments_from_json(json_file, speaker, out)
+    json_to_editable(json_file, out_json="segments_edit.json", markup=markup)
+    write_segments_txt_from_editable("segments_edit.json", out)
 
 
 @app.command()

@@ -104,6 +104,32 @@ def json_to_editable(json_path: str, out_json: str = "segments_edit.json", marku
     print(f"✅  {len(segs)} segment(s) → {out_json}")
 
 
+def write_segments_txt_from_editable(editable_json: str, out_txt: str = "segments.txt"):
+    """Write a full transcript with tabbed lines and =START=/=END= around keep=True segments."""
+    data = json.loads(Path(editable_json).read_text())
+    output = []
+    in_segment = False
+
+    for seg in data:
+        lines = (seg.get("pre", []) + seg.get("lines", []) + seg.get("post", []))
+        if seg.get("keep") and not in_segment:
+            output.append("=START=")
+            in_segment = True
+
+        for line in lines:
+            output.append(f"\t{line.strip()}")
+
+        if not seg.get("keep") and in_segment:
+            output.append("=END=")
+            in_segment = False
+
+    if in_segment:
+        output.append("=END=")
+
+    Path(out_txt).write_text("\n".join(output))
+    print(f"✅ wrote {out_txt} with {output.count('=START=')} marked segments")
+
+
 def identify_clips(tsv: str = "input.tsv", out_json: str = "segments_to_keep.json") -> None:
     """Save rows marked keep in TSV as JSON segments."""
     if not Path(tsv).exists():
@@ -302,6 +328,7 @@ def load_segments(seg_file: str, srt_file: str | None = None) -> list[dict]:
 __all__ = [
     "json_to_tsv",
     "json_to_editable",
+    "write_segments_txt_from_editable",
     "identify_clips",
     "identify_clips_json",
     "extract_marked",
