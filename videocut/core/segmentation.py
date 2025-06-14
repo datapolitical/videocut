@@ -159,6 +159,37 @@ def extract_marked(markup: str = "markup_guide.txt", out_json: str = "segments_t
     print(f"✅  {len(segs)} segment(s) → {out_json}")
 
 
+def extract_segments_from_json(json_file: str, speaker_match: str, out_txt: str = "segments.txt"):
+    data = json.loads(Path(json_file).read_text())
+    segments = data.get("segments", data)
+
+    output = []
+    active = False
+
+    for seg in segments:
+        speaker = seg.get("label") or seg.get("speaker", "")
+        if speaker_match.lower() in speaker.lower():
+            start = round(seg["start"], 2)
+            end = round(seg["end"], 2)
+            text = seg.get("text", "").strip()
+
+            if not active:
+                output.append("=START=")
+                active = True
+
+            output.append(f"[{start}-{end}] {speaker}: {text}")
+
+        elif active:
+            output.append("=END=")
+            active = False
+
+    if active:
+        output.append("=END=")
+
+    Path(out_txt).write_text("\n".join(output))
+    print(f"✅ wrote {out_txt} with {output.count('=START=')} segments")
+
+
 def segments_json_to_txt(json_file: str, out_txt: str = "segments.txt") -> None:
     """Write a text representation of segments for manual editing."""
     if not Path(json_file).exists():
@@ -274,6 +305,7 @@ __all__ = [
     "identify_clips",
     "identify_clips_json",
     "extract_marked",
+    "extract_segments_from_json",
     "segments_json_to_txt",
     "segments_from_txt",
     "load_segments",
