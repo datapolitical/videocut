@@ -252,16 +252,21 @@ def prune_segments_cmd(
 
 @app.command("segment")
 def segment(
-    json_file: Path = typer.Argument(..., help="Diarized JSON with speaker labels"),
+    json_file: Path = typer.Argument(
+        "videos/May_Board_Meeting.json", help="Diarized JSON transcript"
+    ),
     speaker: str = "Chris Nicholson",
-    output: Path = Path("segments.txt"),
+    out: Path = Path("segments.txt"),
 ):
-    """Extract segments where the speaker is Nicholson and write to segments.txt"""
+    """Write Nicholson segments from *json_file* to ``segments.txt``."""
+    json_file = Path(json_file)
+    out = Path(out)
     tmp_json = json_file.with_name("segments_auto.json")
-    nicholson.segment_nicholson(json_file, tmp_json)
-    segmentation.segments_json_to_txt(tmp_json, output)
+    nicholson.segment_nicholson(str(json_file), str(tmp_json))
+    match = speaker.split()[-1] if " " in speaker else speaker
+    segmentation.extract_segments_from_json(str(json_file), match, str(out))
     tmp_json.unlink(missing_ok=True)
-    typer.echo(f"✅ Created {output}")
+    typer.echo(f"✅ Created {out}")
 
 
 @app.command()
