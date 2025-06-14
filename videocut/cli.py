@@ -155,7 +155,7 @@ def map_speakers(video: str, json_file: str, db: str = "speaker_db.json", out: O
 
 @app.command("identify-segments")
 def identify_segments_cmd(
-    source: str = "transcript.txt",
+    source: str = typer.Argument(..., help="Diarized JSON or transcript file"),
     recognized: str = "recognized_map.json",
     board_file: str = "board_members.txt",
     out_txt: str = "segments.txt",
