@@ -26,6 +26,25 @@ def json_to_tsv(json_path: str, out_tsv: str = "input.tsv") -> None:
     print(f"✅  {len(segs)} segment(s) → {out_tsv}")
 
 
+def json_to_markup(json_path: str, out_txt: str = "markup_guide.txt") -> None:
+    """Write ``out_txt`` with ``[start-end] SPEAKER: text`` lines from *json_path*."""
+    if not Path(json_path).exists():
+        sys.exit(f"❌  {json_path} not found")
+
+    data = json.loads(Path(json_path).read_text())
+    segs = data if isinstance(data, list) else data.get("segments", data)
+    lines = []
+    for seg in segs:
+        start = round(float(seg.get("start", 0)), 2)
+        end = round(float(seg.get("end", 0)), 2)
+        speaker = seg.get("label") or seg.get("speaker", "SPEAKER")
+        text = str(seg.get("text", "")).replace("\n", " ").strip()
+        lines.append(f"[{start}-{end}] {speaker}: {text}")
+
+    Path(out_txt).write_text("\n".join(lines))
+    print(f"✅  wrote {out_txt}")
+
+
 _TS_RE = re.compile(r"^\s*\[(?P<start>\d+\.?\d*)[–-](?P<end>\d+\.?\d*)\]\s*(?P<rest>.*)")
 PRE_SEC = 5
 TRAIL_SEC = 30
@@ -327,6 +346,7 @@ def load_segments(seg_file: str, srt_file: str | None = None) -> list[dict]:
 
 __all__ = [
     "json_to_tsv",
+    "json_to_markup",
     "json_to_editable",
     "write_segments_txt_from_editable",
     "identify_clips",
