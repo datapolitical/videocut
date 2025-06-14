@@ -46,9 +46,13 @@ def _parse_tsv(tsv_path: str):
                 # Skip malformed rows
                 continue
             start, end, text = parts
+            # WhisperX TSV files store timestamps in seconds already, so do not
+            # scale them.  Older versions used milliseconds which required
+            # division by 1000, but that is no longer the case.  Parsing the
+            # values directly ensures segments have the correct timing.
             entries.append({
-                "start": float(start) / 1000.0,
-                "end": float(end) / 1000.0,
+                "start": float(start),
+                "end": float(end),
                 "text": text.strip(),
             })
     return entries
@@ -540,7 +544,11 @@ def _segment_entries(segs_data: List[dict], markup_lines: List[dict]) -> List[di
         return []
 
     results = []
-    n_idx = [i for i, seg in enumerate(segs_data) if seg.get("speaker") == nicholson_id]
+    n_idx = [
+        i
+        for i, seg in enumerate(segs_data)
+        if (seg.get("speaker") or seg.get("label")) == nicholson_id
+    ]
     if not n_idx:
         return []
 
@@ -564,7 +572,7 @@ def _segment_entries(segs_data: List[dict], markup_lines: List[dict]) -> List[di
         next_start = None
         while j < len(segs_data):
             seg = segs_data[j]
-            if seg.get("speaker") == nicholson_id:
+            if (seg.get("speaker") or seg.get("label")) == nicholson_id:
                 break
             text = seg.get("text", "")
             if _recognizes_other(text):
@@ -680,13 +688,13 @@ def should_end(text: str) -> bool:
 
 def find_nicholson_speaker(segments: List[dict]) -> str | None:
     for seg in segments:
-        spk = seg.get("speaker", "")
+        spk = seg.get("speaker") or seg.get("label", "")
         if spk and "nicholson" in spk.lower():
             return spk
     for seg in segments:
         txt = seg.get("text", "").lower()
         if txt.startswith("secretary nicholson") or txt.startswith("director nicholson"):
-            return seg.get("speaker")
+            return seg.get("speaker") or seg.get("label")
     cues = [
         "i have secretary nicholson",
         "thank you very much, secretary nicholson",
@@ -696,19 +704,23 @@ def find_nicholson_speaker(segments: List[dict]) -> str | None:
         txt = seg.get("text", "").lower()
         if any(c in txt for c in cues):
             j = i + 1
-            while j < len(segments) and segments[j]["speaker"] == seg["speaker"]:
+            while j < len(segments) and (
+                segments[j].get("speaker") == seg.get("speaker")
+            ):
                 j += 1
             if j < len(segments):
-                return segments[j]["speaker"]
+                return segments[j].get("speaker") or segments[j].get("label")
     candidate = None
     for i, seg in enumerate(segments):
         txt = seg.get("text", "").lower()
         if "nicholson" in txt:
             j = i + 1
-            while j < len(segments) and segments[j]["speaker"] == seg["speaker"]:
+            while j < len(segments) and (
+                segments[j].get("speaker") == seg.get("speaker")
+            ):
                 j += 1
             if j < len(segments):
-                candidate = segments[j]["speaker"]
+                candidate = segments[j].get("speaker") or segments[j].get("label")
     return candidate
 
 
