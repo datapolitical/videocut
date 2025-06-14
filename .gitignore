@@ -10,3 +10,4 @@ videocut.egg-info
 !videos/example/*
 videos/example/.DS_Store
 *.zip
+videos/May_Board_Meeting/prior_files*
