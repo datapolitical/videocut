@@ -94,7 +94,7 @@ def test_cli_commands(tmp_path):
     cwd = Path.cwd()
     os.chdir(tmp_path)
     try:
-        videocut_cli.identify_segments_cmd(json_file=str(diarized))
+        videocut_cli.identify_segments_cmd(source=str(diarized))
     finally:
         os.chdir(cwd)
     assert (tmp_path / "segments.txt").exists()

@@ -40,9 +40,17 @@ def _parse_tsv(tsv_path: str):
     entries = []
     with open(tsv_path) as f:
         next(f)
-        reader = csv.reader(f, delimiter="\t")
-        for start, end, text in reader:
-            entries.append({"start": float(start) / 1000.0, "end": float(end) / 1000.0, "text": text.strip()})
+        for line in f:
+            parts = line.rstrip("\n").split("\t", 2)
+            if len(parts) < 3:
+                # Skip malformed rows
+                continue
+            start, end, text = parts
+            entries.append({
+                "start": float(start) / 1000.0,
+                "end": float(end) / 1000.0,
+                "text": text.strip(),
+            })
     return entries
 
 
@@ -524,6 +532,104 @@ def load_markup(path: Path) -> List[dict]:
     return lines
 
 
+def _segment_entries(segs_data: List[dict], markup_lines: List[dict]) -> List[dict]:
+    """Return Nicholson segments from already parsed transcript entries."""
+    nicholson_id = find_nicholson_speaker(segs_data)
+    if nicholson_id is None:
+        print("❌  Nicholson speaker not found")
+        return []
+
+    results = []
+    n_idx = [i for i, seg in enumerate(segs_data) if seg.get("speaker") == nicholson_id]
+    if not n_idx:
+        return []
+
+    groups = []
+    start_idx = n_idx[0]
+    last_idx = n_idx[0]
+    for idx in n_idx[1:]:
+        prev_end = float(segs_data[last_idx]["end"])
+        cur_start = float(segs_data[idx]["start"])
+        if cur_start - prev_end >= MERGE_GAP_SEC:
+            groups.append((start_idx, last_idx))
+            start_idx = idx
+        last_idx = idx
+    groups.append((start_idx, last_idx))
+
+    for start_idx, last_idx in groups:
+        start_time = float(segs_data[start_idx]["start"])
+        end_time = float(segs_data[last_idx]["end"])
+
+        j = last_idx + 1
+        next_start = None
+        while j < len(segs_data):
+            seg = segs_data[j]
+            if seg.get("speaker") == nicholson_id:
+                break
+            text = seg.get("text", "")
+            if _recognizes_other(text):
+                next_start = (
+                    float(segs_data[j + 1]["start"]) if j + 1 < len(segs_data) else float(seg["end"])
+                )
+                break
+            if float(seg["start"]) - end_time >= MERGE_GAP_SEC and should_end(text):
+                end_time = float(seg["end"])
+                next_start = float(seg["start"])
+                break
+            end_time = float(seg["end"])
+            j += 1
+
+        if next_start is None and j < len(segs_data):
+            next_start = float(segs_data[j]["start"])
+        if next_start is not None:
+            end_time = min(end_time + TRAIL_SEC, next_start)
+        else:
+            end_time = end_time + TRAIL_SEC
+
+        end_time, segment_lines = trim_segment(start_time, end_time, markup_lines)
+        pre_lines = collect_pre(markup_lines, start_time)
+        post_lines = collect_post(markup_lines, end_time, next_start)
+
+        results.append(
+            {
+                "start": round(start_time, 2),
+                "end": round(end_time, 2),
+                "text": segment_lines,
+                "pre": pre_lines,
+                "post": post_lines,
+            }
+        )
+
+    return results
+
+
+def segment_nicholson_from_transcript(transcript_txt: str, out_json: str = "segments_to_keep.json") -> None:
+    """Identify Nicholson segments using ``transcript.txt``."""
+    entries = []
+    for line in Path(transcript_txt).read_text().splitlines():
+        m = _TS_RE.match(line)
+        if not m:
+            continue
+        rest = m.group("rest").strip()
+        speaker = ""
+        text = rest
+        if ":" in rest:
+            speaker, text = rest.split(":", 1)
+        entries.append(
+            {
+                "start": float(m.group("start")),
+                "end": float(m.group("end")),
+                "speaker": speaker.strip(),
+                "text": text.strip(),
+            }
+        )
+
+    markup_lines = load_markup(Path(transcript_txt))
+    segs = _segment_entries(entries, markup_lines)
+    Path(out_json).write_text(json.dumps(segs, indent=2))
+    print(f"✅  {len(segs)} segments → {out_json}")
+
+
 def collect_pre(segs: List[dict], start: float) -> List[str]:
     window = start - PRE_SEC
     return [s["line"] for s in segs if s["end"] <= start and s["end"] >= window]
@@ -644,75 +750,14 @@ def segment_nicholson(
     segs_data = data["segments"]
     markup_lines = load_markup(markup_path)
 
-    nicholson_id = find_nicholson_speaker(segs_data)
-    if nicholson_id is None:
-        nicholson_id = map_nicholson_speaker(str(in_path))
-
-    print(f"🔍  Secretary Nicholson identified as {nicholson_id}")
-
-    results = []
-    n_idx = [i for i, seg in enumerate(segs_data) if seg.get("speaker") == nicholson_id]
-    if not n_idx:
+    segs = _segment_entries(segs_data, markup_lines)
+    if not segs:
         out_path.write_text("[]")
         print("❌  No Nicholson segments found")
         return
 
-    groups = []
-    start_idx = n_idx[0]
-    last_idx = n_idx[0]
-    for idx in n_idx[1:]:
-        prev_end = float(segs_data[last_idx]["end"])
-        cur_start = float(segs_data[idx]["start"])
-        if cur_start - prev_end >= MERGE_GAP_SEC:
-            groups.append((start_idx, last_idx))
-            start_idx = idx
-        last_idx = idx
-    groups.append((start_idx, last_idx))
-
-    for start_idx, last_idx in groups:
-        start_time = float(segs_data[start_idx]["start"])
-        end_time = float(segs_data[last_idx]["end"])
-
-        j = last_idx + 1
-        next_start = None
-        while j < len(segs_data):
-            seg = segs_data[j]
-            if seg.get("speaker") == nicholson_id:
-                break
-            text = seg.get("text", "")
-            if _recognizes_other(text):
-                next_start = (
-                    float(segs_data[j + 1]["start"]) if j + 1 < len(segs_data) else float(seg["end"])
-                )
-                break
-            if float(seg["start"]) - end_time >= MERGE_GAP_SEC and should_end(text):
-                end_time = float(seg["end"])
-                next_start = float(seg["start"])
-                break
-            end_time = float(seg["end"])
-            j += 1
-
-        if next_start is None and j < len(segs_data):
-            next_start = float(segs_data[j]["start"])
-        if next_start is not None:
-            end_time = min(end_time + TRAIL_SEC, next_start)
-        else:
-            end_time = end_time + TRAIL_SEC
-
-        end_time, segment_lines = trim_segment(start_time, end_time, markup_lines)
-        pre_lines = collect_pre(markup_lines, start_time)
-        post_lines = collect_post(markup_lines, end_time, next_start)
-
-        results.append({
-            "start": round(start_time, 2),
-            "end": round(end_time, 2),
-            "text": segment_lines,
-            "pre": pre_lines,
-            "post": post_lines,
-        })
-
-    out_path.write_text(json.dumps(results, indent=2))
-    print(f"✅  {len(results)} segments → {out_path}")
+    out_path.write_text(json.dumps(segs, indent=2))
+    print(f"✅  {len(segs)} segments → {out_path}")
 
 
 def apply_name_map(seg_json: str, map_json: str, out_json: Optional[str] = None) -> None:
@@ -787,6 +832,7 @@ __all__ = [
     "map_recognized_auto",
     "add_speaker_labels",
     "auto_segments_for_speaker",
+    "segment_nicholson_from_transcript",
     "identify_segments",
     "find_nicholson_speaker",
     "segment_nicholson",
