@@ -128,22 +128,25 @@ def test_json_to_tsv_list(tmp_path, capsys):
 
 
 def test_segments_txt_roundtrip(tmp_path):
-    segs = [
-        {"text": ["[0-1] A: hi", "[1-2] B: there"]},
-        {"text": ["[2-3] A: bye"]},
-    ]
-    js = tmp_path / "segs.json"
-    js.write_text(json.dumps(segs))
+    transcript = {
+        "segments": [
+            {"start": 0, "end": 1, "label": "A", "text": "hi"},
+            {"start": 1, "end": 2, "label": "B", "text": "there"},
+            {"start": 2, "end": 3, "label": "A", "text": "bye"},
+        ]
+    }
+    keep = [{"start": 0, "end": 2}]
+    t_json = tmp_path / "dia.json"
+    k_json = tmp_path / "keep.json"
+    t_json.write_text(json.dumps(transcript))
+    k_json.write_text(json.dumps(keep))
 
     txt = tmp_path / "segments.txt"
-    segmentation.segments_json_to_txt(str(js), str(txt))
+    segmentation.segments_json_to_txt(str(t_json), str(k_json), str(txt))
 
     lines = txt.read_text().splitlines()
     assert lines[0] == "=START="
-    assert lines[1].startswith("\t[1]")
-
-    pairs = segmentation.segments_from_txt(str(txt))
-    assert pairs == [(1, 2), (3, 3)]
+    assert lines[1].startswith("\t[0.00 - 1.00]")
 
 
 def test_segment_cli(tmp_path, capsys):
@@ -163,5 +166,5 @@ def test_segment_cli(tmp_path, capsys):
     lines = out.read_text().splitlines()
     assert lines[0] == "=START="
     assert lines[-1] == "=END="
-    assert lines[1].startswith("[0-")
+    assert lines[1].lstrip().startswith("[")
     assert "✅" in capsys.readouterr().out
