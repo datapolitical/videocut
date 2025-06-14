@@ -240,6 +240,21 @@ def prune_segments_cmd(
 
 
 @app.command()
+def segment(
+    json_file: str = typer.Argument(..., help="WhisperX transcript JSON file"),
+    out_json: str = "segments_to_keep.json",
+    out_txt: str = "segments.txt",
+):
+    """Automatically segment video based on Nicholson's remarks and nearby responses."""
+    from .core.nicholson import identify_nicholson_segments
+    from .core.segmentation import segments_json_to_txt
+
+    identify_nicholson_segments(json_file, out_json)
+    segments_json_to_txt(out_json, out_txt)
+    print(f"✅ Segment boundaries saved to {out_txt}")
+
+
+@app.command()
 def recognized_directors(
     recognized: str = "recognized_map.json",
     board_file: str = "board_members.txt",

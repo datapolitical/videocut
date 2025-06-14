@@ -760,6 +760,11 @@ def segment_nicholson(
     print(f"✅  {len(segs)} segments → {out_path}")
 
 
+def identify_nicholson_segments(json_file: str, out_json: str = "segments_to_keep.json") -> None:
+    """Alias for :func:`segment_nicholson` for backward compatibility."""
+    segment_nicholson(json_file, out_json)
+
+
 def apply_name_map(seg_json: str, map_json: str, out_json: Optional[str] = None) -> None:
     """Replace SPEAKER tokens in *seg_json* with names from *map_json*."""
     segs = json.loads(Path(seg_json).read_text())
@@ -833,6 +838,7 @@ __all__ = [
     "add_speaker_labels",
     "auto_segments_for_speaker",
     "segment_nicholson_from_transcript",
+    "identify_nicholson_segments",
     "identify_segments",
     "find_nicholson_speaker",
     "segment_nicholson",
