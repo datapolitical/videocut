@@ -12,8 +12,7 @@ VideoCut turns a recorded board meeting into a polished highlight reel. The tool
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -e .
-make install-dev
+make install
 pytest
 ```
 For a lightweight install without transcription dependencies:
