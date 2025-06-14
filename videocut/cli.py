@@ -1,4 +1,5 @@
 """Typer-based command line interface for VideoCut."""
+
 from __future__ import annotations
 from pathlib import Path
 from typing import Optional
@@ -68,6 +69,7 @@ def identify_clips_json(edit_json: str = "segments_edit.json", out: str = "segme
 def extract_marked(markup: str = "markup_guide.txt", out: str = "segments_to_keep.json"):
     segmentation.extract_marked(markup, out)
 
+
 @app.command()
 def annotate_markup(
     markup_file: str = "markup_guide.txt",
@@ -76,6 +78,7 @@ def annotate_markup(
     srt_file: Optional[str] = None,
 ):
     annotation.annotate_segments(markup_file, seg_file, out_file, srt_file)
+
 
 @app.command()
 def clip_transcripts_cmd(
@@ -109,6 +112,7 @@ def align_cmd(
     alignment.
     """
     alignment.align_with_transcript(video, transcript, out_json)
+
 
 @app.command()
 def annotate_srt(
@@ -158,6 +162,7 @@ def build_speaker_db(samples: str, out: str = "speaker_db.json"):
 def map_speakers(video: str, json_file: str, db: str = "speaker_db.json", out: Optional[str] = None):
     """Apply speaker name mapping to a diarized JSON file."""
     speaker_mapping.apply_speaker_map(video, json_file, db, out)
+
 
 @app.command("identify-segments")
 def identify_segments_cmd(
@@ -245,17 +250,18 @@ def prune_segments_cmd(
     nicholson.prune_segments(seg_json, out)
 
 
-@app.command()
+@app.command("segment")
 def segment(
-    json_file: str = typer.Argument(..., help="WhisperX transcript JSON"),
-    markup: str = typer.Option("markup_guide.txt", help="Full transcript with timestamps and speaker names"),
-    out: str = typer.Option("segments.txt", help="Final output with =START= and =END= markers"),
+    json_file: Path = typer.Argument(..., help="Diarized JSON with speaker labels"),
+    speaker: str = "Chris Nicholson",
+    output: Path = Path("segments.txt"),
 ):
-    """Detect segments using Nicholson + replies, and output full transcript with markers."""
-    from .core.segmentation import json_to_editable, write_segments_txt_from_editable
-
-    json_to_editable(json_file, out_json="segments_edit.json", markup=markup)
-    write_segments_txt_from_editable("segments_edit.json", out)
+    """Extract segments where the speaker is Nicholson and write to segments.txt"""
+    tmp_json = json_file.with_name("segments_auto.json")
+    nicholson.segment_nicholson(json_file, tmp_json)
+    segmentation.segments_json_to_txt(tmp_json, output)
+    tmp_json.unlink(missing_ok=True)
+    typer.echo(f"✅ Created {output}")
 
 
 @app.command()
