@@ -37,6 +37,14 @@ def transcribe(
     names using embeddings after transcription. Set ``progress`` to ``False`` to
     suppress the WhisperX progress output.
     """
+    try:
+        import torch  # noqa: F401
+        import whisperx  # noqa: F401
+    except ModuleNotFoundError as e:
+        raise RuntimeError(
+            "Missing transcribe dependencies. Run: pip install ."
+        ) from e
+
     out_json = f"{Path(video).stem}.json"
     srt_path = Path(video).with_suffix(".srt")
     cmd = ["whisperx", video, "--compute_type", compute_type(), "--output_dir", "."]
