@@ -1,4 +1,5 @@
 # Available Tests
+# DO NOT RUN ANY TESTS AUTOMATICALLY
 
 - `test_core.py`: verifies transcription helper functions and clip generation commands.
 - `test_speaker_mapping.py`: checks speaker mapping utilities and related CLI commands.
