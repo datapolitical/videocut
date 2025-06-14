@@ -7,6 +7,8 @@ import re
 from pathlib import Path
 from typing import Dict, List
 
+from .. import parse_pdf_text
+
 
 def json_to_tsv(json_path: str, out_tsv: str = "input.tsv") -> None:
     """Convert WhisperX JSON to TSV for spreadsheet editing."""
@@ -257,11 +259,18 @@ def segments_json_to_txt(
     data = json.loads(t_path.read_text())
     segs_in = data.get("segments", data)
     transcript_lines = []
+    stop_prefixes = parse_pdf_text.STOP_PREFIXES
     for seg in segs_in:
         start = float(seg.get("start", 0))
         end = float(seg.get("end", 0))
         speaker = seg.get("label") or seg.get("speaker") or "Chris Nicholson"
         text = str(seg.get("text", "")).replace("\n", " ").strip()
+
+        if not text or speaker.startswith(tuple(stop_prefixes)) or any(
+            text.startswith(p) for p in stop_prefixes
+        ):
+            continue
+
         transcript_lines.append(
             {"start": start, "end": end, "speaker": speaker, "text": text}
         )

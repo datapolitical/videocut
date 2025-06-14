@@ -29,11 +29,19 @@ def parse_pdf(pdf_path: str) -> list[str]:
         if not line:
             continue
         # The PDF contains scanned public comment letters after the end of the
-        # meeting transcript. These lines begin with headers like "Cc:" or
-        # "Public Comment" and should be ignored. They appear only after the
-        # main transcript, so we only check for them once we've processed most
-        # of the meeting.
-        if len(lines) > 500 and (any(line.startswith(p) for p in STOP_PREFIXES) or "PUBLIC COMMENT" in line.upper()):
+        # meeting transcript.  Ignore everything starting with the page that
+        # begins with "PUBLIC COMMENT".  This page may or may not be present,
+        # but when it is, it signals the start of the public comment section
+        # and should not be included in the transcript.
+        if line.upper().startswith("PUBLIC COMMENT"):
+            if current:
+                lines.append(current)
+            break
+        # Older PDFs include public comment email headers at the very end.
+        # They usually appear after the bulk of the meeting, so keep the
+        # original heuristic for those prefixes once a substantial amount of
+        # lines has been processed.
+        if len(lines) > 500 and any(line.startswith(p) for p in STOP_PREFIXES):
             if current:
                 lines.append(current)
             break
