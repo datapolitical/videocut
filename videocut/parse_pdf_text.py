@@ -16,6 +16,7 @@ STOP_PREFIXES = (
     "From:",
 )
 
+DATE_RE = re.compile(r"\b\d{1,2}/\d{1,2}/\d{4}\b")
 SPEAKER_RE = re.compile(r"^([A-Z][A-Z'\- ]+):\s*(.*)")
 
 
@@ -24,19 +25,31 @@ def parse_pdf(pdf_path: str) -> list[str]:
     text = extract_text(pdf_path)
     lines = []
     current = None
-    for raw in text.splitlines():
-        line = re.sub(r"\s+", " ", raw.strip())
+    raw_lines = text.splitlines()
+    i = 0
+    while i < len(raw_lines):
+        line = re.sub(r"\s+", " ", raw_lines[i].strip())
+        i += 1
         if not line:
             continue
-        # The PDF contains scanned public comment letters after the end of the
-        # meeting transcript.  Ignore everything starting with the page that
-        # begins with "PUBLIC COMMENT".  This page may or may not be present,
-        # but when it is, it signals the start of the public comment section
-        # and should not be included in the transcript.
+        # Detect the start of the public comment section.  Occasionally a
+        # speaker's line may span a page break and begin with the words
+        # "PUBLIC COMMENT".  Treat it as the actual public comment section only
+        # when it is followed by a date on the same line or the next line.
         if line.upper().startswith("PUBLIC COMMENT"):
-            if current:
-                lines.append(current)
-            break
+            has_date = bool(DATE_RE.search(line))
+            j = i
+            while not has_date and j < len(raw_lines):
+                next_line = re.sub(r"\s+", " ", raw_lines[j].strip())
+                j += 1
+                if not next_line:
+                    continue
+                has_date = bool(DATE_RE.search(next_line))
+                break
+            if has_date:
+                if current:
+                    lines.append(current)
+                break
         # Older PDFs include public comment email headers at the very end.
         # They usually appear after the bulk of the meeting, so keep the
         # original heuristic for those prefixes once a substantial amount of

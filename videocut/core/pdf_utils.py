@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import List, Set, Tuple, Dict
 
 from pdfminer.high_level import extract_text
+from .. import parse_pdf_text
 
 __all__ = [
     "extract_speaker_names",
@@ -63,11 +64,28 @@ def extract_transcript_lines(pdf_path: str) -> List[str]:
     leading/trailing whitespace.
     """
     text = extract_text(pdf_path)
+    raw_lines = text.splitlines()
     lines: List[str] = []
-    for line in text.splitlines():
-        line = re.sub(r"\s+", " ", line.strip())
+    i = 0
+    while i < len(raw_lines):
+        line = re.sub(r"\s+", " ", raw_lines[i].strip())
+        i += 1
         if not line:
             continue
+        if line.upper().startswith("PUBLIC COMMENT"):
+            has_date = bool(parse_pdf_text.DATE_RE.search(line))
+            j = i
+            while not has_date and j < len(raw_lines):
+                next_line = re.sub(r"\s+", " ", raw_lines[j].strip())
+                j += 1
+                if not next_line:
+                    continue
+                has_date = bool(parse_pdf_text.DATE_RE.search(next_line))
+                break
+            if has_date:
+                break
+        if len(lines) > 500 and any(line.startswith(p) for p in parse_pdf_text.STOP_PREFIXES):
+            break
         if re.match(r"^[A-Z][A-Z'\- ]+:", line):
             lines.append(line)
     return lines
