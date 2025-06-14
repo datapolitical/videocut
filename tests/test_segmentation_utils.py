@@ -144,3 +144,25 @@ def test_segments_txt_roundtrip(tmp_path):
 
     pairs = segmentation.segments_from_txt(str(txt))
     assert pairs == [(1, 2), (3, 3)]
+
+
+def test_segment_cli(tmp_path, monkeypatch):
+    diarized = tmp_path / "dia.json"
+    diarized.write_text("{}")
+
+    called = {}
+
+    def fake_identify(json_file, out_json):
+        called["json"] = json_file
+        Path(out_json).write_text("[]")
+
+    def fake_txt(json_file, out_txt):
+        called["txt"] = (json_file, out_txt)
+
+    monkeypatch.setattr(nicholson, "identify_nicholson_segments", fake_identify)
+    monkeypatch.setattr(segmentation, "segments_json_to_txt", fake_txt)
+
+    videocut_cli.segment(json_file=str(diarized))
+
+    assert called["json"] == str(diarized)
+    assert called["txt"] == ("segments_to_keep.json", "segments.txt")
