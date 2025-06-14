@@ -49,6 +49,12 @@ def json_to_tsv(json_file: str, out: str = "input.tsv"):
 
 
 @app.command()
+def json_to_markup(json_file: str, out: str = "markup_guide.txt"):
+    """Generate ``markup_guide.txt`` from a diarized JSON file."""
+    segmentation.json_to_markup(json_file, out)
+
+
+@app.command()
 def identify_clips(tsv: str = "input.tsv", out: str = "segments_to_keep.json"):
     segmentation.identify_clips(tsv, out)
 
@@ -302,6 +308,10 @@ def pipeline(
     Path("recognized_map.json").write_text(json.dumps(ids, indent=2))
     roll = chair.parse_roll_call(json_file)
     Path("roll_call_map.json").write_text(json.dumps(roll, indent=2))
+
+    # Apply recognized names to the JSON and regenerate markup guide
+    nicholson.apply_name_map_json(json_file, "recognized_map.json", json_file)
+    segmentation.json_to_markup(json_file, "markup_guide.txt")
 
     tmp_json = "segments.json"
     nicholson.identify_segments(
