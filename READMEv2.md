@@ -27,7 +27,7 @@ pip install -e .
 | Step | Command | Output |
 |------|---------|--------|
 | 1 | `videocut transcribe May_Board_Meeting.mp4 --pdf transcript.pdf` | `May_Board_Meeting.json` |
-| 2 | `videocut identify-segments transcript.txt` | `segments.txt` (tab‑indented) |
+| 2 | `videocut identify-segments May_Board_Meeting.json` | `segments.txt` (tab‑indented) |
 | 2a *(optional)* | *Edit* `segments.txt` to trim or reorder segments | — |
 | 3 | `videocut generate-clips May_Board_Meeting.mp4 segments.txt` | Clips and `timestamps.json` |
 | 4 | `videocut concatenate` | `final_video.mp4` |

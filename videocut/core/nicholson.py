@@ -40,9 +40,17 @@ def _parse_tsv(tsv_path: str):
     entries = []
     with open(tsv_path) as f:
         next(f)
-        reader = csv.reader(f, delimiter="\t")
-        for start, end, text in reader:
-            entries.append({"start": float(start) / 1000.0, "end": float(end) / 1000.0, "text": text.strip()})
+        for line in f:
+            parts = line.rstrip("\n").split("\t", 2)
+            if len(parts) < 3:
+                # Skip malformed rows
+                continue
+            start, end, text = parts
+            entries.append({
+                "start": float(start) / 1000.0,
+                "end": float(end) / 1000.0,
+                "text": text.strip(),
+            })
     return entries
 
 

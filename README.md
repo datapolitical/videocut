@@ -23,7 +23,7 @@ pip install -e .
      `[start‑end] NAME: text`.
    - WhisperX generates `May_Board_Meeting.json`, `May_Board_Meeting.tsv`,
      `May_Board_Meeting.srt`, `May_Board_Meeting.vtt` and `May_Board_Meeting.txt`.
-2. **Identify segments** – `videocut identify-segments transcript.txt`
+2. **Identify segments** – `videocut identify-segments May_Board_Meeting.json`
    - Creates a tab‑indented `segments.txt` containing `=START=` and `=END=`
      markers for each Nicholson segment.
 2a. *(optional)* Edit `segments.txt` to trim or reorder the segments.

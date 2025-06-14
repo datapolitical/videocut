@@ -155,12 +155,17 @@ def map_speakers(video: str, json_file: str, db: str = "speaker_db.json", out: O
 
 @app.command("identify-segments")
 def identify_segments_cmd(
-    transcript: str = "transcript.txt",
+    source: str = "transcript.txt",
+    recognized: str = "recognized_map.json",
+    board_file: str = "board_members.txt",
     out_txt: str = "segments.txt",
 ):
-    """Detect Nicholson segments using ``transcript.txt``."""
+    """Detect Nicholson segments from a diarized JSON or transcript file."""
     tmp_json = Path(out_txt).with_suffix(".json")
-    nicholson.segment_nicholson_from_transcript(transcript, str(tmp_json))
+    if source.endswith(".json"):
+        nicholson.identify_segments(source, recognized, str(tmp_json), board_file)
+    else:
+        nicholson.segment_nicholson_from_transcript(source, str(tmp_json))
     segmentation.segments_json_to_txt(str(tmp_json), out_txt)
     tmp_json.unlink(missing_ok=True)
 
