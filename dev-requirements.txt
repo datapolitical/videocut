@@ -1,0 +1,5 @@
+    click
+    typer>=0.12
+    ffmpeg-python
+    python-dotenv>=1
+    python-dateutil

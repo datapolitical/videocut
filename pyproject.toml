@@ -18,11 +18,6 @@ dependencies = [
     "python-dotenv>=1.0",
     "pdfminer.six",
     "python-dateutil",
-]
-
-[project.optional-dependencies]
-# ✅ Heavy transcribe-related deps go here
-transcribe = [
     "torch",
     "torchaudio",
     "whisperx",
