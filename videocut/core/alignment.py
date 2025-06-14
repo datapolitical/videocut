@@ -10,8 +10,6 @@ import shutil
 
 from .. import parse_pdf_text
 
-import torch
-import whisperx
 
 
 _DEFAULT_OUT = "aligned.json"
@@ -23,6 +21,14 @@ def align_with_transcript(video: str, transcript: str, out_json: str = _DEFAULT_
     If ``transcript`` is a PDF file it is first converted to plain text which is
     saved alongside the PDF with a ``.txt`` extension.
     """
+    try:
+        import torch
+        import whisperx
+    except ModuleNotFoundError as e:
+        raise RuntimeError(
+            "Missing transcribe dependencies. Run: pip install ."
+        ) from e
+
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     if shutil.which("ffmpeg") is None and not os.environ.get("VIDEOCUT_SKIP_FFMPEG_CHECK"):

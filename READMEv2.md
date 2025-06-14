@@ -18,8 +18,13 @@ VideoCut turns recorded board meetings into polished, shareable clips with minim
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
 pip install -e .
+```
+
+For a lightweight install without transcription dependencies:
+
+```bash
+pip install -e .[light]
 ```
 
 ## Typical Workflow
