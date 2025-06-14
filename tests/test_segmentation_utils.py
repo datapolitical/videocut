@@ -146,23 +146,22 @@ def test_segments_txt_roundtrip(tmp_path):
     assert pairs == [(1, 2), (3, 3)]
 
 
-def test_segment_cli(tmp_path, monkeypatch):
+def test_segment_cli(tmp_path, capsys):
+    data = {
+        "segments": [
+            {"start": 0, "end": 1, "speaker": "Nicholson", "text": "hello"},
+            {"start": 1, "end": 2, "speaker": "Other", "text": "skip"},
+            {"start": 2, "end": 3, "speaker": "Nicholson", "text": "bye"},
+        ]
+    }
     diarized = tmp_path / "dia.json"
-    diarized.write_text("{}")
+    diarized.write_text(json.dumps(data))
+    out = tmp_path / "segments.txt"
 
-    called = {}
+    videocut_cli.segment(json_file=str(diarized), out=str(out))
 
-    def fake_identify(json_file, out_json):
-        called["json"] = json_file
-        Path(out_json).write_text("[]")
-
-    def fake_txt(json_file, out_txt):
-        called["txt"] = (json_file, out_txt)
-
-    monkeypatch.setattr(nicholson, "identify_nicholson_segments", fake_identify)
-    monkeypatch.setattr(segmentation, "segments_json_to_txt", fake_txt)
-
-    videocut_cli.segment(json_file=str(diarized))
-
-    assert called["json"] == str(diarized)
-    assert called["txt"] == ("segments_to_keep.json", "segments.txt")
+    lines = out.read_text().splitlines()
+    assert lines[0] == "=START="
+    assert lines[-1] == "=END="
+    assert lines[1].startswith("[0-")
+    assert "✅" in capsys.readouterr().out
