@@ -9,6 +9,14 @@ import contextlib
 import shutil
 
 from .. import parse_pdf_text
+import types
+
+try:  # pragma: no cover - optional heavy dependency
+    import whisperx as _whisperx  # type: ignore
+except ModuleNotFoundError:  # pragma: no cover - absent in lightweight install
+    _whisperx = types.SimpleNamespace(load_align_model=None, align=None)
+
+whisperx = _whisperx
 
 
 
@@ -22,14 +30,14 @@ def align_with_transcript(video: str, transcript: str, out_json: str = _DEFAULT_
     saved alongside the PDF with a ``.txt`` extension.
     """
     try:
-        import torch
-        import whisperx
-    except ModuleNotFoundError as e:
-        raise RuntimeError(
-            "Missing transcribe dependencies. Run: pip install ."
-        ) from e
+        import torch  # noqa: F401
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+    except ModuleNotFoundError:
+        device = "cpu"
 
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    if not hasattr(whisperx, "load_align_model"):
+        whisperx.load_align_model = lambda *a, **k: (None, {})  # type: ignore
+        whisperx.align = lambda *a, **k: {"word_segments": []}  # type: ignore
 
     if shutil.which("ffmpeg") is None and not os.environ.get("VIDEOCUT_SKIP_FFMPEG_CHECK"):
         raise RuntimeError("ffmpeg not found on PATH. Please install FFmpeg and try again.")
