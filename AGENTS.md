@@ -1,1 +1,1 @@
-Use videos/example/example.mp4 to test the align software on.
+Use the files in videos/May_Board_Meeting/ to test the software on. Do not try to test the transcribe function. 

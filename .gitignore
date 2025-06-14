@@ -9,3 +9,4 @@ __pycache__
 videocut.egg-info
 !videos/example/*
 videos/example/.DS_Store
+*.zip
