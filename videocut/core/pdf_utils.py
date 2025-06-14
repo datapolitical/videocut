@@ -60,45 +60,21 @@ def clean_recognized_map(mapping: dict, board_file: str | None = None, pdf_path:
 def extract_transcript_lines(pdf_path: str) -> List[str]:
     """Return a list of transcript lines from *pdf_path*.
 
-    Each returned line is normalized to single spaces and stripped of
-    leading/trailing whitespace.
+    This function delegates to :func:`videocut.parse_pdf_text.parse_pdf` to
+    ensure multi-line statements spanning page breaks are preserved.
     """
-    text = extract_text(pdf_path)
-    raw_lines = text.splitlines()
-    lines: List[str] = []
-    i = 0
-    while i < len(raw_lines):
-        line = re.sub(r"\s+", " ", raw_lines[i].strip())
-        i += 1
-        if not line:
-            continue
-        if line.upper().startswith("PUBLIC COMMENT"):
-            has_date = bool(parse_pdf_text.DATE_RE.search(line))
-            j = i
-            while not has_date and j < len(raw_lines):
-                next_line = re.sub(r"\s+", " ", raw_lines[j].strip())
-                j += 1
-                if not next_line:
-                    continue
-                has_date = bool(parse_pdf_text.DATE_RE.search(next_line))
-                break
-            if has_date:
-                break
-        if len(lines) > 500 and any(line.startswith(p) for p in parse_pdf_text.STOP_PREFIXES):
-            break
-        if re.match(r"^[A-Z][A-Z'\- ]+:", line):
-            lines.append(line)
-    return lines
+    return parse_pdf_text.parse_pdf(pdf_path)
 
 
 def extract_transcript_dialogue(pdf_path: str) -> List[Tuple[str, str]]:
     """Return ``(speaker, text)`` tuples parsed from ``pdf_path``."""
     dialogue: List[Tuple[str, str]] = []
-    for line in extract_transcript_lines(pdf_path):
-        m = re.match(r"^([A-Z][A-Z'\- ]+):\s*(.*)", line)
-        if m:
-            name = re.sub(r"\s+", " ", m.group(1)).title()
-            dialogue.append((name, m.group(2)))
+    for line in parse_pdf_text.parse_pdf(pdf_path):
+        if ":" not in line:
+            continue
+        speaker, text = line.split(":", 1)
+        name = re.sub(r"\s+", " ", speaker).strip()
+        dialogue.append((name, text.strip()))
     return dialogue
 
 
