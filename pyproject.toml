@@ -9,20 +9,28 @@ description = "Video editing pipeline driven by WhisperX transcripts"
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [{name = "VideoCut Maintainers"}]
-
-# ✅ Only lightweight dependencies here
 dependencies = [
-    "click",
-    "typer>=0.12",
-    "ffmpeg-python",
-    "python-dotenv>=1.0",
-    "pdfminer.six",
-    "python-dateutil",
-    "torch",
-    "torchaudio",
-    "whisperx",
-    "speechbrain",
+  "click",
+  "typer>=0.12",
+  "ffmpeg-python",
+  "python-dotenv>=1.0",
+  "pdfminer.six",
+  "python-dateutil"
 ]
+
+[project.optional-dependencies]
+transcribe = [
+  "torch",
+  "torchaudio",
+  "whisperx",
+  "speechbrain"
+]
+dev = [
+  "pytest",
+  "black",
+  "ipython"
+]
+
 
 [project.scripts]
 videocut = "videocut.cli:main"
