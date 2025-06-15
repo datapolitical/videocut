@@ -60,3 +60,20 @@ To regenerate `transcript.txt` from a diarized JSON and an official PDF:
 ```bash
 videocut json-to-transcript May_Board_Meeting.json transcript.pdf
 ```
+
+### Additional transcript utilities
+Use `pdf-extract` to create both a text and JSON version of a PDF transcript:
+```bash
+videocut pdf-extract transcript.pdf
+```
+
+You can align those PDF lines to a diarized JSON with `pdf-match`:
+```bash
+videocut pdf-match transcript.pdf May_Board_Meeting.json
+```
+
+Run `check-transcript` to flag segments with unusual timing:
+```bash
+videocut check-transcript May_Board_Meeting.json
+```
+This reports any segments whose words per second fall outside the normal range.

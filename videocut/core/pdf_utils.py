@@ -13,6 +13,9 @@ __all__ = [
     "extract_transcript_dialogue",
     "apply_pdf_transcript_json",
     "write_timestamped_transcript",
+    "find_timing_anomalies",
+    "export_pdf_transcript",
+    "match_pdf_json",
 ]
 
 
@@ -32,7 +35,9 @@ def extract_speaker_names(pdf_path: str) -> Set[str]:
     return names
 
 
-def clean_recognized_map(mapping: dict, board_file: str | None = None, pdf_path: str | None = None) -> dict:
+def clean_recognized_map(
+    mapping: dict, board_file: str | None = None, pdf_path: str | None = None
+) -> dict:
     """Return a copy of *mapping* with normalized speaker names.
 
     Names are matched against the board member list and optionally against
@@ -42,17 +47,25 @@ def clean_recognized_map(mapping: dict, board_file: str | None = None, pdf_path:
     from difflib import get_close_matches
 
     board_map = load_board_map(board_file)
-    pdf_names = {n.lower(): n for n in extract_speaker_names(pdf_path)} if pdf_path else {}
+    pdf_names = (
+        {n.lower(): n for n in extract_speaker_names(pdf_path)} if pdf_path else {}
+    )
 
     result = {}
     for spk, info in mapping.items():
         name = info.get("name", "")
         name = normalize_recognized_name(name, board_map)
         if pdf_names:
-            match = get_close_matches(name.lower(), list(pdf_names.keys()), n=1, cutoff=0.8)
+            match = get_close_matches(
+                name.lower(), list(pdf_names.keys()), n=1, cutoff=0.8
+            )
             if match:
                 name = pdf_names[match[0]]
-        alts = [normalize_recognized_name(a, board_map) for a in info.get("alternatives", []) if a]
+        alts = [
+            normalize_recognized_name(a, board_map)
+            for a in info.get("alternatives", [])
+            if a
+        ]
         result[spk] = {"name": name, "alternatives": sorted(set(alts))}
     return result
 
@@ -78,7 +91,9 @@ def extract_transcript_dialogue(pdf_path: str) -> List[Tuple[str, str]]:
     return dialogue
 
 
-def apply_pdf_transcript_json(json_file: str, pdf_path: str, out_json: str | None = None) -> None:
+def apply_pdf_transcript_json(
+    json_file: str, pdf_path: str, out_json: str | None = None
+) -> None:
     """Replace transcript lines and speakers in ``json_file`` using *pdf_path*."""
     data = json.loads(Path(json_file).read_text())
     dialog = extract_transcript_dialogue(pdf_path)
@@ -87,7 +102,7 @@ def apply_pdf_transcript_json(json_file: str, pdf_path: str, out_json: str | Non
         seg["label"] = speaker
         seg["text"] = line
     if len(dialog) < len(segs):
-        del segs[len(dialog):]
+        del segs[len(dialog) :]
     Path(out_json or json_file).write_text(json.dumps(data, indent=2))
     print(f"✅  transcript text replaced → {out_json or json_file}")
 
@@ -188,3 +203,81 @@ def write_timestamped_transcript(
     print(
         f"✅  timestamped transcript → {out_txt or Path(pdf_path).with_suffix('.txt')}"
     )
+
+
+def find_timing_anomalies(
+    json_file: str, min_wps: float = 0.5, max_wps: float = 5.0
+) -> List[dict]:
+    """Return segments whose words-per-second fall outside ``min_wps`` and ``max_wps``."""
+
+    data = json.loads(Path(json_file).read_text())
+    segs = data.get("segments", data)
+    anomalies = []
+    for i, seg in enumerate(segs):
+        start = float(seg.get("start", 0))
+        end = float(seg.get("end", 0))
+        text = str(seg.get("text", ""))
+        words = len(text.split())
+        dur = end - start
+        wps = words / dur if dur > 0 else float("inf")
+        if wps < min_wps or wps > max_wps:
+            anomalies.append(
+                {
+                    "index": i,
+                    "start": start,
+                    "end": end,
+                    "wps": round(wps, 2),
+                    "text": text,
+                }
+            )
+    return anomalies
+
+
+def export_pdf_transcript(
+    pdf_path: str,
+    txt_out: str | None = None,
+    json_out: str | None = None,
+) -> List[dict]:
+    """Write a text and JSON version of *pdf_path* transcript."""
+
+    lines = extract_transcript_lines(pdf_path)
+    txt_file = txt_out or str(Path(pdf_path).with_name("pdf_transcript.txt"))
+    Path(txt_file).write_text("\n".join(lines) + "\n")
+
+    items = [{"text": line, "words": line.split()} for line in lines]
+    json_file = json_out or str(Path(pdf_path).with_name("pdf_transcript.json"))
+    Path(json_file).write_text(json.dumps(items, indent=2))
+    print(f"✅  transcript text → {txt_file}")
+    print(f"✅  transcript JSON → {json_file}")
+    return items
+
+
+def match_pdf_json(
+    pdf_path: str,
+    diarized_json: str,
+    out_json: str = "matched.json",
+) -> None:
+    """Match PDF transcript lines to segments in ``diarized_json``."""
+
+    lines = export_pdf_transcript(pdf_path)
+    data = json.loads(Path(diarized_json).read_text())
+    segs = data.get("segments", data)
+    result = []
+    j = 0
+    for item in lines:
+        words = item["words"]
+        start, end = 0.0, 0.0
+        collected = []
+        while j < len(segs) and len(collected) < len(words):
+            seg = segs[j]
+            if not collected:
+                start = float(seg.get("start", 0))
+            end = float(seg.get("end", 0))
+            collected += str(seg.get("text", "")).split()
+            j += 1
+        result.append(
+            {"start": start, "end": end, "text": item["text"], "words": words}
+        )
+
+    Path(out_json).write_text(json.dumps(result, indent=2))
+    print(f"✅  matched transcript → {out_json}")
