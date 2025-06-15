@@ -90,3 +90,28 @@ Run `check-transcript` to flag segments with unusual timing:
 videocut check-transcript May_Board_Meeting.json
 ```
 This reports any segments whose words per second fall outside the normal range.
+
+### 4 · Convert to TXT (NEW)
+
+```bash
+videocut to-txt matched.json       # ⇒ transcript.txt
+```
+
+`transcript.txt` is the input expected by **`videocut segment`**.
+
+The full pipeline is now:
+
+```
+transcribe  →  match  →  to-txt  →  segment  →  generate-clips  →  concatenate
+```
+
+### 6 · Install / Run Cheat-sheet
+
+```bash
+pip install -e .
+videocut match pdf_transcript.json May_Board_Meeting.json -o matched.json
+videocut to-txt matched.json -o transcript.txt
+videocut segment transcript.txt
+videocut generate-clips transcript.txt
+videocut concatenate transcript.txt
+```
