@@ -101,9 +101,27 @@ def apply_pdf_transcript(
 
 
 @app.command("json-to-transcript")
-def json_to_transcript(json_file: str, out: str = "transcript.txt"):
-    """Generate ``transcript.txt`` using timestamps from ``json_file``."""
-    pdf_utils.write_timestamped_transcript(json_file, json_file, out, json_file)
+def json_to_transcript(
+    json_file: str, pdf: Optional[str] = None, out: str = "transcript.txt"
+):
+    """Generate ``transcript.txt`` using timestamps from ``json_file``.
+
+    When ``pdf`` is supplied the transcript lines from the PDF are
+    merged into the JSON prior to generating ``transcript.txt`` so that
+    the output reflects the official wording.
+    """
+    tmp_json = json_file
+    if pdf:
+        tmp_json = str(Path(json_file).with_suffix(".pdf.json"))
+        pdf_utils.apply_pdf_transcript_json(json_file, pdf, tmp_json)
+    pdf_utils.write_timestamped_transcript(
+        pdf or json_file,
+        json_file,
+        out,
+        json_path=tmp_json,
+    )
+    if pdf:
+        Path(tmp_json).unlink(missing_ok=True)
 
 
 @app.command("align")
