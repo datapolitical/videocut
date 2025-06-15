@@ -1,7 +1,10 @@
-import pathlib, subprocess, filecmp, shutil
+import pathlib
+import subprocess
+import filecmp
+import shutil
+import sys
 
 SEG = pathlib.Path('segments.txt')
-SRC = pathlib.Path('segmenter.py')
 
 
 def test_tab_indentation():
@@ -15,5 +18,5 @@ def test_tab_indentation():
 def test_roundtrip(tmp_path, monkeypatch):
     orig = tmp_path / 'orig.txt'
     shutil.copy(SEG, orig)
-    subprocess.run(['python', SRC], check=True)
+    subprocess.run([sys.executable, '-m', 'videocut.segmenter'], check=True)
     assert filecmp.cmp(SEG, orig), 'Round-trip changed segments.txt'
