@@ -268,7 +268,7 @@ def segment(
     out = Path(out)
 
     if json_file.suffix == ".txt":
-        import segmenter
+        from . import segmenter
 
         typer.echo("Using new segmenter 2.0 code")
         rows = segmenter.load_rows(str(json_file))
