@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """
 segmenter.py - build segments.txt for Nicholson highlight reel
-
-Rules summary:
-  - glue-window = 60 seconds between Nicholson clips
-  - input transcript lines may be flush left (no tabs)
-  - every non-marker line in segments.txt is tab indented
-  - fence markers "=START=" and "=END=" appear flush-left
 """
 import re
 import pathlib
 from typing import List, Dict
+
+BOARD_FILE = pathlib.Path(__file__).resolve().parents[1] / "board_members.txt"
+if BOARD_FILE.exists():
+    BOARD = {ln.strip() for ln in BOARD_FILE.read_text().splitlines() if ln.strip()}
+else:
+    BOARD = set()
+BOARD_LOWER = {n.lower() for n in BOARD}
 
 NICH = "Chris Nicholson"
 CHAIR = "Julien Bouquet"
@@ -66,23 +67,26 @@ def build_segments(rows: List[Dict[str, str]]) -> List[str]:
         # close segment just before chair hand-off
         if open_seg and spk == CHAIR:
             lower = txt.lower()
-            if lower.startswith("director ") or "thank you, secretary" in lower:
-                recog_director = False
-                after = lower
-                if "thank you, secretary" in lower:
-                    after = lower.split("thank you, secretary", 1)[1]
-                if after.strip().startswith("director ") or " director " in after:
-                    recog_director = True
-                elif i + 1 < len(rows):
-                    nr = rows[i + 1]
-                    if nr["spk"].strip() == CHAIR:
-                        nxt = nr["txt"].strip().lower()
-                        if nxt.startswith("director "):
-                            recog_director = True
-                if recog_director:
-                    out.append("=END=")
-                    last_end_marker = len(out) - 1
-                    open_seg = False
+            after = lower.split("thank you, secretary", 1)[-1]
+            recog_director = False
+
+            if after.strip().startswith("director ") or " director " in after:
+                recog_director = True
+            elif i + 1 < len(rows):
+                next_spk = rows[i + 1]["spk"].strip()
+                next_lower = next_spk.lower()
+                if next_spk not in {CHAIR, NICH} and next_lower in BOARD_LOWER:
+                    if any(f"director {part}" in lower for part in next_lower.split()):
+                        recog_director = True
+                elif next_spk == CHAIR:
+                    nxt = rows[i + 1]["txt"].strip().lower()
+                    if nxt.startswith("director "):
+                        recog_director = True
+
+            if recog_director:
+                out.append("=END=")
+                last_end_marker = len(out) - 1
+                open_seg = False
 
         # check for substantive Nicholson line to open segment
         if spk == NICH:
