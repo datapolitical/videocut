@@ -32,6 +32,9 @@ pip install -e .[light]
    - Creates a tab‑indented `segments.txt` containing `=START=` and `=END=`
      markers for each Nicholson segment.
 2a. *(optional)* Edit `segments.txt` to trim or reorder the segments.
+2b. You can also run `videocut segment transcript.txt` on a raw, flush‑left
+    transcript. The CLI will print "Using new segmenter 2.0 code" when this
+    code path is triggered.
 3. **Generate clips** – `videocut generate-clips May_Board_Meeting.mp4 segments.txt`
    - Buffers and re‑aligns each segment, trims to word boundaries and saves the
      final clips to `clips/`. Alignment data for each clip is written as
