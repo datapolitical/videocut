@@ -4,7 +4,10 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Optional
 import json
+import click
 import typer
+from videocut.core.align import align_pdf_to_asr
+from videocut.core.convert import matched_to_txt
 from .core import (
     transcription,
     segmentation,
@@ -163,26 +166,38 @@ def pdf_match(pdf_file: str, json_file: str, out: str = "matched.json"):
     pdf_utils.match_pdf_json(pdf_file, json_file, out)
 
 
+# ---------------------------------------------------------------------
+# Align PDF → ASR
 @app.command("match")
-def match_cmd(
-    pdf_json: str = typer.Argument(..., help="pdf_transcript.json"),
-    asr_json: str = typer.Argument(..., help="WhisperX meeting JSON"),
-    out: str = "matched.json",
-):
-    """Align PDF transcript JSON to ASR words."""
-    from .core.align import align_pdf_to_asr
-
-    matched = align_pdf_to_asr(Path(pdf_json), Path(asr_json))
-    Path(out).write_text(json.dumps(matched, indent=2))
-    typer.echo(
-        f"Wrote {out} with {sum(x['start'] is None for x in matched)} unmatched lines."
+@click.argument("pdf_json", type=click.Path(exists=True))
+@click.argument("asr_json", type=click.Path(exists=True))
+@click.option("-o", "--out", default="matched.json", show_default=True,
+              help="Destination file")
+@click.option("--window", default=120, type=int, show_default=True)
+@click.option("--step",   default=30,  type=int, show_default=True)
+@click.option("--ratio",  default=0.15, type=float, show_default=True,
+              help="Minimum difflib ratio to accept a match")
+def match_cli(pdf_json, asr_json, out, window, step, ratio):
+    """Align PDF transcript (no timestamps) to WhisperX JSON."""
+    matched = align_pdf_to_asr(
+        pdf_json, asr_json,
+        window=window, step=step, ratio_thresh=ratio,
     )
+    Path(out).write_text(json.dumps(matched, indent=2))
+    nulls = sum(1 for u in matched if u["start"] is None)
+    click.echo(f"wrote {out} · {nulls} unmatched line(s)")
 
 
-@app.command("transcript_json_to_txt")
-def transcript_json_to_txt_cmd(json_file: str, out: str = "transcript.txt"):
-    """Convert a matched transcript JSON to ``transcript.txt``."""
-    pdf_utils.transcript_json_to_txt(json_file, out)
+# ---------------------------------------------------------------------
+# matched.json → transcript.txt
+@app.command("to-txt")
+@click.argument("matched_json", type=click.Path(exists=True))
+@click.option("-o", "--out", default="transcript.txt", show_default=True,
+              help="Output TXT file")
+def to_txt_cli(matched_json, out):
+    """Convert MATCHED_JSON to the tab-indented TXT format."""
+    matched_to_txt(matched_json, out)
+    click.echo(f"wrote {out}")
 
 
 @app.command("align")
