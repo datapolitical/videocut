@@ -72,7 +72,12 @@ def transcribe(
         try:
             pdf_utils.apply_pdf_transcript_json(out_json, pdf_path, out_json)
             if srt_path.exists():
-                pdf_utils.write_timestamped_transcript(pdf_path, str(srt_path), "transcript.txt")
+                pdf_utils.write_timestamped_transcript(
+                    pdf_path,
+                    str(srt_path),
+                    "transcript.txt",
+                    json_path=out_json,
+                )
         except Exception as exc:
             print(f"⚠️  PDF transcript failed: {exc}")
 
