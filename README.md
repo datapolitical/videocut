@@ -74,6 +74,17 @@ videocut pdf-match transcript.pdf May_Board_Meeting.json
 This writes `matched.json` where each line's words are paired with their
 closest timestamped match from the JSON.
 
+### 3 · Match (NEW)
+
+```bash
+videocut match pdf_transcript.json May_Board_Meeting.json
+```
+
+Produces `matched.json` where every PDF line now carries precise start/end
+timestamps taken from the ASR word stream. Down-stream commands
+(`identify-segments`, `generate-clips`, `concatenate`) consume `matched.json`
+in place of `pdf_transcript.json`.
+
 Run `check-transcript` to flag segments with unusual timing:
 ```bash
 videocut check-transcript May_Board_Meeting.json

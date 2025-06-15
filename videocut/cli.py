@@ -14,6 +14,7 @@ from .core import (
     clip_transcripts,
     srt_markers,
     alignment,
+    align,
     speaker_mapping,
     chair,
     pdf_utils,
@@ -160,6 +161,22 @@ def pdf_extract(
 def pdf_match(pdf_file: str, json_file: str, out: str = "matched.json"):
     """Match PDF transcript lines to a diarized JSON."""
     pdf_utils.match_pdf_json(pdf_file, json_file, out)
+
+
+@app.command("match")
+def match_cmd(
+    pdf_json: str = typer.Argument(..., help="pdf_transcript.json"),
+    asr_json: str = typer.Argument(..., help="WhisperX meeting JSON"),
+    out: str = "matched.json",
+):
+    """Align PDF transcript JSON to ASR words."""
+    from .core.align import align_pdf_to_asr
+
+    matched = align_pdf_to_asr(Path(pdf_json), Path(asr_json))
+    Path(out).write_text(json.dumps(matched, indent=2))
+    typer.echo(
+        f"Wrote {out} with {sum(x['start'] is None for x in matched)} unmatched lines."
+    )
 
 
 @app.command("transcript_json_to_txt")
