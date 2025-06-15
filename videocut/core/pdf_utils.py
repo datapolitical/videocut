@@ -326,7 +326,10 @@ def match_pdf_json(
 def transcript_json_to_txt(json_path: str, out_txt: str = "transcript.txt") -> None:
     """Write ``out_txt`` from a matched transcript JSON file."""
     data = json.loads(Path(json_path).read_text())
-    segs = data.get("segments", data)
+    if isinstance(data, list):
+        segs = data
+    else:
+        segs = data.get("segments", data)
     lines = []
     for seg in segs:
         start = seg.get("start") or 0.0
