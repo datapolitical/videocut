@@ -15,8 +15,11 @@ from typing import List, Dict
 NICH = "Chris Nicholson"
 CHAIR = "Julien Bouquet"
 GLUE = 30.0
+GLUE_LINES = 5  # glue if <=4 lines between Nicholson segments
 
-pat = re.compile(r"\[(?P<start>[^\]-]+)\s*-\s*(?P<end>[^\]]+)\]\s*(?P<spk>[^:]+):\s*(?P<txt>.*)")
+pat = re.compile(
+    r"\[(?P<start>[^\]-]+)\s*-\s*(?P<end>[^\]]+)\]\s*(?P<spk>[^:]+):\s*(?P<txt>.*)"
+)
 
 
 def to_sec(ts: str) -> float:
@@ -48,6 +51,7 @@ def build_segments(rows: List[Dict[str, str]]) -> List[str]:
     out: List[str] = []
     open_seg = False
     last_end = -1e9
+    last_idx = -1
     last_end_marker: int | None = None
 
     i = 0
@@ -63,9 +67,22 @@ def build_segments(rows: List[Dict[str, str]]) -> List[str]:
         if open_seg and spk == CHAIR:
             lower = txt.lower()
             if lower.startswith("director ") or "thank you, secretary" in lower:
-                out.append("=END=")
-                last_end_marker = len(out) - 1
-                open_seg = False
+                recog_director = False
+                after = lower
+                if "thank you, secretary" in lower:
+                    after = lower.split("thank you, secretary", 1)[1]
+                if after.strip().startswith("director ") or " director " in after:
+                    recog_director = True
+                elif i + 1 < len(rows):
+                    nr = rows[i + 1]
+                    if nr["spk"].strip() == CHAIR:
+                        nxt = nr["txt"].strip().lower()
+                        if nxt.startswith("director "):
+                            recog_director = True
+                if recog_director:
+                    out.append("=END=")
+                    last_end_marker = len(out) - 1
+                    open_seg = False
 
         # check for substantive Nicholson line to open segment
         if spk == NICH:
@@ -75,7 +92,9 @@ def build_segments(rows: List[Dict[str, str]]) -> List[str]:
             has_enough_words = len(words) >= 10
             if substantive and has_enough_words:
                 if not open_seg:
-                    if last_end_marker is not None and r["ss"] - last_end <= GLUE:
+                    if last_end_marker is not None and (
+                        r["ss"] - last_end <= GLUE or i - last_idx <= GLUE_LINES
+                    ):
                         out.pop(last_end_marker)  # glue with previous
                     else:
                         out.append("=START=")
@@ -92,6 +111,7 @@ def build_segments(rows: List[Dict[str, str]]) -> List[str]:
             has_enough_words = len(words) >= 10
             if open_seg or (substantive and has_enough_words):
                 last_end = r["es"]
+                last_idx = i
 
         i += 1
 
@@ -104,4 +124,3 @@ def main():
     rows = load_rows()
     seg_lines = build_segments(rows)
     pathlib.Path("segments.txt").write_text("\n".join(seg_lines) + "\n")
-
