@@ -9,6 +9,7 @@ from .core import (
     clip_transcripts,
     srt_markers,
     alignment,
+    align,
     speaker_mapping,
     pdf_utils,
 )
@@ -21,6 +22,7 @@ __all__ = [
     "video_editing",
     "nicholson",
     "alignment",
+    "align",
     "srt_markers",
     "speaker_mapping",
     "pdf_utils",

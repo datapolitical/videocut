@@ -15,6 +15,7 @@ dependencies = [
   "ffmpeg-python",
   "python-dotenv>=1.0",
   "pdfminer.six",
+  "rapidfuzz",
   "python-dateutil"
 ]
 
