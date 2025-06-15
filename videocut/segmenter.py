@@ -15,6 +15,7 @@ BOARD_LOWER = {n.lower() for n in BOARD}
 
 NICH = "Chris Nicholson"
 CHAIR = "Julien Bouquet"
+TITLES = ["director", "chair", "secretary", "treasurer"]
 GLUE = 30.0
 GLUE_LINES = 5  # glue if <=4 lines between Nicholson segments
 
@@ -67,20 +68,34 @@ def build_segments(rows: List[Dict[str, str]]) -> List[str]:
         # close segment just before chair hand-off
         if open_seg and spk == CHAIR:
             lower = txt.lower()
-            after = lower.split("thank you, secretary", 1)[-1]
+            after = lower
+            for prefix in (
+                "thank you, secretary",
+                "thank you, chair",
+                "thank you, treasurer",
+            ):
+                after = after.split(prefix, 1)[-1]
+
             recog_director = False
 
-            if after.strip().startswith("director ") or " director " in after:
+            if any(
+                after.strip().startswith(f"{t} ") or f" {t} " in after
+                for t in TITLES
+            ):
                 recog_director = True
             elif i + 1 < len(rows):
                 next_spk = rows[i + 1]["spk"].strip()
                 next_lower = next_spk.lower()
                 if next_spk not in {CHAIR, NICH} and next_lower in BOARD_LOWER:
-                    if any(f"director {part}" in lower for part in next_lower.split()):
+                    if any(
+                        f"{t} {part}" in lower
+                        for part in next_lower.split()
+                        for t in TITLES
+                    ):
                         recog_director = True
                 elif next_spk == CHAIR:
                     nxt = rows[i + 1]["txt"].strip().lower()
-                    if nxt.startswith("director "):
+                    if any(nxt.startswith(f"{t} ") for t in TITLES):
                         recog_director = True
 
             if recog_director:
