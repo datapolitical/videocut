@@ -4,7 +4,6 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Optional
 import json
-import click
 import typer
 from videocut.core.align import align_pdf_to_asr
 from videocut.core.convert import matched_to_txt
@@ -169,35 +168,75 @@ def pdf_match(pdf_file: str, json_file: str, out: str = "matched.json"):
 # ---------------------------------------------------------------------
 # Align PDF → ASR
 @app.command("match")
-@click.argument("pdf_json", type=click.Path(exists=True))
-@click.argument("asr_json", type=click.Path(exists=True))
-@click.option("-o", "--out", default="matched.json", show_default=True,
-              help="Destination file")
-@click.option("--window", default=120, type=int, show_default=True)
-@click.option("--step",   default=30,  type=int, show_default=True)
-@click.option("--ratio",  default=0.15, type=float, show_default=True,
-              help="Minimum difflib ratio to accept a match")
-def match_cli(pdf_json, asr_json, out, window, step, ratio):
-    """Align PDF transcript (no timestamps) to WhisperX JSON."""
+def match_cli(
+    pdf_json: Path = typer.Argument(
+        ...,
+        exists=True,
+        readable=True,
+        help="pdf_transcript.json produced from the PDF",
+    ),
+    asr_json: Path = typer.Argument(
+        ...,
+        exists=True,
+        readable=True,
+        help="WhisperX meeting JSON with word-level timestamps",
+    ),
+    out: Path = typer.Option(
+        Path("matched.json"),
+        "--out",
+        "-o",
+        help="Destination file for the aligned transcript",
+    ),
+    window: int = typer.Option(
+        120,
+        help="Sliding window size in words",
+    ),
+    step: int = typer.Option(
+        30,
+        help="Hop length between windows",
+    ),
+    ratio: float = typer.Option(
+        0.15,
+        help="Minimum SequenceMatcher ratio to accept a match",
+    ),
+) -> None:
+    """
+    Align PDF utterances (no timestamps) to ASR word stream and write *matched.json*.
+    """
     matched = align_pdf_to_asr(
-        pdf_json, asr_json,
-        window=window, step=step, ratio_thresh=ratio,
+        pdf_json,
+        asr_json,
+        window=window,
+        step=step,
+        ratio_thresh=ratio,
     )
-    Path(out).write_text(json.dumps(matched, indent=2))
-    nulls = sum(1 for u in matched if u["start"] is None)
-    click.echo(f"wrote {out} · {nulls} unmatched line(s)")
+    out.write_text(json.dumps(matched, indent=2))
+    nulls = sum(1 for m in matched if m["start"] is None)
+    typer.echo(f"✅ wrote {out} · {nulls} unmatched line(s)")
 
 
 # ---------------------------------------------------------------------
 # matched.json → transcript.txt
 @app.command("to-txt")
-@click.argument("matched_json", type=click.Path(exists=True))
-@click.option("-o", "--out", default="transcript.txt", show_default=True,
-              help="Output TXT file")
-def to_txt_cli(matched_json, out):
-    """Convert MATCHED_JSON to the tab-indented TXT format."""
+def to_txt_cli(
+    matched_json: Path = typer.Argument(
+        ...,
+        exists=True,
+        readable=True,
+        help="matched.json produced by `videocut match`",
+    ),
+    out: Path = typer.Option(
+        Path("transcript.txt"),
+        "--out",
+        "-o",
+        help="Destination tab-indented TXT for `videocut segment`",
+    ),
+) -> None:
+    """
+    Convert *matched.json* to the tab-indented transcript.txt format.
+    """
     matched_to_txt(matched_json, out)
-    click.echo(f"wrote {out}")
+    typer.echo(f"✅ wrote {out}")
 
 
 @app.command("align")
