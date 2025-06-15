@@ -14,7 +14,7 @@ from typing import List, Dict
 
 NICH = "Chris Nicholson"
 CHAIR = "Julien Bouquet"
-GLUE = 60.0
+GLUE = 30.0
 
 pat = re.compile(r"\[(?P<start>[^\]-]+)\s*-\s*(?P<end>[^\]]+)\]\s*(?P<spk>[^:]+):\s*(?P<txt>.*)")
 
@@ -72,7 +72,8 @@ def build_segments(rows: List[Dict[str, str]]) -> List[str]:
             words = [w.strip(".,!?,") for w in txt.lower().split()]
             simple = {"thank", "thanks", "you", "chair", "bouquet"}
             substantive = len(words) > 3 or not set(words) <= simple
-            if substantive:
+            has_enough_words = len(words) >= 10
+            if substantive and has_enough_words:
                 if not open_seg:
                     if last_end_marker is not None and r["ss"] - last_end <= GLUE:
                         out.pop(last_end_marker)  # glue with previous
@@ -88,7 +89,8 @@ def build_segments(rows: List[Dict[str, str]]) -> List[str]:
             words = [w.strip(".,!?\,") for w in txt.lower().split()]
             simple = {"thank", "thanks", "you", "chair", "bouquet"}
             substantive = len(words) > 3 or not set(words) <= simple
-            if open_seg or substantive:
+            has_enough_words = len(words) >= 10
+            if open_seg or (substantive and has_enough_words):
                 last_end = r["es"]
 
         i += 1
