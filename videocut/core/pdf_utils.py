@@ -17,6 +17,7 @@ __all__ = [
     "find_timing_anomalies",
     "export_pdf_transcript",
     "match_pdf_json",
+    "transcript_json_to_txt",
 ]
 
 
@@ -320,3 +321,29 @@ def match_pdf_json(
 
     Path(out_json).write_text(json.dumps(result, indent=2))
     print(f"✅  matched transcript → {out_json}")
+
+
+def transcript_json_to_txt(json_path: str, out_txt: str = "transcript.txt") -> None:
+    """Write ``out_txt`` from a matched transcript JSON file."""
+    data = json.loads(Path(json_path).read_text())
+    segs = data.get("segments", data)
+    lines = []
+    for seg in segs:
+        start = seg.get("start") or 0.0
+        end = seg.get("end") or 0.0
+        text = str(seg.get("text", "")).replace("\n", " ").strip()
+        speaker = ""
+        rest = text
+        if ":" in text:
+            speaker, rest = text.split(":", 1)
+            speaker = speaker.strip()
+            rest = rest.strip()
+        line = f"[{float(start):.2f}-{float(end):.2f}] "
+        if speaker:
+            line += f"{speaker}: {rest}"
+        else:
+            line += rest
+        lines.append(line)
+
+    Path(out_txt).write_text("\n".join(lines) + "\n")
+    print(f"✅  transcript → {out_txt}")

@@ -162,6 +162,12 @@ def pdf_match(pdf_file: str, json_file: str, out: str = "matched.json"):
     pdf_utils.match_pdf_json(pdf_file, json_file, out)
 
 
+@app.command("transcript_json_to_txt")
+def transcript_json_to_txt_cmd(json_file: str, out: str = "transcript.txt"):
+    """Convert a matched transcript JSON to ``transcript.txt``."""
+    pdf_utils.transcript_json_to_txt(json_file, out)
+
+
 @app.command("align")
 def align_cmd(
     video: str,
