@@ -86,7 +86,7 @@ def build_segments(rows: List[Dict[str, str]]) -> List[str]:
 
         # remember Nicholson end time
         if spk == NICH:
-            words = [w.strip(".,!?\,") for w in txt.lower().split()]
+            words = [w.strip(".,!?,") for w in txt.lower().split()]
             simple = {"thank", "thanks", "you", "chair", "bouquet"}
             substantive = len(words) > 3 or not set(words) <= simple
             has_enough_words = len(words) >= 10
