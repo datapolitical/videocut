@@ -26,8 +26,12 @@ app = typer.Typer(help="VideoCut pipeline")
 def transcribe(
     video: str = typer.Argument("input.mp4", help="Video file to transcribe"),
     diarize: bool = typer.Option(False, help="Perform speaker diarization"),
-    hf_token: Optional[str] = typer.Option(None, envvar="HF_TOKEN", help="Hugging Face token for diarization"),
-    speaker_db: Optional[str] = typer.Option(None, help="Speaker embedding database JSON"),
+    hf_token: Optional[str] = typer.Option(
+        None, envvar="HF_TOKEN", help="Hugging Face token for diarization"
+    ),
+    speaker_db: Optional[str] = typer.Option(
+        None, help="Speaker embedding database JSON"
+    ),
     progress: bool = typer.Option(True, help="Show WhisperX progress output"),
     pdf: Optional[str] = typer.Option(None, help="Official PDF transcript"),
 ):
