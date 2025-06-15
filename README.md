@@ -58,5 +58,5 @@ videocut pdf-transcript existing.json transcript.pdf
 
 To regenerate `transcript.txt` from a diarized JSON and an official PDF:
 ```bash
-videocut json-to-transcript May_Board_Meeting.json videos/May_Board_Meeting/transcript.pdf
+videocut json-to-transcript May_Board_Meeting.json transcript.pdf
 ```
