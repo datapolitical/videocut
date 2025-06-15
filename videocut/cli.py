@@ -26,8 +26,12 @@ app = typer.Typer(help="VideoCut pipeline")
 def transcribe(
     video: str = typer.Argument("input.mp4", help="Video file to transcribe"),
     diarize: bool = typer.Option(False, help="Perform speaker diarization"),
-    hf_token: Optional[str] = typer.Option(None, envvar="HF_TOKEN", help="Hugging Face token for diarization"),
-    speaker_db: Optional[str] = typer.Option(None, help="Speaker embedding database JSON"),
+    hf_token: Optional[str] = typer.Option(
+        None, envvar="HF_TOKEN", help="Hugging Face token for diarization"
+    ),
+    speaker_db: Optional[str] = typer.Option(
+        None, help="Speaker embedding database JSON"
+    ),
     progress: bool = typer.Option(True, help="Show WhisperX progress output"),
     pdf: Optional[str] = typer.Option(None, help="Official PDF transcript"),
 ):
@@ -61,12 +65,16 @@ def identify_clips(tsv: str = "input.tsv", out: str = "segments_to_keep.json"):
 
 
 @app.command()
-def identify_clips_json(edit_json: str = "segments_edit.json", out: str = "segments_to_keep.json"):
+def identify_clips_json(
+    edit_json: str = "segments_edit.json", out: str = "segments_to_keep.json"
+):
     segmentation.identify_clips_json(edit_json, out)
 
 
 @app.command()
-def extract_marked(markup: str = "markup_guide.txt", out: str = "segments_to_keep.json"):
+def extract_marked(
+    markup: str = "markup_guide.txt", out: str = "segments_to_keep.json"
+):
     segmentation.extract_marked(markup, out)
 
 
@@ -122,6 +130,36 @@ def json_to_transcript(
     )
     if pdf:
         Path(tmp_json).unlink(missing_ok=True)
+
+
+@app.command("check-transcript")
+def check_transcript(json_file: str, min_wps: float = 0.5, max_wps: float = 5.0):
+    """Report segments with abnormal words-per-second timing."""
+    bad = pdf_utils.find_timing_anomalies(json_file, min_wps, max_wps)
+    if not bad:
+        print("✅  transcript timings look reasonable")
+    else:
+        for seg in bad:
+            preview = seg["text"][:60].replace("\n", " ")
+            print(
+                f"{seg['index']:04d} {seg['start']:.2f}-{seg['end']:.2f} "
+                f"{seg['wps']:.2f} wps: {preview}"
+            )
+        print(f"⚠️  {len(bad)} suspicious segment(s)")
+
+
+@app.command("pdf-extract")
+def pdf_extract(
+    pdf_file: str, txt_out: Optional[str] = None, json_out: Optional[str] = None
+):
+    """Extract transcript from PDF to text and JSON."""
+    pdf_utils.export_pdf_transcript(pdf_file, txt_out, json_out)
+
+
+@app.command("pdf-match")
+def pdf_match(pdf_file: str, json_file: str, out: str = "matched.json"):
+    """Match PDF transcript lines to a diarized JSON."""
+    pdf_utils.match_pdf_json(pdf_file, json_file, out)
 
 
 @app.command("align")
@@ -183,7 +221,9 @@ def build_speaker_db(samples: str, out: str = "speaker_db.json"):
 
 
 @app.command()
-def map_speakers(video: str, json_file: str, db: str = "speaker_db.json", out: Optional[str] = None):
+def map_speakers(
+    video: str, json_file: str, db: str = "speaker_db.json", out: Optional[str] = None
+):
     """Apply speaker name mapping to a diarized JSON file."""
     speaker_mapping.apply_speaker_map(video, json_file, db, out)
 
@@ -336,8 +376,12 @@ def concatenate(clips_dir: str = "clips", out: str = "final_video.mp4"):
 @app.command()
 def pipeline(
     video: str = typer.Argument("input.mp4", help="Input video file"),
-    hf_token: str = typer.Option(..., envvar="HF_TOKEN", help="Hugging Face token for diarization"),
-    speaker_db: Optional[str] = typer.Option(None, help="Speaker embedding database JSON"),
+    hf_token: str = typer.Option(
+        ..., envvar="HF_TOKEN", help="Hugging Face token for diarization"
+    ),
+    speaker_db: Optional[str] = typer.Option(
+        None, help="Speaker embedding database JSON"
+    ),
     pdf: Optional[str] = typer.Option(None, help="Official PDF transcript"),
 ):
     """Run the full board‑meeting pipeline."""
@@ -374,8 +418,12 @@ def pipeline(
     Path(tmp_json).unlink(missing_ok=True)
     video_editing.generate_clips(video, "segments.txt", "clips")
     video_editing.concatenate_clips("clips", "final_video.mp4")
-    annotation.annotate_segments("markup_guide.txt", "segments.txt", "markup_with_markers.txt")
-    clip_transcripts.clip_transcripts("markup_guide.txt", "segments.txt", "clip_transcripts.txt")
+    annotation.annotate_segments(
+        "markup_guide.txt", "segments.txt", "markup_with_markers.txt"
+    )
+    clip_transcripts.clip_transcripts(
+        "markup_guide.txt", "segments.txt", "clip_transcripts.txt"
+    )
 
 
 def main() -> None:
