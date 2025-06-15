@@ -131,8 +131,37 @@ def _load_srt(path: Path) -> List[Dict[str, float | str]]:
     return entries
 
 
-def write_timestamped_transcript(pdf_path: str, srt_path: str, out_txt: str | None = None) -> None:
-    """Write ``out_txt`` with timestamps matched from ``srt_path``."""
+def write_timestamped_transcript(
+    pdf_path: str,
+    srt_path: str,
+    out_txt: str | None = None,
+    json_path: str | None = None,
+) -> None:
+    """Write ``out_txt`` with timestamps.
+
+    If *json_path* is supplied and exists, timestamps and speaker names are
+    taken directly from that JSON file instead of matching ``srt_path`` to the
+    PDF text.  This provides a reliable fallback when the SRT and PDF texts do
+    not align well.
+    """
+    if json_path and Path(json_path).exists():
+        data = json.loads(Path(json_path).read_text())
+        segs = data.get("segments", data)
+        out_lines = []
+        for seg in segs:
+            start = float(seg.get("start", 0))
+            end = float(seg.get("end", 0))
+            speaker = seg.get("label") or seg.get("speaker", "")
+            text = str(seg.get("text", "")).replace("\n", " ").strip()
+            out_lines.append(f"[{start:.2f}-{end:.2f}] {speaker}: {text}")
+        Path(out_txt or Path(pdf_path).with_suffix(".txt")).write_text(
+            "\n".join(out_lines) + "\n"
+        )
+        print(
+            f"✅  timestamped transcript → {out_txt or Path(pdf_path).with_suffix('.txt')}"
+        )
+        return
+
     dialogue = extract_transcript_dialogue(pdf_path)
     entries = _load_srt(Path(srt_path))
     out_lines: List[str] = []
@@ -153,5 +182,9 @@ def write_timestamped_transcript(pdf_path: str, srt_path: str, out_txt: str | No
             j += 1
         out_lines.append(f"[{start:.2f}-{end:.2f}] {speaker}: {text}")
 
-    Path(out_txt or Path(pdf_path).with_suffix(".txt")).write_text("\n".join(out_lines) + "\n")
-    print(f"✅  timestamped transcript → {out_txt or Path(pdf_path).with_suffix('.txt')}")
+    Path(out_txt or Path(pdf_path).with_suffix(".txt")).write_text(
+        "\n".join(out_lines) + "\n"
+    )
+    print(
+        f"✅  timestamped transcript → {out_txt or Path(pdf_path).with_suffix('.txt')}"
+    )
