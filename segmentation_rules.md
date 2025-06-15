@@ -1,6 +1,6 @@
 # Segmentation Rules
 
-These rules describe how `segmenter.py` builds `segments.txt` for the Nicholson highlight reel.
+These rules describe how the :mod:`videocut.segmenter` module builds `segments.txt` for the Nicholson highlight reel.
 
 1. **Gluing** – If two Nicholson clips are less than 30 seconds apart **or separated by four or fewer transcript lines**, they are merged into a single segment. Material between them is included in that segment.
 2. **Transcript Input** – Input lines may be flush-left or tab indented. Each non-marker output line is indented with a single tab.
