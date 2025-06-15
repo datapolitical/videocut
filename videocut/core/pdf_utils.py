@@ -2,6 +2,7 @@ import json
 import re
 from pathlib import Path
 from typing import List, Set, Tuple, Dict
+import difflib
 
 from pdfminer.high_level import extract_text
 from .. import parse_pdf_text
