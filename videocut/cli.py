@@ -253,14 +253,29 @@ def prune_segments_cmd(
 @app.command("segment")
 def segment(
     json_file: Path = typer.Argument(
-        "videos/May_Board_Meeting.json", help="Diarized JSON transcript"
+        "videos/May_Board_Meeting.json",
+        help="Diarized JSON transcript or tab-indented transcript.txt",
     ),
     speaker: str = "Chris Nicholson",
     out: Path = Path("segments.txt"),
 ):
-    """Write Nicholson segments from *json_file* to ``segments.txt``."""
+    """Write Nicholson segments from *json_file* to ``segments.txt``.
+
+    If ``json_file`` ends with ``.txt`` it is treated as a raw transcript and
+    processed with :mod:`segmenter`.
+    """
     json_file = Path(json_file)
     out = Path(out)
+
+    if json_file.suffix == ".txt":
+        import segmenter
+
+        rows = segmenter.load_rows(str(json_file))
+        seg_lines = segmenter.build_segments(rows)
+        out.write_text("\n".join(seg_lines) + "\n")
+        typer.echo(f"✅ Created {out}")
+        return
+
     tmp_json = json_file.with_name("segments_auto.json")
     nicholson.segment_nicholson(str(json_file), str(tmp_json))
     segmentation.segments_json_to_txt(str(json_file), str(tmp_json), str(out))

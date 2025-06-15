@@ -1,0 +1,19 @@
+	[0.00 - 2.00] Julien Bouquet: Good evening.
+	[2.50 - 3.00] Julien Bouquet: Director Nicholson.
+	[3.10 - 3.50] Chris Nicholson: Thank you, Chair.
+=START=
+	[3.60 - 6.00] Chris Nicholson: I propose we update our policy.
+	[6.10 - 6.50] Other speaker: Sounds good.
+	[6.60 - 8.00] Chris Nicholson: More details on the update.
+=END=
+	[8.50 - 9.00] Julien Bouquet: Director Guzman.
+	[9.10 - 9.50] Michael Guzman: Thank you.
+	[70.00 - 70.50] Julien Bouquet: Director Nicholson.
+	[71.00 - 71.30] Chris Nicholson: Thank you.
+=START=
+	[72.00 - 74.00] Chris Nicholson: We should also consider budgets.
+	[75.50 - 76.00] Julien Bouquet: Thank you, Secretary.
+	[77.10 - 77.50] Julien Bouquet: Director Nicholson.
+	[77.60 - 78.50] Chris Nicholson: Another quick note.
+=END=
+	[78.70 - 79.00] Julien Bouquet: Thank you, Secretary.
