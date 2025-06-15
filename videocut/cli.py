@@ -176,7 +176,7 @@ def identify_segments_cmd(
     if source.endswith(".json"):
         nicholson.identify_segments(source, recognized, str(tmp_json), board_file)
     else:
-        nicholson.segment_nicholson_from_transcript(source, str(tmp_json))
+        nicholson.segment_nicholson_from_transcript(source, str(tmp_json), board_file)
     segmentation.segments_json_to_txt(source, str(tmp_json), out_txt)
     tmp_json.unlink(missing_ok=True)
 

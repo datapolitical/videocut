@@ -73,7 +73,7 @@ def _align_transcript(pdf_lines, tsv_entries):
     return tsv_entries
 
 
-def _build_segments(entries, gap: int | None = None):
+def _build_segments(entries, gap: int | None = None, board: set[str] | None = None):
     if gap is None:
         gap = END_GAP_SEC
     segments = []
@@ -82,6 +82,7 @@ def _build_segments(entries, gap: int | None = None):
     last_nich = None
     last_time = None
     end_time = None
+    board_last = {n.split()[-1].lower() for n in board} if board else set()
     for i, ent in enumerate(entries):
         text_l = ent["text"].lower()
         spk_l = ent.get("speaker", "").lower()
@@ -89,13 +90,24 @@ def _build_segments(entries, gap: int | None = None):
 
         if is_nich:
             if not active:
-                start_time = max(0.0, ent["start"] - 5)
+                start_time = ent["start"]
                 active = True
             last_nich = ent["end"]
             end_time = ent["end"]
             last_time = ent["end"]
         elif active:
-            if _recognizes_other(text_l):
+            if board_last and _recognized_board_member(text_l, board_last):
+                next_start = (
+                    entries[i + 1]["start"] if i + 1 < len(entries) else ent["end"]
+                )
+                segments.append({"start": start_time, "end": next_start})
+                active = False
+                start_time = None
+                last_nich = None
+                end_time = None
+                last_time = None
+                continue
+            if _recognizes_other(text_l) and not board:
                 next_start = (
                     entries[i + 1]["start"] if i + 1 < len(entries) else ent["end"]
                 )
@@ -123,7 +135,7 @@ def _build_segments(entries, gap: int | None = None):
 
     merged = []
     for seg in segments:
-        if merged and seg["start"] - merged[-1]["end"] <= 15:
+        if merged and seg["start"] - merged[-1]["end"] <= 30:
             merged[-1]["end"] = seg["end"]
         else:
             merged.append(seg)
@@ -170,6 +182,32 @@ def _recognizes_other(text: str) -> bool:
         return True
     return False
 
+
+def _recognized_name(text: str) -> str | None:
+    """Return the name mentioned in a recognition cue, if any."""
+    text_l = text.lower()
+    m = _AUTO_RECOG_RE.search(text_l)
+    if m:
+        return m.group("name").title()
+    m = _NAME_ONLY_RE.match(text_l)
+    if m:
+        return m.group("name").title()
+    m = _YIELD_RE.search(text_l)
+    if m:
+        return (m.group("name") or m.group("name2")).title()
+    m = _NAME_BEFORE_RE.search(text_l)
+    if m and len(text_l.split()) <= 4:
+        return m.group("name").title()
+    return None
+
+
+def _recognized_board_member(text: str, board_last: set[str]) -> bool:
+    name = _recognized_name(text)
+    if not name:
+        return False
+    last = name.split()[-1].lower()
+    return last in board_last and last != "nicholson"
+
 START_THRESHOLD = 0.8
 END_THRESHOLD = 0.7
 _TS_RE = re.compile(r"^\s*\[(?P<start>\d+\.?\d*)[–-](?P<end>\d+\.?\d*)\]\s*(?P<rest>.*)")
@@ -177,16 +215,27 @@ _ROLL_RE = re.compile(r"roll call", re.IGNORECASE)
 _NICH_ITEM_RE = re.compile(r"nicholson", re.IGNORECASE)
 
 TRAIL_SEC = 30
-PRE_SEC = 5
-MERGE_GAP_SEC = 120
+PRE_SEC = 0
+MERGE_GAP_SEC = 30
 END_GAP_SEC = 30
 
 BOARD_FILE = Path(__file__).resolve().parents[1] / "board_members.txt"
+PEOPLE_FILE = Path(__file__).resolve().parents[1] / "people.json"
 
 
 def load_board_names(path: str | None = None) -> set[str]:
-    """Return a set of official board or staff names in lowercase."""
-    fp = Path(path) if path else BOARD_FILE
+    """Return a set of official board names in lowercase."""
+    fp = Path(path) if path else None
+    if fp and fp.suffix == ".json":
+        if fp.exists():
+            data = json.loads(fp.read_text())
+            return {n.strip().lower() for n in data.get("board_members", []) if n.strip()}
+        return set()
+    if fp is None:
+        if PEOPLE_FILE.exists():
+            data = json.loads(PEOPLE_FILE.read_text())
+            return {n.strip().lower() for n in data.get("board_members", []) if n.strip()}
+        fp = BOARD_FILE
     if not fp.exists():
         return set()
     return {ln.strip().lower() for ln in fp.read_text().splitlines() if ln.strip()}
@@ -194,7 +243,17 @@ def load_board_names(path: str | None = None) -> set[str]:
 
 def load_board_map(path: str | None = None) -> Dict[str, str]:
     """Return a mapping of lowercase names to their canonical form."""
-    fp = Path(path) if path else BOARD_FILE
+    fp = Path(path) if path else None
+    if fp and fp.suffix == ".json":
+        if not fp.exists():
+            return {}
+        data = json.loads(fp.read_text())
+        return {n.lower(): n for n in data.get("board_members", []) if n}
+    if fp is None:
+        if PEOPLE_FILE.exists():
+            data = json.loads(PEOPLE_FILE.read_text())
+            return {n.lower(): n for n in data.get("board_members", []) if n}
+        fp = BOARD_FILE
     if not fp.exists():
         return {}
     mapping = {}
@@ -519,7 +578,6 @@ def identify_segments(
     segment_nicholson(
         diarized_json,
         out_json,
-        recognized_map=recognized_map,
         board_file=board_file,
     )
 
@@ -536,7 +594,11 @@ def load_markup(path: Path) -> List[dict]:
     return lines
 
 
-def _segment_entries(segs_data: List[dict], markup_lines: List[dict]) -> List[dict]:
+def _segment_entries(
+    segs_data: List[dict],
+    markup_lines: List[dict],
+    board: set[str] | None = None,
+) -> List[dict]:
     """Return Nicholson segments from already parsed transcript entries."""
     nicholson_id = find_nicholson_speaker(segs_data)
     if nicholson_id is None:
@@ -564,6 +626,7 @@ def _segment_entries(segs_data: List[dict], markup_lines: List[dict]) -> List[di
         last_idx = idx
     groups.append((start_idx, last_idx))
 
+    board_last = {n.split()[-1].lower() for n in board} if board else set()
     for start_idx, last_idx in groups:
         start_time = float(segs_data[start_idx]["start"])
         end_time = float(segs_data[last_idx]["end"])
@@ -575,7 +638,12 @@ def _segment_entries(segs_data: List[dict], markup_lines: List[dict]) -> List[di
             if (seg.get("speaker") or seg.get("label")) == nicholson_id:
                 break
             text = seg.get("text", "")
-            if _recognizes_other(text):
+            if board_last and _recognized_board_member(text, board_last):
+                next_start = (
+                    float(segs_data[j + 1]["start"]) if j + 1 < len(segs_data) else float(seg["end"])
+                )
+                break
+            if _recognizes_other(text) and not board_last:
                 next_start = (
                     float(segs_data[j + 1]["start"]) if j + 1 < len(segs_data) else float(seg["end"])
                 )
@@ -611,7 +679,11 @@ def _segment_entries(segs_data: List[dict], markup_lines: List[dict]) -> List[di
     return results
 
 
-def segment_nicholson_from_transcript(transcript_txt: str, out_json: str = "segments_to_keep.json") -> None:
+def segment_nicholson_from_transcript(
+    transcript_txt: str,
+    out_json: str = "segments_to_keep.json",
+    board_file: str | None = None,
+) -> None:
     """Identify Nicholson segments using ``transcript.txt``."""
     entries = []
     for line in Path(transcript_txt).read_text().splitlines():
@@ -633,7 +705,8 @@ def segment_nicholson_from_transcript(transcript_txt: str, out_json: str = "segm
         )
 
     markup_lines = load_markup(Path(transcript_txt))
-    segs = _segment_entries(entries, markup_lines)
+    board = load_board_names(board_file)
+    segs = _segment_entries(entries, markup_lines, board)
     Path(out_json).write_text(json.dumps(segs, indent=2))
     print(f"✅  {len(segs)} segments → {out_json}")
 
@@ -729,6 +802,7 @@ def segment_nicholson(
     out_json: str = "segments_to_keep.json",
     transcript_pdf: str | None = None,
     tsv_file: str | None = None,
+    board_file: str | None = None,
     **_,
 ) -> None:
     in_path = Path(diarized_json)
@@ -750,7 +824,8 @@ def segment_nicholson(
         pdf_lines = parse_pdf_order(transcript_pdf)
         tsv_entries = parse_tsv(tsv_file)
         entries = align_transcript(pdf_lines, tsv_entries)
-        segs = build_segments(entries)
+        board = load_board_names(board_file)
+        segs = build_segments(entries, board=board)
 
         out_path.write_text(json.dumps(segs, indent=2))
         print(f"✅  {len(segs)} segments → {out_path}")
@@ -761,8 +836,9 @@ def segment_nicholson(
     data = json.loads(in_path.read_text())
     segs_data = data["segments"]
     markup_lines = load_markup(markup_path)
+    board = load_board_names(board_file)
 
-    segs = _segment_entries(segs_data, markup_lines)
+    segs = _segment_entries(segs_data, markup_lines, board)
     if not segs:
         out_path.write_text("[]")
         print("❌  No Nicholson segments found")
