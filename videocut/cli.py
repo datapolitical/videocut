@@ -270,6 +270,7 @@ def segment(
     if json_file.suffix == ".txt":
         import segmenter
 
+        typer.echo("Using new segmenter 2.0 code")
         rows = segmenter.load_rows(str(json_file))
         seg_lines = segmenter.build_segments(rows)
         out.write_text("\n".join(seg_lines) + "\n")
