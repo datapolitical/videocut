@@ -100,6 +100,12 @@ def apply_pdf_transcript(
     pdf_utils.apply_pdf_transcript_json(json_file, pdf_path, out_json)
 
 
+@app.command("json-to-transcript")
+def json_to_transcript(json_file: str, out: str = "transcript.txt"):
+    """Generate ``transcript.txt`` using timestamps from ``json_file``."""
+    pdf_utils.write_timestamped_transcript(json_file, json_file, out, json_file)
+
+
 @app.command("align")
 def align_cmd(
     video: str,
