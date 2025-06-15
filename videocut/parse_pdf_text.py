@@ -48,7 +48,9 @@ def parse_pdf(pdf_path: str) -> list[str]:
                 break
             if has_date:
                 if current:
-                    lines.append(current)
+                    if not lines or lines[-1] != current:
+                        lines.append(current)
+                    current = None
                 break
         # Older PDFs include public comment email headers at the very end.
         # They usually appear after the bulk of the meeting, so keep the
@@ -56,7 +58,9 @@ def parse_pdf(pdf_path: str) -> list[str]:
         # lines has been processed.
         if len(lines) > 500 and any(line.startswith(p) for p in STOP_PREFIXES):
             if current:
-                lines.append(current)
+                if not lines or lines[-1] != current:
+                    lines.append(current)
+                current = None
             break
         m = SPEAKER_RE.match(line)
         if m:
