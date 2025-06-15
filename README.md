@@ -55,3 +55,8 @@ official PDF with:
 ```bash
 videocut pdf-transcript existing.json transcript.pdf
 ```
+
+To regenerate `transcript.txt` using timestamps from a diarized JSON file:
+```bash
+videocut json-to-transcript May_Board_Meeting.json
+```
