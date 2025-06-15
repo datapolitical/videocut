@@ -71,6 +71,8 @@ You can align those PDF lines to a diarized JSON with `pdf-match`:
 ```bash
 videocut pdf-match transcript.pdf May_Board_Meeting.json
 ```
+This writes `matched.json` where each line's words are paired with their
+closest timestamped match from the JSON.
 
 Run `check-transcript` to flag segments with unusual timing:
 ```bash

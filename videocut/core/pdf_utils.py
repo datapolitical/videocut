@@ -259,25 +259,63 @@ def match_pdf_json(
 ) -> None:
     """Match PDF transcript lines to segments in ``diarized_json``."""
 
+    def _norm(word: str) -> str:
+        return re.sub(r"[^\w']+", "", word).lower()
+
     lines = export_pdf_transcript(pdf_path)
     data = json.loads(Path(diarized_json).read_text())
     segs = data.get("segments", data)
+
+    diar_words = []
+    for seg in segs:
+        if seg.get("words"):
+            diar_words.extend(seg["words"])
+        else:
+            txt_words = str(seg.get("text", "")).split()
+            start = float(seg.get("start", 0))
+            end = float(seg.get("end", 0))
+            dur = end - start
+            step = dur / len(txt_words) if txt_words else 0
+            for i, w in enumerate(txt_words):
+                diar_words.append(
+                    {
+                        "word": w,
+                        "start": start + i * step,
+                        "end": start + (i + 1) * step,
+                    }
+                )
+
     result = []
     j = 0
     for item in lines:
-        words = item["words"]
-        start, end = 0.0, 0.0
-        collected = []
-        while j < len(segs) and len(collected) < len(words):
-            seg = segs[j]
-            if not collected:
-                start = float(seg.get("start", 0))
-            end = float(seg.get("end", 0))
-            collected += str(seg.get("text", "")).split()
-            j += 1
-        result.append(
-            {"start": start, "end": end, "text": item["text"], "words": words}
+        pdf_words = item["words"]
+        window = diar_words[j : j + max(len(pdf_words) * 3, 1)]
+        sm = difflib.SequenceMatcher(
+            None, [_norm(w) for w in pdf_words], [_norm(w["word"]) for w in window]
         )
+        words_out = []
+        j_offset = j
+        for tag, i1, i2, j1, j2 in sm.get_opcodes():
+            if tag == "equal":
+                for ii, jj in zip(range(i1, i2), range(j1, j2)):
+                    jw = window[jj]
+                    words_out.append(
+                        {
+                            "word": pdf_words[ii],
+                            "start": jw.get("start"),
+                            "end": jw.get("end"),
+                        }
+                    )
+                    j = j_offset + jj + 1
+            elif tag in ("replace", "delete"):
+                for ii in range(i1, i2):
+                    words_out.append({"word": pdf_words[ii], "start": None, "end": None})
+            elif tag == "insert":
+                j = j_offset + j2
+
+        start_ts = next((w["start"] for w in words_out if w["start"] is not None), None)
+        end_ts = next((w["end"] for w in reversed(words_out) if w["end"] is not None), None)
+        result.append({"text": item["text"], "start": start_ts, "end": end_ts, "words": words_out})
 
     Path(out_json).write_text(json.dumps(result, indent=2))
     print(f"✅  matched transcript → {out_json}")
