@@ -35,11 +35,12 @@ pip install -e .[light]
 2b. You can also run `videocut segment transcript.txt` on a raw, flush‑left
     transcript. The CLI will print "Using new segmenter 2.0 code" when this
     code path is triggered.
-3. **Generate clips** – `videocut generate-clips May_Board_Meeting.mp4 segments.txt`
+3. **Generate clips** – `videocut generate-and-align May_Board_Meeting.mp4 segments.txt`
    - Buffers and re‑aligns each segment, trims to word boundaries and saves the
      final clips to `clips/`. Alignment data for each clip is written as
      `clip_###_aligned.json` with a summary in `timestamps.json`.
-   - `generate-clips` also accepts a JSON segments file for simpler workflows.
+   - `generate-and-align` also accepts a JSON segments file for simpler workflows.
+   - Use `videocut clip` to cut clips exactly as specified in `segments.txt` without alignment.
 4. **Concatenate** – `videocut concatenate`
    - Joins all clips with a fade to white between each one, creating
      `final_video.mp4`.
@@ -94,7 +95,7 @@ videocut match pdf_transcript.json May_Board_Meeting.json
 
 Produces `matched.json` where every PDF line now carries precise start/end
 timestamps taken from the ASR word stream. Down-stream commands
-(`identify-segments`, `generate-clips`, `concatenate`) consume `matched.json`
+(`identify-segments`, `generate-and-align`, `concatenate`) consume `matched.json`
 in place of `pdf_transcript.json`.
 
 Run `check-transcript` to flag segments with unusual timing:
@@ -123,7 +124,7 @@ directly to ``videocut segment``.
 The full pipeline is now:
 
 ```
-transcribe  →  match/dtw-align  →  segment  →  generate-clips  →  concatenate
+transcribe  →  match/dtw-align  →  segment  →  generate-and-align  →  concatenate
 
 ### 6 · Install / Run Cheat-sheet
 
@@ -134,6 +135,6 @@ videocut make-labeled matched.json -o transcript.txt
 videocut dtw-align pdf_transcript.txt May_Board_Meeting.srt
 videocut make-labeled matched_dtw.json -o dtw_transcript.txt
 videocut segment transcript.txt
-videocut generate-clips transcript.txt
+videocut generate-and-align transcript.txt
 videocut concatenate transcript.txt
 ```
