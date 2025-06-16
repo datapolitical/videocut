@@ -8,6 +8,7 @@ import typer
 from videocut.core.align import align_pdf_to_asr
 from videocut.core.dtw_align import align_pdf_to_srt
 from videocut.core.convert import matched_to_txt
+from videocut.core.label_fix import labelify
 from .core import (
     transcription,
     segmentation,
@@ -226,10 +227,13 @@ def dtw_align(
     txt_out: Path = typer.Option("dtw-transcript.txt", "--txt-out", "-t"),
     band: int = typer.Option(100, help="DTW half-band width (tokens)"),
 ):
-    """Advanced banded-DTW word-level alignment of PDF to SRT."""
+    """Advanced banded-DTW word-level alignment of PDF to SRT.
+
+    Writes *matched_dtw.json* and a speaker-labeled *dtw-transcript.txt*.
+    """
     aligned = align_pdf_to_srt(pdf_txt, srt_path, band=band)
     json_out.write_text(json.dumps(aligned, indent=2))
-    matched_to_txt(json_out, txt_out)
+    labelify(json_out, txt_out)
     typer.echo(
         f"✅ wrote {json_out} and {txt_out} with {len(aligned)} sentences"
     )
@@ -257,6 +261,35 @@ def to_txt_cli(
     """
     matched_to_txt(matched_json, out)
     typer.echo(f"✅ wrote {out}")
+
+
+@app.command("make-labeled")
+def make_labeled(
+    matched_json: Path = typer.Argument(
+        ...,
+        exists=True,
+        readable=True,
+        help="matched_DTW.json or any match output",
+    ),
+    out_file: Path = typer.Option(
+        "labeled_transcript.txt",
+        "--out",
+        "-o",
+        help="Destination TXT file",
+    ),
+    default: str = typer.Option(
+        "Unknown",
+        help="Fallback speaker when no prior label is available",
+    ),
+) -> None:
+    """
+    Ensure every line has an explicit speaker tag.
+
+    Output line format:
+        Speaker<TAB>[start-end]<TAB>utterance
+    """
+    labelify(matched_json, out_file, default_speaker=default)
+    typer.echo(f"✅ wrote {out_file}")
 
 
 @app.command("align")

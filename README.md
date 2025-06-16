@@ -107,10 +107,19 @@ videocut to-txt matched.json       # ⇒ transcript.txt
 
 `transcript.txt` is the input expected by **`videocut segment`**.
 
+### 5 · Make Labeled Transcript (NEW)
+
+```bash
+videocut make-labeled matched.json -o labeled_transcript.txt
+```
+
+Use this when a matched JSON is missing speaker tags. The output can be fed
+directly to ``videocut segment``.
+
 The full pipeline is now:
 
 ```
-transcribe  →  match/dtw-align  →  to-txt  →  segment  →  generate-clips  →  concatenate
+transcribe  →  match/dtw-align  →  segment  →  generate-clips  →  concatenate
 ```
 
 ### 6 · Install / Run Cheat-sheet
@@ -118,7 +127,7 @@ transcribe  →  match/dtw-align  →  to-txt  →  segment  →  generate-clips
 ```bash
 pip install -e .
 videocut match pdf_transcript.json May_Board_Meeting.json -o matched.json
-videocut to-txt matched.json -o transcript.txt
+videocut make-labeled matched.json -o transcript.txt
 videocut dtw-align pdf_transcript.txt May_Board_Meeting.srt
 videocut segment transcript.txt
 videocut generate-clips transcript.txt
