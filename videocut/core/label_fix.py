@@ -10,7 +10,9 @@ import json, re
 from pathlib import Path
 
 
-label_rx = re.compile(r"\s*([A-Za-z][A-Za-z0-9 .',\-]{1,50}):\s*(.*)")
+# Speaker lines appear at the start of a sentence as ``Name: text``.  The
+# colon is followed by a space, which avoids matching timestamps like ``7:00``.
+label_rx = re.compile(r"^\s*([A-Za-z][A-Za-z0-9 .',\-]{1,50}):\s+(.*)")
 
 
 def labelify(

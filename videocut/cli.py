@@ -225,7 +225,7 @@ def dtw_align(
     srt_path: Path = typer.Argument(..., exists=True, readable=True),
     json_out: Path = typer.Option("matched_dtw.json", "--json-out", "-j"),
     txt_out: Path = typer.Option("dtw-transcript.txt", "--txt-out", "-t"),
-    band: int = typer.Option(100, help="DTW half-band width (tokens)"),
+    band: int = typer.Option(10, help="DTW radius for fastdtw"),
 ):
     """Advanced banded-DTW word-level alignment of PDF to SRT.
 
