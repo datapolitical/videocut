@@ -8,8 +8,10 @@ from pathlib import Path
 from typing import List
 from . import segmentation, alignment
 
-WHITE_FLASH_SEC = 0.5
-FADE_SEC = 0.5
+# WHITE_FLASH_SEC = 0.5
+# FADE_SEC        = 0.5
+WHITE_FLASH_SEC = 0.066      # ≈ 2 frames @30 fps
+FADE_SEC        = 0.033      # 1-frame fade in & out
 TARGET_W, TARGET_H = 1280, 720
 TARGET_FPS = 30
 BUFFER_SEC = 10.0
@@ -395,7 +397,13 @@ def concatenate_clips(clips_dir: str = "clips", out_file: str = "final_video.mp4
     for idx, c in enumerate(clips):
         inputs += ["-i", str(c)]
         if idx < len(clips) - 1:
-            inputs += ["-f", "lavfi", "-i", f"color=white:s={w}x{h}:d={WHITE_FLASH_SEC}"]
+            flash_filter = (
+                f"color=white:s={w}x{h}:d={WHITE_FLASH_SEC},"
+                f"format=yuva444p,"
+                f"fade=t=in:st=0:d={FADE_SEC}:alpha=1,"
+                f"fade=t=out:st={WHITE_FLASH_SEC-FADE_SEC}:d={FADE_SEC}:alpha=1"
+            )
+            inputs += ["-f", "lavfi", "-i", flash_filter]
 
     v_n = inputs.count("-i")
     a_n = len(clips)
