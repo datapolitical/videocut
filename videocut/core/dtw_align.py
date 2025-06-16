@@ -26,18 +26,26 @@ def _norm(tok: str) -> str:
     tok = unicodedata.normalize("NFKD", tok).lower()
     return re.sub(r"[^\w']", "", tok)
 
-def _tokenize_pdf(pdf_txt: str) -> Tuple[List[str], List[str], List[Tuple[int, int]]]:
-    """Return normalized tokens, raw tokens, and sentence boundaries."""
-    sentences = re.split(r'(?<=[.!?])\s+(?=[A-Z])', pdf_txt.strip())
-    norm_tokens, raw_tokens, sent_bounds = [], [], []
-    for sent in sentences:
+def _tokenize_lines(pdf_txt: str) -> Tuple[List[str], List[Tuple[int, int]], List[str]]:
+    """Tokenize ``pdf_txt`` by line preserving exact text and bounds."""
+
+    lines = [ln.strip() for ln in pdf_txt.splitlines()]
+    norm_tokens: List[str] = []
+    bounds: List[Tuple[int, int]] = []
+
+    for line in lines:
         start_idx = len(norm_tokens)
-        raw_toks = sent.split()
-        norm_toks = [_norm(t) for t in raw_toks if _norm(t)]
-        raw_tokens.extend(raw_toks)
-        norm_tokens.extend(norm_toks)
-        sent_bounds.append((start_idx, len(norm_tokens) - 1))
-    return norm_tokens, raw_tokens, sent_bounds
+        for tok in line.split():
+            n = _norm(tok)
+            if n:
+                norm_tokens.append(n)
+        end_idx = len(norm_tokens) - 1
+        if start_idx > end_idx:
+            bounds.append((None, None))
+        else:
+            bounds.append((start_idx, end_idx))
+
+    return norm_tokens, bounds, lines
 
 def _parse_srt(path: str | Path):
     pat = re.compile(
@@ -88,7 +96,7 @@ def align_pdf_to_srt(pdf_txt: str | Path,
                      srt_file: str | Path,
                      *,
                      band: int = 10) -> List[dict]:
-    pdf_norm, pdf_raw, pdf_bounds = _tokenize_pdf(Path(pdf_txt).read_text())
+    pdf_norm, pdf_bounds, pdf_lines = _tokenize_lines(Path(pdf_txt).read_text())
     srt_tokens, srt_times = _parse_srt(srt_file)
 
     mapping = _banded_dtw(pdf_norm, srt_tokens, band=band)
@@ -106,15 +114,32 @@ def align_pdf_to_srt(pdf_txt: str | Path,
         else:
             pdf2time[i] = last_t
 
-    # sentence-level times
+    # line-level times
     out = []
-    tokens_seen = 0
-    for start_tok, end_tok in pdf_bounds:
-        st = pdf2time[start_tok]
-        et = pdf2time[end_tok]
-        sentence = " ".join(pdf_raw[start_tok:end_tok+1])
-        out.append(dict(text=sentence,
-                        start=st,
-                        end=et))
-        tokens_seen = end_tok + 1
+    for line, (start_tok, end_tok) in zip(pdf_lines, pdf_bounds):
+        if start_tok is None:
+            st = et = None
+        else:
+            st = pdf2time[start_tok]
+            et = pdf2time[end_tok]
+        out.append(dict(text=line, start=st, end=et))
+
+    # infer missing timestamps
+    for i, rec in enumerate(out):
+        if rec["start"] is not None:
+            continue
+        # previous known end
+        j = i - 1
+        while j >= 0 and out[j]["start"] is None:
+            j -= 1
+        prev_end = out[j]["end"] if j >= 0 else 0.0
+
+        k = i + 1
+        while k < len(out) and out[k]["start"] is None:
+            k += 1
+        next_start = out[k]["start"] if k < len(out) else prev_end
+
+        rec["start"] = prev_end
+        rec["end"] = next_start
+
     return out
