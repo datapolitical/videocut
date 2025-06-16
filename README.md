@@ -78,8 +78,9 @@ For raw SRT captions you can perform a band-limited DTW alignment with:
 ```bash
 videocut dtw-align pdf_transcript.txt May_Board_Meeting.srt
 ```
-which writes `matched_dtw.json` and `dtw-transcript.txt` ready for
-`videocut segment`.
+This generates `matched_dtw.json` and `dtw-transcript.txt` ready for
+`videocut segment`.  Token timestamps are evenly spread across each
+caption's duration for better alignment accuracy.
 
 ### 3 · Match (NEW)
 

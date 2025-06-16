@@ -42,16 +42,20 @@ def _parse_srt(path: str | Path):
         r"(\d{2}:\d{2}:\d{2}),(\d{3})\s+(.+?)(?=\n\d+\n|\Z)", re.S)
     tokens, times = [], []
     for hh1, ms1, hh2, ms2, body in pat.findall(Path(path).read_text()):
-        st = _hms_to_sec(hh1) + int(ms1)/1000
+        st = _hms_to_sec(hh1) + int(ms1) / 1000
+        et = _hms_to_sec(hh2) + int(ms2) / 1000
         text = " ".join(body.strip().splitlines())
         toks = [_norm(t) for t in text.split() if _norm(t)]
         if not toks:
             continue
-        step = 0.001  # tiny, but keeps monotonic
+        # distribute tokens evenly across the caption duration while
+        # ensuring strictly increasing timestamps
+        step = max((et - st) / max(len(toks), 1), 0.001)
+        cur = st
         for t in toks:
             tokens.append(t)
-            times.append(st)
-            st += step
+            times.append(cur)
+            cur += step
     return tokens, np.array(times)
 
 def _hms_to_sec(hms: str) -> float:
@@ -100,8 +104,8 @@ def _banded_dtw(src: List[str], ref: List[str], band: int = 100):
                     path[i, lk] = 2
 
     # back-trace
-    i, j = n, min(range(max(0,n-band), m+1),
-                  key=lambda jj: dp[n, idx(jj,n)])
+    j_range = range(max(0, n - band), min(m, n + band) + 1)
+    i, j = n, min(j_range, key=lambda jj: dp[n, idx(jj, n)])
     align = []
     while i > 0 or j > 0:
         k = idx(j, i)
