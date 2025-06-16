@@ -87,11 +87,18 @@ caption's duration for better alignment accuracy.
 ```bash
 videocut match pdf_transcript.json May_Board_Meeting.json
 ```
+You should see something like:
+
+```
+✅ wrote matched.json · 0 unmatched line(s)
+```
 
 Produces `matched.json` where every PDF line now carries precise start/end
-timestamps taken from the ASR word stream. Down-stream commands
-(`identify-segments`, `generate-clips`, `concatenate`) consume `matched.json`
-in place of `pdf_transcript.json`.
+timestamps taken from the ASR word stream. Each record also contains a
+`pass_level` field (`primary`, `secondary` or `interpolated`) describing how its
+timestamps were derived. Down-stream commands (`identify-segments`,
+`generate-clips`, `concatenate`) consume `matched.json` in place of
+`pdf_transcript.json`.
 
 Run `check-transcript` to flag segments with unusual timing:
 ```bash
@@ -118,6 +125,16 @@ transcribe  →  match/dtw-align  →  to-txt  →  segment  →  generate-clips
 ```bash
 pip install -e .
 videocut match pdf_transcript.json May_Board_Meeting.json -o matched.json
+```
+You should see something like:
+
+```
+✅ wrote matched.json · 0 unmatched line(s)
+```
+
+—and every record will contain `start`, `end`, and `pass_level`
+(`primary`, `secondary`, or `interpolated`).
+```bash
 videocut to-txt matched.json -o transcript.txt
 videocut dtw-align pdf_transcript.txt May_Board_Meeting.srt
 videocut segment transcript.txt

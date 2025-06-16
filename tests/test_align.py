@@ -12,3 +12,13 @@ def test_alignment_smoke():
     )
     assert matched, "No output"
     assert sum(x["start"] is None for x in matched) < 20, "Too many misses"
+
+def test_three_stage_alignment():
+    matched = align_pdf_to_asr(
+        Path("pdf_transcript.json"),
+        Path("May_Board_Meeting.json"),
+        window=120, step=30, ratio_thresh=0.15,
+    )
+    assert len(matched) > 0
+    assert all("start" in m and "end" in m for m in matched)
+    assert all(m["start"] is not None and m["end"] is not None for m in matched)
