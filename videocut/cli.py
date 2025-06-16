@@ -490,14 +490,25 @@ def recognized_directors(
     nicholson.generate_recognized_directors(recognized, board_file, out)
 
 
-@app.command()
-def generate_clips(
+@app.command("generate-and-align")
+def generate_and_align(
     video: str = typer.Argument("input.mp4", help="Source video"),
     segs: str = typer.Argument("segments.txt", help="Segments file (txt or json)"),
     out_dir: str = typer.Option("clips", help="Output directory for clips"),
     srt_file: Optional[str] = typer.Option(None, help="SRT file for segments.txt"),
 ):
-    video_editing.generate_clips(video, segs, out_dir, srt_file)
+    video_editing.generate_and_align(video, segs, out_dir, srt_file)
+
+
+@app.command("clip")
+def clip_cmd(
+    video: str = typer.Argument("input.mp4", help="Source video"),
+    segs: str = typer.Argument("segments.txt", help="Segments file (txt or json)"),
+    out_dir: str = typer.Option("clips", help="Output directory for clips"),
+    srt_file: Optional[str] = typer.Option(None, help="SRT file for segments.txt"),
+):
+    """Cut clips directly from segments without alignment."""
+    video_editing.clip_segments(video, segs, out_dir, srt_file)
 
 
 @app.command()
@@ -548,7 +559,7 @@ def pipeline(
     )
     segmentation.segments_json_to_txt(tmp_json, "segments.txt")
     Path(tmp_json).unlink(missing_ok=True)
-    video_editing.generate_clips(video, "segments.txt", "clips")
+    video_editing.generate_and_align(video, "segments.txt", "clips")
     video_editing.concatenate_clips("clips", "final_video.mp4")
     annotation.annotate_segments(
         "markup_guide.txt", "segments.txt", "markup_with_markers.txt"

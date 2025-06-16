@@ -198,7 +198,7 @@ def _segments_with_text(txt_file: str) -> list[dict]:
     return segs
 
 
-def generate_clips(
+def generate_and_align(
     input_video: str,
     segments_file: str = "segments_to_keep.json",
     out_dir: str = "clips",
@@ -355,10 +355,36 @@ def generate_clips(
         generate_clips_from_segments(input_video, segs, out_dir)
 
 
+def clip_segments(
+    input_video: str,
+    segments_file: str = "segments_to_keep.json",
+    out_dir: str = "clips",
+    srt_file: str | None = None,
+) -> None:
+    """Generate clips exactly as specified in the segments file."""
+    if not Path(segments_file).exists():
+        sys.exit(f"❌  {segments_file} missing – run clip identification")
+
+    if segments_file.endswith(".txt"):
+        parsed = _segments_with_text(segments_file)
+        if parsed and "start" in parsed[0]:
+            segs = [{"start": seg["start"], "end": seg["end"]} for seg in parsed]
+        else:
+            if srt_file is None:
+                srt_file = str(Path(input_video).with_suffix(".srt"))
+            if not Path(srt_file).exists():
+                sys.exit(f"❌  SRT file '{srt_file}' required for segments.txt")
+            segs = _segments_from_txt(segments_file, srt_file)
+    else:
+        segs = json.loads(Path(segments_file).read_text())
+
+    generate_clips_from_segments(input_video, segs, out_dir)
+
+
 def concatenate_clips(clips_dir: str = "clips", out_file: str = "final_video.mp4") -> None:
     clips = sorted(Path(clips_dir).glob("clip_*.mp4"))
     if not clips:
-        sys.exit("❌  No clips found – run generate_clips first")
+        sys.exit("❌  No clips found – run generate-and-align or clip first")
 
     w, h = map(str, subprocess.check_output([
         "ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height",
@@ -388,6 +414,7 @@ def concatenate_clips(clips_dir: str = "clips", out_file: str = "final_video.mp4
 
 __all__ = [
     "generate_clips_from_segments",
-    "generate_clips",
+    "generate_and_align",
+    "clip_segments",
     "concatenate_clips",
 ]

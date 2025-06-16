@@ -55,7 +55,7 @@ def test_transcribe_with_pdf(tmp_path, monkeypatch):
     assert (tmp_path / "transcript.txt").exists()
 
 
-def test_generate_clips_invokes_ffmpeg(tmp_path, monkeypatch):
+def test_generate_and_align_invokes_ffmpeg(tmp_path, monkeypatch):
     seg_file = tmp_path / "segments.json"
     seg_file.write_text(json.dumps([{"start": 0, "end": 1}]))
 
@@ -78,14 +78,14 @@ def test_generate_clips_invokes_ffmpeg(tmp_path, monkeypatch):
     monkeypatch.setattr(video_editing, "_build_faded_clip", fake_build)
     monkeypatch.setattr(video_editing.alignment, "align_with_transcript", fake_align)
 
-    video_editing.generate_clips("vid.mp4", str(seg_file), "clips")
+    video_editing.generate_and_align("vid.mp4", str(seg_file), "clips")
 
     assert calls["run"]  # ffmpeg called
     assert calls["build"]  # faded clip built
     assert (tmp_path / "clips" / "clip_000.mp4").exists()
 
 
-def test_generate_clips_segments_txt(tmp_path, monkeypatch):
+def test_generate_and_align_segments_txt(tmp_path, monkeypatch):
     srt = tmp_path / "input.srt"
     srt.write_text("""1\n00:00:00,000 --> 00:00:01,000\nA\n\n2\n00:00:01,000 --> 00:00:02,000\nB\n""")
     seg_txt = tmp_path / "segments.txt"
@@ -110,7 +110,7 @@ def test_generate_clips_segments_txt(tmp_path, monkeypatch):
     monkeypatch.setattr(video_editing, "_build_faded_clip", fake_build)
     monkeypatch.setattr(video_editing.alignment, "align_with_transcript", fake_align)
 
-    video_editing.generate_clips("vid.mp4", str(seg_txt), "clips", str(srt))
+    video_editing.generate_and_align("vid.mp4", str(seg_txt), "clips", str(srt))
 
     assert calls["run"]
     assert calls["build"]
@@ -119,3 +119,28 @@ def test_generate_clips_segments_txt(tmp_path, monkeypatch):
     assert (tmp_path / "clips" / "clip_000_aligned.json").exists()
     ts = json.loads((tmp_path / "clips" / "timestamps.json").read_text())
     assert "clip_000" in ts
+
+
+def test_clip_segments(tmp_path, monkeypatch):
+    seg_file = tmp_path / "segments.json"
+    seg_file.write_text(json.dumps([{"start": 0, "end": 1}]))
+
+    calls = {"run": [], "build": []}
+
+    def fake_run(cmd, check, env=None):
+        calls["run"].append(cmd)
+        Path(cmd[-1]).write_text("tmp")
+
+    def fake_build(src, dst):
+        calls["build"].append((src, dst))
+        dst.write_text("done")
+
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(video_editing.subprocess, "run", fake_run)
+    monkeypatch.setattr(video_editing, "_build_faded_clip", fake_build)
+
+    video_editing.clip_segments("vid.mp4", str(seg_file), "clips")
+
+    assert calls["run"]
+    assert calls["build"]
+    assert (tmp_path / "clips" / "clip_000.mp4").exists()

@@ -40,7 +40,7 @@ def test_pipeline_recognition(tmp_path, monkeypatch):
     def fake_generate(video, segs, out_dir):
         called["clips"] = True
 
-    monkeypatch.setattr(video_editing, "generate_clips", fake_generate)
+    monkeypatch.setattr(video_editing, "generate_and_align", fake_generate)
     monkeypatch.setattr(video_editing, "concatenate_clips", lambda a, b: called.setdefault("concat", True))
 
     def fake_map(jf):
