@@ -222,13 +222,17 @@ def match_cli(
 def dtw_align(
     pdf_txt: Path = typer.Argument(..., exists=True, readable=True),
     srt_path: Path = typer.Argument(..., exists=True, readable=True),
-    out: Path = typer.Option("matched_dtw.json", "--out", "-o"),
+    json_out: Path = typer.Option("matched_dtw.json", "--json-out", "-j"),
+    txt_out: Path = typer.Option("dtw-transcript.txt", "--txt-out", "-t"),
     band: int = typer.Option(100, help="DTW half-band width (tokens)"),
 ):
     """Advanced banded-DTW word-level alignment of PDF to SRT."""
     aligned = align_pdf_to_srt(pdf_txt, srt_path, band=band)
-    out.write_text(json.dumps(aligned, indent=2))
-    typer.echo(f"✅ wrote {out} with {len(aligned)} sentences")
+    json_out.write_text(json.dumps(aligned, indent=2))
+    matched_to_txt(json_out, txt_out)
+    typer.echo(
+        f"✅ wrote {json_out} and {txt_out} with {len(aligned)} sentences"
+    )
 
 
 # ---------------------------------------------------------------------
