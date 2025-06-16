@@ -8,7 +8,7 @@ import typer
 from videocut.core.align import align_pdf_to_asr
 from videocut.core.dtw_align import align_pdf_to_srt
 from videocut.core.convert import matched_to_txt
-from videocut.core.label_fix import labelify
+from videocut.core.label_fix import labelify, pdf_labels, validate_txt_labels
 from .core import (
     transcription,
     segmentation,
@@ -233,7 +233,9 @@ def dtw_align(
     """
     aligned = align_pdf_to_srt(pdf_txt, srt_path, band=band)
     json_out.write_text(json.dumps(aligned, indent=2))
-    labelify(json_out, txt_out)
+    labels = pdf_labels(pdf_txt)
+    labelify(json_out, txt_out, valid_labels=labels)
+    validate_txt_labels(txt_out, labels)
     typer.echo(
         f"✅ wrote {json_out} and {txt_out} with {len(aligned)} sentences"
     )
