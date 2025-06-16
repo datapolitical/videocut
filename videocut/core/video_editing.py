@@ -3,6 +3,7 @@ from __future__ import annotations
 import subprocess
 import json
 import sys
+import re
 from pathlib import Path
 from typing import List
 from . import segmentation, alignment
