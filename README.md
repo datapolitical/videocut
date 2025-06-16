@@ -78,9 +78,13 @@ For raw SRT captions you can perform a band-limited DTW alignment with:
 ```bash
 videocut dtw-align pdf_transcript.txt May_Board_Meeting.srt
 ```
-This generates `matched_dtw.json` and `dtw-transcript.txt` ready for
-`videocut segment`.  Token timestamps are evenly spread across each
-caption's duration for better alignment accuracy.
+This generates `matched_dtw.json`. Token timestamps are evenly spread across each
+caption's duration for better alignment accuracy. Use ``make-labeled`` to create
+a speaker-tagged transcript:
+```bash
+videocut make-labeled matched_dtw.json -o dtw_transcript_labeled.txt
+```
+The resulting ``dtw_transcript_labeled.txt`` is ready for ``videocut segment``.
 
 ### 3 · Match (NEW)
 
@@ -120,7 +124,6 @@ The full pipeline is now:
 
 ```
 transcribe  →  match/dtw-align  →  segment  →  generate-clips  →  concatenate
-```
 
 ### 6 · Install / Run Cheat-sheet
 
@@ -129,6 +132,7 @@ pip install -e .
 videocut match pdf_transcript.json May_Board_Meeting.json -o matched.json
 videocut make-labeled matched.json -o transcript.txt
 videocut dtw-align pdf_transcript.txt May_Board_Meeting.srt
+videocut make-labeled matched_dtw.json -o dtw_transcript.txt
 videocut segment transcript.txt
 videocut generate-clips transcript.txt
 videocut concatenate transcript.txt
