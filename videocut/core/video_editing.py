@@ -8,10 +8,14 @@ from pathlib import Path
 from typing import List
 from . import segmentation, alignment
 
-# WHITE_FLASH_SEC = 0.5
-# FADE_SEC        = 0.5
-WHITE_FLASH_SEC = 0.066      # ≈ 2 frames @30 fps
-FADE_SEC        = 0.033      # 1-frame fade in & out
+# White flash timing
+WHITE_FADE_IN_SEC = 0.25
+WHITE_HOLD_SEC = 0.15
+WHITE_FADE_OUT_SEC = 0.25
+WHITE_FLASH_SEC = WHITE_FADE_IN_SEC + WHITE_HOLD_SEC + WHITE_FADE_OUT_SEC
+
+# Clip fade timing
+FADE_SEC = 0.033      # 1-frame fade in & out
 TARGET_W, TARGET_H = 1280, 720
 TARGET_FPS = 30
 BUFFER_SEC = 10.0
@@ -398,10 +402,17 @@ def concatenate_clips(clips_dir: str = "clips", out_file: str = "final_video.mp4
         inputs += ["-i", str(c)]
         if idx < len(clips) - 1:
             flash_filter = (
-                f"color=white:s={w}x{h}:d={WHITE_FLASH_SEC},"
-                f"format=yuva444p,"
-                f"fade=t=in:st=0:d={FADE_SEC}:alpha=1,"
-                f"fade=t=out:st={WHITE_FLASH_SEC-FADE_SEC}:d={FADE_SEC}:alpha=1"
+                f"color=c=0xfafafa:s={w}x{h}:d={WHITE_FLASH_SEC},"
+                f"format=yuva420p,"
+                f"split[base][alpha];"
+                f"[alpha]"
+                f"geq=lum='255*if(lt(T,{WHITE_FADE_IN_SEC}),"
+                f"pow(T/{WHITE_FADE_IN_SEC},2),"
+                f"if(lt(T,{WHITE_FADE_IN_SEC + WHITE_HOLD_SEC}),"
+                f"1,"
+                f"pow((1 - (T - {WHITE_FADE_IN_SEC + WHITE_HOLD_SEC}) / {WHITE_FADE_OUT_SEC}),2)"
+                f"))'[alpha];"
+                f"[base][alpha]alphamerge"
             )
             inputs += ["-f", "lavfi", "-i", flash_filter]
 
