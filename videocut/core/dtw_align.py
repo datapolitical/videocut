@@ -74,27 +74,30 @@ def _banded_dtw(src: List[str], ref: List[str], band: int = 100):
         return j - i + band
 
     dp[0, band] = 0
-    for i in range(n+1):
-        for j in range(max(0, i-band), min(m, i+band)+1):
+    for i in range(n + 1):
+        for j in range(max(0, i - band), min(m, i + band) + 1):
             k = idx(j, i)
             if dp[i, k] == big:
                 continue
             # diag
             if i < n and j < m:
                 cost = 0 if src[i] == ref[j] else 1
-                if dp[i, k] + cost < dp[i+1, idx(j+1,i+1)] if idx(j+1,i+1)<=2*band else big:
-                    dp[i+1, idx(j+1,i+1)] = dp[i, k] + cost
-                    path[i+1, idx(j+1,i+1)] = 0
+                dk = idx(j + 1, i + 1)
+                if 0 <= dk <= 2 * band and dp[i, k] + cost < dp[i + 1, dk]:
+                    dp[i + 1, dk] = dp[i, k] + cost
+                    path[i + 1, dk] = 0
             # up (src advance)
             if i < n:
-                if dp[i, k] + 1 < dp[i+1, idx(j,i+1)]:
-                    dp[i+1, idx(j,i+1)] = dp[i, k] + 1
-                    path[i+1, idx(j,i+1)] = 1
+                uk = idx(j, i + 1)
+                if 0 <= uk <= 2 * band and dp[i, k] + 1 < dp[i + 1, uk]:
+                    dp[i + 1, uk] = dp[i, k] + 1
+                    path[i + 1, uk] = 1
             # left (ref advance)
             if j < m:
-                if dp[i, k] + 1 < dp[i, idx(j+1,i)]:
-                    dp[i, idx(j+1,i)] = dp[i, k] + 1
-                    path[i, idx(j+1,i)] = 2
+                lk = idx(j + 1, i)
+                if 0 <= lk <= 2 * band and dp[i, k] + 1 < dp[i, lk]:
+                    dp[i, lk] = dp[i, k] + 1
+                    path[i, lk] = 2
 
     # back-trace
     i, j = n, min(range(max(0,n-band), m+1),

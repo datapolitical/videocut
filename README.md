@@ -74,6 +74,13 @@ videocut pdf-match transcript.pdf May_Board_Meeting.json
 This writes `matched.json` where each line's words are paired with their
 closest timestamped match from the JSON.
 
+For raw SRT captions you can perform a band-limited DTW alignment with:
+```bash
+videocut dtw-align pdf_transcript.txt May_Board_Meeting.srt
+```
+which writes `matched_dtw.json` and `dtw-transcript.txt` ready for
+`videocut segment`.
+
 ### 3 · Match (NEW)
 
 ```bash
@@ -102,7 +109,7 @@ videocut to-txt matched.json       # ⇒ transcript.txt
 The full pipeline is now:
 
 ```
-transcribe  →  match  →  to-txt  →  segment  →  generate-clips  →  concatenate
+transcribe  →  match/dtw-align  →  to-txt  →  segment  →  generate-clips  →  concatenate
 ```
 
 ### 6 · Install / Run Cheat-sheet
@@ -111,6 +118,7 @@ transcribe  →  match  →  to-txt  →  segment  →  generate-clips  →  con
 pip install -e .
 videocut match pdf_transcript.json May_Board_Meeting.json -o matched.json
 videocut to-txt matched.json -o transcript.txt
+videocut dtw-align pdf_transcript.txt May_Board_Meeting.srt
 videocut segment transcript.txt
 videocut generate-clips transcript.txt
 videocut concatenate transcript.txt
