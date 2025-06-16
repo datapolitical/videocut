@@ -22,6 +22,7 @@ from .core import (
     speaker_mapping,
     chair,
     pdf_utils,
+    crossfade_preview,
 )
 
 app = typer.Typer(help="VideoCut pipeline")
@@ -514,6 +515,12 @@ def clip_cmd(
 @app.command()
 def concatenate(clips_dir: str = "clips", out: str = "final_video.mp4"):
     video_editing.concatenate_clips(clips_dir, out)
+
+
+@app.command("preview-fades")
+def preview_fades(clips_dir: str = "clips", out_dir: str = "fade_previews") -> None:
+    """Generate crossfade preview videos between the first two clips."""
+    crossfade_preview.preview_crossfades(clips_dir, out_dir)
 
 
 @app.command()
