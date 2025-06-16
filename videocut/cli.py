@@ -6,6 +6,7 @@ from typing import Optional
 import json
 import typer
 from videocut.core.align import align_pdf_to_asr
+from videocut.core.dtw_align import align_pdf_to_srt
 from videocut.core.convert import matched_to_txt
 from .core import (
     transcription,
@@ -213,6 +214,21 @@ def match_cli(
     out.write_text(json.dumps(matched, indent=2))
     nulls = sum(1 for m in matched if m["start"] is None)
     typer.echo(f"✅ wrote {out} · {nulls} unmatched line(s)")
+
+
+# ---------------------------------------------------------------------
+# Advanced DTW alignment
+@app.command("dtw-align")
+def dtw_align(
+    pdf_txt: Path = typer.Argument(..., exists=True, readable=True),
+    srt_path: Path = typer.Argument(..., exists=True, readable=True),
+    out: Path = typer.Option("matched_dtw.json", "--out", "-o"),
+    band: int = typer.Option(100, help="DTW half-band width (tokens)"),
+):
+    """Advanced banded-DTW word-level alignment of PDF to SRT."""
+    aligned = align_pdf_to_srt(pdf_txt, srt_path, band=band)
+    out.write_text(json.dumps(aligned, indent=2))
+    typer.echo(f"✅ wrote {out} with {len(aligned)} sentences")
 
 
 # ---------------------------------------------------------------------

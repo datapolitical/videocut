@@ -10,6 +10,7 @@ from .core import (
     srt_markers,
     alignment,
     align,
+    dtw_align,
     speaker_mapping,
     pdf_utils,
 )
@@ -23,6 +24,7 @@ __all__ = [
     "nicholson",
     "alignment",
     "align",
+    "dtw_align",
     "srt_markers",
     "speaker_mapping",
     "pdf_utils",
