@@ -19,8 +19,16 @@ def matched_to_txt(matched_json: str | Path,
             if rec.get("start") is None:
                 fh.write(f"# UNMATCHED: {rec['text']}\n")
                 continue
-            speaker, body = rec["text"].split(":", 1)
+
+            text = rec.get("text", "")
+            if ":" in text:
+                speaker, body = text.split(":", 1)
+                speaker = speaker.strip()
+                body = body.strip()
+                line = f"{speaker}: {body}"
+            else:
+                line = text.strip()
+
             fh.write(
-                f"\t[{fmt(rec['start'])}-{fmt(rec['end'])}] "
-                f"{speaker.strip()}: {body.strip()}\n"
+                f"\t[{fmt(rec['start'])}-{fmt(rec['end'])}] {line}\n"
             )
