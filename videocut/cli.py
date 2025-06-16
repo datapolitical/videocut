@@ -227,10 +227,13 @@ def dtw_align(
     txt_out: Path = typer.Option("dtw-transcript.txt", "--txt-out", "-t"),
     band: int = typer.Option(100, help="DTW half-band width (tokens)"),
 ):
-    """Advanced banded-DTW word-level alignment of PDF to SRT."""
+    """Advanced banded-DTW word-level alignment of PDF to SRT.
+
+    Writes *matched_dtw.json* and a speaker-labeled *dtw-transcript.txt*.
+    """
     aligned = align_pdf_to_srt(pdf_txt, srt_path, band=band)
     json_out.write_text(json.dumps(aligned, indent=2))
-    matched_to_txt(json_out, txt_out)
+    labelify(json_out, txt_out)
     typer.echo(
         f"✅ wrote {json_out} and {txt_out} with {len(aligned)} sentences"
     )

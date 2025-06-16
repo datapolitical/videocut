@@ -123,8 +123,7 @@ directly to ``videocut segment``.
 The full pipeline is now:
 
 ```
-transcribe  →  match/dtw-align  →  make-labeled  →  segment  →  generate-clips  →  concatenate
-```
+transcribe  →  match/dtw-align  →  segment  →  generate-clips  →  concatenate
 
 ### 6 · Install / Run Cheat-sheet
 
