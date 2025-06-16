@@ -22,6 +22,9 @@ GLUE_LINES = 5  # glue if <=4 lines between Nicholson segments
 pat = re.compile(
     r"\[(?P<start>[^\]-]+)\s*-\s*(?P<end>[^\]]+)\]\s*(?P<spk>[^:]+):\s*(?P<txt>.*)"
 )
+pat_labeled = re.compile(
+    r"(?P<spk>[^\t]+)\t\[(?P<start>[^\]-]+)\s*-\s*(?P<end>[^\]]+)\]\t(?P<txt>.*)"
+)
 
 
 def to_sec(ts: str) -> float:
@@ -38,7 +41,10 @@ def load_rows(path: str = "transcript.txt") -> List[Dict[str, str]]:
     if not p.exists():
         return rows
     for raw in p.read_text().splitlines():
-        m = pat.match(raw.lstrip("\t"))
+        stripped = raw.lstrip("\t")
+        m = pat_labeled.match(stripped)
+        if not m:
+            m = pat.match(stripped)
         if not m:
             continue
         d = m.groupdict()
