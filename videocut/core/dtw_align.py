@@ -69,6 +69,10 @@ def _banded_dtw(src: List[str], ref: List[str], band: int = 100):
     cost = 0 if words equal else 1
     """
     n, m = len(src), len(ref)
+    # ensure the band is wide enough to cover length differences
+    if abs(n - m) > band:
+        band = abs(n - m)
+
     big = n + m + 1
     dp  = np.full((n+1, 2*band+1), big, np.int32)
     path = np.full((n+1, 2*band+1), -1, np.int16)   # 0=diag,1=up,2=left
