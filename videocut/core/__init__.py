@@ -12,6 +12,7 @@ from . import (
     speaker_mapping,
     chair,
     pdf_utils,
+    crossfade_preview,
 )
 
 __all__ = [
@@ -26,4 +27,5 @@ __all__ = [
     "speaker_mapping",
     "chair",
     "pdf_utils",
+    "crossfade_preview",
 ]

@@ -44,6 +44,9 @@ pip install -e .[light]
 4. **Concatenate** – `videocut concatenate`
    - Joins all clips with a fade to white between each one, creating
      `final_video.mp4`.
+5. **Preview fades** – `videocut preview-fades`
+   - Generates 20 sample crossfades between `clip_000.mp4` and `clip_001.mp4`
+     in the `fade_previews/` directory.
 
 ## Package layout
 - `videocut/cli.py` – command line interface implemented with Typer
