@@ -47,18 +47,48 @@ def preview_crossfades(clips_dir: str = "clips", out_dir: str = "fade_previews")
     brightness: list[float] = [0.5 + 0.05 * i for i in range(20)]
     lengths: list[float] = [0.25 + 0.1 * i for i in range(20)]
 
+    def has_audio(f: Path) -> bool:
+        """Return True if *f* contains an audio stream."""
+        try:
+            out = subprocess.check_output(
+                [
+                    "ffprobe",
+                    "-v",
+                    "error",
+                    "-select_streams",
+                    "a",
+                    "-show_entries",
+                    "stream=index",
+                    "-of",
+                    "csv=p=0",
+                    str(f),
+                ],
+                text=True,
+            )
+            return bool(out.strip())
+        except subprocess.CalledProcessError:
+            return False
+
+    has_audio1 = has_audio(c1)
+    has_audio2 = has_audio(c2)
+
     for i, (b, d) in enumerate(zip(brightness, lengths)):
         offset = max(dur - d, 0)
         vf = (
-            f"[0:v]settb=AVTB,fps=30,format=yuv420p,setpts=PTS-STARTPTS[v0];"
-            f"[1:v]settb=AVTB,fps=30,format=yuv420p,eq=brightness={b-1.0},setpts=PTS-STARTPTS[v1];"
+            f"[0:v]fps=30,format=yuv420p,setpts=PTS-STARTPTS[v0];"
+            f"[1:v]fps=30,format=yuv420p,eq=brightness={b-1.0},setpts=PTS-STARTPTS[v1];"
             f"[v0][v1]xfade=transition=fade:duration={d}:offset={offset},fps=30[v]"
         )
-        af = (
-            f"[0:a]asetpts=PTS-STARTPTS[a0];"
-            f"[1:a]asetpts=PTS-STARTPTS[a1];"
-            f"[a0][a1]acrossfade=d={d}[a]"
-        )
+        filters = vf
+        map_opts = ["-map", "[v]"]
+        if has_audio1 and has_audio2:
+            af = (
+                f"[0:a]asetpts=PTS-STARTPTS[a0];"
+                f"[1:a]asetpts=PTS-STARTPTS[a1];"
+                f"[a0][a1]acrossfade=d={d}[a]"
+            )
+            filters += ";" + af
+            map_opts += ["-map", "[a]"]
         output_file = out_path / f"fade_{i:02d}.mp4"
         subprocess.run(
             [
@@ -71,11 +101,8 @@ def preview_crossfades(clips_dir: str = "clips", out_dir: str = "fade_previews")
                 "-i",
                 str(c2),
                 "-filter_complex",
-                vf + ";" + af,
-                "-map",
-                "[v]",
-                "-map",
-                "[a]",
+                filters,
+                *map_opts,
                 "-r",
                 "30",
                 "-vsync",
