@@ -23,6 +23,7 @@ from .core import (
     chair,
     pdf_utils,
     crossfade_preview,
+    crossfader,
 )
 
 app = typer.Typer(help="VideoCut pipeline")
@@ -515,18 +516,28 @@ def clip_cmd(
 @app.command()
 def concatenate(
     clips_dir: str = "clips",
-    out_path: str = "final_video.mp4",
-    dip_fast: bool = False,
+    output: str = "final_video.mp4",
+    dip: bool = False,
+    dip_news: bool = False,
+    dip_color: str = "#AAAAAA",
+    fade_duration: float = 0.25,
+    hold_duration: float = 0.1,
 ) -> None:
-    """Concatenate clips into a final video, optionally using a fast dip-to-white transition."""
-    if dip_fast:
-        from videocut.core.concat_dip import concatenate_with_dip_fast
-
-        concatenate_with_dip_fast(clips_dir, out_path)
+    """Concatenate clips with optional dip transitions."""
+    if dip_news:
+        crossfader.concat_with_dip(
+            clips_dir, output, dip_color="#EEEEEE", fade_dur=0.33, hold_dur=0.15
+        )
+    elif dip:
+        crossfader.concat_with_dip(
+            clips_dir,
+            output,
+            dip_color,
+            fade_dur=fade_duration,
+            hold_dur=hold_duration,
+        )
     else:
-        from videocut.core.concat import concatenate_standard
-
-        concatenate_standard(clips_dir, out_path)
+        crossfader.concat_default(clips_dir, output)
 
 
 @app.command("preview-fades")
