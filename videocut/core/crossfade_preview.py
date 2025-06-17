@@ -52,7 +52,7 @@ def preview_crossfades(clips_dir: str = "clips", out_dir: str = "fade_previews")
         vf = (
             f"[0:v]settb=AVTB,fps=30,format=yuv420p,setpts=PTS-STARTPTS[v0];"
             f"[1:v]settb=AVTB,fps=30,format=yuv420p,eq=brightness={b-1.0},setpts=PTS-STARTPTS[v1];"
-            f"[v0][v1]xfade=transition=fade:duration={d}:offset={offset}[v]"
+            f"[v0][v1]xfade=transition=fade:duration={d}:offset={offset},fps=30[v]"
         )
         af = (
             f"[0:a]asetpts=PTS-STARTPTS[a0];"
