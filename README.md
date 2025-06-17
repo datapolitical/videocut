@@ -43,7 +43,8 @@ pip install -e .[light]
    - Use `videocut clip` to cut clips exactly as specified in `segments.txt` without alignment.
 4. **Concatenate** – `videocut concatenate`
    - Joins all clips with a fade to white between each one, creating
-     `final_video.mp4`.
+     `final_video.mp4`. Use `--dip-fast` to switch to a shorter
+     dip-to-white transition.
 5. **Preview fades** – `videocut preview-fades`
    - Generates 20 sample crossfades between `clip_000.mp4` and `clip_001.mp4`
      in the `fade_previews/` directory.
@@ -139,5 +140,5 @@ videocut dtw-align pdf_transcript.txt May_Board_Meeting.srt
 videocut make-labeled matched_dtw.json -o dtw_transcript.txt
 videocut segment transcript.txt
 videocut generate-and-align transcript.txt
-videocut concatenate transcript.txt
+videocut concatenate --dip-fast
 ```

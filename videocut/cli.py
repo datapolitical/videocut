@@ -513,8 +513,20 @@ def clip_cmd(
 
 
 @app.command()
-def concatenate(clips_dir: str = "clips", out: str = "final_video.mp4"):
-    video_editing.concatenate_clips(clips_dir, out)
+def concatenate(
+    clips_dir: str = "clips",
+    out_path: str = "final_video.mp4",
+    dip_fast: bool = False,
+) -> None:
+    """Concatenate clips into a final video, optionally using a fast dip-to-white transition."""
+    if dip_fast:
+        from videocut.core.concat_dip import concatenate_with_dip_fast
+
+        concatenate_with_dip_fast(clips_dir, out_path)
+    else:
+        from videocut.core.concat import concatenate_standard
+
+        concatenate_standard(clips_dir, out_path)
 
 
 @app.command("preview-fades")
