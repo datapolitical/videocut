@@ -56,8 +56,7 @@ def concat_with_dip(
         filters.append(f"[{i}:v]format=yuv420p,setpts=PTS-STARTPTS[v{i}]")
         filters.append(f"[{i}:a]asetpts=PTS-STARTPTS[a{i}]")
 
-    v_parts: list[str] = []
-    a_parts: list[str] = []
+    parts: list[str] = []
 
     for i in range(len(clips) - 1):
         start = max(durations[i] - fade_dur, 0)
@@ -66,15 +65,12 @@ def concat_with_dip(
         )
         fade_in = f"[v{i+1}]fade=t=in:st=0:d={fade_dur}:c={dip_color}[v{i+1}f]"
         filters.extend([fade_out, fade_in])
-        v_parts.append(f"[v{i}f]")
-        a_parts.append(f"[a{i}]")
+        parts.append(f"[v{i}f][a{i}]")
         if i == len(clips) - 2:
-            v_parts.append(f"[v{i+1}f]")
-            a_parts.append(f"[a{i+1}]")
+            parts.append(f"[v{i+1}f][a{i+1}]")
 
-    v_chain = "".join(v_parts)
-    a_chain = "".join(a_parts)
-    filters.append(f"{v_chain}{a_chain}concat=n={len(v_parts)}:v=1:a=1[outv][outa]")
+    chain = "".join(parts)
+    filters.append(f"{chain}concat=n={len(parts)}:v=1:a=1[outv][outa]")
 
     cmd = [
         "ffmpeg",
