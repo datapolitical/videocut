@@ -142,3 +142,30 @@ videocut segment transcript.txt
 videocut generate-and-align transcript.txt
 videocut concatenate --dip-news
 ```
+
+## 📤 Uploading to YouTube
+
+### Step 1: Authorize access (first time only)
+
+```bash
+videocut authorize --client-secret client_secret.json --output credentials.json
+```
+
+- Get `client_secret.json` from your Google Cloud Console (OAuth credentials).
+- This saves a `credentials.json` file used for uploads.
+
+### Step 2: Upload video with chapters
+
+```bash
+videocut upload final.mp4 --creds credentials.json
+```
+
+By default, this reads `segments.txt` and generates a YouTube description with clickable chapters.
+
+| Flag | Description |
+|------|-------------|
+| `--title` | Title for the uploaded video |
+| `--tags` | Tags to associate with the video |
+| `--privacy` | `public`, `unlisted` (default), `private` |
+| `--segments` | Path to `segments.txt` |
+| `--fade` | Transition length in seconds (default 0.5) |
