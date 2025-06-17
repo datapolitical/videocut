@@ -25,6 +25,7 @@ from .core import (
     crossfade_preview,
     crossfader,
 )
+from .commands import authorize as authorize_cmd, upload as upload_cmd
 
 app = typer.Typer(help="VideoCut pipeline")
 
@@ -544,6 +545,39 @@ def concatenate(
 def preview_fades(clips_dir: str = "clips", out_dir: str = "fade_previews") -> None:
     """Generate crossfade preview videos between the first two clips."""
     crossfade_preview.preview_crossfades(clips_dir, out_dir)
+
+
+@app.command()
+def authorize(
+    client_secret: str = "client_secret.json",
+    output: str = "credentials.json",
+) -> None:
+    """Authorize YouTube API access."""
+    authorize_cmd.run_authorization(client_secret, output)
+
+
+@app.command()
+def upload(
+    video: str = typer.Argument(..., help="Path to final video"),
+    title: str = typer.Option("Untitled Upload", help="Video title"),
+    tags: list[str] = typer.Option(["videocut"], help="List of tags"),
+    category: str = typer.Option("22", help="YouTube category ID"),
+    privacy: str = typer.Option("unlisted", help="Video privacy status"),
+    creds: str = typer.Option(..., help="Path to OAuth credentials JSON"),
+    segments: str = typer.Option("segments.txt", help="Segments file"),
+    fade: float = typer.Option(0.5, help="Fade duration between segments"),
+) -> None:
+    """Upload a video to YouTube with chapter markers."""
+    description = upload_cmd.build_description_from_segments(segments, fade)
+    upload_cmd.upload_video_to_youtube(
+        video_path=video,
+        title=title,
+        tags=tags,
+        category_id=category,
+        privacy_status=privacy,
+        creds_file=creds,
+        description=description,
+    )
 
 
 @app.command()
