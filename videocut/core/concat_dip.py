@@ -38,18 +38,25 @@ def concatenate_with_dip_fast(clips_dir: str, out_path: str) -> None:
         v_in = f"[{i}:v]"
         a_in = f"[{i}:a]"
 
+        # Apply fade-in for all but the first clip
+        if i > 0:
+            fade_in_label = f"[v{i}in]"
+            vf_filters.append(f"{v_in}fade=t=in:st=0:d={fade_duration}:c=white{fade_in_label}")
+            v_in = fade_in_label
+
+        # Apply fade-out for all but the last clip
         if i < len(durations) - 1:
-            fade_out = f"{v_in}fade=t=out:st={round(dur - fade_duration, 3)}:d={fade_duration}:c=white[v{i}]"
-            fade_in = f"[{i + 1}:v]fade=t=in:st=0:d={fade_duration}:c=white[v{i+1}]"
-            vf_filters.append(fade_out)
-            vf_filters.append(fade_in)
-            vlabels.extend([f"[v{i}]", f"[v{i+1}]"])
-            alabels.extend([a_in, f"[{i+1}:a]"])
-        else:
-            # Last video, just passthrough
-            vf_filters.append(f"{v_in}setpts=PTS-STARTPTS[v{i}]")
-            vlabels.append(f"[v{i}]")
-            alabels.append(a_in)
+            fade_out_label = f"[v{i}out]"
+            vf_filters.append(
+                f"{v_in}fade=t=out:st={round(dur - fade_duration, 3)}:d={fade_duration}:c=white{fade_out_label}"
+            )
+            v_in = fade_out_label
+
+        # Normalise timestamps for concat
+        vf_filters.append(f"{v_in}setpts=PTS-STARTPTS[v{i}]")
+
+        vlabels.append(f"[v{i}]")
+        alabels.append(a_in)
 
     v_concat = "".join(vlabels)
     a_concat = "".join(alabels)
