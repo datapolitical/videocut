@@ -30,8 +30,27 @@ def concat_with_dip(
 
     inputs: list[str] = []
     filters: list[str] = []
+    durations: list[float] = []
     for clip in clips:
         inputs += ["-i", str(clip)]
+        dur = float(
+            subprocess.check_output(
+                [
+                    "ffprobe",
+                    "-v",
+                    "error",
+                    "-select_streams",
+                    "v:0",
+                    "-show_entries",
+                    "format=duration",
+                    "-of",
+                    "csv=p=0",
+                    str(clip),
+                ],
+                text=True,
+            ).strip()
+        )
+        durations.append(dur)
 
     for i in range(len(clips)):
         filters.append(f"[{i}:v]format=yuv420p,setpts=PTS-STARTPTS[v{i}]")
@@ -41,12 +60,11 @@ def concat_with_dip(
     a_parts: list[str] = []
 
     for i in range(len(clips) - 1):
+        start = max(durations[i] - fade_dur, 0)
         fade_out = (
-            f"[v{i}]fade=t=out:st=duration-{fade_dur}:d={fade_dur}:c={dip_color}[v{i}f]"
+            f"[v{i}]fade=t=out:st={start}:d={fade_dur}:c={dip_color}[v{i}f]"
         )
-        fade_in = (
-            f"[v{i+1}]fade=t=in:d={fade_dur}:c={dip_color}[v{i+1}f]"
-        )
+        fade_in = f"[v{i+1}]fade=t=in:st=0:d={fade_dur}:c={dip_color}[v{i+1}f]"
         filters.extend([fade_out, fade_in])
         v_parts.append(f"[v{i}f]")
         a_parts.append(f"[a{i}]")
