@@ -73,6 +73,7 @@ def _build_faded_clip(src: Path, dst: Path) -> None:
     subprocess.run([
         "ffmpeg", "-v", "error", "-y", "-i", str(src),
         "-vf", vf, "-af", af,
+        "-r", str(TARGET_FPS), "-vsync", "cfr",
         "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
         "-c:a", "aac", "-b:a", "128k", str(dst)
     ], check=True)
