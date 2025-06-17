@@ -1,0 +1,532 @@
+# CLI Commands
+- `align`: video, transcript, out_json
+- `annotate-markup`: markup_file, seg_file, out_file, srt_file
+- `annotate-srt`: srt_file, seg_json, name_map, out_file
+- `apply-name-map`: seg_json, map_json, out
+- `apply-speaker-labels`: diarized_json, map_json, out
+- `build-speaker-db`: samples, out
+- `check-transcript`: json_file, min_wps, max_wps
+- `clip`: video, segs, out_dir, srt_file
+- `clip-transcripts-cmd`: markup_file, seg_file, out_file, srt_file
+- `clips-from-srt`: video, srt_file, out_dir
+- `concatenate`: clips_dir, out_path, dip_fast
+- `dtw-align`: pdf_txt, srt_path, json_out, txt_out, band
+- `extract-marked`: markup, out
+- `generate-and-align`: video, segs, out_dir, srt_file
+- `identify-chair`: diarized_json, out
+- `identify-clips`: tsv, out
+- `identify-clips-json`: edit_json, out
+- `identify-recognized`: diarized_json, out
+- `identify-segments`: source, recognized, board_file, out_txt
+- `identify-speakers`: diarized_json, mapping, out
+- `json-to-editable`: json_file, out, markup
+- `json-to-markup`: json_file, out
+- `json-to-transcript`: json_file, pdf, out
+- `json-to-tsv`: json_file, out
+- `make-labeled`: matched_json, out_file, default
+- `map-speakers`: video, json_file, db, out
+- `match`: pdf_json, asr_json, out, window, step, ratio
+- `pdf-extract`: pdf_file, txt_out, json_out
+- `pdf-match`: pdf_file, json_file, out
+- `pdf-transcript`: json_file, pdf_path, out_json
+- `pipeline`: video, hf_token, speaker_db, pdf
+- `preview-fades`: clips_dir, out_dir
+- `prune-segments-cmd`: seg_json, out
+- `recognized-directors`: recognized, board_file, out
+- `segment`: json_file, speaker, out
+- `srt-to-segments`: srt_file, out
+- `to-txt`: matched_json, out
+- `transcribe`: video, diarize, hf_token, speaker_db, progress, pdf
+
+# CLI Invocation Paths
+- `align`
+  - cli.py:align_cmd
+  - core/alignment.py:align_with_transcript
+  - parse_pdf_text.py:parse_pdf
+- `annotate-markup`
+  - cli.py:annotate_markup
+  - core/annotation.py:annotate
+  - core/annotation.py:annotate_segments
+  - core/annotation.py:load_markup
+  - core/annotation.py:parse_ts
+  - core/nicholson.py:load_markup
+  - core/pdf_utils.py:_parse_time
+  - core/segmentation.py:_load_srt_entries
+  - core/segmentation.py:_parse_time
+  - core/segmentation.py:load_segments
+  - core/segmentation.py:segments_from_txt
+  - core/srt_markers.py:_parse_time
+  - core/video_editing.py:_load_srt_entries
+  - core/video_editing.py:_parse_time
+- `annotate-srt`
+  - cli.py:annotate_srt
+  - core/chair.py:identify_chair_srt
+  - core/pdf_utils.py:_load_srt
+  - core/pdf_utils.py:_parse_time
+  - core/segmentation.py:_parse_time
+  - core/srt_markers.py:_find_entry
+  - core/srt_markers.py:_format_time
+  - core/srt_markers.py:_load_srt
+  - core/srt_markers.py:_parse_time
+  - core/srt_markers.py:annotate_srt
+  - core/video_editing.py:_parse_time
+- `apply-name-map`
+  - cli.py:apply_name_map
+  - core/nicholson.py:apply_name_map
+- `apply-speaker-labels`
+  - cli.py:apply_speaker_labels
+  - core/nicholson.py:add_speaker_labels
+- `build-speaker-db`
+  - cli.py:build_speaker_db
+  - core/speaker_mapping.py:build_speaker_db
+- `check-transcript`
+  - cli.py:check_transcript
+  - core/pdf_utils.py:find_timing_anomalies
+- `clip`
+  - cli.py:clip_cmd
+  - core/pdf_utils.py:_parse_time
+  - core/segmentation.py:_load_srt_entries
+  - core/segmentation.py:_parse_time
+  - core/segmentation.py:segments_from_txt
+  - core/srt_markers.py:_parse_time
+  - core/video_editing.py:_build_faded_clip
+  - core/video_editing.py:_load_srt_entries
+  - core/video_editing.py:_parse_time
+  - core/video_editing.py:_segments_from_txt
+  - core/video_editing.py:_segments_with_text
+  - core/video_editing.py:clip_segments
+  - core/video_editing.py:generate_clips_from_segments
+- `clip-transcripts-cmd`
+  - cli.py:clip_transcripts_cmd
+  - core/clip_transcripts.py:clip_transcripts
+  - core/clip_transcripts.py:parse_line
+  - core/pdf_utils.py:_parse_time
+  - core/segmentation.py:_load_srt_entries
+  - core/segmentation.py:_parse_time
+  - core/segmentation.py:load_segments
+  - core/segmentation.py:segments_from_txt
+  - core/srt_markers.py:_parse_time
+  - core/video_editing.py:_load_srt_entries
+  - core/video_editing.py:_parse_time
+- `clips-from-srt`
+  - cli.py:clips_from_srt
+  - core/pdf_utils.py:_load_srt
+  - core/pdf_utils.py:_parse_time
+  - core/segmentation.py:_parse_time
+  - core/srt_markers.py:_load_srt
+  - core/srt_markers.py:_parse_time
+  - core/srt_markers.py:segments_from_srt
+  - core/video_editing.py:_build_faded_clip
+  - core/video_editing.py:_parse_time
+  - core/video_editing.py:generate_clips_from_segments
+- `concatenate`
+  - cli.py:concatenate
+  - core/concat.py:concatenate_standard
+  - core/concat_dip.py:concatenate_with_dip_fast
+  - core/video_editing.py:concatenate_clips
+- `dtw-align`
+  - cli.py:dtw_align
+  - core/align.py:_norm
+  - core/dtw_align.py:_banded_dtw
+  - core/dtw_align.py:_hms_to_sec
+  - core/dtw_align.py:_norm
+  - core/dtw_align.py:_parse_srt
+  - core/dtw_align.py:_tokenize_lines
+  - core/dtw_align.py:align_pdf_to_srt
+  - core/label_fix.py:labelify
+  - core/label_fix.py:pdf_labels
+  - core/label_fix.py:validate_txt_labels
+- `extract-marked`
+  - cli.py:extract_marked
+  - core/segmentation.py:extract_marked
+- `generate-and-align`
+  - cli.py:generate_and_align
+  - core/alignment.py:align_with_transcript
+  - core/pdf_utils.py:_parse_time
+  - core/segmentation.py:_load_srt_entries
+  - core/segmentation.py:_parse_time
+  - core/srt_markers.py:_parse_time
+  - core/video_editing.py:_build_faded_clip
+  - core/video_editing.py:_load_srt_entries
+  - core/video_editing.py:_parse_time
+  - core/video_editing.py:_segments_with_text
+  - core/video_editing.py:generate_and_align
+  - core/video_editing.py:generate_clips_from_segments
+  - parse_pdf_text.py:parse_pdf
+- `identify-chair`
+  - cli.py:identify_chair
+  - core/chair.py:identify_chair
+  - core/chair.py:parse_roll_call
+- `identify-clips`
+  - cli.py:identify_clips
+  - core/segmentation.py:identify_clips
+- `identify-clips-json`
+  - cli.py:identify_clips_json
+  - core/segmentation.py:identify_clips_json
+- `identify-recognized`
+  - cli.py:identify_chair
+  - cli.py:identify_recognized
+  - core/chair.py:identify_chair
+  - core/chair.py:parse_roll_call
+  - core/nicholson.py:load_board_map
+  - core/nicholson.py:map_recognized_auto
+  - core/nicholson.py:normalize_recognized_name
+- `identify-segments`
+  - cli.py:identify_segments_cmd
+  - core/annotation.py:load_markup
+  - core/nicholson.py:_recognized_board_member
+  - core/nicholson.py:_recognized_name
+  - core/nicholson.py:_recognizes_other
+  - core/nicholson.py:_segment_entries
+  - core/nicholson.py:collect_post
+  - core/nicholson.py:collect_pre
+  - core/nicholson.py:end_score
+  - core/nicholson.py:find_nicholson_speaker
+  - core/nicholson.py:identify_segments
+  - core/nicholson.py:load_board_names
+  - core/nicholson.py:load_markup
+  - core/nicholson.py:segment_nicholson
+  - core/nicholson.py:segment_nicholson_from_transcript
+  - core/nicholson.py:should_end
+  - core/nicholson.py:trim_segment
+  - core/segmentation.py:segments_json_to_txt
+  - segmenter.py:build_segments
+- `identify-speakers`
+  - cli.py:identify_speakers
+  - core/nicholson.py:map_speaker_by_phrases
+- `json-to-editable`
+  - cli.py:json_to_editable
+  - core/segmentation.py:_collect_post
+  - core/segmentation.py:_collect_pre
+  - core/segmentation.py:_load_markup
+  - core/segmentation.py:json_to_editable
+- `json-to-markup`
+  - cli.py:json_to_markup
+  - core/segmentation.py:json_to_markup
+- `json-to-transcript`
+  - cli.py:json_to_transcript
+  - core/pdf_utils.py:_load_srt
+  - core/pdf_utils.py:_parse_time
+  - core/pdf_utils.py:apply_pdf_transcript_json
+  - core/pdf_utils.py:extract_transcript_dialogue
+  - core/pdf_utils.py:write_timestamped_transcript
+  - core/segmentation.py:_parse_time
+  - core/srt_markers.py:_load_srt
+  - core/srt_markers.py:_parse_time
+  - core/video_editing.py:_parse_time
+  - parse_pdf_text.py:parse_pdf
+- `json-to-tsv`
+  - cli.py:json_to_tsv
+  - core/segmentation.py:json_to_tsv
+- `make-labeled`
+  - cli.py:make_labeled
+  - core/label_fix.py:labelify
+- `map-speakers`
+  - cli.py:map_speakers
+  - core/speaker_mapping.py:_load_audio
+  - core/speaker_mapping.py:apply_speaker_map
+- `match`
+  - cli.py:match_cli
+  - core/align.py:_build_stream
+  - core/align.py:_norm
+  - core/align.py:align_pdf_to_asr
+  - core/dtw_align.py:_norm
+- `pdf-extract`
+  - cli.py:pdf_extract
+  - core/pdf_utils.py:export_pdf_transcript
+  - core/pdf_utils.py:extract_transcript_lines
+  - parse_pdf_text.py:parse_pdf
+- `pdf-match`
+  - cli.py:pdf_match
+  - core/align.py:_norm
+  - core/dtw_align.py:_norm
+  - core/pdf_utils.py:export_pdf_transcript
+  - core/pdf_utils.py:extract_transcript_lines
+  - core/pdf_utils.py:match_pdf_json
+  - parse_pdf_text.py:parse_pdf
+- `pdf-transcript`
+  - cli.py:apply_pdf_transcript
+  - core/pdf_utils.py:apply_pdf_transcript_json
+  - core/pdf_utils.py:extract_transcript_dialogue
+  - parse_pdf_text.py:parse_pdf
+- `pipeline`
+  - cli.py:generate_and_align
+  - cli.py:identify_chair
+  - cli.py:json_to_markup
+  - cli.py:json_to_tsv
+  - cli.py:pipeline
+  - cli.py:transcribe
+  - core/alignment.py:align_with_transcript
+  - core/annotation.py:annotate
+  - core/annotation.py:annotate_segments
+  - core/annotation.py:load_markup
+  - core/annotation.py:parse_ts
+  - core/chair.py:identify_chair
+  - core/chair.py:parse_roll_call
+  - core/clip_transcripts.py:clip_transcripts
+  - core/clip_transcripts.py:parse_line
+  - core/nicholson.py:_recognized_board_member
+  - core/nicholson.py:_recognized_name
+  - core/nicholson.py:_recognizes_other
+  - core/nicholson.py:_segment_entries
+  - core/nicholson.py:apply_name_map_json
+  - core/nicholson.py:collect_post
+  - core/nicholson.py:collect_pre
+  - core/nicholson.py:end_score
+  - core/nicholson.py:find_nicholson_speaker
+  - core/nicholson.py:identify_segments
+  - core/nicholson.py:load_board_map
+  - core/nicholson.py:load_board_names
+  - core/nicholson.py:load_markup
+  - core/nicholson.py:map_recognized_auto
+  - core/nicholson.py:normalize_recognized_name
+  - core/nicholson.py:segment_nicholson
+  - core/nicholson.py:should_end
+  - core/nicholson.py:trim_segment
+  - core/pdf_utils.py:_load_srt
+  - core/pdf_utils.py:_parse_time
+  - core/pdf_utils.py:apply_pdf_transcript_json
+  - core/pdf_utils.py:extract_transcript_dialogue
+  - core/pdf_utils.py:write_timestamped_transcript
+  - core/segmentation.py:_load_srt_entries
+  - core/segmentation.py:_parse_time
+  - core/segmentation.py:json_to_markup
+  - core/segmentation.py:json_to_tsv
+  - core/segmentation.py:load_segments
+  - core/segmentation.py:segments_from_txt
+  - core/segmentation.py:segments_json_to_txt
+  - core/speaker_mapping.py:_load_audio
+  - core/speaker_mapping.py:apply_speaker_map
+  - core/srt_markers.py:_load_srt
+  - core/srt_markers.py:_parse_time
+  - core/transcription.py:compute_type
+  - core/transcription.py:is_apple_silicon
+  - core/transcription.py:transcribe
+  - core/video_editing.py:_build_faded_clip
+  - core/video_editing.py:_load_srt_entries
+  - core/video_editing.py:_parse_time
+  - core/video_editing.py:_segments_with_text
+  - core/video_editing.py:concatenate_clips
+  - core/video_editing.py:generate_and_align
+  - core/video_editing.py:generate_clips_from_segments
+  - parse_pdf_text.py:parse_pdf
+  - segmenter.py:build_segments
+- `preview-fades`
+  - cli.py:preview_fades
+  - core/crossfade_preview.py:preview_crossfades
+- `prune-segments-cmd`
+  - cli.py:prune_segments_cmd
+  - core/nicholson.py:prune_segments
+- `recognized-directors`
+  - cli.py:recognized_directors
+  - core/nicholson.py:generate_recognized_directors
+  - core/nicholson.py:load_board_names
+- `segment`
+  - cli.py:segment
+  - core/annotation.py:load_markup
+  - core/nicholson.py:_recognized_board_member
+  - core/nicholson.py:_recognized_name
+  - core/nicholson.py:_recognizes_other
+  - core/nicholson.py:_segment_entries
+  - core/nicholson.py:collect_post
+  - core/nicholson.py:collect_pre
+  - core/nicholson.py:end_score
+  - core/nicholson.py:find_nicholson_speaker
+  - core/nicholson.py:load_board_names
+  - core/nicholson.py:load_markup
+  - core/nicholson.py:segment_nicholson
+  - core/nicholson.py:should_end
+  - core/nicholson.py:trim_segment
+  - core/segmentation.py:segments_json_to_txt
+  - segmenter.py:build_segments
+  - segmenter.py:load_rows
+  - segmenter.py:to_sec
+- `srt-to-segments`
+  - cli.py:srt_to_segments
+  - core/pdf_utils.py:_load_srt
+  - core/pdf_utils.py:_parse_time
+  - core/segmentation.py:_parse_time
+  - core/srt_markers.py:_load_srt
+  - core/srt_markers.py:_parse_time
+  - core/srt_markers.py:segments_from_srt
+  - core/video_editing.py:_parse_time
+- `to-txt`
+  - cli.py:to_txt_cli
+  - core/convert.py:matched_to_txt
+- `transcribe`
+  - cli.py:json_to_tsv
+  - cli.py:transcribe
+  - core/pdf_utils.py:_load_srt
+  - core/pdf_utils.py:_parse_time
+  - core/pdf_utils.py:apply_pdf_transcript_json
+  - core/pdf_utils.py:extract_transcript_dialogue
+  - core/pdf_utils.py:write_timestamped_transcript
+  - core/segmentation.py:_parse_time
+  - core/segmentation.py:json_to_tsv
+  - core/speaker_mapping.py:_load_audio
+  - core/speaker_mapping.py:apply_speaker_map
+  - core/srt_markers.py:_load_srt
+  - core/srt_markers.py:_parse_time
+  - core/transcription.py:compute_type
+  - core/transcription.py:is_apple_silicon
+  - core/transcription.py:transcribe
+  - core/video_editing.py:_parse_time
+  - parse_pdf_text.py:parse_pdf
+
+# Function Invocation Paths
+- `cli.py:align_cmd` invoked by: align
+- `cli.py:annotate_markup` invoked by: annotate-markup
+- `cli.py:annotate_srt` invoked by: annotate-srt
+- `cli.py:apply_name_map` invoked by: apply-name-map
+- `cli.py:apply_pdf_transcript` invoked by: pdf-transcript
+- `cli.py:apply_speaker_labels` invoked by: apply-speaker-labels
+- `cli.py:build_speaker_db` invoked by: build-speaker-db
+- `cli.py:check_transcript` invoked by: check-transcript
+- `cli.py:clip_cmd` invoked by: clip
+- `cli.py:clip_transcripts_cmd` invoked by: clip-transcripts-cmd
+- `cli.py:clips_from_srt` invoked by: clips-from-srt
+- `cli.py:concatenate` invoked by: concatenate
+- `cli.py:dtw_align` invoked by: dtw-align
+- `cli.py:extract_marked` invoked by: extract-marked
+- `cli.py:generate_and_align` invoked by: generate-and-align, pipeline
+- `cli.py:identify_chair` invoked by: identify-chair, identify-recognized, pipeline
+- `cli.py:identify_clips` invoked by: identify-clips
+- `cli.py:identify_clips_json` invoked by: identify-clips-json
+- `cli.py:identify_recognized` invoked by: identify-recognized
+- `cli.py:identify_segments_cmd` invoked by: identify-segments
+- `cli.py:identify_speakers` invoked by: identify-speakers
+- `cli.py:json_to_editable` invoked by: json-to-editable
+- `cli.py:json_to_markup` invoked by: json-to-markup, pipeline
+- `cli.py:json_to_transcript` invoked by: json-to-transcript
+- `cli.py:json_to_tsv` invoked by: json-to-tsv, pipeline, transcribe
+- `cli.py:main` invoked by:
+- `cli.py:make_labeled` invoked by: make-labeled
+- `cli.py:map_speakers` invoked by: map-speakers
+- `cli.py:match_cli` invoked by: match
+- `cli.py:pdf_extract` invoked by: pdf-extract
+- `cli.py:pdf_match` invoked by: pdf-match
+- `cli.py:pipeline` invoked by: pipeline
+- `cli.py:preview_fades` invoked by: preview-fades
+- `cli.py:prune_segments_cmd` invoked by: prune-segments-cmd
+- `cli.py:recognized_directors` invoked by: recognized-directors
+- `cli.py:segment` invoked by: segment
+- `cli.py:srt_to_segments` invoked by: srt-to-segments
+- `cli.py:to_txt_cli` invoked by: to-txt
+- `cli.py:transcribe` invoked by: pipeline, transcribe
+- `core/align.py:_build_stream` invoked by: match
+- `core/align.py:_norm` invoked by: dtw-align, match, pdf-match
+- `core/align.py:align_pdf_to_asr` invoked by: match
+- `core/alignment.py:align_with_transcript` invoked by: align, generate-and-align, pipeline
+- `core/annotation.py:annotate` invoked by: annotate-markup, pipeline
+- `core/annotation.py:annotate_segments` invoked by: annotate-markup, pipeline
+- `core/annotation.py:load_markup` invoked by: annotate-markup, identify-segments, pipeline, segment
+- `core/annotation.py:parse_ts` invoked by: annotate-markup, pipeline
+- `core/chair.py:identify_chair` invoked by: identify-chair, identify-recognized, pipeline
+- `core/chair.py:identify_chair_srt` invoked by: annotate-srt
+- `core/chair.py:parse_roll_call` invoked by: identify-chair, identify-recognized, pipeline
+- `core/clip_transcripts.py:clip_transcripts` invoked by: clip-transcripts-cmd, pipeline
+- `core/clip_transcripts.py:parse_line` invoked by: clip-transcripts-cmd, pipeline
+- `core/concat.py:concatenate_standard` invoked by: concatenate
+- `core/concat_dip.py:concatenate_with_dip_fast` invoked by: concatenate
+- `core/convert.py:matched_to_txt` invoked by: to-txt
+- `core/crossfade_preview.py:preview_crossfades` invoked by: preview-fades
+- `core/dtw_align.py:_banded_dtw` invoked by: dtw-align
+- `core/dtw_align.py:_hms_to_sec` invoked by: dtw-align
+- `core/dtw_align.py:_norm` invoked by: dtw-align, match, pdf-match
+- `core/dtw_align.py:_parse_srt` invoked by: dtw-align
+- `core/dtw_align.py:_tokenize_lines` invoked by: dtw-align
+- `core/dtw_align.py:align_pdf_to_srt` invoked by: dtw-align
+- `core/label_fix.py:labelify` invoked by: dtw-align, make-labeled
+- `core/label_fix.py:pdf_labels` invoked by: dtw-align
+- `core/label_fix.py:validate_txt_labels` invoked by: dtw-align
+- `core/nicholson.py:_align_transcript` invoked by:
+- `core/nicholson.py:_build_segments` invoked by:
+- `core/nicholson.py:_is_board_member` invoked by:
+- `core/nicholson.py:_normalize` invoked by:
+- `core/nicholson.py:_parse_pdf_order` invoked by:
+- `core/nicholson.py:_parse_tsv` invoked by:
+- `core/nicholson.py:_recognized_board_member` invoked by: identify-segments, pipeline, segment
+- `core/nicholson.py:_recognized_name` invoked by: identify-segments, pipeline, segment
+- `core/nicholson.py:_recognizes_other` invoked by: identify-segments, pipeline, segment
+- `core/nicholson.py:_segment_entries` invoked by: identify-segments, pipeline, segment
+- `core/nicholson.py:add_speaker_labels` invoked by: apply-speaker-labels
+- `core/nicholson.py:apply_name_map` invoked by: apply-name-map
+- `core/nicholson.py:apply_name_map_json` invoked by: pipeline
+- `core/nicholson.py:auto_segments_for_speaker` invoked by:
+- `core/nicholson.py:collect_post` invoked by: identify-segments, pipeline, segment
+- `core/nicholson.py:collect_pre` invoked by: identify-segments, pipeline, segment
+- `core/nicholson.py:end_score` invoked by: identify-segments, pipeline, segment
+- `core/nicholson.py:find_nicholson_speaker` invoked by: identify-segments, pipeline, segment
+- `core/nicholson.py:generate_recognized_directors` invoked by: recognized-directors
+- `core/nicholson.py:identify_nicholson_segments` invoked by:
+- `core/nicholson.py:identify_segments` invoked by: identify-segments, pipeline
+- `core/nicholson.py:load_board_map` invoked by: identify-recognized, pipeline
+- `core/nicholson.py:load_board_names` invoked by: identify-segments, pipeline, recognized-directors, segment
+- `core/nicholson.py:load_markup` invoked by: annotate-markup, identify-segments, pipeline, segment
+- `core/nicholson.py:map_nicholson_speaker` invoked by:
+- `core/nicholson.py:map_recognized_auto` invoked by: identify-recognized, pipeline
+- `core/nicholson.py:map_recognized_speakers` invoked by:
+- `core/nicholson.py:map_speaker_by_phrases` invoked by: identify-speakers
+- `core/nicholson.py:normalize_recognized_name` invoked by: identify-recognized, pipeline
+- `core/nicholson.py:prune_segments` invoked by: prune-segments-cmd
+- `core/nicholson.py:segment_nicholson` invoked by: identify-segments, pipeline, segment
+- `core/nicholson.py:segment_nicholson_from_transcript` invoked by: identify-segments
+- `core/nicholson.py:should_end` invoked by: identify-segments, pipeline, segment
+- `core/nicholson.py:should_start` invoked by:
+- `core/nicholson.py:start_score` invoked by:
+- `core/nicholson.py:trim_segment` invoked by: identify-segments, pipeline, segment
+- `core/pdf_utils.py:_load_srt` invoked by: annotate-srt, clips-from-srt, json-to-transcript, pipeline, srt-to-segments, transcribe
+- `core/pdf_utils.py:_parse_time` invoked by: annotate-markup, annotate-srt, clip, clip-transcripts-cmd, clips-from-srt, generate-and-align, json-to-transcript, pipeline, srt-to-segments, transcribe
+- `core/pdf_utils.py:apply_pdf_transcript_json` invoked by: json-to-transcript, pdf-transcript, pipeline, transcribe
+- `core/pdf_utils.py:clean_recognized_map` invoked by:
+- `core/pdf_utils.py:export_pdf_transcript` invoked by: pdf-extract, pdf-match
+- `core/pdf_utils.py:extract_speaker_names` invoked by:
+- `core/pdf_utils.py:extract_transcript_dialogue` invoked by: json-to-transcript, pdf-transcript, pipeline, transcribe
+- `core/pdf_utils.py:extract_transcript_lines` invoked by: pdf-extract, pdf-match
+- `core/pdf_utils.py:find_timing_anomalies` invoked by: check-transcript
+- `core/pdf_utils.py:match_pdf_json` invoked by: pdf-match
+- `core/pdf_utils.py:transcript_json_to_txt` invoked by:
+- `core/pdf_utils.py:write_timestamped_transcript` invoked by: json-to-transcript, pipeline, transcribe
+- `core/segmentation.py:_collect_post` invoked by: json-to-editable
+- `core/segmentation.py:_collect_pre` invoked by: json-to-editable
+- `core/segmentation.py:_load_markup` invoked by: json-to-editable
+- `core/segmentation.py:_load_srt_entries` invoked by: annotate-markup, clip, clip-transcripts-cmd, generate-and-align, pipeline
+- `core/segmentation.py:_parse_time` invoked by: annotate-markup, annotate-srt, clip, clip-transcripts-cmd, clips-from-srt, generate-and-align, json-to-transcript, pipeline, srt-to-segments, transcribe
+- `core/segmentation.py:extract_marked` invoked by: extract-marked
+- `core/segmentation.py:extract_segments_from_json` invoked by:
+- `core/segmentation.py:identify_clips` invoked by: identify-clips
+- `core/segmentation.py:identify_clips_json` invoked by: identify-clips-json
+- `core/segmentation.py:json_to_editable` invoked by: json-to-editable
+- `core/segmentation.py:json_to_markup` invoked by: json-to-markup, pipeline
+- `core/segmentation.py:json_to_tsv` invoked by: json-to-tsv, pipeline, transcribe
+- `core/segmentation.py:load_segments` invoked by: annotate-markup, clip-transcripts-cmd, pipeline
+- `core/segmentation.py:segments_from_txt` invoked by: annotate-markup, clip, clip-transcripts-cmd, pipeline
+- `core/segmentation.py:segments_json_to_txt` invoked by: identify-segments, pipeline, segment
+- `core/segmentation.py:write_segments_txt_from_editable` invoked by:
+- `core/speaker_mapping.py:_load_audio` invoked by: map-speakers, pipeline, transcribe
+- `core/speaker_mapping.py:apply_speaker_map` invoked by: map-speakers, pipeline, transcribe
+- `core/speaker_mapping.py:build_speaker_db` invoked by: build-speaker-db
+- `core/srt_markers.py:_find_entry` invoked by: annotate-srt
+- `core/srt_markers.py:_format_time` invoked by: annotate-srt
+- `core/srt_markers.py:_load_srt` invoked by: annotate-srt, clips-from-srt, json-to-transcript, pipeline, srt-to-segments, transcribe
+- `core/srt_markers.py:_parse_time` invoked by: annotate-markup, annotate-srt, clip, clip-transcripts-cmd, clips-from-srt, generate-and-align, json-to-transcript, pipeline, srt-to-segments, transcribe
+- `core/srt_markers.py:annotate_srt` invoked by: annotate-srt
+- `core/srt_markers.py:segments_from_srt` invoked by: clips-from-srt, srt-to-segments
+- `core/transcription.py:compute_type` invoked by: pipeline, transcribe
+- `core/transcription.py:is_apple_silicon` invoked by: pipeline, transcribe
+- `core/transcription.py:transcribe` invoked by: pipeline, transcribe
+- `core/video_editing.py:_build_faded_clip` invoked by: clip, clips-from-srt, generate-and-align, pipeline
+- `core/video_editing.py:_load_srt_entries` invoked by: annotate-markup, clip, clip-transcripts-cmd, generate-and-align, pipeline
+- `core/video_editing.py:_parse_time` invoked by: annotate-markup, annotate-srt, clip, clip-transcripts-cmd, clips-from-srt, generate-and-align, json-to-transcript, pipeline, srt-to-segments, transcribe
+- `core/video_editing.py:_segments_from_txt` invoked by: clip
+- `core/video_editing.py:_segments_with_text` invoked by: clip, generate-and-align, pipeline
+- `core/video_editing.py:clip_segments` invoked by: clip
+- `core/video_editing.py:concatenate_clips` invoked by: concatenate, pipeline
+- `core/video_editing.py:generate_and_align` invoked by: generate-and-align, pipeline
+- `core/video_editing.py:generate_clips_from_segments` invoked by: clip, clips-from-srt, generate-and-align, pipeline
+- `parse_pdf_text.py:main` invoked by:
+- `parse_pdf_text.py:parse_pdf` invoked by: align, generate-and-align, json-to-transcript, pdf-extract, pdf-match, pdf-transcript, pipeline, transcribe
+- `segmenter.py:build_segments` invoked by: identify-segments, pipeline, segment
+- `segmenter.py:load_rows` invoked by: segment
+- `segmenter.py:main` invoked by:
+- `segmenter.py:to_sec` invoked by: segment
