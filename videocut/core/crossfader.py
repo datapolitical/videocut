@@ -52,25 +52,22 @@ def concat_with_dip(
         )
         durations.append(dur)
 
-    for i in range(len(clips)):
-        filters.append(f"[{i}:v]format=yuv420p,setpts=PTS-STARTPTS[v{i}]")
-        filters.append(f"[{i}:a]asetpts=PTS-STARTPTS[a{i}]")
-
     parts: list[str] = []
 
-    for i in range(len(clips) - 1):
-        start = max(durations[i] - fade_dur, 0)
-        fade_out = (
-            f"[v{i}]fade=t=out:st={start}:d={fade_dur}:c={dip_color}[v{i}f]"
-        )
-        fade_in = f"[v{i+1}]fade=t=in:st=0:d={fade_dur}:c={dip_color}[v{i+1}f]"
-        filters.extend([fade_out, fade_in])
+    for i, dur in enumerate(durations):
+        vfilter = f"[{i}:v]format=yuv420p,setpts=PTS-STARTPTS"
+        if i > 0:
+            vfilter += f",fade=t=in:st=0:d={fade_dur}:c={dip_color}"
+        if i < len(clips) - 1:
+            start = max(dur - fade_dur, 0)
+            vfilter += f",fade=t=out:st={start}:d={fade_dur}:c={dip_color}"
+        vfilter += f"[v{i}f]"
+        filters.append(vfilter)
+        filters.append(f"[{i}:a]asetpts=PTS-STARTPTS[a{i}]")
         parts.append(f"[v{i}f][a{i}]")
-        if i == len(clips) - 2:
-            parts.append(f"[v{i+1}f][a{i+1}]")
 
     chain = "".join(parts)
-    filters.append(f"{chain}concat=n={len(parts)}:v=1:a=1[outv][outa]")
+    filters.append(f"{chain}concat=n={len(clips)}:v=1:a=1[outv][outa]")
 
     cmd = [
         "ffmpeg",
