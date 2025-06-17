@@ -50,11 +50,15 @@ def preview_crossfades(clips_dir: str = "clips", out_dir: str = "fade_previews")
     for i, (b, d) in enumerate(zip(brightness, lengths)):
         offset = max(dur - d, 0)
         vf = (
-            f"[0:v]fps=30,format=yuv420p,setpts=PTS-STARTPTS[v0];"
-            f"[1:v]fps=30,format=yuv420p,eq=brightness={b-1.0},setpts=PTS-STARTPTS[v1];"
+            f"[0:v]settb=AVTB,fps=30,format=yuv420p,setpts=PTS-STARTPTS[v0];"
+            f"[1:v]settb=AVTB,fps=30,format=yuv420p,eq=brightness={b-1.0},setpts=PTS-STARTPTS[v1];"
             f"[v0][v1]xfade=transition=fade:duration={d}:offset={offset}[v]"
         )
-        af = f"[0:a][1:a]acrossfade=d={d}[a]"
+        af = (
+            f"[0:a]asetpts=PTS-STARTPTS[a0];"
+            f"[1:a]asetpts=PTS-STARTPTS[a1];"
+            f"[a0][a1]acrossfade=d={d}[a]"
+        )
         output_file = out_path / f"fade_{i:02d}.mp4"
         subprocess.run(
             [
