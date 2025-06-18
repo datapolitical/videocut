@@ -140,13 +140,15 @@ transcribe  →  match/dtw-align  →  segment  →  generate-and-align  →  co
 ### 6 · Install / Run Cheat-sheet
 
 ```bash
-pip install -e .
-videocut match pdf_transcript.json May_Board_Meeting.json -o matched.json
-videocut make-labeled matched.json -o transcript.txt
+Step #1
+(Step one should take an mp4 file and a matching pdf transcript)
+videocut transcribe May_Board_Meeting.mp4
+videocut pdf-extract transcript.pdf
 videocut dtw-align pdf_transcript.txt May_Board_Meeting.srt
-videocut make-labeled matched_dtw.json -o dtw_transcript.txt
 videocut segment transcript.txt
-videocut generate-and-align transcript.txt
+(Step 2 should take the same mp4 file and a segmented transcript, and accept the flags for concatenate)
+Step #2
+videocut clip videocut clip May_Board_Meeting.mp4 segments.txt
 videocut concatenate --dip-news
 ```
 

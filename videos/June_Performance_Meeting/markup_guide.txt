@@ -1,0 +1,397 @@
+[0.03-2.02] SPEAKER: Second performance committee will now come to order.
+[2.42-4.44] SPEAKER: We are convened as of 8.30 a.m.
+[4.46-9.99] SPEAKER: I would respectfully ask everyone attending this meeting to meet yourself unless you are recognized to speak.
+[10.89-19.49] SPEAKER: Please note that the committee meetings of the RTD Board of Directors will be held remotely via Zoom and will be audio and video recorded.
+[20.77-27.82] SPEAKER: The meeting recordings along with the unofficial minutes of the meetings will be posted as soon as practicable on the board's website.
+[27.84-35.97] SPEAKER: During today's committee meeting, we are providing communication access, real time translation, also known as CART.
+[37.09-49.09] SPEAKER: Anyone who would like to access this service should send an email to the board of office at rtd.boardoffice at rtd-denver.com and a link will be provided.
+[50.37-58.38] SPEAKER: Additionally, the CART transcript can be automatically translated into Spanish for anyone who would like access to a live transcript of this meeting.
+[59.86-63.67] SPEAKER: A live stream of this meeting is also available via RTD's YouTube page.
+[65.11-66.99] SPEAKER: I would now like to call the role of the committee members.
+[67.57-68.35] SPEAKER: Director Vince Buzik.
+[69.17-69.51] SPEAKER: Present.
+[70.37-71.3] SPEAKER: Director Lynn Geisinger.
+[72.04-72.28] SPEAKER: Here.
+[73.64-74.98] SPEAKER: Vice Chair Chris Gutschenritter.
+[76.1-76.3] SPEAKER: Here.
+[76.36-78.06] SPEAKER: Director Matt Larson.
+[78.64-78.94] SPEAKER: Here.
+[79.82-80.94] SPEAKER: Director Chris Nicholson.
+[81.76-82.12] SPEAKER: Present.
+[82.92-83.98] SPEAKER: Director Peggy Catlin.
+[86.07-86.33] SPEAKER: Here.
+[86.35-89.08] SPEAKER: I am Chair Michael Guzman.
+[89.64-92.14] SPEAKER: I also see Board Chair Julian Bouquet has joined us.
+[93.2-96.01] SPEAKER: And I do not see anybody else on my screen.
+[96.05-97.45] SPEAKER: All right.
+[98.01-101.1] SPEAKER: If they join, help me keep track, guys.
+[102.48-103.92] SPEAKER: Alright, we'll move into public comment.
+[104.14-113.17] SPEAKER: I would like to open the public comment to anyone who would like to address the committee regarding any topic listed in the published meeting agenda for the current and immediately preceding month.
+[114.09-117.6] SPEAKER: If you wish to speak and have not already done so.
+[117.99-121.93] SPEAKER: Please either raise your virtual hand or press star 9 on your phone.
+[123.03-126.52] SPEAKER: During this time, the committee will not offer any direct comments or responses.
+[127.12-138.75] SPEAKER: However, if you would like to be contacted regarding your public comment, please email the RTD board at rtd.directors at rtd-denver.com.
+[138.78-140.4] SPEAKER: I don't see any hands raised on the screen.
+[140.6-141.92] SPEAKER: Mr. Kroll, do you see any?
+[144.13-147.31] SPEAKER: Chairman Guzman, this is Jack Crow, Executive Manager of the Board Office.
+[147.33-151.78] SPEAKER: There are no hands raised and there were no comments submitted in advance via writing.
+[153.16-153.56] SPEAKER: Thank you.
+[156.57-160.84] SPEAKER: With no participants in the queue, we will close the public comment period at this time.
+[161.81-163.33] SPEAKER: We will move on to our discussion item.
+[163.39-168.4] SPEAKER: There is one discussion item on the agenda this morning, and that is for the 2025 Employee Survey.
+[169.34-179.26] SPEAKER: I would like to ask John McKay, Executive Business Partner, as well as Ben Seelius, Senior Performance Analyst, and Jake Studentmeyer, Manager of Market Research to present this item.
+[181.98-183.1] SPEAKER: Good morning, Chair Guzman.
+[183.12-183.78] SPEAKER: Thank you very much.
+[184.96-188.63] SPEAKER: This is our annual Employee Survey review.
+[189.03-198.16] SPEAKER: I would like to, before we get started here, recognize that we do have a short amount of time to go through this, given the executive manager's check-in here in executive session in a little bit.
+[198.28-202.13] SPEAKER: I do want to note that these results will be soon available online.
+[202.15-207.04] SPEAKER: They are available in the packet right now, but they'll be posted to the performance dashboard in short order.
+[207.72-215.47] SPEAKER: And I also want to thank Ben Salius, Jake Studemeyer, all those who volunteered to participate and to lead this survey effort across the district.
+[215.49-217.22] SPEAKER: There were 16 in-person events.
+[217.5-225.57] SPEAKER: As you know, this is held in relation to the work selection shift for the employees with respect to the run board.
+[225.59-236.02] SPEAKER: So as they are, as employees are selecting their workshops for the next service change, they are also able to lodge their results for the employee survey just so that we have a broader response.
+[236.66-240.15] SPEAKER: I'm going to move on to the next slide just to talk through the outline very briefly.
+[240.13-241.75] SPEAKER: First, we'll do an introduction.
+[241.79-244.18] SPEAKER: I'll hand this over to Ben here in a moment.
+[244.84-247.68] SPEAKER: And Ben will go through all the nuts and bolts of the survey.
+[247.7-254.27] SPEAKER: We'll discuss the Employee Net Promoter Score for this year, which is our success outcome for the employee ownership strategic priority.
+[255.34-262.51] SPEAKER: Next, we'll go through the Composite Index Score, which I personally feel is a better indicator of employee ownership and engagement.
+[262.49-268.24] SPEAKER: and we'll speak to the employee favorability in response to the prompts that were given in the survey.
+[268.57-271.44] SPEAKER: We'll go through some of the items that were that we saw a largest improvement.
+[271.76-278.91] SPEAKER: We'll talk about these strategic initiatives and then again we'll talk through the key takeaways which I'm going to right now not to bury the lead.
+[278.95-283.43] SPEAKER: There were a few major takeaways from from the survey activity for this year.
+[283.41-288.99] SPEAKER: Again, we saw continued favorable response increase over the course of the year.
+[289.73-298.45] SPEAKER: Most, if not all of the elements in the survey were tracked higher than they did last year.
+[298.43-302.0] SPEAKER: Next, we'll speak to the efficacy of efforts related to the improvement areas.
+[302.06-304.32] SPEAKER: So we'll talk about why things improved year over year.
+[305.26-313.62] SPEAKER: We saw that in 2024, if those of you who are on this committee last year, we saw this interesting little swoop in our survey results.
+[313.64-321.37] SPEAKER: We saw the first year we saw people had a generally higher favorability of RTD and employment here.
+[321.82-327.27] SPEAKER: And then sort of tapered off over time and then eventually toward the longer the folks were here.
+[327.33-332.34] SPEAKER: We saw again increased higher favorability in response to some of these questions this year.
+[332.36-334.53] SPEAKER: We see a kind of a flatter curve.
+[334.55-340.96] SPEAKER: So again, that honeymoon period and then basically people are content once once they are here for more than a year.
+[340.94-354.92] SPEAKER: Again, speaking to the difference between the employee net promoter score and the employee ownership composite index, we'll talk about which one of those two measures may be better for a point of reference if we're looking to see how we're doing you over year.
+[355.54-363.09] SPEAKER: And then we'll go through the key driver analysis, which helps us to determine areas of opportunity for improvement in the next year.
+[363.29-368.63] SPEAKER: So with that, I'm going to hand this over to Ben to go through some of the survey nuts and bolts.
+[369.66-370.82] SPEAKER: Okay, good morning, everyone.
+[370.88-372.81] SPEAKER: Ben Selya, senior performance analyst.
+[373.17-374.79] SPEAKER: I'll give you a brief introduction here.
+[374.91-384.13] SPEAKER: I'll cover the survey purpose, the administration, the survey structure, as well as a brief snapshot of the response rate in the participation this year.
+[385.13-386.05] SPEAKER: Next slide, please.
+[387.79-396.5] SPEAKER: The primary purpose of the employee survey as it relates to the board is it helps us populate the metrics for the agency performance scorecard.
+[396.54-400.67] SPEAKER: So that's probably where you're most familiar with the data that comes out of this survey.
+[400.75-406.59] SPEAKER: As you can see, all the metrics in this example here come straight out of the employee survey.
+[406.61-407.89] SPEAKER: So that's where we get that data.
+[408.92-412.94] SPEAKER: The survey also helps us collect direct employee feedback.
+[413.24-416.19] SPEAKER: We do that through not only the text field, but also
+[416.49-419.57] SPEAKER: through the multiple choice questions.
+[420.26-423.46] SPEAKER: And it also gives us an understanding of employee satisfaction and engagement.
+[423.52-427.91] SPEAKER: So as you'll see in the next couple of slides, we have some questions directly aimed at that.
+[427.95-432.0] SPEAKER: It also provides us an opportunity for
+[432.18-435.35] SPEAKER: insight into areas that may need some extra attention.
+[435.83-442.88] SPEAKER: That happens a lot through the free text field where employees are invited to basically free text responses to us.
+[443.2-446.32] SPEAKER: And we actually glean a lot of information out of that text box.
+[447.23-447.99] SPEAKER: Next slide, please.
+[449.11-452.31] SPEAKER: The administration happens over a four week survey period.
+[452.33-455.46] SPEAKER: This year it went from April 15th through May 16th.
+[456.32-460.7] SPEAKER: We expanded it one year, one week from last year to four weeks.
+[461.31-466.12] SPEAKER: Like John said earlier, we did 16 in-person events at nine different facilities.
+[467.22-475.09] SPEAKER: We aim the in-person events primarily at the operational facilities where we have employees who do not spend a lot of time in front of a computer.
+[475.15-479.65] SPEAKER: So that helps us get the survey in front of them and get their voice into the survey.
+[481.12-484.51] SPEAKER: We have a number of different methods that, yeah, let's roll back.
+[484.91-487.15] SPEAKER: We have a number of different methods that we're currently using.
+[487.75-490.9] SPEAKER: At the in-person events, we use a tablet as well as the printed survey.
+[490.94-494.65] SPEAKER: We have employees who refer one over the other, so we allow both.
+[495.51-496.83] SPEAKER: It's also done online.
+[497.49-498.96] SPEAKER: We promote that through the hub.
+[499.3-501.86] SPEAKER: We also include it in the hot sheet each week.
+[502.28-511.66] SPEAKER: And we also push an icon to the desktops in the break rooms for operational personnel so they can simply click on an icon and take the survey online.
+[512.82-514.98] SPEAKER: And finally, we also do printed copies.
+[516.12-523.13] SPEAKER: We have a stack of copies that are just left in the break room and they can put those into a collection box at their leisure.
+[524.13-524.8] SPEAKER: Next slide.
+[526.95-529.88] SPEAKER: The survey structure remains the same as it was last year.
+[529.9-539.43] SPEAKER: We have five job related questions that helps us parse out the information so we can tell how things are going at various locations, departments and divisions.
+[540.27-544.32] SPEAKER: We also ask the likeliness of recommendation as an employer.
+[544.62-547.02] SPEAKER: That's where we get the net promoter score data from.
+[547.83-550.99] SPEAKER: We also ask about 11 internal services.
+[551.09-555.98] SPEAKER: So essentially we ask employees how satisfied they are with, say, IT department.
+[556.0-557.14] SPEAKER: And then we collect that.
+[559.68-561.81] SPEAKER: So ask a number of favorability questions.
+[561.83-566.17] SPEAKER: And that's primarily where the information from the agency scorecard comes from.
+[566.59-571.92] SPEAKER: Questions such as, does your supervisor treat you with respect?
+[572.12-573.2] SPEAKER: It's those kind of questions.
+[574.0-577.11] SPEAKER: And then we also have a retention-related question where we have
+[577.58-585.04] SPEAKER: 10 items and we ask the employees to rank them from one to 10 on how important they are for keeping them here as an employee at RTD.
+[585.8-591.03] SPEAKER: And then finally, we have the open-ended question where they're allowed to free text, whatever they want to tell us.
+[592.25-592.67] SPEAKER: Next slide.
+[592.71-598.48] SPEAKER: Here is a brief overview of the survey of the last three years.
+[598.84-603.78] SPEAKER: So we're at about 32% participation this year down a little bit from last year.
+[603.84-606.08] SPEAKER: We still have
+[606.25-608.57] SPEAKER: Pretty good use of the paper survey options.
+[608.59-612.75] SPEAKER: So about 18% this year chose to use the paper survey over digital.
+[614.82-619.44] SPEAKER: And again, we stuck with 37 multiple choice questions in one question.
+[621.07-621.51] SPEAKER: Next slide.
+[623.85-627.15] SPEAKER: Here's a quick breakout of participation by work unit.
+[627.29-630.64] SPEAKER: As you can see, bus operations and rail operations makes up
+[630.92-636.51] SPEAKER: a majority of our respondents, which makes sense as they are the larger groups within our organization.
+[638.49-638.95] SPEAKER: Next slide.
+[640.84-650.41] SPEAKER: And finally, here is a breakout of the surveys submitted by various tenure representation status and supervisory status.
+[650.92-656.04] SPEAKER: 10 year, we had very good participation from individuals who have been here for 10 plus years.
+[656.1-660.39] SPEAKER: That's great to see people still involved and engaged at 10 plus years.
+[661.63-673.16] SPEAKER: Representation status, this was at 50 split until the last week of the survey and then nonrepresented kind of pulled ahead probably because they were sitting at their computers that last week and took the survey.
+[674.62-676.44] SPEAKER: And then finally supervisory status.
+[676.46-680.7] SPEAKER: So while a large percentage is non supervisory,
+[680.97-686.16] SPEAKER: The upshot of that is we are still getting very good voice from our frontline staff.
+[688.2-691.93] SPEAKER: Okay.
+[691.95-694.69] SPEAKER: Good morning, Jake Sudemeyer, Manager of Market Research.
+[695.17-697.89] SPEAKER: I'll go through the employee net promoter score.
+[698.2-709.93] SPEAKER: Again, a quick reminder, if you're not familiar with NPS and how it's calculated, when asking employees how likely they are to recommend working RTV friends or family, anyone answering as a nine or 10,
+[710.32-712.54] SPEAKER: is classified as a promoter.
+[712.9-718.61] SPEAKER: Any one seven or eight is a passive and then zero through six are considered detractors.
+[718.65-726.66] SPEAKER: So the score is calculated by just subtracting the percentage of detractors from the promoters gives us our NPS score.
+[726.68-732.51] SPEAKER: So as you can see in 2024 our NPS was at negative two and this year we are at four.
+[732.79-734.01] SPEAKER: So we've got an improvement there.
+[735.05-736.17] SPEAKER: Next slide please.
+[738.5-742.73] SPEAKER: And again, this shows you the actual percentages of those classifications.
+[742.75-750.28] SPEAKER: So you can see you take the 35% for promoters, subtract the 31% from the trackers, and gives our overall NPS of four.
+[751.26-751.87] SPEAKER: Next slide.
+[752.83-758.39] SPEAKER: All right, for our composite index score, going through the employee ownership composite index score.
+[758.67-774.63] SPEAKER: Again, this is a average of employee survey scores related to how engaged, supported, safe feeling and understanding of how employees contribute to agency success, look at engagement, supervisor support, resource support, physical safety, safe from crime.
+[775.01-776.36] SPEAKER: psychological safety.
+[776.84-785.15] SPEAKER: So I can see the big story here is a 16% increase from the score, from the percentage in 2023 to 2025.
+[786.71-793.66] SPEAKER: So this is anyone who answered either agree or strongly agree for those categories.
+[794.88-796.55] SPEAKER: Next slide.
+[796.57-798.83] SPEAKER: Sorry, we have a new kitten and she is attacking me.
+[800.75-805.26] SPEAKER: looking at the individual questions from the index itself.
+[805.79-814.81] SPEAKER: Again, the big story here is the marked improvement year over year from 2023 into 2024 and continued on into 2025.
+[815.67-822.32] SPEAKER: Probably the biggest story here on this page is at the very bottom looking at feeling safe from crime in the work environment.
+[822.88-832.95] SPEAKER: From just 45% in 2023 of employees saying they agree or strongly agree that statement to now 70% in 2025.
+[833.47-838.18] SPEAKER: So even a decent improvement over 2024s as well.
+[839.24-839.74] SPEAKER: Next slide.
+[842.64-846.51] SPEAKER: These are the overall composite index scores broken out by tenure.
+[847.39-858.6] SPEAKER: So if we look at those less than one year, this really is the only instance I believe in this, at least my set in the slide deck, where we actually see 2024 outscoring 2025.
+[858.58-867.78] SPEAKER: There, you know, we had 88% answering the degree or strongly disagree for their overall composite index to 78 for 2025.
+[867.84-870.06] SPEAKER: But again, marked improvement year over year.
+[870.12-876.37] SPEAKER: And then again, looking compared to 2023, pretty substantial improvement.
+[877.65-878.39] SPEAKER: Next slide.
+[879.26-881.18] SPEAKER: All right, for employee favorability.
+[881.85-896.78] SPEAKER: More of the same, again marked improvement year after year every year, and kind of reiterating the employee safety, feeling safe in my work environment, just 64% in 2023, up to 83% now in 2025.
+[898.85-899.41] SPEAKER: Next slide.
+[902.45-904.09] SPEAKER: Again, more of the same here.
+[909.14-910.02] SPEAKER: All right, next.
+[915.65-920.04] SPEAKER: Again, pretty, I am a jungle gym this morning.
+[923.46-924.21] SPEAKER: All right, next slide.
+[929.99-938.27] SPEAKER: Again, the safety perceptions, probably the largest marked improvement out of all the metrics.
+[942.74-948.22] SPEAKER: And again, looking again now at favorability as opposed to the Kamazza Index score by tenure.
+[948.24-954.84] SPEAKER: A little bit closer this time, especially amongst those very new to RTB less than a year.
+[957.33-958.36] SPEAKER: jumping in here just briefly.
+[958.38-964.75] SPEAKER: This is the curve that I had mentioned in my opening remarks here that we see that there's again this honeymoon period within the first year.
+[964.79-973.73] SPEAKER: Again, 15% improvement over 2023, but same as last year in the 89% up here and then sort of an evening and out over here.
+[973.77-979.58] SPEAKER: So starting at 79% for one to three years, going down to 77% for 10 or more years, but you can see this is
+[979.56-999.37] SPEAKER: roughly within the margin of error all four categories after the first year and in 2023 you could see that that swoop that's starting off and then over time people are generally maybe a little bit less favorable and then a slight increase at the end but this is nice to see the employees across the their tenure are satisfied and more so this year than before.
+[999.43-1004.43] SPEAKER: All right next slide.
+[1006.05-1015.42] SPEAKER: So here just to highlight some of the year over year improvements, looking at the statement, I have trust in my departmental managers to make decisions that align with the values of the organization.
+[1015.78-1018.67] SPEAKER: You see an 8% increase from last year to this year.
+[1019.15-1024.63] SPEAKER: And again, broken out on the right hand side in terms of supervisory status as well as representation.
+[1028.14-1031.46] SPEAKER: And again, for I have the resources to successfully perform my duties.
+[1031.48-1035.79] SPEAKER: 7% increase from last year to this year.
+[1040.34-1046.81] SPEAKER: And here highlighting those aspects that had a improvement over 5% from last year.
+[1054.04-1058.6] SPEAKER: And now significant meaning 15% or more improvement over the last two years.
+[1059.06-1067.73] SPEAKER: A quick note, this does not mean statistical significance, just significance in terms of the percentage of increase from year over year.
+[1072.18-1074.57] SPEAKER: All right, next and continuing on.
+[1074.61-1082.33] SPEAKER: All right.
+[1084.82-1087.05] SPEAKER: and it comes back to me at this point.
+[1087.43-1095.86] SPEAKER: So, noting that that market improvement year-over-year, especially over the two-year window, would not be possible without some of the efforts that were put in by staff.
+[1095.88-1098.82] SPEAKER: So, those are the strategic initiatives that are developed year-over-year.
+[1099.62-1108.69] SPEAKER: Specifically, with respect to the employee survey, those are back-to-basics people, power and welcoming transit environment, the fourth being customer and community connections, which isn't really gauged by the survey.
+[1108.67-1123.81] SPEAKER: So moving forward, back to basics in 2023-24, one of the tactics developed was surrounding internal communication and you can see over that two year period there's been a 20% increase in employee responses to the prompt.
+[1123.91-1126.72] SPEAKER: I am adequately informed about agency news projects and initiatives.
+[1126.76-1129.46] SPEAKER: This is due to some internal communications enhancements.
+[1129.66-1136.15] SPEAKER: including changes to the way that we distribute our internal newsletter, crew meetings, things like that.
+[1136.19-1144.36] SPEAKER: People are feeling more generally informed all the way from 50% from represented staff up to 67% currently.
+[1145.88-1148.68] SPEAKER: Moving into, excuse me, employer retention is next.
+[1149.42-1157.39] SPEAKER: We see this wedge here, this pie chart here strongly agree 57% and 27% agree.
+[1157.76-1159.86] SPEAKER: that they will be working in RTD one year from now.
+[1160.04-1167.13] SPEAKER: Our senior manager of Total Rewards said that this is incredibly, he's coming from the private sector.
+[1167.15-1170.47] SPEAKER: He said, I've never seen anything like this in an agency public or otherwise.
+[1170.67-1173.67] SPEAKER: So this isn't very good to see.
+[1174.56-1184.47] SPEAKER: Moving forward to the top three most important employment and workplace characteristics, we ask folks to rank their top 10, or the 10 that we offer them there.
+[1185.15-1186.55] SPEAKER: We're asked to rank
+[1186.53-1194.66] SPEAKER: Ranked their top three and you can see the fair compensation 2024 was by far and away the most important work characteristic.
+[1194.8-1196.45] SPEAKER: We move forward to 2025.
+[1196.89-1197.41] SPEAKER: It's about the same.
+[1197.45-1199.83] SPEAKER: It's actually considerably less than the top end.
+[1200.03-1203.14] SPEAKER: And then there are some other things that are that have risen in importance, including.
+[1203.12-1208.69] SPEAKER: Tools and equipment which is new to this is risen a lot more than that I would have anticipated.
+[1209.19-1214.76] SPEAKER: We need to delve into what this means to individual people that could mean a lot of things to 3000 different people.
+[1214.8-1217.58] SPEAKER: This could be, you know, wrenches and things to mechanics.
+[1217.6-1222.49] SPEAKER: This could mean it equipment for certain people tablets and things.
+[1222.51-1224.65] SPEAKER: We'll have to delve into see what that means for folks.
+[1224.63-1227.62] SPEAKER: moving into our key driver analysis for 2025.
+[1227.7-1233.53] SPEAKER: We've seen that there were two other areas of opportunity in 2024.
+[1233.57-1238.84] SPEAKER: Those were, I believe, manageable workloads and professional development opportunities.
+[1238.86-1246.99] SPEAKER: Those sort of increased, and so they've fallen out of the areas of opportunity box down at the bottom right-hand corner, just briefly walking through this.
+[1247.41-1250.67] SPEAKER: Most of the folks on this meeting have seen this before.
+[1251.19-1256.5] SPEAKER: But on this chart here, the higher, the farther along the y-axis.
+[1256.73-1262.72] SPEAKER: It goes to the top that indicates higher satisfaction with RTD and RTD services.
+[1262.94-1269.57] SPEAKER: And then the higher importance it is to individual employees based on this ranking activity that we asked them to do.
+[1270.09-1276.0] SPEAKER: And so we can see that fair compensation is really close to the mean, can still possibly use some improvement.
+[1276.06-1284.17] SPEAKER: And maybe this is surrounding employee communication around their compensation or opportunities for them
+[1284.51-1287.67] SPEAKER: use their professional development funds and things like that.
+[1287.77-1290.85] SPEAKER: So they can use that for their own personal benefit.
+[1291.29-1296.12] SPEAKER: And also opportunities for advancement is another area that we'll be taking a look at in 2025-26.
+[1297.7-1300.88] SPEAKER: Moving again to the employee security.
+[1300.92-1305.58] SPEAKER: As we said before, this has increased 25% over a two-year period.
+[1305.6-1306.64] SPEAKER: This is incredible.
+[1306.92-1312.47] SPEAKER: This is still the lowest score, the lowest favorable response of all of the survey responses.
+[1312.45-1320.8] SPEAKER: We can see a lot of the efforts that have been put into, you know, increasing welcoming transit environment within Union Station and then across the district.
+[1321.13-1322.93] SPEAKER: All of these efforts are taking hold.
+[1323.64-1325.38] SPEAKER: Again, key takeaways.
+[1325.78-1330.41] SPEAKER: We can see that there was a continued favorable response increase.
+[1331.05-1337.05] SPEAKER: We can see that the efforts that we've been engaging in to improve some of those scores have really had taken effect.
+[1337.45-1338.82] SPEAKER: They've improved those scores.
+[1339.92-1346.46] SPEAKER: We see that higher favorability is less influenced by tenure in 2025, noting that flattened curve from year one and beyond.
+[1348.07-1353.61] SPEAKER: Talking again about the employee net promoter score versus the employee ownership composite index.
+[1354.12-1377.39] SPEAKER: We can see that if I were to go back to the one pager that showed the agency performance scorecard toward the beginning of this presentation, all of those five metrics that we consider to be performance metrics, key performance metrics for this particular strategic priority, we can see that those numbers are moving considerably, but the employee net promoter score is not
+[1377.77-1378.69] SPEAKER: raising as much.
+[1378.91-1381.28] SPEAKER: So there's less linkage there than we would like.
+[1381.38-1389.91] SPEAKER: So I think that that employee composite index may serve as a better success, overall success metric in future years.
+[1389.93-1392.03] SPEAKER: And that's something that we had raised in last year.
+[1392.07-1393.2] SPEAKER: We're seeing that again this year.
+[1393.72-1398.5] SPEAKER: And again, the key driver analysis that I just showed highlights the opportunities for 2025 and 26.
+[1398.54-1403.83] SPEAKER: And with that, we have finished the presentation and are open to questions from the board.
+[1405.6-1406.34] SPEAKER: Thank you very much.
+[1406.52-1408.64] SPEAKER: Are there any questions or comments from the committee?
+[1409.55-1411.43] SPEAKER: Director Nicholson, I saw your hand shoot up first.
+[1413.07-1414.69] SPEAKER: I try to be quick on the draw.
+[1415.33-1416.65] SPEAKER: Thank you for the presentation.
+[1416.74-1417.66] SPEAKER: It was wonderful.
+[1417.72-1419.82] SPEAKER: I enjoyed reading that over this morning.
+[1420.32-1429.67] SPEAKER: I found the distinctions between the different employee types and the represented versus non-represented really interesting.
+[1429.73-1432.74] SPEAKER: And I just wanted to ask, can we get
+[1432.95-1447.44] SPEAKER: those numbers broken down by the different employee types that you mentioned at the beginning of the spreadsheet because you had a couple of different departments in their bus operations, rail operations, et cetera, et cetera, et cetera.
+[1448.2-1460.18] SPEAKER: I would just be fascinated to look at, not just represented versus non-represented, but among our different types of employees, is there a meaningful difference in
+[1460.16-1470.65] SPEAKER: the key drivers of what they're looking for is their difference in, for example, fair compensation being an issue in some departments over others.
+[1470.69-1479.05] SPEAKER: So just, is that something that you could provide to board members a bit more granular breakdown of those numbers?
+[1480.23-1480.93] SPEAKER: Mr. McKay.
+[1481.5-1482.48] SPEAKER: Thank you, Mr. Chair.
+[1482.53-1485.77] SPEAKER: I would say that the employees are saying that that is an important factor.
+[1485.81-1487.59] SPEAKER: They're not saying that that's an issue right now.
+[1487.61-1491.61] SPEAKER: I just want to make that distinction that we ask them to rank there at the most important characteristics.
+[1491.63-1495.08] SPEAKER: That's not to say that somebody is disappointed with their current salary.
+[1495.1-1500.98] SPEAKER: They're just saying that is an important employment characteristic just to make that draw that specific line.
+[1501.0-1510.93] SPEAKER: And as far as more granular data, if you have specific asks about, if you can tell me which one you're interested in the most are a few of them, we can delve into that data.
+[1511.05-1511.51] SPEAKER: Thank you.
+[1511.98-1512.32] SPEAKER: Awesome.
+[1512.34-1513.12] SPEAKER: I'll send you an email.
+[1515.29-1517.75] SPEAKER: Madam CEO, I saw your hand go up and then it went down.
+[1517.87-1518.67] SPEAKER: Did that get covered?
+[1520.07-1520.59] SPEAKER: Yes, it did.
+[1520.61-1534.79] SPEAKER: And I was just going to put in a different element as well, recognizing as we talk about this, considering that we do bargain for wages with two thirds of our workforce and considering the time at which this was done, that could be a factor as well.
+[1534.83-1539.64] SPEAKER: But Mr. McKay answered the question is best suited, which I believe addressed my concerns as well.
+[1539.98-1541.68] SPEAKER: Not my concerns, my response.
+[1542.51-1542.81] SPEAKER: Great.
+[1543.73-1544.37] SPEAKER: Director Catlin.
+[1546.89-1550.04] SPEAKER: Thank you, Mr. Chair, and I am a GMCEO Johnson.
+[1550.1-1553.26] SPEAKER: I appreciate your context for that.
+[1553.72-1559.29] SPEAKER: I just wanted to say I reviewed this over the weekend and I was really encouraged.
+[1559.59-1562.98] SPEAKER: I thought the trend was very, very positive.
+[1563.0-1570.93] SPEAKER: So I just wanted to say I appreciate the further explanation today, but I just wanted to say that this looked really good.
+[1571.03-1571.47] SPEAKER: Thank you.
+[1573.17-1573.69] SPEAKER: Mr. McKay.
+[1574.77-1580.1] SPEAKER: If you like these results, just wait till you hear the customer and community results on the meeting on the 23rd, just a plug for the next meeting.
+[1583.44-1584.86] SPEAKER: Vice Chair Guzman is your turn.
+[1586.32-1588.53] SPEAKER: Thank you, Chair Guzman.
+[1588.61-1590.51] SPEAKER: Thank you very much for the presentation.
+[1590.93-1597.56] SPEAKER: My question, is there any sort of target for the survey participation?
+[1600.07-1602.59] SPEAKER: Not a target per se, Mr. Chair, if I may.
+[1602.61-1602.87] SPEAKER: Please.
+[1603.47-1604.17] SPEAKER: Not a target per se.
+[1604.19-1611.72] SPEAKER: We like to see, you know, a couple of years ago, we had a 47 percent rate, and that's incredible.
+[1612.65-1619.98] SPEAKER: Jake Studemeyer, who's also on this call, he has said that both private and public sector, 20 to 30 percent is considered good.
+[1620.06-1621.78] SPEAKER: So we're over 30 percent.
+[1621.88-1622.86] SPEAKER: That's fantastic.
+[1622.88-1627.85] SPEAKER: We have heard from people in the open-ended comments at the end that they're feeling a little bit of survey fatigue.
+[1628.05-1636.98] SPEAKER: So there is an opportunity perhaps in 2026 to maybe do a smaller scale or just to make sure that we're still hitting the same the same.
+[1638.62-1648.41] SPEAKER: Stuff that you know the strategic plan elements as long as we're capturing those things somehow we'll talk about that internally to figure out how best we can we can roll out a different survey next year.
+[1650.57-1651.13] SPEAKER: OK, thank you.
+[1651.17-1657.7] SPEAKER: Yeah, I mean, I just I feel like 32% a little low and I would love to.
+[1658.59-1672.87] SPEAKER: see us somehow, you know, creatively think about how can we improve that number, whether it's like a departmental competition and the department with the highest participation percentage gets a pizza party.
+[1673.03-1681.36] SPEAKER: You know, it's something I just, I feel like there's opportunity to improve that even though 30 to, you know, 20, 30% is considered good.
+[1682.93-1683.47] SPEAKER: Madam CEO.
+[1684.07-1684.85] SPEAKER: Yes, thank you.
+[1684.89-1694.72] SPEAKER: I was going to have Mr. Studermeyer expound, but before I do that, recognizing the vice chair's comments, we do have full fledged engagement and recognizing you are talking about incentivizing individuals.
+[1695.08-1705.57] SPEAKER: We do give giveaways, we give food, we do a lot of different things and recognizing that the intent behind garnering as much feedback as we can, considering the two thirds of our workforce are out on the front lines.
+[1705.63-1711.6] SPEAKER: We intentionally, as Mr. McKay said, do that during the bid selection process with their work shifts.
+[1711.58-1716.38] SPEAKER: and recognizing that we want to see a greater representation.
+[1716.4-1733.28] SPEAKER: This is statistically valid, and I was just going to offer, and being on a public agency space, this response rate is heading shoulders above the crowd, recognizing that other agencies, and this is from my own experience, working at six other transit agencies beside this one, really is something to applaud.
+[1733.84-1738.35] SPEAKER: Mr. Studemeyer, you want to expand referencing the participation rate
+[1738.87-1739.59] SPEAKER: Absolutely.
+[1739.65-1740.01] SPEAKER: Thank you.
+[1740.69-1746.7] SPEAKER: So, again, having nearly a third of our workforce taking the survey is great.
+[1747.48-1748.56] SPEAKER: Good is one word to use it.
+[1748.82-1750.31] SPEAKER: Getting up close to a third is great.
+[1751.53-1752.79] SPEAKER: It's a fine balance.
+[1752.81-1756.32] SPEAKER: I understand the want and the desire to have more participation.
+[1756.36-1758.68] SPEAKER: Again, more participation is always good.
+[1758.66-1760.3] SPEAKER: It is a fine balance, though.
+[1761.32-1766.99] SPEAKER: When you start to push for more and more completion, it can drive something similar to the Hawthorne effect.
+[1767.25-1777.36] SPEAKER: If anyone's familiar with psychology and research, folks alter their responses when they know they're being watched or being pushed towards something.
+[1777.4-1786.25] SPEAKER: So if you're really, really, really heavy on participation, it can actually drive up feelings of paranoia or concern like, why are they wanting so much participation?
+[1786.23-1799.41] SPEAKER: So again, not that there isn't more that we can do to encourage participation, but again, it is a very fine balance between encouraging participation and, you know, mandating participation for lack of a better word.
+[1803.62-1804.54] SPEAKER: All right, Director Bezek.
+[1805.9-1806.44] SPEAKER: Thanks very much.
+[1806.48-1807.52] SPEAKER: Thanks for the presentation.
+[1807.8-1815.73] SPEAKER: With regard to the participation, my guess without any scientific background is much like Google reviews, right?
+[1815.9-1816.44] SPEAKER: I'm happy.
+[1816.46-1817.56] SPEAKER: I'm not going to participate.
+[1817.82-1818.5] SPEAKER: I'm unhappy.
+[1818.56-1821.07] SPEAKER: I'm going on Google and I'm giving you one stock.
+[1821.09-1824.03] SPEAKER: So maybe the lack of participation says something.
+[1824.15-1833.06] SPEAKER: But overall, I think the improvement that we're seeing over these several years is really all down to GM CEO Johnson and her team.
+[1833.8-1840.63] SPEAKER: And I'm not surprised that it takes time because as we all know, when change is implemented, people get there, you know, that people don't like it.
+[1841.45-1843.81] SPEAKER: But then as time goes on and they see that the changes are good,
+[1844.55-1847.64] SPEAKER: then they realize that it was the right thing to do and they're much happier.
+[1847.68-1850.94] SPEAKER: So I think that's what we're seeing here when we look at this over a period of time.
+[1850.96-1854.95] SPEAKER: So hats off to you, GM CEO Johnson, thanks for the presentation.
+[1858.54-1859.88] SPEAKER: Okay, thank you.
+[1860.24-1874.11] SPEAKER: I want to tell you I was happy to see this because safe and happy employees make safe and happy customers in the same way that safe and happy baristas make safe and happy customers at my other job.
+[1874.13-1880.2] SPEAKER: So I am excited to see the correlation and what's coming up with customer experience surveys.
+[1880.45-1882.07] SPEAKER: in a couple of weeks.
+[1882.39-1888.14] SPEAKER: So, gentlemen, thank you, and thank you for keeping the presentation tight so we can move on to other matters.
+[1888.5-1889.18] SPEAKER: Thank you so much.
+[1890.4-1894.49] SPEAKER: Are there any other matters to discuss before we move into the executive session?
+[1896.47-1897.07] SPEAKER: Chair Buque.
+[1898.15-1898.99] SPEAKER: Yeah, thank you very much.
+[1899.03-1899.73] SPEAKER: Share Guzman.
+[1900.49-1902.61] SPEAKER: I just wanted to take this moment real quick.
+[1903.65-1907.82] SPEAKER: Yesterday, there appeared to be an anti-Semitic attack that occurred in Boulder.
+[1908.88-1919.52] SPEAKER: I just want to say that the heart of this agency, the heart of this board go out to you, Director Geisinger, your constituents, Boulder community,
+[1919.49-1924.5] SPEAKER: the Jewish community not only here in Colorado, but the Jewish community is all across the world.
+[1925.32-1939.12] SPEAKER: So I just wanted to acknowledge that as an agency that, again, as we mentioned during our executive committee a couple of weeks ago, you can't fight hate with hate.
+[1939.64-1943.58] SPEAKER: Love always wins in the long run and that this agency's heart is with all of you.
+[1943.9-1944.3] SPEAKER: Thank you.
+[1949.67-1950.05] SPEAKER: Thank you.
+[1954.77-1956.43] SPEAKER: Sorry, I have to hold space for a minute.
+[1957.44-1958.94] SPEAKER: Are there any other matters to discuss?
+[1962.12-1962.4] SPEAKER: All right.
+[1963.1-1968.49] SPEAKER: As a reminder, our next meeting will be Monday, June 23rd at 830 a.m.
+[1968.85-1973.19] SPEAKER: At that meeting, we are set to discuss the results of our customer and community surveys.
+[1976.35-1990.18] SPEAKER: In a moment, the committee will meet in executive session to further our dialogue with the general manager CEO regarding her performance in meeting the agency values for and based off duties and the progress towards her 2025 short term goals.
+[1991.26-1998.69] SPEAKER: I would like to append the motion to move into executive session to state that the performance committee will be deemed adjourned.
+[1999.19-2001.18] SPEAKER: after it adjourns into the executive session.
+[2001.7-2007.95] SPEAKER: For public transparency, this means that once the committee moves into executive session, the main meeting will be adjourned.
+[2008.76-2012.88] SPEAKER: I will now entertain a motion to move into executive session to discuss the following.
+[2013.79-2027.55] SPEAKER: pursuant to Section 24-6-402, Open Paran-4, Close Paran, Open Paran-F, Close Paran, Open Paran-I, Close Paran of the Colorado Revised Statutes.
+[2028.01-2032.24] SPEAKER: For consideration of personnel matters regarding the Board's dialogue
+[2032.22-2044.45] SPEAKER: with the general manager and CEO on her performance in meeting the agency values core based job duties and progress towards her 2025 short term goals and input from the board of directors on the same.
+[2044.49-2046.95] SPEAKER: Do I have a motion?
+[2047.56-2048.3] SPEAKER: Music.
+[2049.48-2049.78] SPEAKER: Second.
+[2051.3-2054.14] SPEAKER: I have music as the movement and Caitlin as the second.
+[2055.26-2058.03] SPEAKER: Are there any no votes on this action?
+[2062.04-2066.26] SPEAKER: Seeing none, then our regular session is adjourned at 904am.
+[2066.66-2070.61] SPEAKER: Directors, please move over to the executive session.
+[2070.87-2071.95] SPEAKER: Oh, sorry, Melanie.
+[2073.07-2078.6] SPEAKER: Okay, please move over to the executive session and allow a few minutes for everybody to move over.
+[2078.94-2079.3] SPEAKER: Thank you.
