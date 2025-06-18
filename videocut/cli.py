@@ -457,6 +457,7 @@ def segment(
     ),
     speaker: str = "Chris Nicholson",
     out: Path = Path("segments.txt"),
+    debug: bool = typer.Option(False, help="Show debug output during segmentation"),
 ):
     """Write Nicholson segments from *json_file* to ``segments.txt``.
 
@@ -471,7 +472,7 @@ def segment(
 
         typer.echo("Using new segmenter 2.0 code")
         rows = segmenter.load_rows(str(json_file))
-        seg_lines = segmenter.build_segments(rows)
+        seg_lines = segmenter.build_segments(rows, debug=debug)
         out.write_text("\n".join(seg_lines) + "\n")
         typer.echo(f"✅ Created {out}")
         return
@@ -546,6 +547,7 @@ def prep_segments(
     video: Path = typer.Argument("input.mp4", help="Source video file"),
     pdf: Path = typer.Argument("transcript.pdf", help="Matching PDF transcript"),
     band: int = typer.Option(10, help="DTW radius for PDF alignment"),
+    debug: bool = typer.Option(False, help="Show debug output during segmentation"),
 ) -> None:
     """Transcribe *video* and produce ``segments.txt`` using *pdf*."""
     transcription.transcribe(str(video))
@@ -562,7 +564,7 @@ def prep_segments(
     from . import segmenter
 
     rows = segmenter.load_rows("dtw-transcript.txt")
-    seg_lines = segmenter.build_segments(rows)
+    seg_lines = segmenter.build_segments(rows, debug=debug)
     Path("segments.txt").write_text("\n".join(seg_lines) + "\n")
     typer.echo("✅ Created segments.txt")
 
