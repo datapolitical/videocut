@@ -22,6 +22,13 @@ pip install -e .[light]
 ```
 
 ## Workflow
+0. **Download Meeting Transcript & Video from Youtube & trim**
+   - Download the meeting transcript from RTD.
+   - Run:
+      - `chmod +x download-meeting.sh`
+      - `./download-meeting.sh "MEETING_YOUTUBE_VIDEO_URL"` (meeting URL in quotes)
+   - This script downloads the meeting video. Move the video and transcript into a folder.
+   - After downloading, if the meeting was delayed, trim the video to start at the beginning of the meeting so it aligns with the printed transcript.
 1. **Transcribe & align** – `videocut transcribe May_Board_Meeting.mp4 --pdf transcript.pdf`
    - Extracts dialogue from the PDF, aligns it to the video and writes
      `transcript.txt` with lines in the form

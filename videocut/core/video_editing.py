@@ -9,9 +9,9 @@ from typing import List
 from . import segmentation, alignment
 
 # White flash timing
-WHITE_FADE_IN_SEC = 0.25
-WHITE_HOLD_SEC = 0.15
-WHITE_FADE_OUT_SEC = 0.25
+WHITE_FADE_IN_SEC = 0.2
+WHITE_HOLD_SEC = 0.0
+WHITE_FADE_OUT_SEC = 0.2
 WHITE_FLASH_SEC = WHITE_FADE_IN_SEC + WHITE_HOLD_SEC + WHITE_FADE_OUT_SEC
 
 # Clip fade timing
