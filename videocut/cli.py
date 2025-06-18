@@ -569,6 +569,29 @@ def prep_segments(
     typer.echo("✅ Created segments.txt")
 
 
+def _find_single(pattern: str) -> Path | None:
+    """Return the only Path matching *pattern* in the CWD or ``None``."""
+    matches = [p for p in Path.cwd().glob(pattern) if p.is_file()]
+    return matches[0] if len(matches) == 1 else None
+
+
+@app.command("prep")
+def prep(
+    video: Optional[Path] = typer.Argument(None, help="Source video file"),
+    pdf: Optional[Path] = typer.Argument(None, help="Matching PDF transcript"),
+    band: int = typer.Option(10, help="DTW radius for PDF alignment"),
+) -> None:
+    """Prepare ``segments.txt`` from *video* and *pdf* if present."""
+    if video is None:
+        video = _find_single("*.mp4")
+    if pdf is None:
+        pdf = _find_single("*.pdf")
+    if video is None or pdf is None:
+        typer.echo("❌  Provide video and PDF files or ensure a single mp4 and pdf exist.", err=True)
+        raise typer.Exit(1)
+    prep_segments(video, pdf, band)
+
+
 @app.command("build-video")
 def build_video(
     video: Path = typer.Argument("input.mp4", help="Source video file"),
@@ -598,6 +621,39 @@ def build_video(
         )
     else:
         crossfader.concat_default(out_dir, output)
+
+
+@app.command("build")
+def build(
+    video: Optional[Path] = typer.Argument(None, help="Source video file"),
+    segments: Path = typer.Argument("segments.txt", help="Segments file"),
+    out_dir: str = typer.Option("clips", help="Output directory for clips"),
+    output: str = typer.Option("final_video.mp4", help="Concatenated video file"),
+    dip: bool = False,
+    dip_news: bool = True,
+    dip_color: str = "#AAAAAA",
+    fade_duration: float = 0.25,
+    hold_duration: float = 0.1,
+    srt_file: Optional[str] = None,
+) -> None:
+    """Clip segments and build the final video."""
+    if video is None:
+        video = _find_single("*.mp4")
+    if video is None:
+        typer.echo("❌  Provide video file or ensure a single mp4 exists.", err=True)
+        raise typer.Exit(1)
+    build_video(
+        video,
+        segments,
+        out_dir,
+        output,
+        dip=dip,
+        dip_news=dip_news,
+        dip_color=dip_color,
+        fade_duration=fade_duration,
+        hold_duration=hold_duration,
+        srt_file=srt_file,
+    )
 
 
 @app.command("preview-fades")
