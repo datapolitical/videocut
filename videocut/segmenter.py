@@ -4,7 +4,11 @@ segmenter.py - build segments.txt for Nicholson highlight reel
 """
 import re
 import pathlib
+import json
+import tempfile
+from pathlib import Path
 from typing import List, Dict
+from videocut.core import chair as chair_mod
 
 BOARD_FILE = pathlib.Path(__file__).resolve().parents[1] / "board_members.txt"
 if BOARD_FILE.exists():
@@ -14,7 +18,7 @@ else:
 BOARD_LOWER = {n.lower() for n in BOARD}
 
 NICH = "Chris Nicholson"
-CHAIR = "Julien Bouquet"
+CHAIR_DEFAULT = "Julien Bouquet"
 TITLES = ["director", "chair", "secretary", "treasurer"]
 GLUE = 30.0
 GLUE_LINES = 5  # glue if <=4 lines between Nicholson segments
@@ -55,7 +59,28 @@ def load_rows(path: str = "transcript.txt") -> List[Dict[str, str]]:
     return rows
 
 
+def detect_chair(rows: List[Dict[str, str]]) -> str:
+    """Return the speaker name most likely acting as chair."""
+    segments = [
+        {"speaker": r["spk"].strip(), "text": r["txt"].strip()}
+        for r in rows
+        if r.get("spk")
+    ]
+    if not segments:
+        return CHAIR_DEFAULT
+    with tempfile.NamedTemporaryFile("w+", delete=False) as tmp:
+        json.dump({"segments": segments}, tmp)
+        tmp.flush()
+        tmp_path = Path(tmp.name)
+    try:
+        return chair_mod.identify_chair(str(tmp_path))
+    except Exception:
+        return CHAIR_DEFAULT
+    finally:
+        tmp_path.unlink(missing_ok=True)
+
 def build_segments(rows: List[Dict[str, str]]) -> List[str]:
+    chair_name = detect_chair(rows)
     out: List[str] = []
     open_seg = False
     last_end = -1e9
@@ -72,7 +97,7 @@ def build_segments(rows: List[Dict[str, str]]) -> List[str]:
         line = "\t" + r["raw"].lstrip("\t")
 
         # close segment just before chair hand-off
-        if open_seg and spk == CHAIR:
+        if open_seg and spk == chair_name:
             lower = txt.lower()
             after = lower
             for prefix in (
@@ -92,14 +117,14 @@ def build_segments(rows: List[Dict[str, str]]) -> List[str]:
             elif i + 1 < len(rows):
                 next_spk = rows[i + 1]["spk"].strip()
                 next_lower = next_spk.lower()
-                if next_spk not in {CHAIR, NICH} and next_lower in BOARD_LOWER:
+                if next_spk not in {chair_name, NICH} and next_lower in BOARD_LOWER:
                     if any(
                         f"{t} {part}" in lower
                         for part in next_lower.split()
                         for t in TITLES
                     ):
                         recog_director = True
-                elif next_spk == CHAIR:
+                elif next_spk == chair_name:
                     nxt = rows[i + 1]["txt"].strip().lower()
                     if any(nxt.startswith(f"{t} ") for t in TITLES):
                         recog_director = True
