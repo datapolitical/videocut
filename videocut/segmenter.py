@@ -59,7 +59,7 @@ def load_rows(path: str = "transcript.txt") -> List[Dict[str, str]]:
     return rows
 
 
-def detect_chair(rows: List[Dict[str, str]]) -> str:
+def detect_chair(rows: List[Dict[str, str]], debug: bool = False) -> str:
     """Return the speaker name most likely acting as chair."""
     segments = [
         {"speaker": r["spk"].strip(), "text": r["txt"].strip()}
@@ -73,14 +73,19 @@ def detect_chair(rows: List[Dict[str, str]]) -> str:
         tmp.flush()
         tmp_path = Path(tmp.name)
     try:
-        return chair_mod.identify_chair(str(tmp_path))
+        chair_name = chair_mod.identify_chair(str(tmp_path))
     except Exception:
-        return CHAIR_DEFAULT
+        chair_name = CHAIR_DEFAULT
     finally:
         tmp_path.unlink(missing_ok=True)
+    if debug:
+        print(f"🔍  detected chair: {chair_name}")
+    return chair_name
 
-def build_segments(rows: List[Dict[str, str]]) -> List[str]:
-    chair_name = detect_chair(rows)
+def build_segments(rows: List[Dict[str, str]], debug: bool = False) -> List[str]:
+    chair_name = detect_chair(rows, debug=debug)
+    if debug:
+        print(f"Using chair \"{chair_name}\"")
     out: List[str] = []
     open_seg = False
     last_end = -1e9
@@ -131,6 +136,8 @@ def build_segments(rows: List[Dict[str, str]]) -> List[str]:
 
             if recog_director:
                 out.append("=END=")
+                if debug:
+                    print(f"Segment end at {r['ss']:.2f}s")
                 last_end_marker = len(out) - 1
                 open_seg = False
 
@@ -148,6 +155,8 @@ def build_segments(rows: List[Dict[str, str]]) -> List[str]:
                         out.pop(last_end_marker)  # glue with previous
                     else:
                         out.append("=START=")
+                        if debug:
+                            print(f"Segment start at {r['ss']:.2f}s")
                     open_seg = True
                     last_end_marker = None
         # copy line
@@ -167,10 +176,12 @@ def build_segments(rows: List[Dict[str, str]]) -> List[str]:
 
     if open_seg:
         out.append("=END=")
+        if debug:
+            print("Segment end at EOF")
     return out
 
 
-def main():
+def main(debug: bool = False):
     rows = load_rows()
-    seg_lines = build_segments(rows)
+    seg_lines = build_segments(rows, debug=debug)
     pathlib.Path("segments.txt").write_text("\n".join(seg_lines) + "\n")
