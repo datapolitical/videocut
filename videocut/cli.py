@@ -25,7 +25,11 @@ from .core import (
     crossfade_preview,
     crossfader,
 )
-from .commands import authorize as authorize_cmd, upload as upload_cmd
+from .commands import (
+    authorize as authorize_cmd,
+    upload as upload_cmd,
+    transcribe_cpp as transcribe_cpp_cmd,
+)
 
 app = typer.Typer(help="VideoCut pipeline")
 
@@ -42,9 +46,17 @@ def transcribe(
     ),
     progress: bool = typer.Option(True, help="Show WhisperX progress output"),
     pdf: Optional[str] = typer.Option(None, help="Official PDF transcript"),
+    use_whispercpp: bool = typer.Option(
+        False, help="Use whisper.cpp instead of WhisperX"
+    ),
 ):
     """Run WhisperX transcription."""
-    transcription.transcribe(video, hf_token, diarize, speaker_db, progress, pdf)
+    if use_whispercpp:
+        transcribe_cpp_cmd.transcribe_cpp.callback(
+            input_file=video, model="models/ggml-base.en.bin", output="transcript.txt"
+        )
+    else:
+        transcription.transcribe(video, hf_token, diarize, speaker_db, progress, pdf)
 
 
 @app.command()
