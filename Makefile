@@ -1,22 +1,18 @@
 .PHONY: install install-dev reinstall clean
 
-# Full install: base + transcribe + dev
+# Install all deps (including optional groups like 'transcribe' and 'dev')
 install:
-	. .venv/bin/activate && pip install -e ".[transcribe,dev]"
+	poetry install --with transcribe,dev
 
-# Dev-only install (no whisperx/torch)
+# Install only dev dependencies
 install-dev:
+	poetry install --only dev
 
-	python3 -m venv .venv
-	. .venv/bin/activate
-	python -m pip install -U pip setuptools wheel
-	pip install -e ".[dev]"
-
-# Reinstall into venv (clean + install)
+# Reinstall from scratch
 reinstall:
-	. .venv/bin/activate && pip uninstall -y videocut && pip install -e ".[transcribe,dev]"
+	poetry install --with transcribe,dev --no-root
 
-# Clean compiled files and artifacts
+# Clean Python build artifacts
 clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} +
 	rm -rf *.egg-info

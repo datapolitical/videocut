@@ -42,11 +42,14 @@ VideoCut supports multiple local transcription backends:
 
 - `whisperx` (default): Uses WhisperX via CLI subprocess.
 - `mlx`: Uses Apple's MLX-Whisper for fast on-device transcription (Apple Silicon only).
+- `whispercpp`: Runs the bundled static `whisper` binary.
 
 Example usage:
 
 ```bash
 videocut transcribe myvideo.mp4 --backend mlx
+# or use whisper.cpp
+videocut transcribe myvideo.mp4 --backend whispercpp
 ```
 
 Requirements:
@@ -54,6 +57,7 @@ Requirements:
 * macOS with Apple Silicon (M1/M2/M3)
 * `mlx` and `mlx-whisper` Python packages
 * `ffmpeg` must be installed and in your system path
+* for `whispercpp` download `ggml-small.en-q8.bin` into `tools/models`
 
 2. **Identify segments** – `videocut identify-segments May_Board_Meeting.json`
    - Creates a tab‑indented `segments.txt` containing `=START=` and `=END=`
@@ -200,5 +204,8 @@ By default, this reads `segments.txt` and generates a YouTube description with c
 | `--fade` | Transition length in seconds (default 0.5) |
 
 
-# Download a whispercpp model in tools/models
-https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.en-q8_0.bin
+Download the Whisper.cpp model once:
+```bash
+wget -O tools/models/ggml-small.en-q8.bin \
+  https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.en-q8_0.bin
+```

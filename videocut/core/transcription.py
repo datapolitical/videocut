@@ -7,10 +7,67 @@ import sys
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import requests
 
 from . import pdf_utils, segmentation
 
 load_dotenv()
+
+_BASE_DIR = Path(__file__).resolve().parents[2]
+_DEFAULT_WHISPER_BIN = _BASE_DIR / "tools/whisper/whisper"
+_DEFAULT_MODEL = _BASE_DIR / "tools/models/ggml-small.en-q8.bin"
+
+
+def _run(cmd: list[str]) -> None:
+    """Run subprocess command and exit on failure."""
+    try:
+        subprocess.run(cmd, check=True)
+    except subprocess.CalledProcessError as exc:  # pragma: no cover - passthrough
+        raise SystemExit(exc.returncode) from exc
+
+
+def _ensure_model(model: Path) -> None:
+    """Download Whisper model from Hugging Face if missing."""
+    if model.exists():
+        return
+    model.parent.mkdir(parents=True, exist_ok=True)
+    url = "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.en-q8_0.bin"
+    print(f"[videocut] Downloading model → {model} …")
+    with requests.get(url, stream=True) as r:  # pragma: no cover - network
+        r.raise_for_status()
+        with open(model, "wb") as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                if chunk:
+                    f.write(chunk)
+
+
+def _transcribe_whispercpp(video: str, whisper_bin: Path = _DEFAULT_WHISPER_BIN, model: Path = _DEFAULT_MODEL) -> None:
+    """Transcribe *video* using whisper.cpp."""
+    base_stem = Path(video).stem
+    wav_path = Path(f"{base_stem}.wav")
+    _run([
+        "ffmpeg",
+        "-y",
+        "-i",
+        video,
+        "-ac",
+        "1",
+        "-ar",
+        "16000",
+        str(wav_path),
+    ])
+    _ensure_model(model)
+    _run([
+        str(whisper_bin),
+        "-m",
+        str(model),
+        "-f",
+        str(wav_path),
+        "-osrt",
+        "-of",
+        base_stem,
+    ])
+    wav_path.unlink(missing_ok=True)
 
 
 def is_apple_silicon() -> bool:
@@ -59,6 +116,10 @@ def transcribe(
     names using embeddings after transcription. Set ``progress`` to ``False`` to
     suppress the WhisperX progress output.
     """
+    if backend == "whispercpp":
+        print("[INFO] Using whisper.cpp backend")
+        _transcribe_whispercpp(video)
+        return
     if backend == "mlx":
         print("[INFO] Using mlx-whisper backend")
         result = transcribe_with_mlx(video)
