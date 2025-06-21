@@ -29,5 +29,5 @@ clean:
 debug-env:
 	@echo "==> Checking if whisperx is installed and why"
 	poetry show whisperx || echo "whisperx is not installed"
-	poetry show --why whisperx || echo "No dependency path for whisperx"
+	poetry show --why --tree whisperx || echo "No dependency path for whisperx"
 
