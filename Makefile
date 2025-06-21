@@ -6,7 +6,7 @@ install:
 
 # Install only dev dependencies
 install-dev:
-	poetry install --only dev
+	poetry install --with dev
 
 # Reinstall from scratch
 reinstall:
