@@ -35,6 +35,26 @@ pip install -e .[light]
      `[start‑end] NAME: text`.
    - WhisperX generates `May_Board_Meeting.json`, `May_Board_Meeting.tsv`,
      `May_Board_Meeting.srt`, `May_Board_Meeting.vtt` and `May_Board_Meeting.txt`.
+
+### Transcription Backends
+
+VideoCut supports multiple local transcription backends:
+
+- `whisperx` (default): Uses WhisperX via CLI subprocess.
+- `mlx`: Uses Apple's MLX-Whisper for fast on-device transcription (Apple Silicon only).
+
+Example usage:
+
+```bash
+videocut transcribe myvideo.mp4 --backend mlx
+```
+
+Requirements:
+
+* macOS with Apple Silicon (M1/M2/M3)
+* `mlx` and `mlx-whisper` Python packages
+* `ffmpeg` must be installed and in your system path
+
 2. **Identify segments** – `videocut identify-segments May_Board_Meeting.json`
    - Creates a tab‑indented `segments.txt` containing `=START=` and `=END=`
      markers for each Nicholson segment.
