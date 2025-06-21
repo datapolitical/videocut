@@ -5277,5 +5277,5 @@ transcribe = ["torch", "torchaudio", "whisperx"]
 
 [metadata]
 lock-version = "2.1"
-python-versions = ">=3.11.0"
-content-hash = "915e9af9f2df91fd39a49933f0ef67fba72e61ef6fba1b7dad913107adc7f1e4"
+python-versions = ">=3.11"
+content-hash = "9abb724bf89b400cb9767be20c6653266310dc00471096507e1be311a01703c1"
