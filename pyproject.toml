@@ -7,7 +7,7 @@ name = "videocut"
 version = "0.4.0"
 description = "Video editing pipeline driven by WhisperX transcripts"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = "==3.11.9"
 authors = [{name = "VideoCut Maintainers"}]
 dependencies = [
   "click",
@@ -15,7 +15,7 @@ dependencies = [
   "ffmpeg-python",
   "python-dotenv>=1.0",
   "pdfminer.six",
-  "rapidfuzz",
+  "rapidfuzz>=2.15,<3.0",
   "numpy",
   "python-dateutil",
   "fastdtw",
@@ -28,7 +28,6 @@ transcribe = [
   "torch",
   "torchaudio",
   "whisperx",
-  "speechbrain"
 ]
 dev = [
   "pytest",

@@ -1,6 +1,7 @@
 input.*
 to_concat.txt
 venv
+.venv
 clips
 .DS_Store
 .env
