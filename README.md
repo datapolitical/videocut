@@ -198,3 +198,7 @@ By default, this reads `segments.txt` and generates a YouTube description with c
 | `--privacy` | `public`, `unlisted` (default), `private` |
 | `--segments` | Path to `segments.txt` |
 | `--fade` | Transition length in seconds (default 0.5) |
+
+
+# Download a whispercpp model in tools/models
+https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.en-q8_0.bin
