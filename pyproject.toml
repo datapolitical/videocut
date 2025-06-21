@@ -13,7 +13,7 @@ dependencies = [
   "rapidfuzz>=2.15,<3.0",
   "numpy",
   "python-dateutil",
-  "fastdtw",
+  "dtaidistance (>=2.3.13,<3.0.0)",
   "google-auth-oauthlib",
   "google-api-python-client"
 ]

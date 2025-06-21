@@ -19,7 +19,7 @@ import re, unicodedata
 from pathlib import Path
 from typing import List, Tuple
 import numpy as np
-from fastdtw import fastdtw
+from dtaidistance import dtw
 
 # ---------------------------------------------------------------------
 def _norm(tok: str) -> str:
@@ -75,20 +75,19 @@ def _hms_to_sec(hms: str) -> float:
 
 # ---------------------------------------------------------------------
 def _banded_dtw(src: List[str], ref: List[str], band: int = 100):
-    """Approximate DTW alignment using ``fastdtw``.
+    """Approximate DTW alignment using ``dtaidistance``.
 
-    ``fastdtw`` runs in O(N) time and memory.  We treat token equality as
-    distance 0 and mismatch as 1.  The ``band`` parameter becomes the
-    ``radius`` used by ``fastdtw``.
+    Tokens are mapped to integers and ``dtw.warping_path`` is used to obtain
+    the alignment. The ``band`` parameter is passed as the ``window``
+    constraint.
     """
 
-    # ``fastdtw`` expects numeric inputs, so map tokens to integers
+    # ``dtaidistance`` expects numeric inputs, so map tokens to integers
     vocab = {t: i for i, t in enumerate({*src, *ref})}
     src_idx = [vocab[t] for t in src]
     ref_idx = [vocab[t] for t in ref]
 
-    dist = lambda a, b: 0 if a == b else 1
-    _dist, path = fastdtw(src_idx, ref_idx, radius=band, dist=dist)
+    path = dtw.warping_path(src_idx, ref_idx, window=band)
     return path
 
 # ---------------------------------------------------------------------
