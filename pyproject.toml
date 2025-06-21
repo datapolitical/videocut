@@ -23,21 +23,18 @@ dependencies = [
   "google-api-python-client"
 ]
 
-[project.optional-dependencies]
-transcribe = [
-  "torch",
-  "torchaudio",
-  "whisperx",
-]
-dev = [
-  "pytest",
-  "black",
-  "ipython"
-]
-
-
 [project.scripts]
 videocut = "videocut.cli:main"
 
 [tool.setuptools.packages.find]
 exclude = ["videos*"]
+
+[tool.poetry.group.transcribe.dependencies]
+torch = "*"
+torchaudio = "*"
+whisperx = "*"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+black = "*"
+ipython = "*"
