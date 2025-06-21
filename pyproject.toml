@@ -1,40 +1,40 @@
-[build-system]
-requires = ["setuptools>=61"]
-build-backend = "setuptools.build_meta"
-
-[project]
+[tool.poetry]
 name = "videocut"
 version = "0.4.0"
 description = "Video editing pipeline driven by WhisperX transcripts"
 readme = "README.md"
-requires-python = ">=3.11.0"
-authors = [{name = "VideoCut Maintainers"}]
-dependencies = [
-  "click",
-  "typer>=0.12",
-  "ffmpeg-python",
-  "python-dotenv>=1.0",
-  "pdfminer.six",
-  "rapidfuzz>=2.15,<3.0",
-  "numpy",
-  "python-dateutil",
-  "fastdtw",
-  "google-auth-oauthlib",
-  "google-api-python-client"
-]
+authors = ["VideoCut Maintainers"]
+python = "^3.11"
 
-[project.scripts]
-videocut = "videocut.cli:main"
+[tool.poetry.dependencies]
+click = "*"
+typer = ">=0.12"
+ffmpeg-python = "*"
+python-dotenv = ">=1.0"
+pdfminer.six = "*"
+rapidfuzz = ">=2.15,<3.0"
+numpy = "*"
+python-dateutil = "*"
+fastdtw = "*"
+google-auth-oauthlib = "*"
+google-api-python-client = "*"
 
-[tool.setuptools.packages.find]
-exclude = ["videos*"]
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+black = "*"
+ipython = "*"
 
 [tool.poetry.group.transcribe.dependencies]
 torch = "*"
 torchaudio = "*"
 whisperx = "*"
 
-[tool.poetry.group.dev.dependencies]
-pytest = "*"
-black = "*"
-ipython = "*"
+[tool.poetry.scripts]
+videocut = "videocut.cli:main"
+
+[tool.setuptools.packages.find]
+exclude = ["videos*"]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
