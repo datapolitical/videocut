@@ -23,6 +23,33 @@ def compute_type() -> str:
     return "float32" if is_apple_silicon() else "float16"
 
 
+def transcribe_with_mlx(video_path: str) -> str:
+    import mlx_whisper
+    import tempfile
+    import subprocess
+    import os
+
+    wav_path = tempfile.mktemp(suffix=".wav")
+    subprocess.run([
+        "ffmpeg",
+        "-y",
+        "-i",
+        video_path,
+        "-ar",
+        "16000",
+        "-ac",
+        "1",
+        "-c:a",
+        "pcm_s16le",
+        wav_path,
+    ], check=True)
+
+    model = mlx_whisper.load_model("tiny")
+    result = mlx_whisper.transcribe(model, wav_path)
+    os.unlink(wav_path)
+    return result["text"]
+
+
 def transcribe(
     video: str,
     hf_token: str | None = None,
@@ -30,6 +57,7 @@ def transcribe(
     speaker_db: str | None = None,
     progress: bool = True,
     pdf_path: str | None = None,
+    backend: str = "whisperx",
 ) -> None:
     """Run WhisperX on *video* and produce ``markup_guide.txt``.
 
@@ -37,6 +65,12 @@ def transcribe(
     names using embeddings after transcription. Set ``progress`` to ``False`` to
     suppress the WhisperX progress output.
     """
+    if backend == "mlx":
+        print("[INFO] Using mlx-whisper backend")
+        result = transcribe_with_mlx(video)
+        with open("markup_guide.txt", "w") as f:
+            f.write(result)
+        return
     try:  # pragma: no cover - optional heavy deps may be missing
         import torch  # noqa: F401
         import whisperx  # noqa: F401
