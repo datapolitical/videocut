@@ -11,3 +11,5 @@ two segments within 30 seconds of one another are acutally part of the same segm
 
 As of commit f212b7: 
 - the transcribe code is frozen, don't change that. 
+
+Do not push updates to the .json files unless explicitly instructed to.
