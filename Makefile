@@ -8,7 +8,7 @@ install:
 install-dev:
 
 	python3 -m venv .venv
-	source .venv/bin/activate
+	. .venv/bin/activate
 	python -m pip install -U pip setuptools wheel
 	pip install -e ".[dev]"
 
