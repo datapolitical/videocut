@@ -6,7 +6,7 @@ install:
 
 # Dev-only install (no whisperx/torch)
 install-dev:
-	. .venv/bin/activate && pip install -e ".[dev]"
+	pip install -e ".[dev]"
 
 # Reinstall into venv (clean + install)
 reinstall:
