@@ -29,25 +29,19 @@ def transcribe_with_mlx(video_path: str) -> str:
     import subprocess
     import os
 
+    # Convert audio to 16kHz mono WAV for mlx-whisper
     wav_path = tempfile.mktemp(suffix=".wav")
     subprocess.run([
-        "ffmpeg",
-        "-y",
-        "-i",
-        video_path,
-        "-ar",
-        "16000",
-        "-ac",
-        "1",
-        "-c:a",
-        "pcm_s16le",
-        wav_path,
+        "ffmpeg", "-y", "-i", video_path,
+        "-ar", "16000", "-ac", "1", "-c:a", "pcm_s16le", wav_path
     ], check=True)
 
-    model = mlx_whisper.load_model("tiny")
-    result = mlx_whisper.transcribe(model, wav_path)
+    model = mlx_whisper.Whisper("tiny")  # valid options: tiny, base, small, medium, large
+    result = model.transcribe(wav_path)
+
     os.unlink(wav_path)
     return result["text"]
+
 
 
 def transcribe(

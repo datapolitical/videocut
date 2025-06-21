@@ -1,12 +1,16 @@
-.PHONY: install install-dev clean
+.PHONY: install install-dev reinstall clean
 
 # Full install: base + transcribe + dev
 install:
-	pip install -e ".[transcribe,dev]"
+	. .venv/bin/activate && pip install -e ".[transcribe,dev]"
 
 # Dev-only install (no whisperx/torch)
 install-dev:
-	pip install -e ".[dev]"
+	. .venv/bin/activate && pip install -e ".[dev]"
+
+# Reinstall into venv (clean + install)
+reinstall:
+	. .venv/bin/activate && pip uninstall -y videocut && pip install -e ".[transcribe,dev]"
 
 # Clean compiled files and artifacts
 clean:

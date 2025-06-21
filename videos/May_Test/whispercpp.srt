@@ -1,0 +1,4192 @@
+1
+00:00:00,000 --> 00:00:06,120
+ We're convened as of 3.31 p.m. I'd respectfully ask everyone to remain
+
+2
+00:00:06,120 --> 00:00:10,440
+ muted unless you're recognized to speak. I will now call the roll.
+
+3
+00:00:10,440 --> 00:00:18,760
+ Treasure banker? Present. Director Buzic? I believe he's gonna be a couple minutes
+
+4
+00:00:18,760 --> 00:00:26,000
+ late. Director Catlin? Here. Director Chandler?
+
+5
+00:00:27,240 --> 00:00:33,640
+ Not here. Director Geisinger? Director Guchenutter? Here. Director Guzman?
+
+6
+00:00:33,640 --> 00:00:42,280
+ Present. Director Harwick? Here. Director Larson? Here. Secretary Nicholson? Choo-choo.
+
+7
+00:00:42,280 --> 00:00:49,720
+ First Vice Chair O'Keefe? Ecstatic to be here. Director Pagulari? Present.
+
+8
+00:00:49,720 --> 00:00:59,440
+ Director Ruche? No. Director Ruche? Second Vice Chair Whitmore? Present.
+
+9
+00:00:59,440 --> 00:01:12,680
+ Alright. So we have 12 present and 3 absent. We do have a quorum. Please note
+
+10
+00:01:12,680 --> 00:01:16,320
+ that the special board meeting does have a section for public comment this
+
+11
+00:01:16,320 --> 00:01:20,760
+ afternoon. However, the public can still offer comments, excuse me, does not have a
+
+12
+00:01:20,760 --> 00:01:24,000
+ section for public comment this afternoon. However, the public can still offer
+
+13
+00:01:24,000 --> 00:01:29,080
+ comments via email or by participating in person or remotely during the regular
+
+14
+00:01:29,080 --> 00:01:34,120
+ scheduled meeting, which will be happening later this evening, either at
+
+15
+00:01:34,120 --> 00:01:39,280
+ 5.30 or potentially a little bit later, depending how long our special board
+
+16
+00:01:39,280 --> 00:01:44,960
+ meeting happens this afternoon. Alright. So we have our external entities report
+
+17
+00:01:44,960 --> 00:01:48,320
+ and this external entities report will be coming from the joint rail service
+
+18
+00:01:48,320 --> 00:01:54,320
+ update. For today's special board meeting, we have just the one and today's
+
+19
+00:01:54,320 --> 00:01:58,240
+ special guest is going to be Diane Barrett, Special Advisor to the Governor
+
+20
+00:01:58,240 --> 00:02:02,760
+ for Joint Rail Service. Before I ask Ms. Barrett to begin, I would want to offer
+
+21
+00:02:02,760 --> 00:02:07,960
+ the floor to GM CEO Johnson for some opening remarks. Ms. Johnson, the floor is
+
+22
+00:02:07,960 --> 00:02:13,280
+ yours. Thank you very much, Mr. Chair. Good afternoon to all board members
+
+23
+00:02:13,280 --> 00:02:17,920
+ assembled and those members of the public. Before we get started, just for a point
+
+24
+00:02:17,920 --> 00:02:21,080
+ of clarification, I do know that Lisa Kaufman is present as well, Senior
+
+25
+00:02:21,080 --> 00:02:24,560
+ Advisor to the Governor, who will be part of the presentation this afternoon. I
+
+26
+00:02:24,560 --> 00:02:28,280
+ also like to acknowledge Ms. Elmer Hutchinson, our Deputy General Counsel,
+
+27
+00:02:28,280 --> 00:02:31,820
+ who is sitting in today as General Counsel. And then more specifically, we
+
+28
+00:02:31,820 --> 00:02:36,500
+ have in the audience our Chief Financial Officer, Kelly Mackey, who all formally
+
+29
+00:02:36,500 --> 00:02:39,520
+ introduced during the course of the public board meeting. But for the matter
+
+30
+00:02:39,520 --> 00:02:44,720
+ at hand today, as relates to the progress relative to joint service and working
+
+31
+00:02:44,720 --> 00:02:49,960
+ with five other entities aside from, of course, ourselves with RTD and coming
+
+32
+00:02:49,960 --> 00:02:56,440
+ forward with options relative to bringing passenger rail service to the front range
+
+33
+00:02:56,440 --> 00:03:00,440
+ more specifically along the Northwest Corridor, we have been involved in
+
+34
+00:03:00,440 --> 00:03:06,680
+ meetings and working diligently and our colleagues from the state are here to
+
+35
+00:03:06,680 --> 00:03:10,420
+ provide an overview. With that as a backdrop, there'll be an opportunity
+
+36
+00:03:10,420 --> 00:03:14,880
+ whereby this body will go into executive session and we can have a more in-depth
+
+37
+00:03:14,880 --> 00:03:20,740
+ discussion pertinent to next steps. So with that, Mr. Chair, I would ask Ms.
+
+38
+00:03:20,740 --> 00:03:28,400
+ Barrett and Ms. Kaufman to join us at the U-shaped table for their
+
+39
+00:03:28,400 --> 00:03:32,120
+ presentation this afternoon. Thank you.
+
+40
+00:03:36,680 --> 00:03:58,180
+ Ms. Barrett and Ms. Kaufman, thank you for joining us. The floor is
+
+41
+00:03:58,180 --> 00:04:04,720
+ yours. Thank you very much. Thank you, General Manager Johnson, for that
+
+42
+00:04:04,720 --> 00:04:13,660
+ introduction. This is my fourth appearance, I believe, with you folks. So I hope
+
+43
+00:04:13,660 --> 00:04:20,320
+ that you're not getting bored with us. Lisa's gonna start us off and we'll go
+
+44
+00:04:20,320 --> 00:04:27,280
+ through an overview of where we are and what we've been doing and then we'll
+
+45
+00:04:27,280 --> 00:04:33,160
+ have a quick overview of the IGA, which you've all been looking at and thinking
+
+46
+00:04:33,160 --> 00:04:44,640
+ about for a while and then that'll be it and questions. Great, thanks Diane. So I'll
+
+47
+00:04:44,640 --> 00:04:52,040
+ get an overview on where we've been to date and what the overall timeline for
+
+48
+00:04:52,040 --> 00:05:01,760
+ the project is. So some background is SB 184 was signed into law May of 2024
+
+49
+00:05:01,760 --> 00:05:08,080
+ and in this new law it created a new congestion fee of three dollars a day on
+
+50
+00:05:08,080 --> 00:05:13,360
+ daily rental cars, which is estimated to bring in a new 57 million dollars in FY
+
+51
+00:05:13,360 --> 00:05:20,080
+ 26 before growing to over a hundred and ten million dollars by 2050 and in that
+
+52
+00:05:20,080 --> 00:05:27,760
+ law it directed RTD front-range passenger rail and CDOT to collaborate
+
+53
+00:05:27,760 --> 00:05:32,560
+ to deliver on starter service for inner-city passenger rail from Denver to
+
+54
+00:05:32,560 --> 00:05:39,480
+ Fort Collins by January 2029. It allowed the entities to contemplate three
+
+55
+00:05:39,480 --> 00:05:44,560
+ different ways to govern this collaborative to deliver passenger rail
+
+56
+00:05:44,560 --> 00:05:51,160
+ through either an IGA or a new Colorado Rail Authority or an altogether new
+
+57
+00:05:51,160 --> 00:05:57,040
+ legal authority and what the principals kind of rallied around early on was the
+
+58
+00:05:57,040 --> 00:06:01,600
+ concept of an IGA given that all the existing entities had the legal
+
+59
+00:06:01,600 --> 00:06:06,200
+ authority they needed to govern the service and enter into the service
+
+60
+00:06:06,200 --> 00:06:12,560
+ through an IGA. I would say that some previous board members from RTD during
+
+61
+00:06:12,560 --> 00:06:19,120
+ the process of this legislation were advocates for the new Colorado Rail
+
+62
+00:06:19,120 --> 00:06:24,200
+ Authority as a potential solution and that idea still has some merit but the
+
+63
+00:06:24,200 --> 00:06:29,440
+ legislation did not create an appropriation to do a proper study on
+
+64
+00:06:29,440 --> 00:06:35,800
+ that concept so early on that concept was really only given a cursory look as
+
+65
+00:06:35,800 --> 00:06:40,440
+ it's a complicated endeavor that would have needed in appropriation to do a
+
+66
+00:06:40,440 --> 00:06:45,960
+ full analysis on that concept so it's just worth noting it's not that the
+
+67
+00:06:45,960 --> 00:06:50,080
+ principals decided that concept was without merit it just was something that
+
+68
+00:06:50,080 --> 00:06:54,800
+ would have needed far more resources to really explore that as a viable
+
+69
+00:06:54,800 --> 00:07:03,240
+ governance option. Also in last year's legislative session SP 230 passed which
+
+70
+00:07:03,240 --> 00:07:10,040
+ is a new production fee on oil and gas extraction. This law is forecasted in its
+
+71
+00:07:10,040 --> 00:07:14,840
+ first full year to bring in around a hundred and ten million dollars. The
+
+72
+00:07:14,840 --> 00:07:21,920
+ lion's share beneficiary will likely be RTD as 70% of it is to go out to local
+
+73
+00:07:21,920 --> 00:07:29,520
+ transit agencies for increasing service and ridership that is to go out
+
+74
+00:07:29,520 --> 00:07:36,200
+ formulaically 70% of it and then there is a 20% set aside for passenger rail
+
+75
+00:07:36,200 --> 00:07:41,200
+ that calls out prioritization for completion of the Northwest rail and the
+
+76
+00:07:41,200 --> 00:07:51,440
+ end line. This is a project overview for the work around joint service so as I
+
+77
+00:07:51,440 --> 00:07:59,560
+ just went through May 2024 SP 184 and SP 230 was signed into law. In August of
+
+78
+00:07:59,560 --> 00:08:08,760
+ 2024 the principals of joint service met so general managers from RTD, FRPRD,
+
+79
+00:08:08,760 --> 00:08:15,240
+ Director Liu and the governor and decided to bring on the ever talented
+
+80
+00:08:15,240 --> 00:08:20,960
+ Diane Barrett to help lead that this project and lead the interagency
+
+81
+00:08:20,960 --> 00:08:28,160
+ coordination. You know part of the reason why the principals decided to bring on
+
+82
+00:08:28,160 --> 00:08:33,480
+ Diane is that one of the most successful collaboratives that the state of Colorado
+
+83
+00:08:33,480 --> 00:08:38,320
+ has seen was the renovation and revitalization of Union Station which
+
+84
+00:08:38,320 --> 00:08:43,200
+ required a lot of coordination among many different public entities to come
+
+85
+00:08:43,200 --> 00:08:48,240
+ together to come up with the creative financing mechanism to get that done and
+
+86
+00:08:48,240 --> 00:08:52,760
+ Diane led that project for then Mayor Hickenlooper as the first chief project
+
+87
+00:08:52,760 --> 00:08:56,920
+ officer and so we're very blessed for her to come out of retirement to come
+
+88
+00:08:56,920 --> 00:09:02,000
+ lead this and do it again because it is a Herculean effort to coordinate this
+
+89
+00:09:02,000 --> 00:09:08,800
+ many public entities with their own policies bylaws and enabling legislation
+
+90
+00:09:08,800 --> 00:09:14,200
+ and so there really is truly no one better to do this work than Diane which
+
+91
+00:09:14,200 --> 00:09:19,840
+ then led to the March 1st report that had an initial cost estimate in review
+
+92
+00:09:19,840 --> 00:09:25,520
+ of available revenue streams and review of governance models and so we'll review
+
+93
+00:09:25,520 --> 00:09:30,880
+ a little bit of what the March 1st report said but in you know succinctly
+
+94
+00:09:30,880 --> 00:09:35,440
+ it said that there is enough existing resources and that an IGA is the
+
+95
+00:09:35,440 --> 00:09:40,780
+ preferred governance model to deliver joint service. We have since spent the
+
+96
+00:09:40,780 --> 00:09:47,440
+ time since March 1st refining the study and looking at updating the cost
+
+97
+00:09:47,440 --> 00:09:51,760
+ estimates based off of the feedback from the March 1st report based off of
+
+98
+00:09:51,760 --> 00:09:57,960
+ additional feedback from BNSF and drafting the IGA and doing workshops
+
+99
+00:09:57,960 --> 00:10:02,880
+ like we are here today with the governing boards. So the drafting of the
+
+100
+00:10:02,880 --> 00:10:08,760
+ IGA has been led by Diane but also the general counsels from RTD, FRPRD and
+
+101
+00:10:08,760 --> 00:10:15,680
+ the attorney general's office and we have now done workshops including today
+
+102
+00:10:15,680 --> 00:10:21,440
+ with all the governing boards we expect that feedback from all of the workshops
+
+103
+00:10:21,440 --> 00:10:26,600
+ and the ongoing drafting will continue until about mid-June in which we hope to
+
+104
+00:10:26,600 --> 00:10:32,540
+ be able to circulate a final draft in mid-June for board adoptions this summer
+
+105
+00:10:32,540 --> 00:10:35,660
+ in June and July.
+
+106
+00:10:35,660 --> 00:10:43,760
+ So this is a project timeline moving forward and kind of gets at the heart of
+
+107
+00:10:43,760 --> 00:10:49,240
+ what is the IGA about but final steps as I said is to circulate a final draft of
+
+108
+00:10:49,240 --> 00:10:56,400
+ the IGA in June and then start operating under the governance of the IGA to
+
+109
+00:10:56,400 --> 00:11:03,040
+ speak with one voice in negotiations with BNSF with the hope of getting an
+
+110
+00:11:03,040 --> 00:11:09,240
+ access agreement with BNSF and be able to then have a finance model based off
+
+111
+00:11:09,240 --> 00:11:14,760
+ of the actual cost based off of the actual infrastructure list negotiated
+
+112
+00:11:14,760 --> 00:11:22,000
+ with BNSF and that at that point we would then be asking for boards to adopt
+
+113
+00:11:22,000 --> 00:11:27,820
+ financial plans based off of the actual negotiations with BNSF and that that
+
+114
+00:11:27,820 --> 00:11:32,880
+ would then kick off kind of the procurement for operator and executing of
+
+115
+00:11:32,880 --> 00:11:38,520
+ financing any NEPA's that are needed construction and safety testing with the
+
+116
+00:11:38,520 --> 00:11:45,920
+ commencement of service in January 2029. One thing I would say about this is I
+
+117
+00:11:45,920 --> 00:11:51,640
+ was just the state's chief negotiator for the Union Pacific Access Agreement for
+
+118
+00:11:51,640 --> 00:11:57,640
+ Mountain Rail which was a good learning experience to understand how those
+
+119
+00:11:57,640 --> 00:12:04,060
+ documents answer a lot of the questions that I'm sure you all have on how is the
+
+120
+00:12:04,060 --> 00:12:08,960
+ infrastructure cost associated with this determined what's the timeline who does
+
+121
+00:12:08,960 --> 00:12:16,720
+ the work how is it going to proceed and so that access agreement is foundational
+
+122
+00:12:16,720 --> 00:12:23,680
+ to any project for passenger rail and what we have heard loud and clear from
+
+123
+00:12:23,680 --> 00:12:31,160
+ BNSF is that the need for joint service is because right now absent having an IGA
+
+124
+00:12:31,160 --> 00:12:34,880
+ that says we're going to deliver passenger rail on the northern sub
+
+125
+00:12:34,880 --> 00:12:39,380
+ collaboratively there is multiple different public agencies that are
+
+126
+00:12:39,380 --> 00:12:44,680
+ planning passenger rail projects on the northern sub that they own from
+
+127
+00:12:44,680 --> 00:12:49,220
+ Denver Union Station to Fort Collins and that if those projects were to proceed
+
+128
+00:12:49,220 --> 00:12:54,400
+ in a silo that adds a level of complexity and conflict with freight
+
+129
+00:12:54,400 --> 00:13:00,840
+ operations that would have a cost estimate impact to all projects so to
+
+130
+00:13:00,840 --> 00:13:05,640
+ put that more succinctly if Front Range passenger rail were to price out their
+
+131
+00:13:05,640 --> 00:13:12,560
+ project right now BNSF would assume the infrastructure needs for Northwest Rail
+
+132
+00:13:12,560 --> 00:13:17,940
+ in addition to Front Range passenger rail which would balloon the cost for Front
+
+133
+00:13:17,940 --> 00:13:22,280
+ Range passenger rail as there are multiple passenger rail systems planned
+
+134
+00:13:22,280 --> 00:13:28,840
+ and so the interagency agreement is designed to really say that the public
+
+135
+00:13:28,840 --> 00:13:33,160
+ agencies are going to work together to get one access agreement and have one
+
+136
+00:13:33,160 --> 00:13:40,320
+ operator to create that efficiencies for both the taxpayer and fee payers that
+
+137
+00:13:40,320 --> 00:13:44,960
+ would be funding the service but also to reduce any conflict with freight
+
+138
+00:13:44,960 --> 00:13:49,420
+ operations both from a safety perspective but also from a freight
+
+139
+00:13:49,420 --> 00:13:54,840
+ business perspective and so the goal of the IGA is to say this is how we will
+
+140
+00:13:54,840 --> 00:14:02,820
+ work together here's the core principles of the collaborative and be able to go
+
+141
+00:14:02,820 --> 00:14:07,080
+ speak with one voice in those negotiations with BNSF so that we can
+
+142
+00:14:07,080 --> 00:14:13,200
+ get the most cost-efficient passenger rail system on the northern Front Range
+
+143
+00:14:13,200 --> 00:14:18,500
+ that I think I turn it over to Diane to go over key takeaways from the March
+
+144
+00:14:18,500 --> 00:14:21,120
+ 1st report
+
+145
+00:14:21,120 --> 00:14:26,720
+ thank you Lisa
+
+146
+00:14:26,720 --> 00:14:35,080
+ from the March 1st report we or by the time of the March 1st report we had
+
+147
+00:14:35,080 --> 00:14:41,600
+ learned that there are enough existing resources from the concession impact fee
+
+148
+00:14:41,600 --> 00:14:49,880
+ and the production fee in SB 184 and SB 230 and RTD's sales tax to cover the
+
+149
+00:14:49,880 --> 00:14:55,160
+ cost of three daily round trips remember that we were asked to look at three and
+
+150
+00:14:55,160 --> 00:15:06,400
+ five round trips any appropriation made by any of the parties ie the agencies is
+
+151
+00:15:06,400 --> 00:15:12,200
+ subject to policy and decision budget decisions of the governing boards
+
+152
+00:15:12,200 --> 00:15:20,920
+ something for you all specifically to keep in mind general manager Johnson will
+
+153
+00:15:20,920 --> 00:15:30,080
+ be coming to you for your prior approval before any action is is taken three
+
+154
+00:15:30,080 --> 00:15:34,840
+ daily round trips is estimated to cost 83 million dollars in the first year of
+
+155
+00:15:34,840 --> 00:15:44,160
+ operations 32 million of that is O&M plus 51 million in debt service we will
+
+156
+00:15:44,160 --> 00:15:49,360
+ be updating those numbers which are the same numbers you saw the last two times
+
+157
+00:15:49,360 --> 00:15:54,800
+ I was here I believe we'll be updating those in the next coming weeks and in
+
+158
+00:15:54,800 --> 00:16:03,720
+ our June presentation to you we will have very interesting new numbers to show
+
+159
+00:16:03,720 --> 00:16:13,440
+ you if the state contributes 42 million dollars annually from 230 and 184
+
+160
+00:16:13,440 --> 00:16:21,040
+ numbers there is a gap of 41 million dollars to be filled by RTD
+
+161
+00:16:21,040 --> 00:16:30,640
+ the peak rail study that you folks did at great costs recently and by the way we
+
+162
+00:16:30,640 --> 00:16:36,280
+ are using data from that report constantly it's been a tremendous boom
+
+163
+00:16:36,280 --> 00:16:42,160
+ to joint service to have that study in place so you should be proud of that
+
+164
+00:16:42,160 --> 00:16:50,440
+ anyway three trains from Denver to only to Longmont is said to be 52 to 56
+
+165
+00:16:50,440 --> 00:16:56,960
+ million dollars annually for you by yourselves so 41 million is
+
+166
+00:16:56,960 --> 00:17:01,440
+ significantly less than that and the service would be connecting twice than
+
+167
+00:17:01,440 --> 00:17:07,320
+ an amount of population that would be going to Fort Collins rather than just
+
+168
+00:17:07,320 --> 00:17:15,360
+ to Longmont nearly all of the infrastructure investments for the joint
+
+169
+00:17:15,360 --> 00:17:22,040
+ service that we're planning would benefit the eventual front-range passenger rail
+
+170
+00:17:22,040 --> 00:17:28,000
+ further study is needed to define the service negotiate an access agreement
+
+171
+00:17:28,000 --> 00:17:35,800
+ with BNSF develop an internet agency agreement and importantly a financial
+
+172
+00:17:35,800 --> 00:17:39,040
+ plan that will work
+
+173
+00:17:39,040 --> 00:17:46,200
+ why did we decide to do an intergovernmental agreement the
+
+174
+00:17:46,200 --> 00:17:54,400
+ remaining choice as you heard from Lisa earlier was really establishing a new
+
+175
+00:17:54,400 --> 00:18:00,440
+ entity a new public entity that's what we did in Denver Union Station and we did
+
+176
+00:18:00,440 --> 00:18:10,520
+ it there for various reasons it was kind of a first shot out of the box and we
+
+177
+00:18:10,520 --> 00:18:20,400
+ did it Ms. Catlin sat on our original board so we did we did feel that after
+
+178
+00:18:20,400 --> 00:18:28,040
+ the fact probably could have done it with an IGA it was a big complication
+
+179
+00:18:28,040 --> 00:18:34,640
+ but we decided in this instance that the agencies were familiar enough with each
+
+180
+00:18:34,640 --> 00:18:40,560
+ other that we could probably do this with an intergovernmental agreement less
+
+181
+00:18:40,560 --> 00:18:49,000
+ expense less time and we think that we will have a binding agreement that can
+
+182
+00:18:49,000 --> 00:18:59,400
+ be to everybody's benefit so we decided that we would have the
+
+183
+00:18:59,400 --> 00:19:10,400
+ collaboration that we need and be able to establish a governance process we
+
+184
+00:19:10,400 --> 00:19:15,560
+ didn't really need a lot more than that to get started so remember what we're
+
+185
+00:19:15,560 --> 00:19:22,500
+ doing is a starter service so the IGA creates a Joint Service Executive
+
+186
+00:19:22,500 --> 00:19:30,720
+ Oversight Committee JSEOC that acts on behalf of the group and remember that
+
+187
+00:19:30,720 --> 00:19:39,400
+ the group is the executives of each of the agencies so the group is General
+
+188
+00:19:39,400 --> 00:19:48,960
+ Manager Johnson it's hard not to say Debra sorry and our president
+
+189
+00:19:48,960 --> 00:20:05,680
+ actually the executives are the voting body that I'm sorry I'm thinking of our
+
+190
+00:20:05,680 --> 00:20:13,360
+ principles meetings in which you attend and so does the board chair of FRPRD but
+
+191
+00:20:13,360 --> 00:20:21,560
+ the voting members of the JSEOC are General Manager Johnson interim general
+
+192
+00:20:21,560 --> 00:20:30,280
+ manager Chrissy Bright at FRPRD the executive of CTIO the executive of CTE
+
+193
+00:20:30,280 --> 00:20:40,160
+ and Shoshana Liu or her delicate and the governor or his which is Lisa
+
+194
+00:20:40,160 --> 00:20:51,200
+ the JSEOC becomes the single entity that BNSF has been asking for all along he
+
+195
+00:20:51,200 --> 00:20:58,400
+ wants one neck to choke I guess way that you can think about that
+
+196
+00:20:58,400 --> 00:21:05,340
+ the IGA does not supersede or impact the authority of any body so all of the
+
+197
+00:21:05,340 --> 00:21:10,520
+ boards act just as they always have you will continue to have the control that
+
+198
+00:21:10,520 --> 00:21:19,840
+ you want and need in order to fulfill your obligations fiduciary and otherwise
+
+199
+00:21:19,840 --> 00:21:25,200
+ the boards will make all decisions regarding appropriations budgeting
+
+200
+00:21:25,200 --> 00:21:32,120
+ funding unless those decisions have been expressly dedicated by the individual
+
+201
+00:21:32,120 --> 00:21:38,600
+ governing body to someone for instance your general manager
+
+202
+00:21:38,600 --> 00:21:47,080
+ it is expected that the JSEOC will make the decisions that they make by a
+
+203
+00:21:47,080 --> 00:21:55,600
+ measure of 50 percent plus one which so you don't have to do the arithmetic is a
+
+204
+00:21:55,600 --> 00:22:05,440
+ vote of four to prevail upon an adoption of the financial plan and this is at the
+
+205
+00:22:05,440 --> 00:22:11,800
+ end of at the conclusion of a successful negotiation with BNSF when we have
+
+206
+00:22:11,800 --> 00:22:20,040
+ learned what the real costs are of this project and we have learned how big your
+
+207
+00:22:20,040 --> 00:22:26,460
+ financial contributions will be and that financial plan will be adopted and after
+
+208
+00:22:26,460 --> 00:22:41,360
+ that all voting will be majority just a majority vote unless and until one person
+
+209
+00:22:41,360 --> 00:22:48,480
+ or more than one choose to ask for a weighted vote this is not a sure thing
+
+210
+00:22:48,480 --> 00:22:55,360
+ but today we are still carrying a weighted vote opportunity after the
+
+211
+00:22:55,360 --> 00:23:02,440
+ adoption of the financial plan if one of the members asks for a weighted vote
+
+212
+00:23:02,440 --> 00:23:09,360
+ that will happen and it the waiting is as of the contributions of the parties
+
+213
+00:23:09,360 --> 00:23:17,920
+ and contributions of course will be carefully carefully defined and is still
+
+214
+00:23:17,920 --> 00:23:23,360
+ a very open definition in the documents
+
+215
+00:23:26,000 --> 00:23:29,020
+ so
+
+216
+00:23:29,020 --> 00:23:44,460
+ so sorry thank you Lisa the JSEOC will steer the negotiations with BNSF will be
+
+217
+00:23:44,460 --> 00:23:50,020
+ responsible for soliciting an operator for the passenger rail service and they
+
+218
+00:23:50,020 --> 00:23:53,800
+ will be laying the foundation for the future expansion of the Front Range
+
+219
+00:23:53,800 --> 00:23:59,720
+ passenger district the JSEOC will strive to implement the joint service project
+
+220
+00:23:59,720 --> 00:24:05,320
+ in such a way that it will not render infeasible the existing operations of
+
+221
+00:24:05,320 --> 00:24:10,720
+ RTD or the future plans for the Front Range passenger rail district that
+
+222
+00:24:10,720 --> 00:24:16,400
+ sounds very legal and a little bit hard to operate with so we're looking at that
+
+223
+00:24:16,400 --> 00:24:21,960
+ language and trying hard to come up with a language that will assure that the
+
+224
+00:24:21,960 --> 00:24:28,920
+ Front Range passenger rail is not impeded in the future by what we're doing
+
+225
+00:24:28,920 --> 00:24:34,840
+ with our project with the small starter small project that we're working on
+
+226
+00:24:34,840 --> 00:24:44,360
+ today the IGA also provides a process for transfer of interests assets and
+
+227
+00:24:44,360 --> 00:24:51,960
+ obligations of one of the parties to others or to outsiders as well this is a
+
+228
+00:24:51,960 --> 00:24:58,520
+ process that again is still under discussion and redrafting to try to make
+
+229
+00:24:58,520 --> 00:25:11,080
+ it a fair way to transfer if trans such transfer is wanted it actually is
+
+230
+00:25:11,080 --> 00:25:17,600
+ important in order to assure that in the in the event of a need to break up the
+
+231
+00:25:17,600 --> 00:25:27,360
+ partnership we have a orderly process in place that will help that happen there
+
+232
+00:25:27,360 --> 00:25:34,280
+ are many instances of large groups of participants who end up not being able
+
+233
+00:25:34,280 --> 00:25:39,800
+ to make work and it's best to have a process in place in the original
+
+234
+00:25:39,800 --> 00:25:42,920
+ agreement if possible
+
+235
+00:25:42,920 --> 00:25:51,640
+ so our timeline in May just barely we managed to get the workshops all done
+
+236
+00:25:51,640 --> 00:25:59,400
+ with parties in June we'll do another RTD board update and that one will in
+
+237
+00:25:59,400 --> 00:26:06,840
+ entail some specificity about dollars and cents that we don't have quite yet
+
+238
+00:26:06,840 --> 00:26:13,360
+ and certainly it will lead us on the pathway to negotiations with BNSF which
+
+239
+00:26:13,360 --> 00:26:17,840
+ obviously have to occur and conclude before we will know what the financial
+
+240
+00:26:17,840 --> 00:26:25,620
+ picture really is and adopt a financial plan for the project June and July the
+
+241
+00:26:25,620 --> 00:26:32,600
+ boards begin voting and approving the IGA so in June the CTIO the CTE and the
+
+242
+00:26:32,600 --> 00:26:39,480
+ Transportation Commission will all have their opportunity to approve to approve
+
+243
+00:26:39,480 --> 00:26:46,440
+ the IGA in June the FRPRD will have their opportunity to approve the IGA and
+
+244
+00:26:46,440 --> 00:26:52,000
+ then in July you folks will have your opportunity to do the same you get to
+
+245
+00:26:52,000 --> 00:27:01,240
+ be last through the winter all the boards will work to adopt the financial
+
+246
+00:27:01,240 --> 00:27:07,840
+ plan again it would be negotiations with the NSF are critical and key here and
+
+247
+00:27:07,840 --> 00:27:14,320
+ those have to be ongoing and we hope that during the winter all the boards
+
+248
+00:27:14,320 --> 00:27:19,720
+ will be able to adopt a financial plan that's based on the successful access
+
+249
+00:27:19,720 --> 00:27:24,760
+ agreement and construction agreements that we've achieved with the NSF the
+
+250
+00:27:24,760 --> 00:27:29,640
+ summer of next year the JSEOC will conduct procurement for rolling stock
+
+251
+00:27:29,640 --> 00:27:39,960
+ and for the operator and then in January of 2029 joint service train begins
+
+252
+00:27:39,960 --> 00:27:50,040
+ that's you know tomorrow in the rain in the train world so optimistic aggressive
+
+253
+00:27:50,040 --> 00:27:57,940
+ yes just real quick as a correction miss Barrett it says winner of 2026 on there
+
+254
+00:27:57,940 --> 00:28:06,200
+ I believe it is winner of 2025 all boards to adopt financial plan yes could
+
+255
+00:28:06,200 --> 00:28:13,000
+ expand the year 26 in January okay thank you
+
+256
+00:28:13,000 --> 00:28:20,800
+ but hopefully hopefully thank you chairman bouquet so in the June board
+
+257
+00:28:20,800 --> 00:28:29,200
+ update what will I do just another boring turnout but we'll have sent out
+
+258
+00:28:29,200 --> 00:28:37,880
+ the finalized IGA draft on all board workshops the new cost estimate by H&T B
+
+259
+00:28:37,880 --> 00:28:45,520
+ will be presented very interesting we have looked in all the couch covers and
+
+260
+00:28:45,520 --> 00:28:51,160
+ we have found many pennies so we are we're going to be showing to you some
+
+261
+00:28:51,160 --> 00:28:56,240
+ new numbers there will be a new financial scenario based on those new
+
+262
+00:28:56,240 --> 00:29:02,780
+ cost estimates and this time will include Fairbox collections because we
+
+263
+00:29:02,780 --> 00:29:07,360
+ will have ridership scenarios by that time for you which I'm sure will be very
+
+264
+00:29:07,360 --> 00:29:11,360
+ interested all of you the ridership model is completed and we'll be able to
+
+265
+00:29:11,360 --> 00:29:16,200
+ present it to you and then we'll have an operations report that will provide
+
+266
+00:29:16,200 --> 00:29:27,920
+ analyses financially and operationally to date so I believe that that's it for
+
+267
+00:29:27,920 --> 00:29:34,740
+ our report and we'd be pleased to take your question excellent well thank you
+
+268
+00:29:34,740 --> 00:29:39,240
+ both for coming in and joining us again we greatly appreciate and greatly
+
+269
+00:29:39,240 --> 00:29:44,280
+ appreciate your guys's time so now I'm gonna leave it up to the board if they
+
+270
+00:29:44,280 --> 00:29:51,240
+ have any questions for the two of you so there any directors who have questions
+
+271
+00:29:51,240 --> 00:30:00,480
+ treasure Banker well first of all thank you for coming again we you've been
+
+272
+00:30:00,480 --> 00:30:06,440
+ doing yeoman's work here and providing leadership on this project which is
+
+273
+00:30:06,440 --> 00:30:13,680
+ extremely valuable and appreciated I do have a couple of questions actually I've
+
+274
+00:30:13,680 --> 00:30:20,560
+ got many I'll keep it short though when you talk about a weighted vote for this
+
+275
+00:30:20,560 --> 00:30:26,920
+ joint operating agreement could you give me an example how would that work
+
+276
+00:30:33,200 --> 00:30:46,520
+ well Lisa chip in afterwards a weighted vote would give more weight to to a vote
+
+277
+00:30:46,520 --> 00:30:53,240
+ by a party that has contributed more than another party so the definition of
+
+278
+00:30:53,240 --> 00:31:03,400
+ contributions is being heavily debated among the council guided by their
+
+279
+00:31:03,400 --> 00:31:10,160
+ principles of course and and there are lots of different ideas about how to do
+
+280
+00:31:10,160 --> 00:31:18,840
+ that for instance we had in one draft the specifics of the peak rail study as
+
+281
+00:31:18,840 --> 00:31:26,720
+ having been an expenditure that RTD would get credited with because it was
+
+282
+00:31:26,720 --> 00:31:30,040
+ huge amount of money I think eight million dollars or something like that
+
+283
+00:31:30,040 --> 00:31:38,040
+ as you all know better than I do and the BNSF study so wanting to make sure
+
+284
+00:31:38,040 --> 00:31:46,280
+ that that was included in contributions and it was suggested I think from from
+
+285
+00:31:46,280 --> 00:31:52,240
+ your counsel and we were talking about it behind the scenes and we said well
+
+286
+00:31:52,240 --> 00:31:56,240
+ you know we don't want everybody putting in every example of every time they've
+
+287
+00:31:56,240 --> 00:32:02,180
+ spent money and so forth and so we'll just say by exam we won't say by example
+
+288
+00:32:02,180 --> 00:32:08,960
+ we'll just say here's the definition of what a contribution is it became clear
+
+289
+00:32:08,960 --> 00:32:16,400
+ to us that we specifically wanted to delineate the peak study because a it
+
+290
+00:32:16,400 --> 00:32:22,400
+ was unique among other studies and expenditures that people have have made
+
+291
+00:32:22,400 --> 00:32:30,440
+ but we still don't want to enumerate every single expenditure but we're going
+
+292
+00:32:30,440 --> 00:32:34,640
+ to put that one in specifically because it was large and it was important
+
+293
+00:32:34,640 --> 00:32:42,200
+ throughout our studies and will continue to be so contributions is a financial
+
+294
+00:32:42,200 --> 00:32:51,560
+ contribution that again will the the definition will be further refined as we
+
+295
+00:32:51,560 --> 00:32:57,240
+ talk more mr. chair if I if I could continue then how would you something to
+
+296
+00:32:57,240 --> 00:33:00,280
+ think about you don't have to answer it right now but they're very well maybe
+
+297
+00:33:00,280 --> 00:33:04,920
+ one-time contributions that are made as well as annual contributions that are
+
+298
+00:33:04,920 --> 00:33:10,240
+ made so however that is calculated hopefully that is taken into
+
+299
+00:33:10,240 --> 00:33:19,800
+ consideration well the amounts right total and in integrate integral would be
+
+300
+00:33:19,800 --> 00:33:29,120
+ heavily a part of the amount itself is a very important part of the analysis okay
+
+301
+00:33:29,120 --> 00:33:34,600
+ and then one more question then if you don't mind yeah treasure a total
+
+302
+00:33:34,600 --> 00:33:43,080
+ contribution director banker a total contribution would be even if you were
+
+303
+00:33:43,080 --> 00:33:48,360
+ paying it over time it was the total contribution would be what you would be
+
+304
+00:33:48,360 --> 00:33:54,000
+ so if there was a bond then you would calculate the 30-year payment of a bond
+
+305
+00:33:54,000 --> 00:34:01,280
+ as well as one-time deposit yes say at the beginning of the project yes okay
+
+306
+00:34:01,280 --> 00:34:05,280
+ interesting you had mentioned that you're talking between three and five
+
+307
+00:34:05,280 --> 00:34:13,040
+ trips a day how are you where are we in the potential of five trips
+
+308
+00:34:13,040 --> 00:34:20,320
+ I'm gonna ask Lisa to take that one yeah so I think there was an updated cost
+
+309
+00:34:20,320 --> 00:34:25,520
+ estimate that looked at the five round trips and I think that it's really kind
+
+310
+00:34:25,520 --> 00:34:31,480
+ of on the bubble if there is enough existing resources at this point to
+
+311
+00:34:31,480 --> 00:34:36,680
+ pursue five round trips and so we've really been focusing on the three daily
+
+312
+00:34:36,680 --> 00:34:42,080
+ round trips it's also been you know an active dialogue with BNSF and they
+
+313
+00:34:42,080 --> 00:34:49,280
+ certainly would prefer that any interagency agreement be prioritizing
+
+314
+00:34:49,280 --> 00:34:55,040
+ starting off at two to three round trips with the you know expectation that you
+
+315
+00:34:55,040 --> 00:34:59,640
+ would increase frequency as new resources became available and as the
+
+316
+00:34:59,640 --> 00:35:04,120
+ service was successful in operating on their line with the existing
+
+317
+00:35:04,120 --> 00:35:08,960
+ infrastructure dictated in the access agreement and so it's not envisioned
+
+318
+00:35:08,960 --> 00:35:12,800
+ that you would end without amount of frequency but that that's where you your
+
+319
+00:35:12,800 --> 00:35:20,400
+ starting point is and as you might know FRPRD is currently doing open open
+
+320
+00:35:20,400 --> 00:35:24,720
+ houses and workshops on their alternative analysis and part of the
+
+321
+00:35:24,720 --> 00:35:29,560
+ alternative analysis for front-range passenger rail is a benchmark study of
+
+322
+00:35:29,560 --> 00:35:33,600
+ all inner-city passenger rail services in the country and what they looked at
+
+323
+00:35:33,600 --> 00:35:38,200
+ was where do they start and where do they kind of top out and what you find
+
+324
+00:35:38,200 --> 00:35:43,400
+ is a lot start with two to three round trips and then the kind of high level is
+
+325
+00:35:43,400 --> 00:35:49,840
+ you know between 12 and 16 round trips for inner city passenger rail and so
+
+326
+00:35:49,840 --> 00:35:54,400
+ that is kind of the range in which we would expect to try to reach eventually
+
+327
+00:35:54,400 --> 00:36:00,280
+ with our ridership demand being built up and with added capacity on the line to
+
+328
+00:36:00,280 --> 00:36:05,680
+ accommodate new frequency is certainly all the state's hope that front-range
+
+329
+00:36:05,680 --> 00:36:10,120
+ passenger rail eventually goes to the ballot and is successful so that we can
+
+330
+00:36:10,120 --> 00:36:16,080
+ increase frequency with new resources that they bring to the table. Thank you
+
+331
+00:36:16,080 --> 00:36:21,960
+ treasurer. Prior to recognizing first vice chair O'Keeffe I do want to make I do
+
+332
+00:36:21,960 --> 00:36:25,960
+ want to make note that at around 340 director Buza and director Usha did
+
+333
+00:36:25,960 --> 00:36:29,880
+ join us online thank you first vice chair O'Keeffe. Thank you
+
+334
+00:36:29,880 --> 00:36:34,160
+ mr. chair and I will note that director Buza put his hand up as soon as he got
+
+335
+00:36:34,160 --> 00:36:49,720
+ on the call he didn't even know what we were debating at this time so you know
+
+336
+00:36:49,720 --> 00:36:53,920
+ what they call going to the same body four times and not getting what they call
+
+337
+00:36:53,920 --> 00:36:56,880
+ the body that you go to four times and they don't get this don't get a yes
+
+338
+00:36:56,880 --> 00:37:05,120
+ parole board so you're coming to the parole board so the a couple things that
+
+339
+00:37:05,120 --> 00:37:11,720
+ actually the previous question we think of it is there a minimum contribution is
+
+340
+00:37:11,720 --> 00:37:17,680
+ it's of an entity doesn't give any money or do they get no vote when you go to a
+
+341
+00:37:17,680 --> 00:37:32,240
+ waiting boat okay yeah I'm not generally quiet so so could you repeat that real
+
+342
+00:37:32,240 --> 00:37:39,460
+ quick explain explain how that for the recording that would work I'm sorry how
+
+343
+00:37:39,460 --> 00:37:43,160
+ would that work so if you if you're pro rate if you're pro rating out based on
+
+344
+00:37:43,160 --> 00:37:49,160
+ contribution but there are entities that don't give anything do you give them they
+
+345
+00:37:49,160 --> 00:37:56,280
+ get a minimum like 10% vote or what's the idea on the waiting and it it will
+
+346
+00:37:56,280 --> 00:38:02,520
+ matter more in construction right so I mean I'm particularly interested in if
+
+347
+00:38:02,520 --> 00:38:08,200
+ we're gonna wait waiting it correctly well and and that's why we're struggling
+
+348
+00:38:08,200 --> 00:38:14,620
+ with the language of both the definition of definite of contributions and with
+
+349
+00:38:14,620 --> 00:38:22,000
+ how the actual weighted works so there is no there is no thought of taking away a
+
+350
+00:38:22,000 --> 00:38:32,840
+ vote so each of the six has a vote and for most most actions that will be taken
+
+351
+00:38:32,840 --> 00:38:40,980
+ everybody's vote will be the same after the the adoption of the finance plan and
+
+352
+00:38:40,980 --> 00:38:46,640
+ when we're actually you know creating a project that has a cost and a budget and
+
+353
+00:38:46,640 --> 00:38:53,760
+ is sticking with all of that then then most votes will be one vote one person
+
+354
+00:38:53,760 --> 00:39:03,560
+ but if we have to go to a weighted vote the amount of
+
+355
+00:39:03,560 --> 00:39:11,960
+ votes will increase by the contribution level okay can I maybe jump in with an
+
+356
+00:39:11,960 --> 00:39:16,080
+ example of this so I think that the current way the IGA has contemplated is
+
+357
+00:39:16,080 --> 00:39:22,640
+ the bodies would govern with 50% plus one and that would be you know the
+
+358
+00:39:22,640 --> 00:39:27,320
+ governing rules through negotiations with BNSF to get to an access agreement
+
+359
+00:39:27,320 --> 00:39:32,240
+ then a finance plan would come out of the access agreement based off of
+
+360
+00:39:32,240 --> 00:39:37,600
+ actually having an infrastructure project list and more solid numbers an
+
+361
+00:39:37,600 --> 00:39:42,920
+ instance in where you might want a weighted vote is you know say the
+
+362
+00:39:42,920 --> 00:39:48,020
+ services and operation for three years and we think that it's worth having a
+
+363
+00:39:48,020 --> 00:39:52,800
+ discussion on adding a siding because it might improve performance and you know
+
+364
+00:39:52,800 --> 00:39:58,700
+ being on time performance you would presume that the entities would then
+
+365
+00:39:58,700 --> 00:40:06,520
+ vote through 50% plus one but somebody could ask for a weighted vote on that
+
+366
+00:40:06,520 --> 00:40:11,600
+ decision based off of contributions it's designed to give an added layer of
+
+367
+00:40:11,600 --> 00:40:15,960
+ protection for the entities that are contributing large amounts but of course
+
+368
+00:40:15,960 --> 00:40:20,800
+ there's another layer of protection for the agencies that are contributing to
+
+369
+00:40:20,800 --> 00:40:24,300
+ the service because all of those appropriations still have to be
+
+370
+00:40:24,300 --> 00:40:30,480
+ appropriated by the originating board and nobody could be forced by the
+
+371
+00:40:30,480 --> 00:40:35,880
+ interagency agreement to appropriate any money for the service and so it's just
+
+372
+00:40:35,880 --> 00:40:40,720
+ an added layer of protection for the entities that have the most equity into
+
+373
+00:40:40,720 --> 00:40:45,640
+ the service okay but I think that the practice what we expect to see is that
+
+374
+00:40:45,640 --> 00:40:52,800
+ the majority rule would be how decisions are made I would hope so but if you need
+
+375
+00:40:52,800 --> 00:40:56,360
+ to go to a weighted vote things aren't going well so I think you may want to
+
+376
+00:40:56,360 --> 00:41:03,480
+ war game out how that would would work and so just a couple things can we get a
+
+377
+00:41:03,480 --> 00:41:11,600
+ copy of the idea I I've asked just about everybody I almost asked a guy out on the
+
+378
+00:41:11,600 --> 00:41:18,760
+ street I might have it so I looked at general manager Johnson but my
+
+379
+00:41:18,760 --> 00:41:23,680
+ understanding was that the general counsels for each agency was sharing
+
+380
+00:41:23,680 --> 00:41:30,240
+ with their governing boards to protect client privilege so I don't know where
+
+381
+00:41:30,240 --> 00:41:35,440
+ that may be got lost in translation but that's how we've done it at least in the
+
+382
+00:41:35,440 --> 00:41:40,240
+ executive branch where each Attorney General assigned to each agency has
+
+383
+00:41:40,240 --> 00:41:43,160
+ shared it with those boards that's perfect she did she just gave me the
+
+384
+00:41:43,160 --> 00:41:49,560
+ answer with her she didn't even have to leer at me the so the only other things
+
+385
+00:41:49,560 --> 00:41:56,000
+ and I just I think this is important to at least start talking about in the
+
+386
+00:41:56,000 --> 00:42:01,360
+ context the IGA I understand the IGA is not designed to set a budget request but
+
+387
+00:42:01,360 --> 00:42:08,120
+ I do think it should set parameters that that under no circumstances aboard would
+
+388
+00:42:08,120 --> 00:42:12,560
+ support that's so we have to decide voting ourselves what is something we
+
+389
+00:42:12,560 --> 00:42:16,680
+ would know would not accept and I'll give you two examples that I will
+
+390
+00:42:16,680 --> 00:42:26,200
+ specifically ask for first who's the backstop if it goes over if I know it'll
+
+391
+00:42:26,200 --> 00:42:32,160
+ shock people for me to think that a rail project might be over budget but just in
+
+392
+00:42:32,160 --> 00:42:38,200
+ case we found one that does who pays and at what at what percentage because and I
+
+393
+00:42:38,200 --> 00:42:42,480
+ think that's really important going into negotiations with BNSF because that's
+
+394
+00:42:42,480 --> 00:42:46,360
+ gonna be your biggest expenditure and they need to people should know their
+
+395
+00:42:46,360 --> 00:42:51,560
+ negotiating position before they go in with BNSF and I think that's that helps
+
+396
+00:42:51,560 --> 00:42:56,360
+ the negotiators it's it's also helpful that the board say look under no
+
+397
+00:42:56,360 --> 00:43:00,620
+ circumstances and with a backstop we will give you the amount of money in the
+
+398
+00:43:00,620 --> 00:43:04,560
+ agreement and no more or we will give you more and this is what our percentage
+
+399
+00:43:04,560 --> 00:43:08,340
+ looks like it's I think that's really really important the second thing is and
+
+400
+00:43:08,340 --> 00:43:14,780
+ this is this is a like a cut-and-dry issue for me under no circumstances can
+
+401
+00:43:14,780 --> 00:43:18,920
+ all the fights and money go to this project there are several unfinished
+
+402
+00:43:18,920 --> 00:43:25,920
+ projects in fast tracks and there are a lot of disappointed voters and I'm not
+
+403
+00:43:25,920 --> 00:43:31,480
+ saying it has to be counted out percentage-wise to the penny there
+
+404
+00:43:31,480 --> 00:43:35,300
+ certainly could be greater weighting to this project because it actually has a
+
+405
+00:43:35,300 --> 00:43:41,000
+ greater chance of going forward but under no circumstances would I vote for
+
+406
+00:43:41,000 --> 00:43:48,160
+ anything that is takes the vast honor into the FISA money because I probably
+
+407
+00:43:48,160 --> 00:43:54,120
+ wouldn't make it back across the Douglas County line alive so that's just I think
+
+408
+00:43:54,120 --> 00:43:58,280
+ those parameters that we can start to stake out for you before we vote would
+
+409
+00:43:58,280 --> 00:44:02,960
+ be really helpful so the negotiators aren't left in a tough position sorry
+
+410
+00:44:02,960 --> 00:44:09,740
+ mr. chair can I react to that so the goal would be that the access agreement
+
+411
+00:44:09,740 --> 00:44:13,960
+ would have an infrastructure list that corresponds with you know the daily
+
+412
+00:44:13,960 --> 00:44:20,200
+ round trips right so it might be that for instance if you want it five daily
+
+413
+00:44:20,200 --> 00:44:25,880
+ round trips that that would require seven new sightings and then what the
+
+414
+00:44:25,880 --> 00:44:31,400
+ finance plan would then say is here are the sightings that are needed in order
+
+415
+00:44:31,400 --> 00:44:36,680
+ to accommodate the five daily round trips here are the ones that are in the
+
+416
+00:44:36,680 --> 00:44:42,040
+ RTD region here are the ones that are out and then that finance plan would be
+
+417
+00:44:42,040 --> 00:44:48,080
+ what came back you know next winter to say here's kind of the pieces of who's
+
+418
+00:44:48,080 --> 00:44:54,440
+ gonna finance what and then to your point then if any one project goes over
+
+419
+00:44:54,440 --> 00:45:00,520
+ what does that look like and how do you handle any overages but it would be what
+
+420
+00:45:00,520 --> 00:45:05,440
+ our anticipation based off of the current cost estimates right is if we're
+
+421
+00:45:05,440 --> 00:45:09,840
+ negotiating for two or three daily round trips with them is that there is that
+
+422
+00:45:09,840 --> 00:45:14,120
+ infrastructure cost associated with it we have some ideas of what those are
+
+423
+00:45:14,120 --> 00:45:19,640
+ based off of the RTC modeling that was done ahead of the March 1st report and
+
+424
+00:45:19,640 --> 00:45:24,880
+ the RTC model is based off of the business data provided under an NDA from
+
+425
+00:45:24,880 --> 00:45:31,000
+ BNSF so it's a very informed cost estimate what is coming back to you in
+
+426
+00:45:31,000 --> 00:45:38,400
+ June is since then we've gotten we passed review at the FRA under the new
+
+427
+00:45:38,400 --> 00:45:42,920
+ administration for the Chrissy Grant so we know that those costs are going to be
+
+428
+00:45:42,920 --> 00:45:48,160
+ covered now through that Chrissy Grant so those kind of refinements is coming
+
+429
+00:45:48,160 --> 00:45:52,600
+ back but but really that finance plan has to be based off of the actual
+
+430
+00:45:52,600 --> 00:45:56,840
+ agreement with BNSF for the actual projects and then understanding how that
+
+431
+00:45:56,840 --> 00:46:02,720
+ each one of those gets financed is what we anticipate yeah I appreciate all that
+
+432
+00:46:02,720 --> 00:46:07,480
+ that really helps the the I guess the the challenge is there's a there's a
+
+433
+00:46:07,480 --> 00:46:13,240
+ finite amount that we would chip in and I don't know what that is yet yeah but
+
+434
+00:46:13,240 --> 00:46:18,920
+ that would be the only money coming from this body I don't think that there's I
+
+435
+00:46:18,920 --> 00:46:23,000
+ mean I get almost get an informal vote right now that we would enter an
+
+436
+00:46:23,000 --> 00:46:30,160
+ agreement where we did not know what our obligation was and and and did not know
+
+437
+00:46:30,160 --> 00:46:34,920
+ who was responsible when we exceeded that that original budget it might be us
+
+438
+00:46:34,920 --> 00:46:41,800
+ that's fine but we need to delineate who who's what and the the railroad
+
+439
+00:46:41,800 --> 00:46:46,960
+ negotiation will be murkier than we want this
+
+440
+00:46:46,960 --> 00:46:52,400
+ miss Barrett and I have done one railroad negotiation before and they
+
+441
+00:46:52,400 --> 00:46:58,520
+ everything is tied together in some sort of safety plan they rarely will say this
+
+442
+00:46:58,520 --> 00:47:04,120
+ siding is the responsibility of this customer it's all they're very good at
+
+443
+00:47:04,120 --> 00:47:13,040
+ creating a mismatch of of requirements and costs in fact they're experts at it
+
+444
+00:47:13,040 --> 00:47:17,840
+ yeah I would say that our hope is that it's enumerated in the agreement and in
+
+445
+00:47:17,840 --> 00:47:21,920
+ the mountain rail access agreement that we just completed on May 1st it is all
+
+446
+00:47:21,920 --> 00:47:28,480
+ enumerate it for the project by segment in which phase that you run does it
+
+447
+00:47:28,480 --> 00:47:32,440
+ trigger the need for that infrastructure so I think our hope is that we would be
+
+448
+00:47:32,440 --> 00:47:36,720
+ able to accomplish that same sort of format that we just did I would say on
+
+449
+00:47:36,720 --> 00:47:42,200
+ your other feedback on on finished fast tracks projects I mean I think that it's
+
+450
+00:47:42,200 --> 00:47:46,580
+ hopefully clear to all if not maybe worth stating that certainly we would
+
+451
+00:47:46,580 --> 00:47:51,480
+ like to partner to finish all of them and to bring state resources to partner
+
+452
+00:47:51,480 --> 00:47:58,680
+ to finish all of them it is called out in Senate bill SB 230 that the rail set
+
+453
+00:47:58,680 --> 00:48:05,280
+ aside is for both Northwest rail and the end line and I think that the hope is
+
+454
+00:48:05,280 --> 00:48:10,840
+ that we can get some clarity on where the communities are on the Southwest
+
+455
+00:48:10,840 --> 00:48:15,560
+ extension and the Five Points Project to understand how the state could also
+
+456
+00:48:15,560 --> 00:48:21,040
+ partner on those so it's probably worth me stating that on the mic is that the
+
+457
+00:48:21,040 --> 00:48:25,560
+ state wants to partner to finish all on finished fast-tracks projects as we see
+
+458
+00:48:25,560 --> 00:48:31,120
+ this out there as a threat to voter confidence for us to get to where we
+
+459
+00:48:31,120 --> 00:48:36,640
+ want to go on our climate goals thank you first vice chair Keith director
+
+460
+00:48:36,640 --> 00:48:43,400
+ of music thank you very much and again thank you to miss pop in and despair it
+
+461
+00:48:43,400 --> 00:48:48,760
+ for once again coming in and giving us an update but one question and two
+
+462
+00:48:48,760 --> 00:48:54,080
+ comments and my first the question has to do with SB 230 and that set aside the
+
+463
+00:48:54,080 --> 00:48:58,920
+ 20 percent set aside for Northwest rail and the end line and I just don't
+
+464
+00:48:58,920 --> 00:49:05,920
+ remember does the legislation determine the proportion that those lines share
+
+465
+00:49:05,920 --> 00:49:11,480
+ that 20 percent or not anybody can answer that that might know it does not
+
+466
+00:49:11,480 --> 00:49:17,560
+ it just calls out prioritizing that 20 percent set aside for those two projects
+
+467
+00:49:17,560 --> 00:49:24,560
+ and so in the first report what we did was for just the exercise of trying to
+
+468
+00:49:24,560 --> 00:49:29,480
+ identify is there enough unallocated resources to cover the cost was to just
+
+469
+00:49:29,480 --> 00:49:34,440
+ assume a 50/50 split but that is a decision that the clean transit
+
+470
+00:49:34,440 --> 00:49:39,520
+ enterprise board needs to make okay so that's the the entity that would make
+
+471
+00:49:39,520 --> 00:49:46,440
+ that decision okay yeah I just would not want to see the end line swept away to
+
+472
+00:49:46,440 --> 00:49:52,000
+ to put all the money into this project so the other comments and it's been
+
+473
+00:49:52,000 --> 00:49:55,560
+ touched on and I have more things but I'll bring this up in executive session
+
+474
+00:49:55,560 --> 00:50:02,440
+ I think it's more appropriate for that but the access agreement BNS BNSF it
+
+475
+00:50:02,440 --> 00:50:08,640
+ are you gonna negotiate the cost of increased frequency because I can see
+
+476
+00:50:08,640 --> 00:50:12,520
+ them saying listen when you guys are ready to go to nine or ten or twelve
+
+477
+00:50:12,520 --> 00:50:16,680
+ trips a day come on back in and we'll talk and then then they've got you so
+
+478
+00:50:16,680 --> 00:50:21,960
+ hopefully we can get some incremental increase amounts or prices or cost
+
+479
+00:50:21,960 --> 00:50:25,840
+ worked into that access agreement because I can see that coming back to
+
+480
+00:50:25,840 --> 00:50:31,840
+ bite us if we don't and last but not least I mentioned all along you know we
+
+481
+00:50:31,840 --> 00:50:42,400
+ did that the peak service rail study and the per rider subsidy number scary so
+
+482
+00:50:42,400 --> 00:50:47,880
+ hopefully now I've heard allusion to basically doubling population that this
+
+483
+00:50:47,880 --> 00:50:53,080
+ line can serve and hopefully with that we'll bring that number down I'm still
+
+484
+00:50:53,080 --> 00:50:58,800
+ hoping to see an update on ridership projections on this whole line and what
+
+485
+00:50:58,800 --> 00:51:02,820
+ that does to the provider subsidy and that's all I have for now but I'm I'm
+
+486
+00:51:02,820 --> 00:51:06,280
+ looking forward to it I said it once I said it again this is the only way we're
+
+487
+00:51:06,280 --> 00:51:13,000
+ getting rail up there and I hope we do it so thanks a lot thank you director one
+
+488
+00:51:13,000 --> 00:51:17,960
+ thing I would just react to of the overall cost per rider and you know this
+
+489
+00:51:17,960 --> 00:51:23,880
+ is an unfortunate fact for this line but the single biggest infrastructure cost
+
+490
+00:51:23,880 --> 00:51:29,160
+ for this line is to add positive train control from Westminster to Fort
+
+491
+00:51:29,160 --> 00:51:34,560
+ Collins and this is a basic safety system that you would hope was on an
+
+492
+00:51:34,560 --> 00:51:38,960
+ existing freight line that is moving you know all sorts of petrochemicals and
+
+493
+00:51:38,960 --> 00:51:43,840
+ hazardous on freight through our northern suburbs today but it's not
+
+494
+00:51:43,840 --> 00:51:50,760
+ mandated for them to move those free products today it's only mandated when
+
+495
+00:51:50,760 --> 00:51:56,200
+ you add passenger rail onto the line and so when you look at the cost a lot of it
+
+496
+00:51:56,200 --> 00:52:00,600
+ is driven by the need for positive train control which is a significant
+
+497
+00:52:00,600 --> 00:52:04,720
+ improvement to safety for those communities that I would love to see
+
+498
+00:52:04,720 --> 00:52:08,600
+ today but it's regulated at the federal level we can't regulate it at the state
+
+499
+00:52:08,600 --> 00:52:13,840
+ level it is a big part of the Christie grant is extending positive train
+
+500
+00:52:13,840 --> 00:52:20,040
+ control up to Broomfield and it's a service I think to safety to all of us
+
+501
+00:52:20,040 --> 00:52:23,800
+ to invest in getting positive train control on this line for freight
+
+502
+00:52:23,800 --> 00:52:28,880
+ operations which is why we were able to successfully partner with BNSF to get
+
+503
+00:52:28,880 --> 00:52:34,320
+ that Christie grant and the way that that worked was we took the engineering work
+
+504
+00:52:34,320 --> 00:52:39,800
+ and the study done through the peak rail study and we were able to utilize that
+
+505
+00:52:39,800 --> 00:52:43,960
+ engineering work in order to put in a Christie grant that was you know close
+
+506
+00:52:43,960 --> 00:52:47,800
+ to shove that shovel ready so it's a great return on your investment for peak
+
+507
+00:52:47,800 --> 00:52:52,280
+ rail that we were able to secure over 90 million dollars investment that is a
+
+508
+00:52:52,280 --> 00:52:57,520
+ safety feature that is needed today whether or not we ever put a passenger
+
+509
+00:52:57,520 --> 00:53:02,120
+ on it so it's a little bit of a misnomer when you look at the cost that we're
+
+510
+00:53:02,120 --> 00:53:07,160
+ kind of bearing the full cost of needing a basic safety feature that we should
+
+511
+00:53:07,160 --> 00:53:13,880
+ all want to have on there today for freight operations thank you director
+
+512
+00:53:13,880 --> 00:53:25,360
+ Catlin thank you and I have I have a lot of questions the I met five years ago
+
+513
+00:53:25,360 --> 00:53:31,160
+ along with our engineering staff down in Fort Worth with the BNSF and at that
+
+514
+00:53:31,160 --> 00:53:39,720
+ time and to director O'Keefe's point with the railroads it's a moving target and
+
+515
+00:53:39,720 --> 00:53:46,480
+ have they reviewed these costs independently that's question number one
+
+516
+00:53:46,480 --> 00:53:53,240
+ so they've seen our presentation they haven't done a verification process but
+
+517
+00:53:53,240 --> 00:54:01,200
+ they also agree directionally with where we've been on our cost I think that they
+
+518
+00:54:01,200 --> 00:54:06,200
+ would say is you know through negotiations if we were willing to agree
+
+519
+00:54:06,200 --> 00:54:09,640
+ with a lower frequency for starting that the cost could actually probably go
+
+520
+00:54:09,640 --> 00:54:16,440
+ further down than where we are today but that is for negotiations with them you
+
+521
+00:54:16,440 --> 00:54:22,880
+ brought up a good point I just know that when we when we were talking about the
+
+522
+00:54:22,880 --> 00:54:28,040
+ peak rail study we had to pay the railroad for them to do the cross
+
+523
+00:54:28,040 --> 00:54:36,880
+ estimate and so I just wanted the board to be aware of that the next thing when
+
+524
+00:54:36,880 --> 00:54:40,680
+ you talk about increased frequencies and I remember that was a sticking point
+
+525
+00:54:40,680 --> 00:54:45,320
+ during those preliminary discussions there has to be a ceiling I mean they're
+
+526
+00:54:45,320 --> 00:54:50,520
+ beyond which their operations couldn't support additional frequencies and has
+
+527
+00:54:50,520 --> 00:54:55,320
+ that been discussed or called out
+
+528
+00:54:55,320 --> 00:55:01,160
+ I think that there's a ceiling before you get to having to double track
+
+529
+00:55:01,160 --> 00:55:06,160
+ significant mileage is maybe what you're asking and I think this is included in
+
+530
+00:55:06,160 --> 00:55:10,680
+ the full build out for Front Range passenger rails alternative analysis that
+
+531
+00:55:10,680 --> 00:55:17,280
+ kind of goes through based off of the RTC modeling done for them when you trigger
+
+532
+00:55:17,280 --> 00:55:22,320
+ additional sightings or double tracking needed so that is in the service
+
+533
+00:55:22,320 --> 00:55:28,280
+ development plan for Front Range passenger rail and it's based off of BNSF's
+
+534
+00:55:28,280 --> 00:55:33,800
+ business data both for operations today and their forecasted operations for the
+
+535
+00:55:33,800 --> 00:55:41,200
+ future so this was something that was a new process really came out of you know
+
+536
+00:55:41,200 --> 00:55:46,520
+ kind of the missteps of California high-speed rail of not really having
+
+537
+00:55:46,520 --> 00:55:51,680
+ this modeling done on the front end and also not having the business case for
+
+538
+00:55:51,680 --> 00:55:56,440
+ rail operations done on the front end and really just waiting for a NEPA
+
+539
+00:55:56,440 --> 00:56:01,680
+ process before you get to any of those processes so when IJ passed they
+
+540
+00:56:01,680 --> 00:56:05,720
+ created this new process for these service development plans that is a
+
+541
+00:56:05,720 --> 00:56:10,080
+ federal document that goes through each step of this that Front Range passenger
+
+542
+00:56:10,080 --> 00:56:14,080
+ rail is currently doing and we're actually the first rail project in the
+
+543
+00:56:14,080 --> 00:56:18,400
+ country that is this far ahead with it and so there was a period of time where
+
+544
+00:56:18,400 --> 00:56:22,640
+ we were stalled a little bit because we were the first to enter into NDA's with
+
+545
+00:56:22,640 --> 00:56:28,320
+ the class 1 railroads to get their business data in to inform our RTC
+
+546
+00:56:28,320 --> 00:56:36,360
+ modeling and that is now we have the the NDA is done the RTC modeling is
+
+547
+00:56:36,360 --> 00:56:41,720
+ undergoing for all those increased frequencies and RTC model then tells you
+
+548
+00:56:41,720 --> 00:56:44,880
+ what all the infrastructure improvements are based off of those
+
+549
+00:56:44,880 --> 00:56:50,800
+ frequencies. Well good I want to say that they're usually pretty stingy with their
+
+550
+00:56:50,800 --> 00:56:56,120
+ data so could you offer for getting that took a while you brought something else
+
+551
+00:56:56,120 --> 00:57:00,960
+ up and that's the NEPA process and pardon me I'm dusting off the cobwebs
+
+552
+00:57:00,960 --> 00:57:11,640
+ from years ago but there's a process for approving fixed rail in through the Dr.
+
+553
+00:57:11,640 --> 00:57:20,400
+ Cobb process I think it's called Senate bill 208 is that right okay and are we
+
+554
+00:57:20,400 --> 00:57:28,640
+ going to be needing to go through that process for this as well even though the
+
+555
+00:57:28,640 --> 00:57:34,600
+ project limits extend beyond the Dr. Cobb region? You know it's a good
+
+556
+00:57:34,600 --> 00:57:38,280
+ question that I don't have a complete resolution on we have had conversations
+
+557
+00:57:38,280 --> 00:57:44,600
+ with Dr. Cobb leadership on this and they aren't clear either if this project
+
+558
+00:57:44,600 --> 00:57:48,680
+ would be subject to it I believe Northwest rail has already been approved
+
+559
+00:57:48,680 --> 00:57:54,960
+ by them and is there underlying as part of fast tracks it was right and so it's
+
+560
+00:57:54,960 --> 00:58:00,840
+ unclear because this is you know a slight modification and it extends beyond their
+
+561
+00:58:00,840 --> 00:58:05,800
+ borders so it is an outstanding question I have into the Attorney General's office
+
+562
+00:58:05,800 --> 00:58:10,960
+ on it and you know maybe we need some cleanup legislation to clarify that too
+
+563
+00:58:10,960 --> 00:58:26,320
+ it just needs some clarity on it I think yep but thank you all for your hard
+
+564
+00:58:26,320 --> 00:58:31,600
+ work I'm sure we'll have more questions as time goes on but I appreciate it thank
+
+565
+00:58:31,600 --> 00:58:36,360
+ you. Thank You director Catlin I have three directors in the queue I have
+
+566
+00:58:36,360 --> 00:58:43,080
+ secretary Nicholson next thank you very much chair bouquet I actually have a
+
+567
+00:58:43,080 --> 00:58:49,960
+ question for staff before I ask questions of our lovely guests and the
+
+568
+00:58:49,960 --> 00:58:54,760
+ first the question is I know there's a provision either in the RTD Act or in
+
+569
+00:58:54,760 --> 00:59:00,360
+ our bylaws that requires a super majority of the board to approve any new
+
+570
+00:59:00,360 --> 00:59:08,600
+ rail projects is my understanding so would this require the the eventual
+
+571
+00:59:08,600 --> 00:59:14,320
+ agreement would that require ten votes from us or would it only require eight
+
+572
+00:59:14,320 --> 00:59:22,000
+ votes from us? Miss Johnson yes thank you very much secretary Nicholson for the
+
+573
+00:59:22,000 --> 00:59:25,120
+ question I believe general counsel Snyder issued an opinion on that
+
+574
+00:59:25,120 --> 00:59:31,400
+ previously and so we will recirculate that document thank you okay appreciate
+
+575
+00:59:31,400 --> 00:59:38,280
+ that the second so now switching over to our wonderful guests I have two
+
+576
+00:59:38,280 --> 00:59:44,080
+ questions the first one given that this service doesn't happen without RTD's
+
+577
+00:59:44,080 --> 00:59:51,240
+ substantial financial contribution why shouldn't we get a veto over any JSEOC
+
+578
+00:59:51,240 --> 00:59:56,040
+ decision if you eventually need to get our approval and our money to make this
+
+579
+00:59:56,040 --> 01:00:03,960
+ happen well I think you essentially do because it still has to originate from
+
+580
+01:00:03,960 --> 01:00:11,600
+ you appropriating monies or entering into any contract that RTD would enter
+
+581
+01:00:11,600 --> 01:00:18,040
+ into what the Joint Executive Committee would do would be kind of the day-to-day
+
+582
+01:00:18,040 --> 01:00:26,840
+ manager of the negotiations with BNSF or any day-to-day management of a selected
+
+583
+01:00:26,840 --> 01:00:33,880
+ operator but you know any major decision that impacted the ability to actually
+
+584
+01:00:33,880 --> 01:00:41,720
+ implement the project would still have to be decided upon by the RTD board
+
+585
+01:00:41,720 --> 01:00:48,400
+ thanks yeah to be clear I was talking about the veto by our person on the JSEOC
+
+586
+01:00:48,400 --> 01:00:54,840
+ over a decision by the JSEOC because again without our 40 million a year or
+
+587
+01:00:54,840 --> 01:01:00,080
+ whatever it ends up being you guys the train doesn't happen was essentially my
+
+588
+01:01:00,080 --> 01:01:05,600
+ question and I guess I'll just leave that out there second question forgive me
+
+589
+01:01:05,600 --> 01:01:09,600
+ for this there's an internet meme about a relationship between a man and a woman
+
+590
+01:01:09,600 --> 01:01:12,960
+ in a relationship about to be intimate and the caption reads aren't you
+
+591
+01:01:12,960 --> 01:01:17,580
+ forgetting someone with a picture of Jesus off to the side I mentioned this
+
+592
+01:01:17,580 --> 01:01:22,320
+ because reading over the timeline there's a lot of mentions of RTD and CTIO
+
+593
+01:01:22,320 --> 01:01:26,000
+ and the governor but it seems like there's no time built in after the
+
+594
+01:01:26,000 --> 01:01:30,840
+ finalization of the financial plan to go to the public and ask the voters and
+
+595
+01:01:30,840 --> 01:01:35,200
+ talk to the voters and present to the voters about what we're doing what it
+
+596
+01:01:35,200 --> 01:01:39,680
+ costs and why we should do it in the first place so my question to you is
+
+597
+01:01:39,680 --> 01:01:44,400
+ basically why shouldn't we bake in time to do a real road show of this project
+
+598
+01:01:44,400 --> 01:01:49,880
+ why shouldn't the governor go to places and present on this train that he wants
+
+599
+01:01:49,880 --> 01:01:56,040
+ why shouldn't we go and present on these things before we take a massive history
+
+600
+01:01:56,040 --> 01:02:03,160
+ defining vote on this item and allocate hundreds of millions of dollars of the
+
+601
+01:02:03,160 --> 01:02:06,240
+ public's money it seems like you don't want that to happen or you would have
+
+602
+01:02:06,240 --> 01:02:10,560
+ put time for it in the schedule and I'm curious whether I'm reading that
+
+603
+01:02:10,560 --> 01:02:16,800
+ correctly thanks yeah I would say that throughout this whole process we are
+
+604
+01:02:16,800 --> 01:02:24,160
+ doing significant public engagement I know I personally do you know a lot of
+
+605
+01:02:24,160 --> 01:02:30,720
+ presentations to a lot of different community members so presenting to city
+
+606
+01:02:30,720 --> 01:02:36,840
+ councils along the corridor the general public so there is inherently baked into
+
+607
+01:02:36,840 --> 01:02:41,600
+ the project a lot of community engagement it's just not enumerated in
+
+608
+01:02:41,600 --> 01:02:45,880
+ these slides these slides were more of an overview of what the project is but I
+
+609
+01:02:45,880 --> 01:02:50,560
+ would also say that you know clearly the public has voted in fast-tracks in '04
+
+610
+01:02:50,560 --> 01:02:55,880
+ they voted when they elected their representatives in the General Assembly
+
+611
+01:02:55,880 --> 01:03:02,640
+ that passed these bills and there is inherent built into this community
+
+612
+01:03:02,640 --> 01:03:07,640
+ engagement that we just didn't add to the slides but we certainly can give you a
+
+613
+01:03:07,640 --> 01:03:11,720
+ report on all of the public engagement to date it's actually a pretty long
+
+614
+01:03:11,720 --> 01:03:16,560
+ section in the March 1st report on all the community engagement that
+
+615
+01:03:16,560 --> 01:03:20,840
+ happened in the lead up to the March 1st report I would anticipate we would have
+
+616
+01:03:20,840 --> 01:03:25,360
+ a similar one in the June report yeah and actually there was one in the 30
+
+617
+01:03:25,360 --> 01:03:30,520
+ September as well so all the reports that we've put out and the one that we
+
+618
+01:03:30,520 --> 01:03:37,280
+ would is coming contain lists of who we've talked to and generally speaking
+
+619
+01:03:37,280 --> 01:03:44,500
+ in in what venues secretary just very quickly I mean I'm a pretty engaged guy
+
+620
+01:03:44,500 --> 01:03:50,080
+ in Denver in in central Denver have you guys done any presentations public
+
+621
+01:03:50,080 --> 01:03:54,360
+ presentations in my district have you done any kind of you know when we've
+
+622
+01:03:54,360 --> 01:03:59,600
+ done big changes when we talked about BRT we do big Roadhouse presentations we
+
+623
+01:03:59,600 --> 01:04:05,560
+ bring the public in you know it's in the news it's on our website I read the post
+
+624
+01:04:05,560 --> 01:04:09,680
+ practically every day most of my friends do I go on reddit on a regular basis
+
+625
+01:04:09,680 --> 01:04:12,600
+ answer questions there I haven't seen you guys on there I haven't seen
+
+626
+01:04:12,600 --> 01:04:17,080
+ literally any big public events about this project explaining it to people
+
+627
+01:04:17,080 --> 01:04:20,800
+ I've seen one article about hey this is coming the trains coming sooner than you
+
+628
+01:04:20,800 --> 01:04:25,240
+ expected it would that's all anybody in my district knows about this at this
+
+629
+01:04:25,240 --> 01:04:29,280
+ point and I'll just be honest I don't see myself even if I like the project I
+
+630
+01:04:29,280 --> 01:04:35,880
+ don't see myself voting for it unless I think that you guys your boss has done
+
+631
+01:04:35,880 --> 01:04:40,560
+ the work necessary to sell this to the public and to sell this to the people
+
+632
+01:04:40,560 --> 01:04:44,280
+ who are here now not necessarily the people who are here when I wasn't
+
+633
+01:04:44,280 --> 01:04:53,680
+ legally able to drink thanks Thank You secretary director Geisinger thank you
+
+634
+01:04:53,680 --> 01:05:00,600
+ and thank you both for all your work and and all the team I agree with director
+
+635
+01:05:00,600 --> 01:05:04,920
+ Buzwick this is the way to get to get this service done and this starter
+
+636
+01:05:04,920 --> 01:05:11,280
+ service I have a couple questions you mentioned that 42 million would be
+
+637
+01:05:11,280 --> 01:05:18,200
+ coming from the state does how does that come is it is the the 230 money come out
+
+638
+01:05:18,200 --> 01:05:26,240
+ of CTE and how much is that and the CTIO then put in I mean is that a is that a
+
+639
+01:05:26,240 --> 01:05:30,920
+ total of several different contributions from those different groups yeah that is
+
+640
+01:05:30,920 --> 01:05:35,680
+ a total of several different contributions and so I think it would be
+
+641
+01:05:35,680 --> 01:05:43,160
+ a mixture of CTIO investing in the projects that the construction projects
+
+642
+01:05:43,160 --> 01:05:47,040
+ that they would invest in finance and probably oversee the execution of same
+
+643
+01:05:47,040 --> 01:05:53,440
+ thing for CTE and then the you know in the March 1st report we weren't sure if
+
+644
+01:05:53,440 --> 01:05:58,880
+ the Chrissy Grant projects would get done because they were under review of
+
+645
+01:05:58,880 --> 01:06:02,120
+ the new administration that has since been greenlighted by the new
+
+646
+01:06:02,120 --> 01:06:06,480
+ administration and so that would probably be a new contribution that would
+
+647
+01:06:06,480 --> 01:06:14,160
+ be reflected in the mixture of contributions and those monies came from
+
+648
+01:06:14,160 --> 01:06:23,440
+ the governor's IJ cash fund to match the federal funds good thanks and just one
+
+649
+01:06:23,440 --> 01:06:30,240
+ other comment which is that I think this happened in in one of the statues 161
+
+650
+01:06:30,240 --> 01:06:40,040
+ 161 yeah but I think that joint service talking about being Northwest Rail is
+
+651
+01:06:40,040 --> 01:06:45,960
+ confusing and maybe it's better to maybe the language is important that it's
+
+652
+01:06:45,960 --> 01:06:53,000
+ service on the Northwest Corridor to sort of pull apart Northwest Rail was
+
+653
+01:06:53,000 --> 01:07:02,000
+ defined in you know fast tracks project and so it's just a thought and maybe
+
+654
+01:07:02,000 --> 01:07:07,120
+ something we can we can talk about after we see the IGA and all of that thank you
+
+655
+01:07:07,120 --> 01:07:10,360
+ very much Diane did you have something there you look like you were going to
+
+656
+01:07:10,360 --> 01:07:18,000
+ respond I was just gonna say that the statute uses Northwest fixed guideway
+
+657
+01:07:18,000 --> 01:07:23,320
+ thank you director guys here director Risha
+
+658
+01:07:23,320 --> 01:07:35,200
+ thank you mr. chair so as usual director Catlin got to a question before I did
+
+659
+01:07:35,200 --> 01:07:43,880
+ and I I just wanted to offer that I had up until this moment always assumed that
+
+660
+01:07:43,880 --> 01:07:50,320
+ dr. Krog would need to be involved because of just a plain language reading
+
+661
+01:07:50,320 --> 01:07:57,320
+ of statute so I would also add that if we need to clarify that we should do that
+
+662
+01:07:57,320 --> 01:08:09,080
+ as soon as practicable which would be next session but I I also I feel like I
+
+663
+01:08:09,080 --> 01:08:19,360
+ owed the you and my colleagues that just honesty that my district best tracks is
+
+664
+01:08:19,360 --> 01:08:26,000
+ not something I hear about in my district nor is this project I've been on the
+
+665
+01:08:26,000 --> 01:08:31,800
+ board for two and a half years and I think I have been asked about it less
+
+666
+01:08:31,800 --> 01:08:38,640
+ than ten times and half of them were from reporters to be to be honest and so
+
+667
+01:08:38,640 --> 01:08:44,680
+ I have some concern that proponents of the project aren't doing the necessary
+
+668
+01:08:44,680 --> 01:08:56,480
+ work in my district which is very active in local matters to get their buy-in and
+
+669
+01:08:56,480 --> 01:09:05,760
+ even if we move forward without FRPR having statutory authority to tax
+
+670
+01:09:05,760 --> 01:09:09,920
+ because it was granted by the voters or you know we have some sort of
+
+671
+01:09:09,920 --> 01:09:17,720
+ alternative method at the end of the day we are going to be held responsible by
+
+672
+01:09:17,720 --> 01:09:21,480
+ the larger public and it's really crucial to ensure that we have their
+
+673
+01:09:21,480 --> 01:09:27,920
+ buy-in so the feedback I gave was anecdotal that's just my experience but
+
+674
+01:09:27,920 --> 01:09:39,520
+ I I I would I would feel irresponsible if I if I didn't put that out there because
+
+675
+01:09:39,520 --> 01:09:45,200
+ it really does worry me that we might be getting married without a prenup or
+
+676
+01:09:45,200 --> 01:09:52,680
+ we're moving too quickly but we don't have public buy-in so just like in other
+
+677
+01:09:52,680 --> 01:09:59,880
+ parts of RTD where the fact that this these projects were not finished creates
+
+678
+01:09:59,880 --> 01:10:08,760
+ distrust we have to remember that not all parts of the district or the greater
+
+679
+01:10:08,760 --> 01:10:15,000
+ region share that sentiment and we just need to be careful and how we move
+
+680
+01:10:15,000 --> 01:10:18,080
+ forward because at the end of the day no matter what happens in this board room
+
+681
+01:10:18,080 --> 01:10:24,240
+ or the state level or the executive level we are ultimately going to respond
+
+682
+01:10:24,240 --> 01:10:34,920
+ to the taxpayers I I would like to see this project and all rail projects get
+
+683
+01:10:34,920 --> 01:10:45,240
+ built out I don't like cars and I don't like concrete jungles I I have concerns
+
+684
+01:10:45,240 --> 01:10:51,560
+ about the fiscal aspect that I think first vice jiro Keith summed up much
+
+685
+01:10:51,560 --> 01:10:58,240
+ more eloquently than I could but I would like to think it's possible so I'm
+
+686
+01:10:58,240 --> 01:11:03,360
+ looking for a reason to say yes and I just need a little bit more to get there
+
+687
+01:11:03,360 --> 01:11:13,880
+ and that's a bit painful to say in a public meeting with my colleagues but
+
+688
+01:11:13,880 --> 01:11:18,320
+ at this juncture it doesn't do any of us any good if we are not forthright in
+
+689
+01:11:18,320 --> 01:11:25,040
+ where we are so thank you for for letting me speak and that concludes my
+
+690
+01:11:25,040 --> 01:11:31,800
+ comments thank you director Risha I have director Guzman next thank you mr.
+
+691
+01:11:31,800 --> 01:11:37,800
+ chair I have to second first vice chair O'Keefe there's absolutely no way I
+
+692
+01:11:37,800 --> 01:11:40,640
+ would vote for this if we're gonna just completely empty out what everybody
+
+693
+01:11:40,640 --> 01:11:44,800
+ perceives to be the big piggy bank the price account that 190 million is not
+
+694
+01:11:44,800 --> 01:11:50,200
+ just for rail as has been purported and reported and rereported incorrectly there
+
+695
+01:11:50,200 --> 01:11:53,720
+ were caveats with that money for how it was to be used in conjunction with the
+
+696
+01:11:53,720 --> 01:11:57,480
+ fast-tracks plans and I think that we need to go back to the legislation and
+
+697
+01:11:57,480 --> 01:12:02,080
+ look at that also the five second was created after the point zero four percent
+
+698
+01:12:02,080 --> 01:12:05,640
+ sales and use tax was collected and there are additional monies that are in
+
+699
+01:12:05,640 --> 01:12:11,560
+ there that are also not directly linked to that legislation and so untangling
+
+700
+01:12:11,560 --> 01:12:15,120
+ that could be a big mess but also we need to be responsible with it as is our
+
+701
+01:12:15,120 --> 01:12:21,240
+ fiduciary duty it does support service services along the Northwest Corridor
+
+702
+01:12:21,240 --> 01:12:27,720
+ not just the fixed rail but also other other bus services and connections that
+
+703
+01:12:27,720 --> 01:12:33,060
+ were part of the anticipated cost of moving people around and it supports the
+
+704
+01:12:33,060 --> 01:12:37,520
+ maintenance and the transit asset management along that rail and so one
+
+705
+01:12:37,520 --> 01:12:41,840
+ thing that I have not heard come out of these conversations that is going to be
+
+706
+01:12:41,840 --> 01:12:45,720
+ it's going to keep me on the no side until I understand it in terms of an IGA
+
+707
+01:12:45,720 --> 01:12:50,240
+ is how we are going to plan the trusset transit asset management piece of this
+
+708
+01:12:50,240 --> 01:12:54,540
+ how are we going to do maintenance and repair work because the cost of a shiny
+
+709
+01:12:54,540 --> 01:13:00,480
+ new thing is one thing but maintaining it to continue good usage and safety for
+
+710
+01:13:00,480 --> 01:13:04,240
+ the public is a completely different matter and we have just spent the last
+
+711
+01:13:04,240 --> 01:13:08,800
+ two summers I'm gonna include the current one we're walking into now doing
+
+712
+01:13:08,800 --> 01:13:14,000
+ exactly that work because it was forgotten for more than 20 years and it
+
+713
+01:13:14,000 --> 01:13:19,600
+ cannot happen with this project so if money is not set aside or anticipated
+
+714
+01:13:19,600 --> 01:13:24,040
+ with all the glory of putting a brand new shiny train on a track to get people
+
+715
+01:13:24,040 --> 01:13:29,920
+ moving and continue to maintain that asset by all members of the IGA
+
+716
+01:13:29,920 --> 01:13:34,600
+ absolutely not there's no way we can continue forward with the conversation
+
+717
+01:13:34,600 --> 01:13:38,200
+ it's not even worth having so if that money is not accounted for somewhere in
+
+718
+01:13:38,200 --> 01:13:41,480
+ the finance planning of doing this there's no way we would do it and why do
+
+719
+01:13:41,480 --> 01:13:45,000
+ I say that because safety has to come first human lives are at risk and a
+
+720
+01:13:45,000 --> 01:13:49,560
+ danger so as you spoke to the positive train control and all of the other
+
+721
+01:13:49,560 --> 01:13:54,040
+ necessary infrastructure to do this maintenance of these tracks and these
+
+722
+01:13:54,040 --> 01:13:58,000
+ conveyances are going to be equally important and should not be put to the
+
+723
+01:13:58,000 --> 01:14:03,000
+ side in a rush to get a train on a track that's not how we do things and that's
+
+724
+01:14:03,000 --> 01:14:08,640
+ not how we should do things in my opinion so that's one part sorry my
+
+725
+01:14:08,640 --> 01:14:14,220
+ comment the other thing is we I have a big concern about cannibalizing our
+
+726
+01:14:14,220 --> 01:14:18,000
+ regular service when the language that you put on the screen earlier says we
+
+727
+01:14:18,000 --> 01:14:23,680
+ will I believe it was will strive to implement the joint service plan that
+
+728
+01:14:23,680 --> 01:14:31,120
+ will not render infeasible the existing operations of RTD from or for from or
+
+729
+01:14:31,120 --> 01:14:37,400
+ the future plans for FRPRD we are running an active transit agency we have
+
+730
+01:14:37,400 --> 01:14:42,800
+ services going we collect a sales and use tax of a total of 1% 0.1% but it's
+
+731
+01:14:42,800 --> 01:14:46,800
+ divided in how we use it with funds being restricted to certain aspects of
+
+732
+01:14:46,800 --> 01:14:52,240
+ it that is where we have to consider how we are going to as a body put money into
+
+733
+01:14:52,240 --> 01:14:56,640
+ this and where it's going to come from but the backstop question is super
+
+734
+01:14:56,640 --> 01:15:00,520
+ important because the backstop if it falls to us to fix the matters that are
+
+735
+01:15:00,520 --> 01:15:07,360
+ overrun on finances can literally cut bus service jobs and take away the things
+
+736
+01:15:07,360 --> 01:15:13,520
+ that we are currently providing and that would not be fair for a three round trip
+
+737
+01:15:13,520 --> 01:15:17,600
+ a day service to one particular area of the region because it doesn't take into
+
+738
+01:15:17,600 --> 01:15:23,880
+ consideration everybody's need to move around our entire region that's all I
+
+739
+01:15:23,880 --> 01:15:32,800
+ have thank you thank you director Guzman director Harwick I have a like a few
+
+740
+01:15:32,800 --> 01:15:38,960
+ questions and thoughts but the first question is you reference 83 million for
+
+741
+01:15:38,960 --> 01:15:43,320
+ the first year of operations 32 for operations maintenance 51 in debt service
+
+742
+01:15:43,320 --> 01:15:47,880
+ with that 51 million in mind what is the amount of debt I just if you could
+
+743
+01:15:47,880 --> 01:15:52,880
+ remind me what's the amount of debt that you anticipate taking on
+
+744
+01:15:52,880 --> 01:15:59,160
+ so the March 1st report is that study so it's looking at how much would it cost
+
+745
+01:15:59,160 --> 01:16:06,680
+ in current borrowing to finance the full 885 and that's where you get a debt
+
+746
+01:16:06,680 --> 01:16:14,120
+ payment number of 51 million dollars annually to finance the full 885 in
+
+747
+01:16:14,120 --> 01:16:19,400
+ regards to director Guzman's comments I think it's also important to remember in
+
+748
+01:16:19,400 --> 01:16:25,960
+ the March 1st report that when you look at the full horizon of the project there
+
+749
+01:16:25,960 --> 01:16:30,480
+ is baked into the underlying cost assumption the state of good repair and
+
+750
+01:16:30,480 --> 01:16:37,080
+ safety ongoing cost and so you probably don't remember the bars from the last
+
+751
+01:16:37,080 --> 01:16:41,280
+ presentation but it's in there in those outer years when you have to start
+
+752
+01:16:41,280 --> 01:16:46,000
+ replacing and doing the state of good repair work and what was important about
+
+753
+01:16:46,000 --> 01:16:50,480
+ the March 1st report is really looking at not just is there enough existing
+
+754
+01:16:50,480 --> 01:16:56,160
+ revenue today but is there enough existing revenue to through 2050 and so
+
+755
+01:16:56,160 --> 01:17:01,920
+ the report that Ernst & Young created for us was to look at all of the revenue
+
+756
+01:17:01,920 --> 01:17:06,200
+ sources and to look at their growth trajectory to make sure that they also
+
+757
+01:17:06,200 --> 01:17:11,000
+ track with the growth trajectory of the state of good repair and escalating
+
+758
+01:17:11,000 --> 01:17:16,960
+ costs for the service and so in that March 1st report that you all got it did
+
+759
+01:17:16,960 --> 01:17:23,320
+ do that work and you know where I showed you today that the daily rental car fee
+
+760
+01:17:23,320 --> 01:17:29,760
+ grows from 57 million dollars in 2026 and grows to 110 million dollars in 2050
+
+761
+01:17:29,760 --> 01:17:35,280
+ a similar number was in the March 1st presentation to you all of looking at
+
+762
+01:17:35,280 --> 01:17:40,760
+ your current revenue at 900 million dollars annually but that is projected to
+
+763
+01:17:40,760 --> 01:17:46,520
+ grow to over 2 billion dollars in 25 years for what RTD is currently
+
+764
+01:17:46,520 --> 01:17:53,000
+ projecting to collect in sales tax so that mapping of the escalating cost and
+
+765
+01:17:53,000 --> 01:17:57,080
+ state of good repair against the available revenue sources was
+
+766
+01:17:57,080 --> 01:18:03,320
+ cornerstone to the work in the March 1st report thank you director director
+
+767
+01:18:03,320 --> 01:18:10,040
+ Nicholson thank you excuse me thank you so I have a couple of questions that the
+
+768
+01:18:10,040 --> 01:18:15,400
+ first one and I promise slightly more fun question than my my last one what
+
+769
+01:18:15,400 --> 01:18:20,480
+ when we talk about three trains a day what kind of hours are we talking about
+
+770
+01:18:20,480 --> 01:18:23,840
+ here because I've heard lots of different sort of understandings of like
+
+771
+01:18:23,840 --> 01:18:29,120
+ what could I use this for and you know if you're running a train back from
+
+772
+01:18:29,120 --> 01:18:34,480
+ Denver to Boulder at 5 p.m. you know you can use that for a meeting in the middle
+
+773
+01:18:34,480 --> 01:18:38,640
+ of the day you can use that for 6 p.m. or 6 30 you can use that for commuting you
+
+774
+01:18:38,640 --> 01:18:43,040
+ can't use that to go to a Nuggets game for example and so maybe you can help me
+
+775
+01:18:43,040 --> 01:18:51,040
+ think about and help the public what kinds of travel is this gonna serve and
+
+776
+01:18:51,040 --> 01:18:54,600
+ what kinds of stuff because again it's only three trains a day is it gonna be
+
+777
+01:18:54,600 --> 01:18:58,560
+ outside of and also are we talking about three trains a day five seven days a
+
+778
+01:18:58,560 --> 01:19:03,080
+ week or only five days a week am I gonna be able to take this down to pride for
+
+779
+01:19:03,080 --> 01:19:07,960
+ example if we're running and do that or is it would it only be running weekday
+
+780
+01:19:07,960 --> 01:19:13,720
+ service thanks and then I'll have I have follow-ups so sure I don't know the
+
+781
+01:19:13,720 --> 01:19:18,280
+ schedule that was a part of the RTC modeling off the top of my head but we
+
+782
+01:19:18,280 --> 01:19:24,340
+ can certainly pull that and have that a part of the June presentation if you so
+
+783
+01:19:24,340 --> 01:19:31,000
+ desire but it was for seven days a week and it did adjust for weekend patterns
+
+784
+01:19:31,000 --> 01:19:38,140
+ versus weekday I just don't know the exact times off the top my head appreciate
+
+785
+01:19:38,140 --> 01:19:41,360
+ it yeah that would be super helpful because my when I've gotten good
+
+786
+01:19:41,360 --> 01:19:44,120
+ questions about this my constituents have asked what am I going to be able to
+
+787
+01:19:44,120 --> 01:19:48,280
+ use it for if I'm in Denver what am I able to do the same thing I'm bolder
+
+788
+01:19:48,280 --> 01:19:54,800
+ second question so we got a fairly sobering I think is the right word
+
+789
+01:19:54,800 --> 01:20:00,400
+ presentation from our asset management team at our training I'm a fellow
+
+790
+01:20:00,400 --> 01:20:03,560
+ relatively new director so we get a bunch of different meetings where they
+
+791
+01:20:03,560 --> 01:20:09,240
+ explain different stuff to us and part of that training was over just how
+
+792
+01:20:09,240 --> 01:20:15,120
+ freaking expensive it is to manage something like a fixed rail asset over
+
+793
+01:20:15,120 --> 01:20:19,880
+ the course of multiple decades and how you really have to think about these
+
+794
+01:20:19,880 --> 01:20:23,800
+ things not in terms of what it's gonna cost for five years or ten years but
+
+795
+01:20:23,800 --> 01:20:29,880
+ twenty thirty and then to replace all of it when we get there and hilariously
+
+796
+01:20:29,880 --> 01:20:33,880
+ enough in an article I think about sound transit to later that day I came across
+
+797
+01:20:33,880 --> 01:20:39,720
+ this wonderful quote but from Willie Brown who is the former speaker of the
+
+798
+01:20:39,720 --> 01:20:44,240
+ California State Assembly where I grew up in the former mayor of San Francisco
+
+799
+01:20:44,240 --> 01:20:48,280
+ in a candid admission of how the political world operates Willie Brown
+
+800
+01:20:48,280 --> 01:20:51,440
+ the former mayor of San Francisco once dismissed the cost overruns on a
+
+801
+01:20:51,440 --> 01:20:55,200
+ transportation hub intended for the bullet train in the world of civic
+
+802
+01:20:55,200 --> 01:20:59,680
+ projects the first budget is really just a down payment he wrote in a guest
+
+803
+01:20:59,680 --> 01:21:04,800
+ newspaper column in 2013 if people knew the real costs from the start nothing
+
+804
+01:21:04,800 --> 01:21:09,720
+ would ever get approved the idea is to get going start digging a hole and make
+
+805
+01:21:09,720 --> 01:21:14,200
+ it so big there's no alternative to coming up with the money to fill it in
+
+806
+01:21:14,200 --> 01:21:21,640
+ isn't that what joint service starter service kind of is thank you I'm asking
+
+807
+01:21:21,640 --> 01:21:29,020
+ that as a question I mean no because we have a cost estimate through 2050 that
+
+808
+01:21:29,020 --> 01:21:32,860
+ was showed to you in the first presentation and map the revenue sources
+
+809
+01:21:32,860 --> 01:21:40,640
+ to the projected cost so I certainly wouldn't characterize it that way I'll
+
+810
+01:21:40,640 --> 01:21:47,000
+ just ask one quick follow-up is that's okay given the significant routine cost
+
+811
+01:21:47,000 --> 01:21:53,040
+ overruns as director O'Keeffe alluded to that for example high-speed rail in
+
+812
+01:21:53,040 --> 01:21:57,840
+ California has undergone where the project has turned out to be billions
+
+813
+01:21:57,840 --> 01:22:01,840
+ more expensive than it initially cost given that we see this in public
+
+814
+01:22:01,840 --> 01:22:07,760
+ projects everywhere what makes you confident as someone who has worked on
+
+815
+01:22:07,760 --> 01:22:11,360
+ these things and been in government for a long time what makes you confident
+
+816
+01:22:11,360 --> 01:22:17,160
+ that you're right this time when so often other people get this wrong I think
+
+817
+01:22:17,160 --> 01:22:21,960
+ the projects that we are looking at from a rail perspective is very different
+
+818
+01:22:21,960 --> 01:22:25,560
+ than high-speed rail I mean I don't even think it's like an apple to a pineapple
+
+819
+01:22:25,560 --> 01:22:32,240
+ because yeah it's it's not the same species really because what we are
+
+820
+01:22:32,240 --> 01:22:38,160
+ talking about is utilizing underutilized current infrastructure in the state of
+
+821
+01:22:38,160 --> 01:22:43,720
+ Colorado and what we have seen is an opportunity that exists right now that
+
+822
+01:22:43,720 --> 01:22:47,700
+ even is different than when fast tracks passed in 04 when fast tracks passed in
+
+823
+01:22:47,700 --> 01:22:52,880
+ 04 there was a lot more free operations on this line than exists today the NSF
+
+824
+01:22:52,880 --> 01:22:57,380
+ has shifted a lot of their freight operations to the Greeley sub and out
+
+825
+01:22:57,380 --> 01:23:02,080
+ east and that has created this opportunity to utilize an existing
+
+826
+01:23:02,080 --> 01:23:06,600
+ infrastructure asset for a new purpose as we're no for it was in war and
+
+827
+01:23:06,600 --> 01:23:10,560
+ conflict with their freight operations than it is today same thing with
+
+828
+01:23:10,560 --> 01:23:16,080
+ mountain rail we have an opportunity to use an existing asset that is under
+
+829
+01:23:16,080 --> 01:23:19,320
+ utilized because of the coal plant closures and Craig and Hayden has
+
+830
+01:23:19,320 --> 01:23:24,960
+ created this capacity on the line the lines in good shape it's active today
+
+831
+01:23:24,960 --> 01:23:29,880
+ still moving coal but it's about to be inactive for half of the segment when
+
+832
+01:23:29,880 --> 01:23:37,080
+ those coal plants close in 29 and so it's really taking a sunk cost from an
+
+833
+01:23:37,080 --> 01:23:41,460
+ infrastructure perspective and repurposing it for a future need is how
+
+834
+01:23:41,460 --> 01:23:45,360
+ I would see these projects and I think what's different about the way we've
+
+835
+01:23:45,360 --> 01:23:49,200
+ approached this and that we've had success with with at least Union Pacific
+
+836
+01:23:49,200 --> 01:23:55,120
+ in the mountain rail access agreement is having an enumerated infrastructure list
+
+837
+01:23:55,120 --> 01:24:00,000
+ that corresponds with the actual daily round trips so the way that access
+
+838
+01:24:00,000 --> 01:24:05,280
+ agreement reads is for these daily round trips three of them here's the actual
+
+839
+01:24:05,280 --> 01:24:10,840
+ infrastructure that is needed to empower that on this timeline and certainly if
+
+840
+01:24:10,840 --> 01:24:16,040
+ that infrastructure list is priced out 20 years from now the escalation cost is
+
+841
+01:24:16,040 --> 01:24:20,320
+ going to be different but we have plans to do those infrastructure projects this
+
+842
+01:24:20,320 --> 01:24:26,160
+ calendar year so we believe our cost estimates are good I don't think anything
+
+843
+01:24:26,160 --> 01:24:31,540
+ is ever bulletproof but I think that the benefit to the state of Colorado that we
+
+844
+01:24:31,540 --> 01:24:38,200
+ would get from these projects of taking cars off the road and driving better
+
+845
+01:24:38,200 --> 01:24:42,840
+ land use decisions where we have housing in fill to get to a smart growth
+
+846
+01:24:42,840 --> 01:24:48,760
+ strategy for the state of Colorado is worthy of the cause and I think we have
+
+847
+01:24:48,760 --> 01:24:54,200
+ paved a much different way than what California has done and certainly I
+
+848
+01:24:54,200 --> 01:24:58,800
+ think we are all students of having watched what California has done and
+
+849
+01:24:58,800 --> 01:25:04,280
+ paved a different way forward in Colorado that has as much certainty
+
+850
+01:25:04,280 --> 01:25:09,720
+ around it as you possibly can for a big public infrastructure project thank you
+
+851
+01:25:09,720 --> 01:25:13,640
+ I'm gonna go to director Peculary I saw his hand and I'll come back to you
+
+852
+01:25:13,640 --> 01:25:19,360
+ secretary thank you chair thank you guests for your presentation appreciate
+
+853
+01:25:19,360 --> 01:25:24,200
+ it I think I just want to start out by saying the front-range needs rail needs
+
+854
+01:25:24,200 --> 01:25:28,320
+ passenger rail service we have a growing population people moving here and
+
+855
+01:25:28,320 --> 01:25:31,920
+ bringing their cars we have increased poor air quality there's a lot of
+
+856
+01:25:31,920 --> 01:25:36,520
+ reasons why we need rail and there's so many reasons that in 2003 the people
+
+857
+01:25:36,520 --> 01:25:41,960
+ said we need rail and they asked for it and time and time again people have
+
+858
+01:25:41,960 --> 01:25:46,360
+ asked for it over and over again and the legislator even this year said once
+
+859
+01:25:46,360 --> 01:25:51,340
+ again we need rail RTD you have to build the rail that you promised to build back
+
+860
+01:25:51,340 --> 01:25:54,440
+ from the voters said you had to build rail so I'd like to keep to our
+
+861
+01:25:54,440 --> 01:26:00,720
+ commitment towards at least doing what we can to finish fast tracks because we
+
+862
+01:26:00,720 --> 01:26:04,880
+ need rail but I do have a little bit of a few concerns and I think I'll just
+
+863
+01:26:04,880 --> 01:26:10,520
+ highlight one concern and a question first and then a concern I guess they're
+
+864
+01:26:10,520 --> 01:26:17,520
+ tied together but three strong trips per day is starter service it's useful
+
+865
+01:26:17,520 --> 01:26:22,840
+ transit for some but not as many as ten round trips or twelve I'd really like to
+
+866
+01:26:22,840 --> 01:26:27,520
+ see the movement towards double tracking so we can get those higher frequencies
+
+867
+01:26:27,520 --> 01:26:32,200
+ and make this a really useful transit service for the people along the front
+
+868
+01:26:32,200 --> 01:26:37,640
+ range in the front range district but with what we're building and what we're
+
+869
+01:26:37,640 --> 01:26:42,440
+ committing what this IGA first of all is just allowing something to go forward so
+
+870
+01:26:42,440 --> 01:26:46,120
+ we can get more information we're not committing any funds yet so I do hope
+
+871
+01:26:46,120 --> 01:26:51,440
+ you support the IGA but in the idea I would like to see some type of assurance
+
+872
+01:26:51,440 --> 01:26:55,760
+ that we can continue on the path towards that those ten twelve round trips per
+
+873
+01:26:55,760 --> 01:27:01,120
+ day or double tracking and if it's possible the legislators already given
+
+874
+01:27:01,120 --> 01:27:06,400
+ FRPRD and a revenue for collecting revenue I don't really see in the future
+
+875
+01:27:06,400 --> 01:27:10,560
+ of the state giving us a couple billion dollars to build double track front
+
+876
+01:27:10,560 --> 01:27:15,600
+ range passenger rail but the people could choose to do it so I would like I
+
+877
+01:27:15,600 --> 01:27:19,240
+ guess my question then to not lead a sorry about the leading question is if
+
+878
+01:27:19,240 --> 01:27:26,040
+ it would be possible to do put some assurances in that would require this
+
+879
+01:27:26,040 --> 01:27:32,640
+ new entity with IGA to pursue expanded service and not just stop at three
+
+880
+01:27:32,640 --> 01:27:40,520
+ trains per day thank you thanks yeah and I think that's important feedback as to
+
+881
+01:27:40,520 --> 01:27:46,880
+ what the board would like in the IGA and so we could certainly take that back
+
+882
+01:27:46,880 --> 01:27:52,760
+ thank you thank you director all right any further comments questions
+
+883
+01:27:52,760 --> 01:27:58,160
+ secretary and then director Guzman thank you two very quick things so first
+
+884
+01:27:58,160 --> 01:28:04,120
+ off I just want to make an important point I want this train I actually
+
+885
+01:28:04,120 --> 01:28:09,480
+ really really want this train I am one of a handful of people on the board who
+
+886
+01:28:09,480 --> 01:28:14,000
+ doesn't have a car getting to Boulder getting to Longmont this would be and I
+
+887
+01:28:14,000 --> 01:28:18,500
+ live like 10 minutes from Union Station this would be a massive improvement in
+
+888
+01:28:18,500 --> 01:28:23,960
+ my quality of life getting up to getting up the northwest and for exactly the
+
+889
+01:28:23,960 --> 01:28:29,800
+ reason that you alluded to miss Kaufman this is an opportunity to build a ton of
+
+890
+01:28:29,800 --> 01:28:33,560
+ new housing in a place that badly needs it make it easier for people to get to
+
+891
+01:28:33,560 --> 01:28:38,160
+ Denver there are lots of reasons in principle to like this project the same
+
+892
+01:28:38,160 --> 01:28:43,720
+ way that I like the idea of having a summer home in Bali or a winter home the
+
+893
+01:28:43,720 --> 01:28:49,720
+ question is can I afford it and can I make it can I make it work can I can do
+
+894
+01:28:49,720 --> 01:28:53,800
+ it as the access of me flying out there you know so really it just comes down to
+
+895
+01:28:53,800 --> 01:28:59,040
+ I'm putting you through the paces on this I'm running the traps I'm making this as
+
+896
+01:28:59,040 --> 01:29:03,760
+ difficult as I am because as someone who's been involved in government since
+
+897
+01:29:03,760 --> 01:29:12,600
+ I was 18 I am terrified genuinely freaked at you know have had mild panic
+
+898
+01:29:12,600 --> 01:29:19,080
+ attacks over this decision because I don't want to turn 50 or 55 or 60 and
+
+899
+01:29:19,080 --> 01:29:24,920
+ look back and say wow I signed on to a gigantic money pit on the other hand I
+
+900
+01:29:24,920 --> 01:29:29,760
+ don't want to look back and say wow I missed out on signing on to one of the
+
+901
+01:29:29,760 --> 01:29:35,400
+ best expansions of passenger rail that we were ever going to have so it doesn't
+
+902
+01:29:35,400 --> 01:29:38,920
+ come from a place of disliking the project it comes from a place of
+
+903
+01:29:38,920 --> 01:29:45,720
+ gigantic amounts of fear over the significance of this decision yeah I
+
+904
+01:29:45,720 --> 01:29:48,840
+ appreciate that I think it's really well found it given the history of this
+
+905
+01:29:48,840 --> 01:29:54,520
+ project and the way we've grown as a metro area and the needs that we have in
+
+906
+01:29:54,520 --> 01:29:59,200
+ a metro area for more transit and rail and the constraints that we have around
+
+907
+01:29:59,200 --> 01:30:03,480
+ revenue as a state and how we can gain new revenue as a state so I think all of
+
+908
+01:30:03,480 --> 01:30:09,880
+ that thoughtful approach is warranted which is partly why you know the step
+
+909
+01:30:09,880 --> 01:30:14,720
+ that we are contemplating now is can we all agree on how we would make joint
+
+910
+01:30:14,720 --> 01:30:21,700
+ decisions to then go negotiate with BNSF come back to the governing boards with
+
+911
+01:30:21,700 --> 01:30:28,240
+ the results of that and say is this ROI worth it and that would come after a
+
+912
+01:30:28,240 --> 01:30:34,200
+ successful negotiation that would enumerate the infrastructures that has
+
+913
+01:30:34,200 --> 01:30:39,920
+ to correspond with the access agreement for daily round trips and at that
+
+914
+01:30:39,920 --> 01:30:43,680
+ juncture I think you would have a big decision to be made and we would have a
+
+915
+01:30:43,680 --> 01:30:48,640
+ lot more information on we have verified the infrastructure list with BNSF we
+
+916
+01:30:48,640 --> 01:30:56,140
+ have you know the engineers price that out and then we have a financial model
+
+917
+01:30:56,140 --> 01:31:02,400
+ on how it would work right so you know does it make sense for CTIO who has
+
+918
+01:31:02,400 --> 01:31:08,920
+ bonding capacity to finance all of PTC that would be enumerated in the finance
+
+919
+01:31:08,920 --> 01:31:16,800
+ plan like how which piece of which puzzle would look at the finance plan
+
+920
+01:31:16,800 --> 01:31:22,360
+ based off of that infrastructure list obviously RTD would need to look at just
+
+921
+01:31:22,360 --> 01:31:27,280
+ infrastructure costs within the RTD region not outside of it so you know I
+
+922
+01:31:27,280 --> 01:31:31,320
+ think we're you know attempting to eat an elephant we have to do it chunk by
+
+923
+01:31:31,320 --> 01:31:36,180
+ chunk here and it's really getting to a place where we all agree on how we're
+
+924
+01:31:36,180 --> 01:31:42,320
+ gonna operate together to collaborate to get to an access agreement and then once
+
+925
+01:31:42,320 --> 01:31:47,000
+ we have an access agreement how do we create a finance plan based off of that
+
+926
+01:31:47,000 --> 01:31:51,640
+ agreement and then you all will have a big decision to be made on the ROI of
+
+927
+01:31:51,640 --> 01:31:58,800
+ that investment we just can't get there without having those negotiations first
+
+928
+01:31:58,800 --> 01:32:04,680
+ thank you based on the sake of time I'm gonna have treasure banker and then
+
+929
+01:32:04,680 --> 01:32:11,120
+ director Guzman as our final two thank you you know one of the things we
+
+930
+01:32:11,120 --> 01:32:15,240
+ haven't really talked about and I was hoping that we could get to it in in our
+
+931
+01:32:15,240 --> 01:32:20,840
+ executive session but time is going by fast well we can extend also and start
+
+932
+01:32:20,840 --> 01:32:26,400
+ our board meeting lead teams I've been trying to meet with as many of our board
+
+933
+01:32:26,400 --> 01:32:31,520
+ directors as possible and I'm hoping to meet with everybody I've been working I
+
+934
+01:32:31,520 --> 01:32:35,360
+ think you all know I've been working on these numbers for a long time but last
+
+935
+01:32:35,360 --> 01:32:39,200
+ year the state legislature gave us two new revenue sources so when we're
+
+936
+01:32:39,200 --> 01:32:45,560
+ talking about oh my this project looks first of all cost estimates we're
+
+937
+01:32:45,560 --> 01:32:50,960
+ getting right now are very reasonable much less than what they were even a
+
+938
+01:32:50,960 --> 01:32:55,760
+ couple of years ago but we now have some new revenue sources out there and
+
+939
+01:32:55,760 --> 01:33:00,120
+ actually I was hoping Lisa wasn't going to hear me do something some of this but
+
+940
+01:33:00,120 --> 01:33:04,520
+ if you go in and you take a look at the two new bills that were passed last year
+
+941
+01:33:04,520 --> 01:33:09,400
+ and the different pots of money that they put the money in we have or the
+
+942
+01:33:09,400 --> 01:33:15,720
+ state has a hundred and seventy four million dollars a year of new money that
+
+943
+01:33:15,720 --> 01:33:22,500
+ we need to ask for and write a grant for so if you're talking about RTD money
+
+944
+01:33:22,500 --> 01:33:29,600
+ this could be RTD money sorry Lisa but this is where we need to talk with the
+
+945
+01:33:29,600 --> 01:33:35,220
+ state we need to do some negotiation and when we're talking about how it's going
+
+946
+01:33:35,220 --> 01:33:40,960
+ to hurt our budget this is all new this is all new money a hundred and seventy
+
+947
+01:33:40,960 --> 01:33:45,200
+ four million dollars the state legislature gave us last year for
+
+948
+01:33:45,200 --> 01:33:52,520
+ transit now is it all RTD no probably not chunk of it could be a big chunk of
+
+949
+01:33:52,520 --> 01:33:57,920
+ that could be and this is where I was hoping as a board that we could talk
+
+950
+01:33:57,920 --> 01:34:05,600
+ about this because again it's we can debate Pfizer and we will we should and
+
+951
+01:34:05,600 --> 01:34:11,680
+ there's a lot of things that we can talk about with Pfizer but there's so much
+
+952
+01:34:11,680 --> 01:34:18,280
+ new money on the table there's so much opportunity and we've got some great
+
+953
+01:34:18,280 --> 01:34:23,240
+ partners here to make it happen and so if we do go into special session you know
+
+954
+01:34:23,240 --> 01:34:31,560
+ go ahead and pass out my my last Excel spreadsheet here I keep making tweaks to
+
+955
+01:34:31,560 --> 01:34:37,320
+ it I will continue to do it but I guess I just didn't want the board to think
+
+956
+01:34:37,320 --> 01:34:44,600
+ that it's going to be coming mostly or coming out of our base budget because it
+
+957
+01:34:44,600 --> 01:34:49,320
+ doesn't have to it could come out of the new money that the state legislature has
+
+958
+01:34:49,320 --> 01:34:55,040
+ opened up for us so the treasurer can I say one thing on that is it's also not
+
+959
+01:34:55,040 --> 01:34:59,080
+ just the last two bills that passed and actually if you go back and you look at
+
+960
+01:34:59,080 --> 01:35:05,160
+ Senate bill 260 that passed in 2021 one of the things that we created and that
+
+961
+01:35:05,160 --> 01:35:12,520
+ was the new day was the new delivery fee and the delivery fee was created in
+
+962
+01:35:12,520 --> 01:35:17,520
+ order to help public agencies that need to reflate to low to zero emissions and
+
+963
+01:35:17,520 --> 01:35:22,360
+ it created around 60 million dollars in the first five years so it's that 29
+
+964
+01:35:22,360 --> 01:35:28,400
+ cents that shows up on your Amazon bill every time you get Amazon and that you
+
+965
+01:35:28,400 --> 01:35:34,280
+ know we would love to partner with RTD on their refleeting strategy obviously
+
+966
+01:35:34,280 --> 01:35:40,520
+ refleeting for air quality improvements is a big priority for us and so it's not
+
+967
+01:35:40,520 --> 01:35:44,320
+ just on these rail projects do we want to be a collaborative funding partner
+
+968
+01:35:44,320 --> 01:35:49,120
+ it's really on all the needs that RTD has as we try to reach our mutual goals
+
+969
+01:35:49,120 --> 01:35:54,120
+ around expanding transit and rail service for the metro area and so not
+
+970
+01:35:54,120 --> 01:35:58,840
+ just the rail projects is important for you to hear me say there's all sorts of
+
+971
+01:35:58,840 --> 01:36:03,000
+ money that we have created to partner with RTD on that we want to partner with
+
+972
+01:36:03,000 --> 01:36:08,200
+ RTD on and really think about how we maximize public financing tools that we
+
+973
+01:36:08,200 --> 01:36:11,880
+ have at the state in order to get to our broader vision of a smart growth
+
+974
+01:36:11,880 --> 01:36:17,960
+ strategy for the state of Colorado thank you director Guzman thank you mr. chair
+
+975
+01:36:17,960 --> 01:36:23,400
+ I also want to see this project get done I voted for it when it was first in
+
+976
+01:36:23,400 --> 01:36:28,120
+ front of me on a ballot when I was early voting as a young child right like let's
+
+977
+01:36:28,120 --> 01:36:37,560
+ be real okay well yeah okay it feels a long time ago now so I get the
+
+978
+01:36:37,560 --> 01:36:43,680
+ frustration of all of my long monsters who have been emailing me lovingly about
+
+979
+01:36:43,680 --> 01:36:47,000
+ trying to approve something that we're actually not making a decision on right
+
+980
+01:36:47,000 --> 01:36:50,400
+ now but I do understand the frustration and consternation and I don't want to be
+
+981
+01:36:50,400 --> 01:36:55,440
+ burnt in effigy and Longmont by anybody okay I represent Denver and my concern
+
+982
+01:36:55,440 --> 01:36:58,520
+ as a director needs to be to my sub-district first and then to the
+
+983
+01:36:58,520 --> 01:37:04,600
+ benefit of the entire region I appreciate the outreach for partnership
+
+984
+01:37:04,600 --> 01:37:08,560
+ from the state that's the first time I've heard it given to us that way and
+
+985
+01:37:08,560 --> 01:37:13,280
+ explained to us that way and I would like to do that partnership as well but I am
+
+986
+01:37:13,280 --> 01:37:17,160
+ hesitant to reach my hand out in return when every time I turn around I'm
+
+987
+01:37:17,160 --> 01:37:21,360
+ attacked or the board is attacked or the agency is attacked by the state and so
+
+988
+01:37:21,360 --> 01:37:25,480
+ from me to the administration of our state right now I would really
+
+989
+01:37:25,480 --> 01:37:29,400
+ appreciate it if you guys would work with us so that we can have a better
+
+990
+01:37:29,400 --> 01:37:33,640
+ relationship because right now I am once bitten and twice shy which puts me in a
+
+991
+01:37:33,640 --> 01:37:40,440
+ defensive mode over my agency as is my fiduciary duty of loyalty my question
+
+992
+01:37:40,440 --> 01:37:44,000
+ though is for our missing partner who is not I believe represented here but when
+
+993
+01:37:44,000 --> 01:37:47,880
+ is FRPRD gonna get there taxing situation in order and go to the
+
+994
+01:37:47,880 --> 01:37:51,640
+ voters because we can do a lot within the regional transportation district
+
+995
+01:37:51,640 --> 01:37:57,240
+ geography beyond that I wouldn't vote to commit any money outside of it and I
+
+996
+01:37:57,240 --> 01:38:00,800
+ don't believe we are legally allowed to do so there was some change in the law
+
+997
+01:38:00,800 --> 01:38:04,440
+ but I still didn't understand whether that allowed us to do that or not and so
+
+998
+01:38:04,440 --> 01:38:10,080
+ just a final question that can come back later in the report next month what's
+
+999
+01:38:10,080 --> 01:38:14,560
+ going on with our partner that is absent at this point because their funding has
+
+1000
+01:38:14,560 --> 01:38:19,840
+ come from the state and not from their own resources thanks yeah it's a great
+
+1001
+01:38:19,840 --> 01:38:25,000
+ question and it's partly why we have kind of jumped into the fray to start
+
+1002
+01:38:25,000 --> 01:38:29,680
+ trying to figure out how to create this collaborative approach to funding these
+
+1003
+01:38:29,680 --> 01:38:33,520
+ projects and and again why I think it's important for you to hear me say it's
+
+1004
+01:38:33,520 --> 01:38:38,560
+ not just about funding Northwest rails commitment to the voters but it's about
+
+1005
+01:38:38,560 --> 01:38:42,700
+ completion of all the unfinished fast-tracks projects because we have
+
+1006
+01:38:42,700 --> 01:38:46,600
+ pulled multiple times front-range passenger rail and it is not currently
+
+1007
+01:38:46,600 --> 01:38:51,520
+ viable at the ballot because of the voters skepticism that they we all
+
+1008
+01:38:51,520 --> 01:38:56,200
+ collectively could be trusted with a new revenue source to do a rail project
+
+1009
+01:38:56,200 --> 01:39:02,240
+ because of the hangover of fast-tracks and so you know it's a big barrier to
+
+1010
+01:39:02,240 --> 01:39:08,520
+ going back to the voters and asking for increased resources is that they don't
+
+1011
+01:39:08,520 --> 01:39:13,840
+ have an answer to this outstanding problem and so I think it's incumbent on
+
+1012
+01:39:13,840 --> 01:39:19,920
+ everyone who is trying to provide the best transit service and expand its
+
+1013
+01:39:19,920 --> 01:39:25,080
+ service for Colorado to try to see how we problem-solve around that because
+
+1014
+01:39:25,080 --> 01:39:31,720
+ it's not just FRPR that is suffering from it it will be the case if RTD needs
+
+1015
+01:39:31,720 --> 01:39:36,400
+ to go back to the voters for new transit money it will be the case if there's new
+
+1016
+01:39:36,400 --> 01:39:42,600
+ RTAs in the metro area that would like to stand up service is that this is a big
+
+1017
+01:39:42,600 --> 01:39:51,800
+ barrier to voters approving any additional resources. Thank you. Director
+
+1018
+01:39:51,800 --> 01:39:59,880
+ Arisha. Thank You Mr. Chair um I my ears perked up when I heard polling and I
+
+1019
+01:39:59,880 --> 01:40:05,000
+ have not seen the polling that was just referenced and so I was wondering if if
+
+1020
+01:40:05,000 --> 01:40:09,020
+ that's something that's available or it could be shared um I think that would be
+
+1021
+01:40:09,020 --> 01:40:15,680
+ helpful for the board thank you thank you sure I'm happy to share the slide
+
+1022
+01:40:15,680 --> 01:40:19,480
+ deck that I did to Colorado rails meeting a couple weekends ago that has
+
+1023
+01:40:19,480 --> 01:40:27,040
+ some of those pertinent slides in it well miss Barrett miss Kaufman do you
+
+1024
+01:40:27,040 --> 01:40:31,600
+ want to greatly appreciate you for your time thank you directors for comments
+
+1025
+01:40:31,600 --> 01:40:36,520
+ and questions we're looking forward to our June report and hopefully the
+
+1026
+01:40:36,520 --> 01:40:41,720
+ feedback and questions that were presented this evening will be helpful
+
+1027
+01:40:41,720 --> 01:40:46,680
+ going forward so I want to thank you both thank you
+
+1028
+01:40:50,480 --> 01:40:54,880
+ all right in a moment the board will meet an executive session regarding a
+
+1029
+01:40:54,880 --> 01:40:58,280
+ proposed intergovernmental agreement related to joint service for the
+
+1030
+01:40:58,280 --> 01:41:04,320
+ Northwest rail corridor I'd like to amend the emotion to move into executive
+
+1031
+01:41:04,320 --> 01:41:08,280
+ session to state that the special board meeting will be during deemed adjourned
+
+1032
+01:41:08,280 --> 01:41:12,400
+ after it adjourns into the executive session for public transparency this
+
+1033
+01:41:12,400 --> 01:41:16,080
+ means that once the board moves into executive session the main meeting will
+
+1034
+01:41:16,080 --> 01:41:20,640
+ be adjourned for anyone who might be in the room or remote the regular scheduled
+
+1035
+01:41:20,640 --> 01:41:26,260
+ board meeting will occur after this meeting with the anticipated start time
+
+1036
+01:41:26,260 --> 01:41:34,640
+ of I'm gonna say 630 it might be a little bit longer but anticipated start
+
+1037
+01:41:34,640 --> 01:41:41,040
+ time of 630 so please know that we'll be back then I'll now entertain a motion to
+
+1038
+01:41:41,040 --> 01:41:46,320
+ move into executive session to discuss the following so into 24 six step these
+
+1039
+01:41:46,320 --> 01:41:51,800
+ 24 - 6 - 4 0 2 4 e for determining positions relative to matter that may be
+
+1040
+01:41:51,800 --> 01:41:56,160
+ subject to negotiations developing strategy strategy for negotiations
+
+1041
+01:41:56,160 --> 01:42:02,400
+ instructing negotiators and 24 - 6 - 4 0 2 4 B for legal advice regarding proposed
+
+1042
+01:42:02,400 --> 01:42:06,240
+ intergovernment agreement and joint service for the Northwest rail corridor
+
+1043
+01:42:06,240 --> 01:42:13,880
+ do I have a mover so moved Nicholson do I have a second second okay I'm gonna go
+
+1044
+01:42:13,880 --> 01:42:20,000
+ with director Peggy Larry thank you all right for all those who are expected to
+
+1045
+01:42:20,000 --> 01:42:27,320
+ attend would you please stay seated yes oh excuse me are there any no votes
+
+1046
+01:42:27,320 --> 01:42:36,000
+ seeing none that'll pass 14 0 and 1 absent all right all right for those
+
+1047
+01:42:36,000 --> 01:42:39,440
+ expected 10 would you please stay seated and for everyone else would you please
+
+1048
+01:42:39,440 --> 01:42:44,980
+ vacate the room at this time and take all your belongings with you thank you
+
