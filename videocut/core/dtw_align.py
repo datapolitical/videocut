@@ -19,7 +19,7 @@ import re, unicodedata
 from pathlib import Path
 from typing import List, Tuple
 import numpy as np
-from dtaidistance import dtw
+# Re-implement fast DTW style alignment without external deps.
 
 # ---------------------------------------------------------------------
 def _norm(tok: str) -> str:
@@ -74,21 +74,99 @@ def _hms_to_sec(hms: str) -> float:
     return h*3600 + m*60 + s
 
 # ---------------------------------------------------------------------
-def _banded_dtw(src: List[str], ref: List[str], band: int = 100):
-    """Approximate DTW alignment using ``dtaidistance``.
+def _reduce_by_half(seq: List[str]) -> List[str]:
+    """Return every other element of ``seq`` used by FastDTW."""
 
-    Tokens are mapped to integers and ``dtw.warping_path`` is used to obtain
-    the alignment. The ``band`` parameter is passed as the ``window``
-    constraint.
-    """
+    if len(seq) <= 1:
+        return seq[:]
+    return [seq[0]] + [seq[i] for i in range(2, len(seq), 2)]
 
-    # ``dtaidistance`` expects numeric inputs, so map tokens to integers
-    vocab = {t: i for i, t in enumerate({*src, *ref})}
-    src_idx = [vocab[t] for t in src]
-    ref_idx = [vocab[t] for t in ref]
 
-    path = dtw.warping_path(src_idx, ref_idx, window=band)
-    return path
+def _expand_window(path: List[tuple[int, int]], m: int, n: int, radius: int) -> dict[int, tuple[int, int]]:
+    """Expand a low-resolution path into a search window for higher resolution."""
+
+    window: dict[int, list[int]] = {}
+    for i, j in path:
+        for di in range(-radius, radius + 1):
+            for dj in range(-radius, radius + 1):
+                ii = i * 2 + di
+                jj = j * 2 + dj
+                if 0 <= ii < m and 0 <= jj < n:
+                    if ii not in window:
+                        window[ii] = [jj, jj]
+                    else:
+                        window[ii][0] = min(window[ii][0], jj)
+                        window[ii][1] = max(window[ii][1], jj)
+    for i in range(m):
+        if i not in window:
+            window[i] = [0, n - 1]
+    return {i: (rng[0], rng[1]) for i, rng in window.items()}
+
+
+def _dtw_window(src: List[str], ref: List[str], window: dict[int, tuple[int, int]] | None, dist) -> tuple[float, list[tuple[int, int]]]:
+    """Standard DTW with an optional constraint window."""
+
+    m, n = len(src), len(ref)
+    inf = float("inf")
+    dp = np.full((m + 1, n + 1), inf)
+    dp[0, 0] = 0.0
+
+    if window is None:
+        j_ranges = {i: (0, n - 1) for i in range(m)}
+    else:
+        j_ranges = window
+
+    for i in range(1, m + 1):
+        if i - 1 not in j_ranges:
+            continue
+        j_start, j_end = j_ranges[i - 1]
+        j_start = max(0, j_start)
+        j_end = min(n - 1, j_end)
+        for j in range(j_start + 1, j_end + 2):
+            cost = dist(src[i - 1], ref[j - 1])
+            dp[i, j] = cost + min(dp[i - 1, j], dp[i, j - 1], dp[i - 1, j - 1])
+
+    path = []
+    i, j = m, n
+    while i > 0 and j > 0:
+        path.append((i - 1, j - 1))
+        step = int(np.argmin([dp[i - 1, j - 1], dp[i - 1, j], dp[i, j - 1]]))
+        if step == 0:
+            i -= 1
+            j -= 1
+        elif step == 1:
+            i -= 1
+        else:
+            j -= 1
+
+    while i > 0:
+        i -= 1
+        path.append((i, 0))
+    while j > 0:
+        j -= 1
+        path.append((0, j))
+
+    path.reverse()
+    return float(dp[m, n]), path
+
+
+def _fastdtw(src: List[str], ref: List[str], radius: int = 1) -> list[tuple[int, int]]:
+    """Approximate DTW using the FastDTW algorithm."""
+
+    dist = lambda a, b: 0 if a == b else 1
+
+    def _recursive(a: List[str], b: List[str], rad: int) -> list[tuple[int, int]]:
+        if len(a) <= rad + 2 or len(b) <= rad + 2:
+            _, path = _dtw_window(a, b, None, dist)
+            return path
+        reduced_a = _reduce_by_half(a)
+        reduced_b = _reduce_by_half(b)
+        low_path = _recursive(reduced_a, reduced_b, rad)
+        window = _expand_window(low_path, len(a), len(b), rad)
+        _, path = _dtw_window(a, b, window, dist)
+        return path
+
+    return _recursive(src, ref, radius)
 
 # ---------------------------------------------------------------------
 def align_pdf_to_srt(pdf_txt: str | Path,
@@ -98,7 +176,7 @@ def align_pdf_to_srt(pdf_txt: str | Path,
     pdf_norm, pdf_bounds, pdf_lines = _tokenize_lines(Path(pdf_txt).read_text())
     srt_tokens, srt_times = _parse_srt(srt_file)
 
-    mapping = _banded_dtw(pdf_norm, srt_tokens, band=band)
+    mapping = _fastdtw(pdf_norm, srt_tokens, radius=band)
     # mapping[i] = (pdf_idx, srt_idx)
 
     pdf2time = {}
