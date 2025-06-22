@@ -7,7 +7,7 @@ This short guide walks through a typical workflow using the `videocut` command l
 ```bash
 videocut transcribe video.mp4
 videocut pdf-extract transcript.pdf
-videocut dtw-align pdf_transcript.txt video.srt
+videocut align pdf_transcript.txt video.srt
 videocut segment transcript.txt
 videocut clip video.mp4 segments.txt
 videocut concatenate --dip-news
@@ -40,11 +40,11 @@ Flags:
 - `--txt-out TXT` – extracted text output path (default `pdf_transcript.txt`).
 - `--json-out JSON` – JSON output path (default `pdf_transcript.json`).
 
-### dtw-align
+### align
 Align the PDF transcript to an existing SRT caption file.
 
 ```
-videocut dtw-align PDF_TXT VIDEO_SRT [--json-out JSON] [--txt-out TXT]
+videocut align PDF_TXT VIDEO_SRT [--json-out JSON] [--txt-out TXT]
                                      [--band N]
 ```
 Flags:

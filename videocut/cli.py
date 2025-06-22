@@ -223,7 +223,7 @@ def match_cli(
 
 # ---------------------------------------------------------------------
 # Advanced DTW alignment
-@app.command("dtw-align")
+@app.command("align")
 def dtw_align(
     pdf_txt: Path = typer.Argument(..., exists=True, readable=True),
     srt_path: Path = typer.Argument(..., exists=True, readable=True),
@@ -298,17 +298,18 @@ def make_labeled(
     typer.echo(f"✅ wrote {out_file}")
 
 
-@app.command("align")
+@app.command("legacy-align")
 def align_cmd(
     video: str,
     transcript: str,
     out_json: str = "aligned.json",
 ):
-    """Align ``transcript`` with ``video``.
+    """Align ``transcript`` with ``video`` (deprecated).
 
     When a PDF file is supplied it is converted to ``transcript.txt`` before
     alignment.
     """
+    typer.echo("⚠️  'legacy-align' is deprecated; use 'align' instead.")
     alignment.align_with_transcript(video, transcript, out_json)
 
 
