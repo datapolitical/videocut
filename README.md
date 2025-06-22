@@ -14,12 +14,12 @@ videocut concatenate --dip-news
 ```
 
 ### transcribe
-Run WhisperX (or another backend) on `video.mp4` and create transcription files.
+Run WhisperX (or another backend like whispercpp or MLX) on `video.mp4` and create transcription files.
 
 ```
 videocut transcribe VIDEO [--diarize] [--hf-token TOKEN] [--speaker-db FILE]
                     [--progress / --no-progress] [--pdf PATH]
-                    [--backend whisperx|mlx]
+                    [--backend whisperx|whispercpp|mlx]
 ```
 Flags:
 - `--diarize` – perform speaker diarization.
@@ -27,7 +27,8 @@ Flags:
 - `--speaker-db FILE` – speaker embedding database JSON.
 - `--progress / --no-progress` – show or hide progress output.
 - `--pdf PATH` – align an official PDF transcript.
-- `--backend whisperx|mlx` – choose transcription backend.
+- `--backend whisperx|whispercpp|mlx` – choose transcription backend.
+For `whispercpp` place `ggml-small.en-q8.bin` in `tools/models/`.
 
 ### pdf-extract
 Extract the meeting transcript from a PDF.
